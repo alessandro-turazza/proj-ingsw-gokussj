@@ -24,7 +24,7 @@ public class Calculator {
 
     public boolean equalIntegers(int a, int b) {
         boolean result = a == b;
-
+        //Commento per vedere se funziona
         return result;
     }
 }
