@@ -13,7 +13,7 @@ public class Bookshelf {
         return bookshelf;
     }
 
-    private Integer checkColumn(int column){ //mettere privato
+    private Integer checkColumn(int column){
         for(int i = NUM_ROW - 1; i >= 0; i--){
             if(bookshelf[i][column] == null)
                     return i;
