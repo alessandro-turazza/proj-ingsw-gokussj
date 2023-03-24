@@ -187,6 +187,26 @@ public class BookshelfTest {
 
     }
 
+    @Test
+    public void bookshelfAdjacensesDifficult() throws Exception {
+        buff = new BufferedReader(new FileReader("src/test/TestFiles/Bookshelf_AdjacensesDifficult"));
+        String line = buff.readLine();
+
+        while(line != null){
+            line.trim();
+            String[] params = line.split(";");
+
+            ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
+
+            bookshelf.insertBookshelf(card, Integer.parseInt(params[2]));
+
+            line = buff.readLine();
+        }
+
+        assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[2][2], 2, 2),12);
+
+    }
+
 
 
 }
