@@ -27,7 +27,7 @@ public class Bookshelf {
 
         Integer row = checkColumn(column);
 
-        if(row==null)throw new Exception("Colonna piena");
+        if(row == null) throw new Exception("Colonna piena");
         bookshelf[row][column] = shelf;
     }
 }
