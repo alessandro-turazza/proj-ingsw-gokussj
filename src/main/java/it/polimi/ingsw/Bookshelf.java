@@ -2,7 +2,7 @@ package it.polimi.ingsw;
 
 public class Bookshelf {
     private CellShelf bookshelf[][]; //Convemzione (0,0) alto a sinistra
-    private static final int NUM_ROW = 6;
+    private static final int NUM_ROW=6;
     private static final int NUM_COLUMN = 5;
 
     public Bookshelf() {
@@ -13,7 +13,7 @@ public class Bookshelf {
         return bookshelf;
     }
 
-    private Integer checkColumn(int column){
+    private Integer checkColumn(int column){ //mettere privato
         for(int i = NUM_ROW - 1; i >= 0; i--){
             if(bookshelf[i][column] == null)
                     return i;
@@ -22,16 +22,12 @@ public class Bookshelf {
         return null;
     }
 
-    public void insertBookshelf(ObjectCard card, int column){
+    public void insertBookshelf (ObjectCard card, int column)throws Exception{
         CellShelf shelf = new CellShelf(card);
 
         Integer row = checkColumn(column);
 
-        try{
-            bookshelf[row][column] = shelf;
-        }catch(Exception e){
-            System.out.println("Colonna piena");
-        }
-
+        if(row==null)throw new Exception("Colonna piena");
+        bookshelf[row][column] = shelf;
     }
 }
