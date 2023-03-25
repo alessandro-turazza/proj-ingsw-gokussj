@@ -83,6 +83,26 @@ public class BookshelfTest {
     }
 
     @Test
+    public void bookshelfColumnWrong1(){
+
+        assertThrows(Exception.class,
+                () -> {
+                    bookshelf.insertBookshelf(defaultObjectCard,-3);
+                });
+
+    }
+
+    @Test
+    public void bookshelfColumnWrong2(){
+
+        assertThrows(Exception.class,
+                () -> {
+                    bookshelf.insertBookshelf(defaultObjectCard,11);
+                });
+
+    }
+
+    @Test
     public void bookshelfNotFull() throws Exception {
         assertFalse(bookshelf.isFull());
     }

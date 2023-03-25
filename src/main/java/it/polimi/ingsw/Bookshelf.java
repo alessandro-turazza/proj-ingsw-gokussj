@@ -2,8 +2,8 @@ package it.polimi.ingsw;
 
 public class Bookshelf {
     private CellShelf bookshelf[][]; //Convemzione (0,0) alto a sinistra
-    private static final int NUM_ROW=6;
-    private static final int NUM_COLUMN = 5;
+    public static final int NUM_ROW=6;
+    public static final int NUM_COLUMN = 5;
 
     public Bookshelf() {
         this.bookshelf = new CellShelf[NUM_ROW][NUM_COLUMN];
@@ -23,6 +23,8 @@ public class Bookshelf {
     }
 
     public void insertBookshelf (ObjectCard card, int column)throws Exception{
+        if(column < 0 || column >= NUM_COLUMN) throw new Exception("Colonna Non Valida");
+
         CellShelf shelf = new CellShelf(card);
 
         Integer row = checkColumn(column);
