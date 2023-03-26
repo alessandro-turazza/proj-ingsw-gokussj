@@ -118,6 +118,7 @@ public class BookshelfTest {
         assertTrue(bookshelf.isFull());
     }
 
+
     @Test
     public void bookshelf3AdjacensesColumn() throws Exception {
         buff = new BufferedReader(new FileReader("src/test/TestFiles/Bookshelf_3AdjacensesColumn"));
@@ -135,7 +136,8 @@ public class BookshelfTest {
             line = buff.readLine();
         }
 
-        assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[3][1], 3, 1),3);
+        //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[3][1], 3, 1),3);
+        assertEquals(bookshelf.numberAdjacenses().get(0),3);
 
     }
 
@@ -158,7 +160,8 @@ public class BookshelfTest {
             line = buff.readLine();
         }
 
-        assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][0], 5, 0),4);
+        //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][0], 5, 0),4);
+        assertEquals(bookshelf.numberAdjacenses().get(0),4);
 
     }
 
@@ -183,7 +186,8 @@ public class BookshelfTest {
             line = buff.readLine();
         }
 
-        assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][0], 5, 0),4);
+        //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][0], 5, 0),4);
+        assertEquals(bookshelf.numberAdjacenses().get(0),4);
 
     }
 
@@ -206,6 +210,7 @@ public class BookshelfTest {
         assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][2], 5, 2),5);
 
     }
+
 
     @Test
     public void bookshelfAdjacensesDifficult() throws Exception {

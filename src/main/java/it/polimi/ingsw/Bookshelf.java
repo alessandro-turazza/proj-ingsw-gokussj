@@ -1,5 +1,7 @@
 package it.polimi.ingsw;
 
+import java.util.ArrayList;
+
 public class Bookshelf {
     private CellShelf bookshelf[][]; //Convemzione (0,0) alto a sinistra
     public static final int NUM_ROW=6;
@@ -42,6 +44,19 @@ public class Bookshelf {
 
         return true;
 
+    }
+
+    public ArrayList<Integer> numberAdjacenses(){
+        ArrayList<Integer> numAdj = new ArrayList<>();
+
+        for(int i = 0; i < NUM_ROW; i++){
+            for(int j = 0; j < NUM_COLUMN; j++){
+                if(bookshelf[i][j] != null && !bookshelf[i][j].isMarked())
+                    numAdj.add(checkAdjacences(bookshelf[i][j],i,j));
+            }
+        }
+
+        return numAdj;
     }
 
     public int checkAdjacences(CellShelf cellShelf, int row, int column){

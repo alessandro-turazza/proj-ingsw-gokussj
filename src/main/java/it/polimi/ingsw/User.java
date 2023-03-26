@@ -1,5 +1,7 @@
 package it.polimi.ingsw;
 
+import java.util.ArrayList;
+
 public class User {
     private String name;
     private int points;
@@ -33,23 +35,19 @@ public class User {
     }
 
     public void updatePointsAdjacenses(){
-        for(int i = 0; i < Bookshelf.NUM_ROW; i++){
-            for(int j = 0; j < Bookshelf.NUM_COLUMN; j++){
 
-                if(bookshelf.getBookshelf()[i][j] != null){
-                    int numAdjacenses = bookshelf.checkAdjacences(bookshelf.getBookshelf()[i][j],i,j);
+        ArrayList<Integer> numAdj = bookshelf.numberAdjacenses();
 
-                    if(numAdjacenses == 3)
-                        points += 2;
-                    else if(numAdjacenses == 4)
-                        points += 3;
-                    else if(numAdjacenses == 5)
-                        points += 5;
-                    else if(numAdjacenses >= 6)
-                        points += 8;
-                }
+        for(int i = 0; i < numAdj.size(); i++){
+            if(numAdj.get(i) == 3)
+                points += 2;
+            else if(numAdj.get(i) == 4)
+                points += 3;
+            else if(numAdj.get(i) == 5)
+                points += 5;
+            else if(numAdj.get(i) >= 6)
+                points += 8;
 
-            }
         }
     }
 
