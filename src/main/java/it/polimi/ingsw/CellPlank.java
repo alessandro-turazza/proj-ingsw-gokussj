@@ -2,18 +2,18 @@ package it.polimi.ingsw;
 
 public class CellPlank {
     private ObjectCard objectCard;
-    private int playable;
+    private boolean playable;
 
-    public CellPlank(ObjectCard objectCard, int playable) {
+    public CellPlank(ObjectCard objectCard) {
         this.objectCard = objectCard;
-        this.playable = playable;
+        this.playable=false;
     }
 
     public ObjectCard getObjectCard() {
         return objectCard;
     }
 
-    public int getPlayable() {
+    public boolean getPlayable() {
         return playable;
     }
 
@@ -21,7 +21,7 @@ public class CellPlank {
         this.objectCard = objectCard;
     }
 
-    public void setPlayable(int playable) {
+    public void setPlayable(boolean playable) {
         this.playable = playable;
     }
 }
