@@ -26,6 +26,7 @@ public class Calculator {
         boolean result = a == b;
         //Commento per vedere se funziona
         //Commento Giuseppe
+        //Commento di nick
         return result;
     }
 }
