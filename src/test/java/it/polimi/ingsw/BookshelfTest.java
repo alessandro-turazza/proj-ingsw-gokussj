@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static it.polimi.ingsw.ObjectCard.convertToColor;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BookshelfTest {
@@ -21,22 +22,7 @@ public class BookshelfTest {
     @BeforeEach
     public void reInitBookshelf(){ bookshelf=new Bookshelf();}
 
-    private Color convertToColor(String s){
-        if(s.equals("YELLOW"))
-            return Color.YELLOW;
-        if(s.equals("BLUE"))
-            return Color.BLUE;
-        if(s.equals("PINK"))
-            return Color.PINK;
-        if(s.equals("LIGHT_BLUE"))
-            return Color.LIGHT_BLUE;
-        if(s.equals("GREEN"))
-            return Color.GREEN;
-        if(s.equals("WHITE"))
-            return Color.WHITE;
-        return null;
 
-    }
 
     @Test
     public void bookshelf1Column() throws Exception {

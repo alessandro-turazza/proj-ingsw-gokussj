@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import static it.polimi.ingsw.ObjectCard.convertToColor;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RuleCommonIITest {
@@ -18,22 +19,6 @@ public class RuleCommonIITest {
     public void initUser(){ user=new User("test"); }
     public void initRule(){ ruleCommonII=new RuleCommonII(); }
 
-    private Color convertToColor(String s){
-        if(s.equals("YELLOW"))
-            return Color.YELLOW;
-        if(s.equals("BLUE"))
-            return Color.BLUE;
-        if(s.equals("PINK"))
-            return Color.PINK;
-        if(s.equals("LIGHT_BLUE"))
-            return Color.LIGHT_BLUE;
-        if(s.equals("GREEN"))
-            return Color.GREEN;
-        if(s.equals("WHITE"))
-            return Color.WHITE;
-        return null;
-
-    }
 
     private void readFile(String fileName) throws Exception {
         buff = new BufferedReader(new FileReader(fileName));
