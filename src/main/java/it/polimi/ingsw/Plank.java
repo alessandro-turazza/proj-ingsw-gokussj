@@ -53,10 +53,10 @@ public class Plank {
         for(int r=0;r<DIM;r++)
             for(int c=0;c<DIM;c++){
                 if(board[r][c].getPlayable()){
-                    if(r<DIM && board[r+1][c]==null)return false;
-                    if(r<0 && board[r-1][c]!=null)return false;
-                    if(c<DIM && board[r][c+1]!=null)return false;
-                    if(c>0 && board[r][c-1]!=null)return false;
+                    if(r<DIM-1 && board[r+1][c].getPlayable()==true)return false;
+                    if(r>0 && board[r-1][c].getPlayable()==true)return false;
+                    if(c<DIM-1 && board[r][c+1].getPlayable()==true)return false;
+                    if(c>0 && board[r][c-1].getPlayable()==true)return false;
                 }
             }
         return true;
