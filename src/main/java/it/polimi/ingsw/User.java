@@ -8,6 +8,18 @@ public class User {
     private PersonalGoalCard personalGoal;
     private Bookshelf bookshelf;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setBookshelf(Bookshelf bookshelf) {
+        this.bookshelf = bookshelf;
+    }
+
     public User(String name) {
         this.name = name;
         this.points = 0;

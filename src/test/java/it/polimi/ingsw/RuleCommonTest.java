@@ -1,5 +1,7 @@
 package it.polimi.ingsw;
 
+import org.junit.jupiter.api.BeforeAll;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 
@@ -16,19 +18,6 @@ public class RuleCommonTest {
     void initUser(){ user=new User("test"); }
 
     void readFile(String fileName) throws Exception {
-        buff = new BufferedReader(new FileReader(fileName));
-        Bookshelf bookshelf = user.getBookshelf();
-
-        String line = buff.readLine();
-
-        while(line != null){
-            String[] params = line.split(";");
-
-            ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
-            bookshelf.insertBookshelf(card, Integer.parseInt(params[2]));
-
-            line = buff.readLine();
-        }
-
+        user.setBookshelf(BookshelfTest.readFile(fileName));
     }
 }

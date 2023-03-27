@@ -24,7 +24,7 @@ public class BookshelfTest {
         bookshelf=new Bookshelf();
     }
 
-    private static Bookshelf readFile(String path) throws Exception {
+    public static Bookshelf readFile(String path) throws Exception {
         //struct file for each line "IdObjectCard;ColorObjectCard;ColumnBookshelf"
         buff = new BufferedReader(new FileReader(path));
         Bookshelf result=new Bookshelf();
