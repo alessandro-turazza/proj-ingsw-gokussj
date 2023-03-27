@@ -64,7 +64,7 @@ public class CardBagTest {
     @Test
     public void CardBag_Test_initializeCardBag() throws IOException {
         ObjectCard objectCard;
-        cardBag.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBag_FileTest"));
+        cardBag.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
         int num_ColorYELLOW_ID1=0;
         int num_ColorYELLOW_ID2=0;
         int num_ColorYELLOW_ID3=0;

@@ -2,10 +2,7 @@ package it.polimi.ingsw;
 import org.junit.jupiter.api.*;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import static it.polimi.ingsw.ObjectCard.convertToColor;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +13,7 @@ public class BookshelfTest {
     ObjectCard defaultObjectCard= new ObjectCard(1,Color.WHITE);
 
     @BeforeAll
-    public static void initBookshelf()  throws IOException{
+    public static void initBookshelf(){
         bookshelf=new Bookshelf();
     }
     @BeforeEach
@@ -41,7 +38,7 @@ public class BookshelfTest {
 
     @Test
     public void bookshelfColumnFull() throws Exception {
-        String path="src/test/TestFiles/Bookshelf_ColumnFull";
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_ColumnFull";
         bookshelf=readFile(path);
         assertThrows(Exception.class,
                 () -> {
@@ -71,7 +68,7 @@ public class BookshelfTest {
     }
 
     @Test
-    public void bookshelfNotFull() throws Exception {
+    public void bookshelfNotFull() {
         assertFalse(bookshelf.isFull());
     }
 
@@ -89,7 +86,7 @@ public class BookshelfTest {
 
     @Test
     public void bookshelf3AdjacensesColumn() throws Exception {
-        String path="src/test/TestFiles/Bookshelf_3AdjacensesColumn";
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_3AdjacensesColumn";
         bookshelf=readFile(path);
         //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[3][1], 3, 1),3);
         assertEquals(bookshelf.numberAdjacenses().get(0),3);
@@ -98,7 +95,7 @@ public class BookshelfTest {
 
     @Test
     public void bookshel4AdjacensesRow() throws Exception {
-        String path="src/test/TestFiles/Bookshelf_4AdjacensesRow";
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_4AdjacensesRow";
         bookshelf=readFile(path);
         //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][0], 5, 0),4);
         assertEquals(bookshelf.numberAdjacenses().get(0),4);
@@ -107,7 +104,7 @@ public class BookshelfTest {
 
     @Test
     public void bookshelf4AdjacensesL() throws Exception {
-        String path="src/test/TestFiles/Bookshelf_4AdjacensesL";
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_4AdjacensesL";
         bookshelf=readFile(path);
         //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][0], 5, 0),4);
         assertEquals(bookshelf.numberAdjacenses().get(0),4);
@@ -116,7 +113,7 @@ public class BookshelfTest {
 
     @Test
     public void bookshelf5AdjacensesFullColor() throws Exception {
-        String path="src/test/TestFiles/Bookshelf_5AdjacensesFullColor";
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_5AdjacensesFullColor";
         bookshelf=readFile(path);
         assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][2], 5, 2),5);
 
@@ -125,7 +122,7 @@ public class BookshelfTest {
 
     @Test
     public void bookshelfAdjacensesDifficult() throws Exception {
-        String path="src/test/TestFiles/Bookshelf_AdjacensesDifficult";
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_AdjacensesDifficult";
         bookshelf=readFile(path);
         assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[2][2], 2, 2),12);
 

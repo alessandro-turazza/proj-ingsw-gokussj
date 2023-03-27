@@ -19,25 +19,25 @@ public class RuleCommonVTest extends RuleCommonTest{
 
     @Test
     public void ruleCommonV1() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonV_True");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonV/RuleCommonV_True");
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonV2() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonV_False1");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonV/RuleCommonV_False1");
         assertFalse(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonV3() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonV_False2");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonV/RuleCommonV_False2");
         assertFalse(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonV4() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonV_False3");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonV/RuleCommonV_False3");
         assertFalse(ruleCommon.newRule(user));
     }
 
