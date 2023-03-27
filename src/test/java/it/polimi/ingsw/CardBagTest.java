@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ public class CardBagTest {
         ArrayList<DataObjectCard> dataCardBag=new ArrayList<>();
         String line = buff.readLine();
         while(line != null){
-            line.trim();
             String[] params = line.split(";");
                 ObjectCard objectCard=new ObjectCard(Integer.parseInt(params[0]),convertToColor(params[1]));
                 DataObjectCard dataObjectCard=new DataObjectCard(objectCard,Integer.parseInt(params[2]));
@@ -33,7 +31,7 @@ public class CardBagTest {
     @BeforeEach
     public void initCardBagTest(){
         cardBag=new CardBag();
-        listDataObjectCard=new ArrayList<DataObjectCard>();
+        listDataObjectCard=new ArrayList<>();
     }
 
     @Test
@@ -51,7 +49,7 @@ public class CardBagTest {
     }
     @Test
     public void CardBag_Test_nextFalse() {
-        assertEquals(cardBag.next(),null);
+        assertNull(cardBag.next());
     }
     @Test
     public void CardBag_Test_nextTrue(){
