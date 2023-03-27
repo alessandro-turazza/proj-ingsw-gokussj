@@ -42,7 +42,7 @@ public class CardBagTest {
         DataObjectCard dataObjectCard=new DataObjectCard(objectCard,1);
         listDataObjectCard.add(dataObjectCard);
         cardBag.initializeCardBag(listDataObjectCard);
-        //insert 1 element in to cardBag
+        //insert 1 element into cardBag
         assertTrue(cardBag.hasNext());
     }
     @Test
@@ -59,7 +59,7 @@ public class CardBagTest {
         DataObjectCard dataObjectCard=new DataObjectCard(objectCard,1);
         listDataObjectCard.add(dataObjectCard);
         cardBag.initializeCardBag(listDataObjectCard);
-        //insert 1 element in to cardBag
+        //insert 1 element into cardBag
         assertEquals(cardBag.next(),objectCard);
     }
 
