@@ -8,7 +8,7 @@ public class ObjectCard {
         this.id = id;
         this.color = color;
     }
-    static Color convertToColor(String s){
+    public static Color convertToColor(String s){
         if(s.equals("YELLOW"))
             return Color.YELLOW;
         if(s.equals("BLUE"))
