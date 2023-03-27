@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static it.polimi.ingsw.ObjectCard.convertToColor;
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,53 +19,34 @@ public class BookshelfTest {
     public static void initBookshelf()  throws IOException{
         bookshelf=new Bookshelf();
     }
-
     @BeforeEach
-    public void reInitBookshelf(){ bookshelf=new Bookshelf();}
+    public void reinitBookshelf() {
+        bookshelf=new Bookshelf();
+    }
 
-
-
-    @Test
-    public void bookshelf1Column() throws Exception {
-        buff = new BufferedReader(new FileReader("src/test/TestFiles/Bookshelf_1Column"));
+    private static Bookshelf readFile(String path) throws Exception {
+        //struct file for each line "IdObjectCard;ColorObjectCard;ColumnBookshelf"
+        buff = new BufferedReader(new FileReader(path));
+        Bookshelf result=new Bookshelf();
         String line = buff.readLine();
-
         while(line != null){
-            line.trim();
             String[] params = line.split(";");
-
             ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
-
-            bookshelf.insertBookshelf(card, 1);
+            result.insertBookshelf(card, Integer.parseInt(params[2]));
             line = buff.readLine();
         }
-
-
+        return result;
     }
+
 
     @Test
     public void bookshelfColumnFull() throws Exception {
-        buff = new BufferedReader(new FileReader("src/test/TestFiles/Bookshelf_ColumnFull"));
-
-        String line = buff.readLine();
-
-        while(line != null){
-            line.trim();
-            String[] params = line.split(";");
-
-            ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
-
-            if(Integer.parseInt(params[0]) < 7)
-                bookshelf.insertBookshelf(card, 1);
-            else
-                assertThrows(Exception.class,
-                        () -> {
-                            bookshelf.insertBookshelf(card,1);
-                        });
-
-            line = buff.readLine();
-        }
-
+        String path="src/test/TestFiles/Bookshelf_ColumnFull";
+        bookshelf=readFile(path);
+        assertThrows(Exception.class,
+                () -> {
+                    bookshelf.insertBookshelf(defaultObjectCard,1);
+                });
 
     }
 
@@ -107,21 +89,8 @@ public class BookshelfTest {
 
     @Test
     public void bookshelf3AdjacensesColumn() throws Exception {
-        buff = new BufferedReader(new FileReader("src/test/TestFiles/Bookshelf_3AdjacensesColumn"));
-        String line = buff.readLine();
-
-        while(line != null){
-            line.trim();
-            String[] params = line.split(";");
-
-            ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
-
-            bookshelf.insertBookshelf(card, 1);
-
-
-            line = buff.readLine();
-        }
-
+        String path="src/test/TestFiles/Bookshelf_3AdjacensesColumn";
+        bookshelf=readFile(path);
         //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[3][1], 3, 1),3);
         assertEquals(bookshelf.numberAdjacenses().get(0),3);
 
@@ -129,23 +98,8 @@ public class BookshelfTest {
 
     @Test
     public void bookshel4AdjacensesRow() throws Exception {
-        buff = new BufferedReader(new FileReader("src/test/TestFiles/Bookshelf_4AdjacensesRow"));
-        String line = buff.readLine();
-        int column = 0;
-
-        while(line != null){
-            line.trim();
-            String[] params = line.split(";");
-
-            ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
-
-            bookshelf.insertBookshelf(card, column);
-
-            column++;
-
-            line = buff.readLine();
-        }
-
+        String path="src/test/TestFiles/Bookshelf_4AdjacensesRow";
+        bookshelf=readFile(path);
         //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][0], 5, 0),4);
         assertEquals(bookshelf.numberAdjacenses().get(0),4);
 
@@ -153,25 +107,8 @@ public class BookshelfTest {
 
     @Test
     public void bookshelf4AdjacensesL() throws Exception {
-        buff = new BufferedReader(new FileReader("src/test/TestFiles/Bookshelf_4AdjacensesRow"));
-        String line = buff.readLine();
-        int column = 0;
-
-        while(line != null){
-            line.trim();
-            String[] params = line.split(";");
-
-            ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
-
-            bookshelf.insertBookshelf(card, column);
-
-            if(column < 2){
-                column++;
-            }
-
-            line = buff.readLine();
-        }
-
+        String path="src/test/TestFiles/Bookshelf_4AdjacensesL";
+        bookshelf=readFile(path);
         //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][0], 5, 0),4);
         assertEquals(bookshelf.numberAdjacenses().get(0),4);
 
@@ -179,20 +116,8 @@ public class BookshelfTest {
 
     @Test
     public void bookshelf5AdjacensesFullColor() throws Exception {
-        buff = new BufferedReader(new FileReader("src/test/TestFiles/Bookshelf_5AdjacensesFullColor"));
-        String line = buff.readLine();
-
-        while(line != null){
-            line.trim();
-            String[] params = line.split(";");
-
-            ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
-
-            bookshelf.insertBookshelf(card, Integer.parseInt(params[2]));
-
-            line = buff.readLine();
-        }
-
+        String path="src/test/TestFiles/Bookshelf_5AdjacensesFullColor";
+        bookshelf=readFile(path);
         assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][2], 5, 2),5);
 
     }
@@ -200,20 +125,8 @@ public class BookshelfTest {
 
     @Test
     public void bookshelfAdjacensesDifficult() throws Exception {
-        buff = new BufferedReader(new FileReader("src/test/TestFiles/Bookshelf_AdjacensesDifficult"));
-        String line = buff.readLine();
-
-        while(line != null){
-            line.trim();
-            String[] params = line.split(";");
-
-            ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
-
-            bookshelf.insertBookshelf(card, Integer.parseInt(params[2]));
-
-            line = buff.readLine();
-        }
-
+        String path="src/test/TestFiles/Bookshelf_AdjacensesDifficult";
+        bookshelf=readFile(path);
         assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[2][2], 2, 2),12);
 
     }
