@@ -128,6 +128,16 @@ public class BookshelfTest {
 
     }
 
+    @Test
+
+    public void bookshelfDeleteMark() throws Exception {
+        String path = "src/test/TestFiles/BookshelfTest/Bookshelf_AdjacensesDifficult";
+        bookshelf = readFile(path);
+        bookshelf.checkAdjacences(bookshelf.getBookshelf()[2][2], 2,2);
+        bookshelf.deleteMark();
+        assertFalse(bookshelf.getBookshelf()[2][2].isMarked());
+    }
+
 
 
 }
