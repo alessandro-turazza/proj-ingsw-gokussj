@@ -43,9 +43,7 @@ class CalculatorTest {
     @Test
     public void testDivisionException() {
         assertThrows(Exception.class,
-                () -> {
-                    calculator.divison(10, 0);
-                });
+                () -> calculator.divison(10, 0));
     }
 
     @Disabled
@@ -61,6 +59,6 @@ class CalculatorTest {
     public void testSubstraction() {
         int result = 10 - 3;
 
-        assertTrue(result == 9);
+        assertEquals(9, result);
     }
 }
