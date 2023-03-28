@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CardBagTest {
     private CardBag cardBag;
     private ArrayList<DataObjectCard> listDataObjectCard;
-    private static ArrayList<DataObjectCard> insertToFileObjectCard(String path) throws IOException {
+    public static ArrayList<DataObjectCard> insertToFileObjectCard(String path) throws IOException {
         //struct file for each line "IdObjectCard;ColorObjectCard;NumObjectCard"
         BufferedReader buff = new BufferedReader(new FileReader(path));
         ArrayList<DataObjectCard> dataCardBag=new ArrayList<>();
