@@ -46,6 +46,15 @@ public class Bookshelf {
 
     }
 
+    public void deleteMark(){
+        for(int i = 0; i < NUM_ROW; i++){
+            for(int j = 0; j < NUM_COLUMN; j++){
+                if(bookshelf[i][j] != null)
+                    bookshelf[i][j].setMarked(false);
+            }
+        }
+    }
+
     public ArrayList<Integer> numberAdjacenses(){
         ArrayList<Integer> numAdj = new ArrayList<>();
 
@@ -55,6 +64,8 @@ public class Bookshelf {
                     numAdj.add(checkAdjacences(bookshelf[i][j],i,j));
             }
         }
+
+        this.deleteMark();
 
         return numAdj;
     }

@@ -19,36 +19,36 @@ public class RuleCommonIVTest extends RuleCommonTest{
 
     @Test
     public void ruleCommonIV1() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonIV_FullTrue");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_FullTrue");
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonIV2() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonIV_FullFalse");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_FullFalse");
         assertFalse(ruleCommon.newRule(user));
     }
     @Test
     public void ruleCommonIV3() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonIV_NotFullTrue1");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullTrue1");
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonIV4() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonIV_NotFullFalse1");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullFalse1");
         assertFalse(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonIV5() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonIV_NotFullTrue2");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullTrue2");
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonIV6() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonIV_NotFullFalse2");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullFalse2");
         assertFalse(ruleCommon.newRule(user));
     }
 

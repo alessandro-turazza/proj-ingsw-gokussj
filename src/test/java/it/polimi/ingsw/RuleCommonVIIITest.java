@@ -17,25 +17,25 @@ public class RuleCommonVIIITest extends RuleCommonTest{
     }
     @Test
     public void ruleCommonVIII1() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonVIII_FullTrue");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonVIII/RuleCommonVIII_FullTrue");
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonVIII2() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonVIII_FullFalse");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonVIII/RuleCommonVIII_FullFalse");
         assertFalse(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonVIII3() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonVIII_NotFullTrue");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonVIII/RuleCommonVIII_NotFullTrue");
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonVIII4() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonVIII_NotFullFalse");
+        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonVIII/RuleCommonVIII_NotFullFalse");
         assertFalse(ruleCommon.newRule(user));
     }
 }

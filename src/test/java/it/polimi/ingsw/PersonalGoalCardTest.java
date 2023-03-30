@@ -5,9 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 
 import static it.polimi.ingsw.ObjectCard.convertToColor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,7 +34,6 @@ public class PersonalGoalCardTest {
         String line = buff.readLine();
 
         while(!line.equals("//")){
-            line.trim();
             String[] params = line.split(";");
 
             ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
@@ -48,7 +45,6 @@ public class PersonalGoalCardTest {
         line = buff.readLine();
 
         while(line != null){
-            line.trim();
             String[] params = line.split(";");
 
             personalGoal.getCostraints().add(new Costraints(Integer.parseInt(params[1]), Integer.parseInt(params[2]), convertToColor(params[0])));
@@ -59,19 +55,19 @@ public class PersonalGoalCardTest {
 
     @Test
     public void personalGoalCard1() throws Exception {
-        this.readFile("src/test/TestFiles/PersonalGoalCard_1");
+        this.readFile("src/test/TestFiles/PersonalGoalCardTest/PersonalGoalCard_1");
         assertEquals(personalGoal.checkRule(bookshelf), 6);
     }
 
     @Test
     public void personalGoalCard2() throws Exception {
-        this.readFile("src/test/TestFiles/PersonalGoalCard_2");
+        this.readFile("src/test/TestFiles/PersonalGoalCardTest/PersonalGoalCard_2");
         assertEquals(personalGoal.checkRule(bookshelf), 3);
     }
 
     @Test
     public void personalGoalCard3() throws Exception {
-        this.readFile("src/test/TestFiles/PersonalGoalCard_3");
+        this.readFile("src/test/TestFiles/PersonalGoalCardTest/PersonalGoalCard_3");
         assertEquals(personalGoal.checkRule(bookshelf), 2);
     }
 }

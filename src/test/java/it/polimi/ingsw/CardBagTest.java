@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CardBagTest {
     private CardBag cardBag;
     private ArrayList<DataObjectCard> listDataObjectCard;
-    private static ArrayList<DataObjectCard> insertToFileObjectCard(String path) throws IOException {
+    public static ArrayList<DataObjectCard> insertToFileObjectCard(String path) throws IOException {
         //struct file for each line "IdObjectCard;ColorObjectCard;NumObjectCard"
         BufferedReader buff = new BufferedReader(new FileReader(path));
         ArrayList<DataObjectCard> dataCardBag=new ArrayList<>();
@@ -64,7 +64,7 @@ public class CardBagTest {
     @Test
     public void CardBag_Test_initializeCardBag() throws IOException {
         ObjectCard objectCard;
-        cardBag.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBag_FileTest"));
+        cardBag.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
         int num_ColorYELLOW_ID1=0;
         int num_ColorYELLOW_ID2=0;
         int num_ColorYELLOW_ID3=0;
