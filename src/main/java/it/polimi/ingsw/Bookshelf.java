@@ -8,15 +8,22 @@ public class Bookshelf {
     public static final int NUM_COLUMN = 5;
 
     public Bookshelf() {
-        this.bookshelf = new CellShelf[NUM_ROW][NUM_COLUMN];
+        this.bookshelf = new CellShelf[getNumRow()][getNumColumn()];
     }
 
     public CellShelf[][] getBookshelf() {
         return bookshelf;
     }
 
+    public int getNumRow(){
+        return NUM_ROW;
+    }
+
+    public int getNumColumn(){
+        return NUM_COLUMN;
+    }
     private Integer checkColumn(int column){
-        for(int i = NUM_ROW - 1; i >= 0; i--){
+        for(int i = getNumRow() - 1; i >= 0; i--){
             if(bookshelf[i][column] == null)
                     return i;
         }
@@ -24,8 +31,10 @@ public class Bookshelf {
         return null;
     }
 
+
+
     public void insertBookshelf (ObjectCard card, int column)throws Exception{
-        if(column < 0 || column >= NUM_COLUMN) throw new Exception("Colonna Non Valida");
+        if(column < 0 || column >= getNumColumn()) throw new Exception("Colonna Non Valida");
 
         CellShelf shelf = new CellShelf(card);
 
@@ -37,7 +46,7 @@ public class Bookshelf {
     }
 
     public boolean isFull(){
-        for(int i = 0; i < NUM_COLUMN; i++){
+        for(int i = 0; i < getNumColumn(); i++){
             if(checkColumn(i) != null)
                 return false;
         }
@@ -47,8 +56,8 @@ public class Bookshelf {
     }
 
     public void deleteMark(){
-        for(int i = 0; i < NUM_ROW; i++){
-            for(int j = 0; j < NUM_COLUMN; j++){
+        for(int i = 0; i < getNumRow(); i++){
+            for(int j = 0; j < getNumColumn(); j++){
                 if(bookshelf[i][j] != null)
                     bookshelf[i][j].setMarked(false);
             }
@@ -58,8 +67,8 @@ public class Bookshelf {
     public ArrayList<Integer> numberAdjacenses(){
         ArrayList<Integer> numAdj = new ArrayList<>();
 
-        for(int i = 0; i < NUM_ROW; i++){
-            for(int j = 0; j < NUM_COLUMN; j++){
+        for(int i = 0; i < getNumRow(); i++){
+            for(int j = 0; j < getNumColumn(); j++){
                 if(bookshelf[i][j] != null && !bookshelf[i][j].isMarked())
                     numAdj.add(checkAdjacences(bookshelf[i][j],i,j));
             }
@@ -74,16 +83,16 @@ public class Bookshelf {
         int counter = 1;
         cellShelf.setMarked(true);
 
-        if(row > 0 && bookshelf[row-1][column] != null &&  cellShelf.getObjectCard().getColor() == bookshelf[row-1][column].getObjectCard().getColor() && bookshelf[row-1][column].isMarked() == false)
+        if(row > 0 && bookshelf[row-1][column] != null &&  cellShelf.getObjectCard().getColor() == bookshelf[row-1][column].getObjectCard().getColor() && !bookshelf[row - 1][column].isMarked())
             counter += checkAdjacences(bookshelf[row-1][column], row-1, column);
 
-        if(row < NUM_ROW-1 && bookshelf[row+1][column] != null && cellShelf.getObjectCard().getColor() == bookshelf[row+1][column].getObjectCard().getColor() && bookshelf[row+1][column].isMarked() == false)
+        if(row < getNumRow()-1 && bookshelf[row+1][column] != null && cellShelf.getObjectCard().getColor() == bookshelf[row+1][column].getObjectCard().getColor() && !bookshelf[row + 1][column].isMarked())
             counter += checkAdjacences(bookshelf[row+1][column], row+1, column);
 
-        if(column > 0 && bookshelf[row][column-1] != null && cellShelf.getObjectCard().getColor() == bookshelf[row][column-1].getObjectCard().getColor() && bookshelf[row][column-1].isMarked() == false)
+        if(column > 0 && bookshelf[row][column-1] != null && cellShelf.getObjectCard().getColor() == bookshelf[row][column-1].getObjectCard().getColor() && !bookshelf[row][column - 1].isMarked())
             counter += checkAdjacences(bookshelf[row][column-1], row, column-1);
 
-        if(column < NUM_COLUMN-1 && bookshelf[row][column+1] != null && cellShelf.getObjectCard().getColor() == bookshelf[row][column+1].getObjectCard().getColor() && bookshelf[row][column+1].isMarked() == false)
+        if(column < getNumColumn()-1 && bookshelf[row][column+1] != null && cellShelf.getObjectCard().getColor() == bookshelf[row][column+1].getObjectCard().getColor() && !bookshelf[row][column + 1].isMarked())
             counter += checkAdjacences(bookshelf[row][column+1], row, column+1);
 
         return counter;
@@ -92,7 +101,7 @@ public class Bookshelf {
 
     public ArrayList<Color> checkColorsRow(int row) throws Exception{
         ArrayList<Color> checkcolors= new ArrayList<>();
-        for(int i=0; i<=NUM_COLUMN-1; i++ ){
+        for(int i=0; i<=getNumColumn()-1; i++ ){
             if (this.bookshelf[row][i].getObjectCard()==null)
                 throw new Exception();
             if(!checkcolors.contains(this.bookshelf[row][i].getObjectCard().getColor()))
@@ -103,7 +112,7 @@ public class Bookshelf {
 
     public ArrayList<Color> checkColorsColumn(int column) throws Exception{
         ArrayList<Color> checkcolors=new ArrayList<>();
-        for(int i=0; i<=NUM_ROW-1; i++ ){
+        for(int i=0; i<=getNumRow()-1; i++ ){
             if (this.bookshelf[i][column].getObjectCard()==null)
                 throw new Exception();
             if( !checkcolors.contains(this.bookshelf[i][column].getObjectCard().getColor()))

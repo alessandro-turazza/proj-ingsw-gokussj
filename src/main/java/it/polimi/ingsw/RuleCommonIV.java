@@ -5,7 +5,7 @@ public class RuleCommonIV implements RuleCommon{
     //Four lines each formed by 5 tiles of maximum three different types. One line can show the same or a different combination of another line.
     @Override
     public boolean newRule(User user) {
-        int i=user.getBookshelf().NUM_ROW-1;
+        int i=user.getBookshelf().getNumRow()-1;
         int counter=0;
         while(i>=0){
             try{
