@@ -1,29 +1,28 @@
 package it.polimi.ingsw.game_data;
 
-import it.polimi.ingsw.object_card.ObjectCard;
+import it.polimi.ingsw.object_card.Color;
 
 public class DataObjectCard {
-    private ObjectCard objectCard;
+    private int id;
+
+    private Color color;
     private int numObjectCard;
 
-    public DataObjectCard(ObjectCard objectCard, int numObjectCard) {
-        this.objectCard = objectCard;
+    public DataObjectCard(int id, Color color, int numObjectCard) {
+        this.id = id;
+        this.color = color;
         this.numObjectCard = numObjectCard;
     }
 
-    public ObjectCard getObjectCard() {
-        return objectCard;
+    public int getId() {
+        return id;
     }
 
-    public void setObjectCard(ObjectCard objectCard) {
-        this.objectCard = objectCard;
+    public Color getColor() {
+        return color;
     }
 
     public int getNumObjectCard() {
         return numObjectCard;
-    }
-
-    public void setNumObjectCard(int numObjectCard) {
-        this.numObjectCard = numObjectCard;
     }
 }
