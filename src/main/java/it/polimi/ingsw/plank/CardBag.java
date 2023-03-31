@@ -15,8 +15,10 @@ public class CardBag implements Iterator {
     }
     public void initializeCardBag(ArrayList<DataObjectCard> dataObjectCard){
         for(DataObjectCard elemDataobjectCard: dataObjectCard){
-            for(int i=0;i<elemDataobjectCard.getNumObjectCard();i++)
-                cardBag.add(elemDataobjectCard.getObjectCard());
+            for(int i=0;i<elemDataobjectCard.getNumObjectCard();i++) {
+                ObjectCard objectCard = new ObjectCard(elemDataobjectCard.getId(), elemDataobjectCard.getColor());
+                cardBag.add(objectCard);
+            }
         }
     }
 

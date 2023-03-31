@@ -25,8 +25,7 @@ public class CardBagTest {
         String line = buff.readLine();
         while(line != null){
             String[] params = line.split(";");
-                ObjectCard objectCard=new ObjectCard(Integer.parseInt(params[0]),convertToColor(params[1]));
-                DataObjectCard dataObjectCard=new DataObjectCard(objectCard,Integer.parseInt(params[2]));
+                DataObjectCard dataObjectCard=new DataObjectCard(Integer.parseInt(params[0]),convertToColor(params[1]),Integer.parseInt(params[2]));
                 dataCardBag.add(dataObjectCard);
             line = buff.readLine();
         }
@@ -40,8 +39,7 @@ public class CardBagTest {
 
     @Test
     public void CardBag_Test_hasNextTrue(){
-        ObjectCard objectCard=new ObjectCard(1, Color.WHITE);
-        DataObjectCard dataObjectCard=new DataObjectCard(objectCard,1);
+        DataObjectCard dataObjectCard=new DataObjectCard(1,Color.WHITE,1);
         listDataObjectCard.add(dataObjectCard);
         cardBag.initializeCardBag(listDataObjectCard);
         //insert 1 element into cardBag
@@ -58,11 +56,13 @@ public class CardBagTest {
     @Test
     public void CardBag_Test_nextTrue(){
         ObjectCard objectCard=new ObjectCard(1,Color.WHITE);
-        DataObjectCard dataObjectCard=new DataObjectCard(objectCard,1);
+        DataObjectCard dataObjectCard=new DataObjectCard(1,Color.WHITE,1);
         listDataObjectCard.add(dataObjectCard);
         cardBag.initializeCardBag(listDataObjectCard);
+        ObjectCard objectCardBag=cardBag.next();
         //insert 1 element into cardBag
-        assertEquals(cardBag.next(),objectCard);
+        assertEquals(objectCardBag.getColor(),objectCard.getColor());
+        assertEquals(objectCardBag.getId(),objectCard.getId());
     }
 
     @Test
