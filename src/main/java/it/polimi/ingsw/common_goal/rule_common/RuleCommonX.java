@@ -1,7 +1,7 @@
-package it.polimi.ingsw.rule_common;
+package it.polimi.ingsw.common_goal.rule_common;
 
 import it.polimi.ingsw.user.User;
-import static it.polimi.ingsw.rule_common.RuleCommonSupportClass.IsCross;
+import static it.polimi.ingsw.common_goal.rule_common.RuleCommonSupportClass.IsCross;
 
 public class RuleCommonX implements RuleCommon {
     @Override

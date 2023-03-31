@@ -1,10 +1,8 @@
 package it.polimi.ingsw.rule_common_test;
 
 import it.polimi.ingsw.user_test.BookshelfTest;
-import it.polimi.ingsw.rule_common.RuleCommon;
+import it.polimi.ingsw.common_goal.rule_common.RuleCommon;
 import it.polimi.ingsw.user.User;
-
-import java.io.BufferedReader;
 
 public class RuleCommonTest {
 
