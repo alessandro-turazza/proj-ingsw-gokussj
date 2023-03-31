@@ -1,5 +1,12 @@
 package it.polimi.ingsw;
-import org.junit.jupiter.api.*;
+
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -33,6 +40,28 @@ public class BookshelfTest {
             line = buff.readLine();
         }
         return result;
+    }
+
+    public Bookshelf readJson(String path) throws Exception {
+        FileReader fr = new FileReader(path);
+        JSONObject obj = (JSONObject) new JSONParser().parse(fr);
+        JSONArray list = (JSONArray) obj.get("cardList");
+
+        for(int i = 0; i < list.size(); i++){
+            JSONObject cardObj = (JSONObject) list.get(i);
+            ObjectCard card = new ObjectCard(Integer.parseInt(cardObj.get("id").toString()), convertToColor(cardObj.get("color").toString()));
+            bookshelf.insertBookshelf(card, Integer.parseInt(cardObj.get("column").toString()) );
+        }
+
+        return bookshelf;
+    }
+
+    @Test
+    public void testJSON() throws Exception {
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_Config_1.json";
+        bookshelf=readJson(path);
+        assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][2], 5, 2),5);
+
     }
 
 
