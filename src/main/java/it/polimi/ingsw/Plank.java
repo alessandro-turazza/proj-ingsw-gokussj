@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Plank {
     private static CellPlank[][] board;
     private static CardBag cardBag;
-    public final int DIM=9;
+    private final int DIM=9;
 
 
     public Plank() {
