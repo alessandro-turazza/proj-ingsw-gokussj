@@ -4,15 +4,18 @@ package it.polimi.ingsw.user_test;
 import it.polimi.ingsw.object_card.Color;
 import it.polimi.ingsw.object_card.ObjectCard;
 import it.polimi.ingsw.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.user.bookshelf.CellShelf;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 import static it.polimi.ingsw.object_card.ObjectCard.convertToColor;
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,26 +47,42 @@ public class BookshelfTest {
         return result;
     }
 
-    public Bookshelf readJson(String path) throws Exception {
+    public static CellShelf[][] readBookshelfMatrix(String path) throws IOException, ParseException {
         FileReader fr = new FileReader(path);
         JSONObject obj = (JSONObject) new JSONParser().parse(fr);
-        JSONArray list = (JSONArray) obj.get("cardList");
+        JSONArray list = (JSONArray) obj.get("bookshelf");
+        CellShelf[][] matrix = new CellShelf[6][5];
+        int i = 0, j = 0;
 
-        for (Object o : list) {
-            JSONObject cardObj = (JSONObject) o;
-            ObjectCard card = new ObjectCard(Integer.parseInt(cardObj.get("id").toString()), convertToColor(cardObj.get("color").toString()));
-            bookshelf.insertBookshelf(card, Integer.parseInt(cardObj.get("column").toString()));
+        for(Object o: list){
+            JSONObject ob1 = (JSONObject) o;
+            JSONArray row = (JSONArray) ob1.get("row");
+
+            for(Object o2: row){
+                String s = o2.toString();
+
+                if(!s.equals("-")){
+                    Color color = convertToColor(s);
+                    CellShelf cell = new CellShelf(new ObjectCard(1,color));
+                    matrix[i][j] = cell;
+                }
+
+                j++;
+            }
+
+            j = 0;
+            i++;
         }
 
-        return bookshelf;
+        return matrix;
     }
-
     @Test
-    public void testJSON() throws Exception {
-        String path="src/test/TestFiles/BookshelfTest/Bookshelf_5AdjacensesFullColor.json";
-        bookshelf=readJson(path);
-        assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][2], 5, 2),5);
+    public void createBookshelfMatrix() throws IOException, ParseException {
+        String path = "src/test/TestFiles/BookshelfTest/BookshelfRuleCommonIICross.json";
+        bookshelf = new Bookshelf(readBookshelfMatrix(path));
 
+        assertEquals(bookshelf.getBookshelf()[5][0].getObjectCard().getColor(), Color.BLUE);
+        assertNull(bookshelf.getBookshelf()[0][0]);
     }
 
 

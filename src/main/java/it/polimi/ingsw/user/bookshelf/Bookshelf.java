@@ -1,6 +1,5 @@
 package it.polimi.ingsw.user.bookshelf;
 
-import it.polimi.ingsw.object_card.Color;
 import it.polimi.ingsw.object_card.ObjectCard;
 
 import java.util.ArrayList;
@@ -12,6 +11,10 @@ public class Bookshelf {
 
     public Bookshelf() {
         this.bookshelf = new CellShelf[getNumRow()][getNumColumn()];
+    }
+
+    public Bookshelf(CellShelf[][] bookshelf){
+        this.bookshelf = bookshelf;
     }
 
     public CellShelf[][] getBookshelf() {

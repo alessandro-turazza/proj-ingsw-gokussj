@@ -1,6 +1,9 @@
 package it.polimi.ingsw.rule_common_test;
 
 import it.polimi.ingsw.common_goal.rule_common.RuleCommonII;
+import it.polimi.ingsw.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.user.bookshelf.CellShelf;
+import it.polimi.ingsw.user_test.BookshelfTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -52,6 +55,14 @@ public class RuleCommonIITest extends RuleCommonTest{
     @Test
     public void ruleCommonII6() throws Exception {
         this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonII/RuleCommonII_Cross");
+        assertTrue(ruleCommon.newRule(user));
+    }
+
+    @Test
+    public void ruleCommonII6Json() throws Exception {
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfRuleCommonIICross.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
     @Test
