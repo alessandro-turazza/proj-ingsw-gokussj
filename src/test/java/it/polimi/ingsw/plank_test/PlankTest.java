@@ -50,7 +50,7 @@ public class PlankTest {
     public void plankTest_initializePlank() throws IOException {
         for(int i=MINUSER;i<=MAXUSER;i++){
             int[][] array;
-            array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup/PlankSetup1");
+            array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup1");
             plank.initializePlank(array,i);
             CellPlank[][] board;
             board= plank.getBoard();
@@ -70,7 +70,7 @@ public class PlankTest {
     public void plankTest_fillPlank() throws IOException {
         for(int i=MINUSER;i<=MAXUSER;i++){
             int[][] array;
-            array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup/PlankSetup1");
+            array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup1");
             plank.initializePlank(array,i);
             plank.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
             plank.fillPlank();
@@ -93,7 +93,7 @@ public class PlankTest {
     public void plankTest_dragObjectCard() throws Exception {
         for(int i=MINUSER;i<=MAXUSER;i++){
             int[][] array;
-            array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup/PlankSetup1");
+            array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup1");
             plank.initializePlank(array,i);
             plank.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
             plank.fillPlank();
@@ -126,7 +126,7 @@ public class PlankTest {
     @Test
     public void plankTest_checkPlayable() throws Exception {
         int[][] array;
-        array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup/PlankTest_checkPlayable");
+        array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankTest_checkPlayable");
         plank.initializePlank(array,2);
         plank.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
         plank.fillPlank();
@@ -166,7 +166,7 @@ public class PlankTest {
     @Test
     public void plankTest_checkReFull() throws Exception {
         int[][] array;
-        array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup/PlankTest_checkPlayable");
+        array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankTest_checkPlayable");
         plank.initializePlank(array,2);
         plank.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
         plank.fillPlank();
