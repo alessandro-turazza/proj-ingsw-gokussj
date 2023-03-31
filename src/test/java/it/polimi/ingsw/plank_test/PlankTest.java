@@ -123,5 +123,56 @@ public class PlankTest {
             }
         }
     }
+    @Test
+    public void plankTest_checkPlayable() throws Exception {
+        int[][] array;
+        array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup/PlankTest_checkPlayable");
+        plank.initializePlank(array,2);
+        plank.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
+        plank.fillPlank();
+        CellPlank[][] board= plank.getBoard();
+        for(int r=0;r<plank.getDIM();r++){
+            for(int c=0;c<plank.getDIM();c++){
+                if(board[r][c]!=null && board[r][c].getObjectCard()!=null){
+                    if(r==4 && c==4)assertFalse(board[r][c].getPlayable());
+                    else if(r==2 && c==2)assertFalse(board[r][c].getPlayable());
+                    else if(r==2 && c==6)assertFalse(board[r][c].getPlayable());
+                    else if(r==6 && c==2)assertFalse(board[r][c].getPlayable());
+                    else if(r==6 && c==6)assertFalse(board[r][c].getPlayable());
+                    else assertTrue(board[r][c].getPlayable());
+                }
+            }
+        }
+        plank.dragObjectCard(3,4);
+        plank.checkPlayable();
+        assertTrue(board[4][4].getPlayable());
+        plank.dragObjectCard(2,3);
+        plank.checkPlayable();
+        assertTrue(board[2][2].getPlayable());
+        plank.dragObjectCard(3,6);
+        plank.checkPlayable();
+        assertTrue(board[2][6].getPlayable());
+        plank.dragObjectCard(6,1);
+        plank.checkPlayable();
+        assertTrue(board[6][2].getPlayable());
+        plank.dragObjectCard(7,7);
+        plank.checkPlayable();
+        assertFalse(board[6][6].getPlayable());
+        plank.dragObjectCard(6,7);
+        plank.checkPlayable();
+        assertTrue(board[6][6].getPlayable());
+    }
 
+    @Test
+    public void plankTest_checkReFull() throws Exception {
+        int[][] array;
+        array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup/PlankTest_checkPlayable");
+        plank.initializePlank(array,2);
+        plank.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
+        plank.fillPlank();
+        assertFalse(plank.checkRefull());
+        plank.dragObjectCard(7,7);
+        plank.checkPlayable();
+        assertTrue(plank.checkRefull());
+    }
 }
