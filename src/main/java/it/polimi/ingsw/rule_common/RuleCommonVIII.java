@@ -1,11 +1,12 @@
 package it.polimi.ingsw.rule_common;
 
 import it.polimi.ingsw.user.User;
+import static it.polimi.ingsw.rule_common.RuleCommonSupportClass.linesChecker;
 
 public class RuleCommonVIII implements RuleCommon{
     //Two lines each formed by 5 different types of tiles. One line can show the same or a different combination of the other line.
     @Override
     public boolean newRule(User user) {
-        return RuleCommonSupportClass.linesChecker(user,5,2,true);
+        return linesChecker(user,5,2,true);
     }
 }

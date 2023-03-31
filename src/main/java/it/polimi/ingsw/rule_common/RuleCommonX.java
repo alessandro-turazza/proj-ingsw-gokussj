@@ -1,8 +1,7 @@
 package it.polimi.ingsw.rule_common;
 
-import it.polimi.ingsw.user.bookshelf.CellShelf;
-import it.polimi.ingsw.object_card.Color;
 import it.polimi.ingsw.user.User;
+import static it.polimi.ingsw.rule_common.RuleCommonSupportClass.IsCross;
 
 public class RuleCommonX implements RuleCommon {
     @Override
@@ -16,23 +15,5 @@ public class RuleCommonX implements RuleCommon {
         return false;
     }
 
-    private boolean IsCross(CellShelf[][] bookshelf, int row, int column) {
-        bookshelf[row][column].setMarked(true);
-        if (bookshelf[row][column].getObjectCard() == null)
-            return false;
-        Color color = bookshelf[row][column].getObjectCard().getColor();
-        if (bookshelf[row+1][column + 1].getObjectCard() == null || bookshelf[row+1][column + 1].getObjectCard().getColor() != color || bookshelf[row][column + 1].isMarked())
-            return false;
-        if (bookshelf[row + 2][column + 2].getObjectCard() == null || bookshelf[row + 2][column + 2].getObjectCard().getColor() != color || bookshelf[row + 2][column + 2].isMarked())
-            return false;
-        if (bookshelf[row + 2][column].getObjectCard() == null || bookshelf[row + 2][column].getObjectCard().getColor() != color || bookshelf[row + 2][column].isMarked())
-            return false;
-        if (bookshelf[row][column + 2].getObjectCard() == null || bookshelf[row][column + 2].getObjectCard().getColor() != color || bookshelf[row][column + 2].isMarked())
-            return false;
-        bookshelf[row+1][column + 1].setMarked(true);
-        bookshelf[row + 2][column + 2].setMarked(true);
-        bookshelf[row + 2][column].setMarked(true);
-        bookshelf[row ][column + 2].setMarked(true);
-        return true;
-    }
+
 }

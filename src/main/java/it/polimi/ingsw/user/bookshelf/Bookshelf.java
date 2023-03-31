@@ -102,25 +102,5 @@ public class Bookshelf {
 
     }
 
-    public ArrayList<Color> checkColorsRow(int row) throws Exception{
-        ArrayList<Color> checkcolors= new ArrayList<>();
-        for(int i=0; i<=getNumColumn()-1; i++ ){
-            if (this.bookshelf[row][i].getObjectCard()==null)
-                throw new Exception();
-            if(!checkcolors.contains(this.bookshelf[row][i].getObjectCard().getColor()))
-                checkcolors.add(this.bookshelf[row][i].getObjectCard().getColor());
-        }
-        return checkcolors;
-    }
 
-    public ArrayList<Color> checkColorsColumn(int column) throws Exception{
-        ArrayList<Color> checkcolors=new ArrayList<>();
-        for(int i=0; i<=getNumRow()-1; i++ ){
-            if (this.bookshelf[i][column].getObjectCard()==null)
-                throw new Exception();
-            if( !checkcolors.contains(this.bookshelf[i][column].getObjectCard().getColor()))
-                checkcolors.add(this.bookshelf[i][column].getObjectCard().getColor());
-        }
-        return checkcolors;
-    }
 }

@@ -1,8 +1,9 @@
 package it.polimi.ingsw.rule_common;
 
-import it.polimi.ingsw.user.bookshelf.Bookshelf;
-import it.polimi.ingsw.object_card.Color;
 import it.polimi.ingsw.user.User;
+import it.polimi.ingsw.user.bookshelf.Bookshelf;
+
+import static it.polimi.ingsw.rule_common.RuleCommonSupportClass.checkDiagonal;
 
 public class RuleCommonII implements RuleCommon{
 
@@ -19,26 +20,5 @@ public class RuleCommonII implements RuleCommon{
 
     }
 
-    private boolean checkDiagonal(Bookshelf bookshelf,int startingpointrow, int startingpointcolumn,int numofelem, boolean direction) throws Exception{     //in direction true for from left to right, flase for form right to left
-        if(bookshelf.getBookshelf()[startingpointrow][startingpointcolumn]==null)
-            return false;
-        Color checkcolor;
-        if(direction){
-            if(startingpointrow>=bookshelf.getNumRow() || startingpointrow<0 ||startingpointcolumn>=bookshelf.getNumColumn()||startingpointcolumn<0 || !(startingpointrow+numofelem-1<bookshelf.getNumRow()) || !(startingpointcolumn+numofelem-1<bookshelf.getNumColumn()))
-                throw new Exception();
-            checkcolor=bookshelf.getBookshelf()[startingpointrow][startingpointcolumn].getObjectCard().getColor();
-            for(int i=1; i<=numofelem-1;i++)
-                if(bookshelf.getBookshelf()[startingpointrow+i][startingpointcolumn+i].getObjectCard().getColor()!=checkcolor)
-                    return false;
-            return true;}
-        if(startingpointrow>=bookshelf.getNumRow() || startingpointrow<0 ||startingpointcolumn>=bookshelf.getNumColumn()||startingpointcolumn<0 || !(startingpointcolumn-numofelem+1>=0) || !(startingpointrow+numofelem-1<bookshelf.getNumRow()))
-            throw new Exception();
-        checkcolor=bookshelf.getBookshelf()[startingpointrow][startingpointcolumn].getObjectCard().getColor();
-        for(int i=1; i<=numofelem-1;i++)
-            if(bookshelf.getBookshelf()[startingpointrow+i][startingpointcolumn-i].getObjectCard().getColor()!=checkcolor)
-                return false;
-        return true;
 
-
-    }
 }
