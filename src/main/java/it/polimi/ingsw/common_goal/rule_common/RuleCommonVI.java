@@ -1,7 +1,7 @@
-package it.polimi.ingsw.rule_common;
+package it.polimi.ingsw.common_goal.rule_common;
 
 import it.polimi.ingsw.user.User;
-import static it.polimi.ingsw.rule_common.RuleCommonSupportClass.columnsChecker;
+import static it.polimi.ingsw.common_goal.rule_common.RuleCommonSupportClass.columnsChecker;
 
 public class RuleCommonVI implements RuleCommon{
 

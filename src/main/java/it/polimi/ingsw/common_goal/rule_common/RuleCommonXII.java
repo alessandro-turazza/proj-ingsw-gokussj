@@ -1,4 +1,4 @@
-package it.polimi.ingsw.rule_common;
+package it.polimi.ingsw.common_goal.rule_common;
 
 import it.polimi.ingsw.user.User;
 

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.rule_common_test;
 
-import it.polimi.ingsw.rule_common.RuleCommonII;
+import it.polimi.ingsw.common_goal.rule_common.RuleCommonII;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

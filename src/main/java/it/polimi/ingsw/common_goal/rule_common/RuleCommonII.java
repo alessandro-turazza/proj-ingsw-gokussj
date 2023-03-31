@@ -1,9 +1,7 @@
-package it.polimi.ingsw.rule_common;
+package it.polimi.ingsw.common_goal.rule_common;
 
 import it.polimi.ingsw.user.User;
 import it.polimi.ingsw.user.bookshelf.Bookshelf;
-
-import static it.polimi.ingsw.rule_common.RuleCommonSupportClass.checkDiagonal;
 
 public class RuleCommonII implements RuleCommon{
 
@@ -12,7 +10,7 @@ public class RuleCommonII implements RuleCommon{
     public boolean newRule(User user) {
         Bookshelf bookshelf = user.getBookshelf();
         try{
-        if(checkDiagonal(bookshelf,0, 0,5,true) || checkDiagonal(bookshelf,1, 0,5,true) || checkDiagonal(bookshelf,0, 4,5,false) || checkDiagonal(bookshelf,1, 4,5,false))
+        if(RuleCommonSupportClass.checkDiagonal(bookshelf,0, 0,5,true) || RuleCommonSupportClass.checkDiagonal(bookshelf,1, 0,5,true) || RuleCommonSupportClass.checkDiagonal(bookshelf,0, 4,5,false) || RuleCommonSupportClass.checkDiagonal(bookshelf,1, 4,5,false))
             return true;
         }
         catch (Exception e){return false;}
