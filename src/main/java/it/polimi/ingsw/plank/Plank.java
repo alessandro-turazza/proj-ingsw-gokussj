@@ -50,10 +50,10 @@ public class Plank {
             for(int c=0;c<DIM;c++){
                 if(board[r][c]!=null && board[r][c].getObjectCard()!=null){
                     if(r==0||r==DIM-1||c==0||c==DIM-1)board[r][c].setPlayable(true);
-                    else if(board[r+1][c]==null || board[r+1][c].getObjectCard()!=null)board[r][c].setPlayable(true);
-                    else if(board[r-1][c]!=null || board[r-1][c].getObjectCard()!=null)board[r][c].setPlayable(true);
-                    else if(board[r][c+1]!=null || board[r][c+1].getObjectCard()!=null)board[r][c].setPlayable(true);
-                    else board[r][c].setPlayable(board[r][c - 1] != null || board[r][c - 1].getObjectCard() != null);
+                    else if(board[r+1][c]==null || board[r+1][c].getObjectCard()==null)board[r][c].setPlayable(true);
+                    else if(board[r-1][c]==null || board[r-1][c].getObjectCard()==null)board[r][c].setPlayable(true);
+                    else if(board[r][c+1]==null || board[r][c+1].getObjectCard()==null)board[r][c].setPlayable(true);
+                    else board[r][c].setPlayable(board[r][c - 1] == null || board[r][c - 1].getObjectCard() == null);
                 }
 
             }
@@ -62,11 +62,11 @@ public class Plank {
     public boolean checkRefull(){
         for(int r=0;r<DIM;r++)
             for(int c=0;c<DIM;c++){
-                if(board[r][c].getPlayable()){
-                    if(r<DIM-1 && board[r + 1][c].getPlayable())return false;
-                    if(r>0 && board[r - 1][c].getPlayable())return false;
-                    if(c<DIM-1 && board[r][c + 1].getPlayable())return false;
-                    if(c>0 && board[r][c - 1].getPlayable())return false;
+                if(board[r][c]!=null && board[r][c].getPlayable()){
+                    if(r<DIM-1 && board[r+1][c]!=null && board[r + 1][c].getPlayable())return false;
+                    if(r>0 && board[r-1][c]!=null && board[r - 1][c].getPlayable())return false;
+                    if(c<DIM-1 && board[r][c+1]!=null && board[r][c + 1].getPlayable())return false;
+                    if(c>0 && board[r][c-1]!=null && board[r][c - 1].getPlayable())return false;
                 }
             }
         return true;
