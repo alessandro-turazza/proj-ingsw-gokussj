@@ -1,0 +1,24 @@
+{
+  "cardList":[
+    {
+      "id":1,
+      "color":"YELLOW",
+      "column":0
+    },
+    {
+      "id":2,
+      "color":"YELLOW",
+      "column":1
+    },
+    {
+      "id":3,
+      "color":"YELLOW",
+      "column":2
+    },
+    {
+      "id":4,
+      "color":"YELLOW",
+      "column":2
+    }
+  ]
+}

@@ -60,7 +60,7 @@ public class BookshelfTest {
 
     @Test
     public void testJSON() throws Exception {
-        String path="src/test/TestFiles/BookshelfTest/Bookshelf_Config_1.json";
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_5AdjacensesFullColor.json";
         bookshelf=readJson(path);
         assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][2], 5, 2),5);
 
