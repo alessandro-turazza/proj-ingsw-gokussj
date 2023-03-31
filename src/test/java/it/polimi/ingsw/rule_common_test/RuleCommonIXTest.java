@@ -2,6 +2,9 @@ package it.polimi.ingsw.rule_common_test;
 
 
 import it.polimi.ingsw.common_goal.rule_common.RuleCommonIX;
+import it.polimi.ingsw.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.user.bookshelf.CellShelf;
+import it.polimi.ingsw.user_test.BookshelfTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,25 +23,33 @@ public class RuleCommonIXTest extends RuleCommonTest{
 
     @Test
     public void ruleCommonIX1() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIX/RuleCommonIX_FullTrue");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIX/RuleCommonIX_FullTrue.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonVI2() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIX/RuleCommonIX_FullFalse");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIX/RuleCommonIX_FullFalse.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertFalse(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonVI3() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIX/RuleCommonIX_NotFullTrue");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIX/RuleCommonIX_NotFullTrue.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonVI4() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIX/RuleCommonIX_NotFullFalse");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIX/RuleCommonIX_NotFullFalse.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertFalse(ruleCommon.newRule(user));
     }
 }

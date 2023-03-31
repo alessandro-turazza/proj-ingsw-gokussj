@@ -24,56 +24,65 @@ public class RuleCommonIITest extends RuleCommonTest{
 
     @Test
     public void ruleCommonII1() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonII/RuleCommonII_Starting00");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonII/RuleCommonII_Starting00.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonII2() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonII/RuleCommonII_Starting01");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonII/RuleCommonII_Starting01.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonII3() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonII/RuleCommonII_Starting40");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonII/RuleCommonII_Starting40.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonII4() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonII/RuleCommonII_Starting41");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonII/RuleCommonII_Starting41.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonII5() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonII/RuleCommonII_Parallel");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonII/RuleCommonII_Parallel.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
+
 
     @Test
     public void ruleCommonII6() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonII/RuleCommonII_Cross");
-        assertTrue(ruleCommon.newRule(user));
-    }
-
-    @Test
-    public void ruleCommonII6Json() throws Exception {
-        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfRuleCommonIICross.json");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonII/RuleCommonII_Cross.json");
         Bookshelf b = new Bookshelf(bs);
         user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
     @Test
     public void ruleCommonII7() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonII/RuleCommonII_Failed1");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonII/RuleCommonII_Failed1.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertFalse(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonII8() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonII/RuleCommonII_Failed2");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonII/RuleCommonII_Failed2.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertFalse(ruleCommon.newRule(user));
     }
 

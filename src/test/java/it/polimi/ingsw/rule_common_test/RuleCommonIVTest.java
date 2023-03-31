@@ -1,6 +1,9 @@
 package it.polimi.ingsw.rule_common_test;
 
 import it.polimi.ingsw.common_goal.rule_common.RuleCommonIV;
+import it.polimi.ingsw.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.user.bookshelf.CellShelf;
+import it.polimi.ingsw.user_test.BookshelfTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,36 +23,48 @@ public class RuleCommonIVTest extends RuleCommonTest{
 
     @Test
     public void ruleCommonIV1() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_FullTrue");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIV/RuleCommonIV_FullTrue.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonIV2() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_FullFalse");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIV/RuleCommonIV_FullFalse.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertFalse(ruleCommon.newRule(user));
     }
     @Test
     public void ruleCommonIV3() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullTrue1");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullTrue1.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonIV4() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullFalse1");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullFalse1.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertFalse(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonIV5() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullTrue2");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullTrue2.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonIV6() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullFalse2");
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIV/RuleCommonIV_NotFullFalse2.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
         assertFalse(ruleCommon.newRule(user));
     }
 
