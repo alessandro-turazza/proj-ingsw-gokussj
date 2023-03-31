@@ -46,6 +46,19 @@ public class BookshelfTest {
         }
         return result;
     }
+    public static Bookshelf readBookshelfList(String path) throws Exception {
+        FileReader fr = new FileReader(path);
+        JSONObject obj = (JSONObject) new JSONParser().parse(fr);
+        JSONArray list = (JSONArray) obj.get("cardList");
+        Bookshelf matrix = new Bookshelf();
+
+        for(Object o: list) {
+            JSONObject ob1 = (JSONObject) o;
+            ObjectCard card = new ObjectCard(Integer.parseInt(ob1.get("id").toString()), convertToColor(ob1.get("color").toString()));
+            matrix.insertBookshelf(card,Integer.parseInt(ob1.get("column").toString()));
+        }
+        return matrix;
+    }
 
     public static CellShelf[][] readBookshelfMatrix(String path) throws IOException, ParseException {
         FileReader fr = new FileReader(path);
@@ -88,8 +101,8 @@ public class BookshelfTest {
 
     @Test
     public void bookshelfColumnFull() throws Exception {
-        String path="src/test/TestFiles/BookshelfTest/Bookshelf_ColumnFull";
-        bookshelf=readFile(path);
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_ColumnFull.json";
+        bookshelf=readBookshelfList(path);
         assertThrows(Exception.class,
                 () -> bookshelf.insertBookshelf(defaultObjectCard,1));
 
@@ -130,8 +143,8 @@ public class BookshelfTest {
 
     @Test
     public void bookshelf3AdjacensesColumn() throws Exception {
-        String path="src/test/TestFiles/BookshelfTest/Bookshelf_3AdjacensesColumn";
-        bookshelf=readFile(path);
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_3AdjacensesColumn.json";
+        bookshelf=readBookshelfList(path);
         //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[3][1], 3, 1),3);
         assertEquals(bookshelf.numberAdjacenses().get(0),3);
 
@@ -139,8 +152,8 @@ public class BookshelfTest {
 
     @Test
     public void bookshel4AdjacensesRow() throws Exception {
-        String path="src/test/TestFiles/BookshelfTest/Bookshelf_4AdjacensesRow";
-        bookshelf=readFile(path);
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_4AdjacensesRow.json";
+        bookshelf=readBookshelfList(path);
         //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][0], 5, 0),4);
         assertEquals(bookshelf.numberAdjacenses().get(0),4);
 
@@ -148,8 +161,8 @@ public class BookshelfTest {
 
     @Test
     public void bookshelf4AdjacensesL() throws Exception {
-        String path="src/test/TestFiles/BookshelfTest/Bookshelf_4AdjacensesL";
-        bookshelf=readFile(path);
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_4AdjacensesL.json";
+        bookshelf=readBookshelfList(path);
         //assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][0], 5, 0),4);
         assertEquals(bookshelf.numberAdjacenses().get(0),4);
 
@@ -157,8 +170,8 @@ public class BookshelfTest {
 
     @Test
     public void bookshelf5AdjacensesFullColor() throws Exception {
-        String path="src/test/TestFiles/BookshelfTest/Bookshelf_5AdjacensesFullColor";
-        bookshelf=readFile(path);
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_5AdjacensesFullColor.json";
+        bookshelf=readBookshelfList(path);
         assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[5][2], 5, 2),5);
 
     }
@@ -166,8 +179,8 @@ public class BookshelfTest {
 
     @Test
     public void bookshelfAdjacensesDifficult() throws Exception {
-        String path="src/test/TestFiles/BookshelfTest/Bookshelf_AdjacensesDifficult";
-        bookshelf=readFile(path);
+        String path="src/test/TestFiles/BookshelfTest/Bookshelf_AdjacensesDifficult.json";
+        bookshelf=readBookshelfList(path);
         assertEquals(bookshelf.checkAdjacences(bookshelf.getBookshelf()[2][2], 2, 2),12);
 
     }
@@ -175,8 +188,8 @@ public class BookshelfTest {
     @Test
 
     public void bookshelfDeleteMark() throws Exception {
-        String path = "src/test/TestFiles/BookshelfTest/Bookshelf_AdjacensesDifficult";
-        bookshelf = readFile(path);
+        String path = "src/test/TestFiles/BookshelfTest/Bookshelf_AdjacensesDifficult.json";
+        bookshelf =readBookshelfList(path);
         bookshelf.checkAdjacences(bookshelf.getBookshelf()[2][2], 2,2);
         bookshelf.deleteMark();
         assertFalse(bookshelf.getBookshelf()[2][2].isMarked());
