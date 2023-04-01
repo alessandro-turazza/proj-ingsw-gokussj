@@ -1,9 +1,11 @@
 package it.polimi.ingsw.plank_test;
 
 import it.polimi.ingsw.game_data.DataObjectCard;
+import it.polimi.ingsw.game_data.GameData;
 import it.polimi.ingsw.object_card.Color;
 import it.polimi.ingsw.object_card.ObjectCard;
 import it.polimi.ingsw.plank.CardBag;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,19 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CardBagTest {
     private CardBag cardBag;
     private ArrayList<DataObjectCard> listDataObjectCard;
-    public static ArrayList<DataObjectCard> insertToFileObjectCard(String path) throws IOException {
-        //struct file for each line "IdObjectCard;ColorObjectCard;NumObjectCard"
-        BufferedReader buff = new BufferedReader(new FileReader(path));
-        ArrayList<DataObjectCard> dataCardBag=new ArrayList<>();
-        String line = buff.readLine();
-        while(line != null){
-            String[] params = line.split(";");
-                DataObjectCard dataObjectCard=new DataObjectCard(Integer.parseInt(params[0]),convertToColor(params[1]),Integer.parseInt(params[2]));
-                dataCardBag.add(dataObjectCard);
-            line = buff.readLine();
-        }
-        return dataCardBag;
-    }
+
     @BeforeEach
     public void initCardBagTest(){
         cardBag=new CardBag();
@@ -66,9 +56,10 @@ public class CardBagTest {
     }
 
     @Test
-    public void CardBag_Test_initializeCardBag() throws IOException {
+    public void CardBag_Test_initializeCardBag() throws IOException, ParseException {
         ObjectCard objectCard;
-        cardBag.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
+        GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+        cardBag.initializeCardBag(GameData.getDataObjectCards());
         int num_ColorYELLOW_ID1=0;
         int num_ColorYELLOW_ID2=0;
         int num_ColorYELLOW_ID3=0;

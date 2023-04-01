@@ -1,6 +1,6 @@
 package it.polimi.ingsw.game_manager_test;
 
-import it.polimi.ingsw.GameManager;
+import it.polimi.ingsw.game_manager.GameManager;
 import it.polimi.ingsw.game_data.GameData;
 import it.polimi.ingsw.user.User;
 import org.json.simple.parser.ParseException;

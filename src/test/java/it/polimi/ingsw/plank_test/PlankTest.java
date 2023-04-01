@@ -1,8 +1,10 @@
 package it.polimi.ingsw.plank_test;
 
+import it.polimi.ingsw.game_data.GameData;
 import it.polimi.ingsw.object_card.ObjectCard;
 import it.polimi.ingsw.plank.CellPlank;
 import it.polimi.ingsw.plank.Plank;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-import static it.polimi.ingsw.plank_test.CardBagTest.insertToFileObjectCard;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,12 +68,13 @@ public class PlankTest {
 
     }
     @Test
-    public void plankTest_fillPlank() throws IOException {
+    public void plankTest_fillPlank() throws IOException, ParseException {
         for(int i=MINUSER;i<=MAXUSER;i++){
             int[][] array;
             array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup1");
             plank.initializePlank(array,i);
-            plank.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
+            GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+            plank.initializeCardBag(GameData.getDataObjectCards());
             plank.fillPlank();
             CellPlank[][] board;
             board= plank.getBoard();
@@ -95,7 +97,8 @@ public class PlankTest {
             int[][] array;
             array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup1");
             plank.initializePlank(array,i);
-            plank.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
+            GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+            plank.initializeCardBag(GameData.getDataObjectCards());
             plank.fillPlank();
             CellPlank[][] board;
             board= plank.getBoard();
@@ -128,7 +131,8 @@ public class PlankTest {
         int[][] array;
         array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankTest_checkPlayable");
         plank.initializePlank(array,2);
-        plank.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
+        GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+        plank.initializeCardBag(GameData.getDataObjectCards());
         plank.fillPlank();
         CellPlank[][] board= plank.getBoard();
         for(int r=0;r<plank.getDIM();r++){
@@ -168,7 +172,8 @@ public class PlankTest {
         int[][] array;
         array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankTest_checkPlayable");
         plank.initializePlank(array,2);
-        plank.initializeCardBag(insertToFileObjectCard("src/test/TestFiles/CardBagTest/CardBag_FileTest"));
+        GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+        plank.initializeCardBag(GameData.getDataObjectCards());
         plank.fillPlank();
         assertFalse(plank.checkRefull());
         plank.dragObjectCard(7,7);

@@ -74,6 +74,21 @@
             "id":3,
             "color":"GREEN",
             "numObjectCard":8
+        },
+        {
+            "id":1,
+            "color":"WHITE",
+            "numObjectCard":7
+        },
+        {
+            "id":2,
+            "color":"WHITE",
+            "numObjectCard":7
+        },
+        {
+            "id":3,
+            "color":"WHITE",
+            "numObjectCard":8
         }
     ]
 }

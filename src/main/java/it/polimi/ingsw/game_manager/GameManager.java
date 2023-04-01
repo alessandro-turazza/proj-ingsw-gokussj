@@ -1,4 +1,4 @@
-package it.polimi.ingsw;
+package it.polimi.ingsw.game_manager;
 
 import it.polimi.ingsw.common_goal.CommonGoal;
 import it.polimi.ingsw.common_goal.TokenCard;
