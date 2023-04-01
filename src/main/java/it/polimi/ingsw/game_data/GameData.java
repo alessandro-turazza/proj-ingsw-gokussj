@@ -1,5 +1,6 @@
 package it.polimi.ingsw.game_data;
 
+import it.polimi.ingsw.common_goal.rule_common.*;
 import it.polimi.ingsw.object_card.Color;
 import it.polimi.ingsw.user.personal_goal.Costraints;
 import it.polimi.ingsw.user.personal_goal.PersonalGoalCard;
@@ -15,33 +16,55 @@ import java.util.ArrayList;
 import static it.polimi.ingsw.object_card.ObjectCard.convertToColor;
 
 public class GameData {
-    private ArrayList<DataObjectCard> dataObjectCards;
-    private ArrayList<PersonalGoalCard> personalGoalCards;
-    private int[][] plank_config;
+    private static ArrayList<DataObjectCard> dataObjectCards;
+    private static ArrayList<PersonalGoalCard> personalGoalCards;
+    private static int[][] plank_config;
 
-    private final int DIM = 9;
+    private static ArrayList<RuleCommon> ruleCommons;
+
+    private static final int DIM = 9;
 
 
-    public ArrayList<DataObjectCard> getDataObjectCards() {
+    public static ArrayList<DataObjectCard> getDataObjectCards() {
         return dataObjectCards;
     }
 
-    public ArrayList<PersonalGoalCard> getPersonalGoalCards() {
+    public static ArrayList<PersonalGoalCard> getPersonalGoalCards() {
         return personalGoalCards;
     }
 
-    public int[][] getPlank_config() {
+    public static int[][] getPlank_config() {
         return plank_config;
     }
 
-    private JSONObject readJson(String path) throws IOException, ParseException {
+    public static ArrayList<RuleCommon> getRuleCommons(){
+        return ruleCommons;
+    }
+
+    public static void loadRuleCommons(){
+        ruleCommons = new ArrayList<>();
+        ruleCommons.add(new RuleCommonI());
+        ruleCommons.add(new RuleCommonII());
+        ruleCommons.add(new RuleCommonIII());
+        ruleCommons.add(new RuleCommonIV());
+        ruleCommons.add(new RuleCommonV());
+        ruleCommons.add(new RuleCommonVI());
+        ruleCommons.add(new RuleCommonVII());
+        ruleCommons.add(new RuleCommonVIII());
+        ruleCommons.add(new RuleCommonIX());
+        ruleCommons.add(new RuleCommonX());
+        ruleCommons.add(new RuleCommonXI());
+        ruleCommons.add(new RuleCommonXII());
+    }
+
+    private static JSONObject readJson(String path) throws IOException, ParseException {
         FileReader fr = new FileReader(path);
         JSONObject obj = (JSONObject) new JSONParser().parse(fr);
         return obj;
     }
 
-    public void loadObjectCards(String path) throws IOException, ParseException {
-        this.dataObjectCards = new ArrayList<>();
+    public static void loadObjectCards(String path) throws IOException, ParseException {
+        dataObjectCards = new ArrayList<>();
         JSONObject obj = readJson(path);
         JSONArray list = (JSONArray) obj.get("cardList");
 
@@ -57,8 +80,8 @@ public class GameData {
         }
     }
 
-    public void loadPersonalGoals(String path) throws IOException, ParseException {
-        this.personalGoalCards = new ArrayList<>();
+    public static void loadPersonalGoals(String path) throws IOException, ParseException {
+        personalGoalCards = new ArrayList<>();
         JSONObject obj = readJson(path);
         JSONArray list = (JSONArray) obj.get("listPersonalGoals");
         int i = 1;
@@ -77,12 +100,12 @@ public class GameData {
                 pg.getCostraints().add(costraint);
             }
 
-            this.personalGoalCards.add(pg);
+            personalGoalCards.add(pg);
         }
     }
 
-    public void loadPlankConfig(String path) throws IOException, ParseException {
-        this.plank_config = new int[DIM][DIM];
+    public static void loadPlankConfig(String path) throws IOException, ParseException {
+        plank_config = new int[DIM][DIM];
         JSONObject obj = readJson(path);
         JSONArray list = (JSONArray) obj.get("plank");
         int i = 0, j = 0;
@@ -102,6 +125,7 @@ public class GameData {
         }
 
     }
+
 
 
 }

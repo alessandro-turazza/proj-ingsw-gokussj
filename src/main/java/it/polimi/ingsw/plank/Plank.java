@@ -1,6 +1,7 @@
 package it.polimi.ingsw.plank;
 
 import it.polimi.ingsw.game_data.DataObjectCard;
+import it.polimi.ingsw.object_card.Color;
 import it.polimi.ingsw.object_card.ObjectCard;
 
 import java.util.ArrayList;
@@ -78,6 +79,33 @@ public class Plank {
         board[row][column].setObjectCard(null);
         board[row][column].setPlayable(false);
         return result;
+    }
+
+    private char colorChar(Color color){
+        if(color == Color.YELLOW)
+            return 'Y';
+        if(color == Color.WHITE)
+            return 'W';
+        if(color == Color.PINK)
+            return 'P';
+        if(color == Color.BLUE)
+            return 'B';
+        if(color == Color.LIGHT_BLUE)
+            return 'L';
+        else
+            return 'G';
+    }
+
+    public void printPlank(){
+        for(int i = 0; i < DIM; i++){
+            for(int j = 0; j < DIM; j++){
+                if(board[i][j] == null || board[i][j].getObjectCard() == null)
+                    System.out.print(" ");
+                else
+                    System.out.print(colorChar(board[i][j].getObjectCard().getColor()));
+            }
+            System.out.println(" ");
+        }
     }
 
     public int getDIM() {

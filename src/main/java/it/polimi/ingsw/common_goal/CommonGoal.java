@@ -18,6 +18,10 @@ public class CommonGoal {
         this.tokenCards = tokenCards;
     }
 
+    public ArrayList<TokenCard> getTokenCards(){
+        return tokenCards;
+    }
+
     public boolean checkRule(User user){
         return rule.newRule(user);
     }

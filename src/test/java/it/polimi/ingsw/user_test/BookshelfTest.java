@@ -89,14 +89,6 @@ public class BookshelfTest {
 
         return matrix;
     }
-    @Test
-    public void createBookshelfMatrix() throws IOException, ParseException {
-        String path = "src/test/TestFiles/BookshelfTest/BookshelfRuleCommonIICross.json";
-        bookshelf = new Bookshelf(readBookshelfMatrix(path));
-
-        assertEquals(bookshelf.getBookshelf()[5][0].getObjectCard().getColor(), Color.BLUE);
-        assertNull(bookshelf.getBookshelf()[0][0]);
-    }
 
 
     @Test

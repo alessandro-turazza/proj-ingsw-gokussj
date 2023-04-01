@@ -19,25 +19,25 @@ public class RuleCommonVITest extends RuleCommonTest{
 
     @Test
     public void ruleCommonVI1() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonVI/RuleCommonVI_FullTrue");
+        this.readFile("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonVI/RuleCommonVI_FullTrue");
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonVI2() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonVI/RuleCommonVI_FullFalse");
+        this.readFile("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonVI/RuleCommonVI_FullFalse");
         assertFalse(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonVI3() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonVI/RuleCommonVI_NotFullTrue");
+        this.readFile("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonVI/RuleCommonVI_NotFullTrue");
         assertTrue(ruleCommon.newRule(user));
     }
 
     @Test
     public void ruleCommonVI4() throws Exception {
-        this.readFile("src/test/TestFiles/RuleCommonTest/RuleCommonVI/RuleCommonVI_NotFullFalse");
+        this.readFile("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonVI/RuleCommonVI_NotFullFalse");
         assertFalse(ruleCommon.newRule(user));
     }
 }
