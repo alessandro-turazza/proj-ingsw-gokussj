@@ -1,9 +1,14 @@
 package it.polimi.ingsw.turn_manager_test;
 
+import it.polimi.ingsw.common_goal.CommonGoal;
 import it.polimi.ingsw.game_data.GameData;
 import it.polimi.ingsw.game_manager.TurnManager;
+import it.polimi.ingsw.object_card.Color;
+import it.polimi.ingsw.object_card.ObjectCard;
 import it.polimi.ingsw.plank.CellPlank;
 import it.polimi.ingsw.plank.Plank;
+import it.polimi.ingsw.user.User;
+import it.polimi.ingsw.user.bookshelf.Bookshelf;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,14 +18,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static it.polimi.ingsw.turn_manager_test.TurnUserTest.loadUser;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TurnManagerTest {
     private static TurnManager turnManager;
+    private static ObjectCard  objectCard;
     @BeforeAll
-    public static void reInit() throws IOException, ParseException {
-        turnManager=new TurnManager(null,null,null);
+    public static void init() throws IOException, ParseException {
+        GameData.loadPlankConfig("src/test/TestFiles/PlankTest/PlankTest_checkPlayable.json");
+        GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+        ArrayList<User> users=loadUser();
+        Plank plank=new Plank();
+        plank.initializePlank(GameData.getPlank_config(),users.size());
+        plank.initializeCardBag(GameData.getDataObjectCards());
+        plank.fillPlank();
+        ArrayList<CommonGoal> commonGoals=new ArrayList<>();
+        turnManager=new TurnManager(users,plank,commonGoals);
+        objectCard=new ObjectCard(1, Color.WHITE);
+    }
+    @BeforeEach
+    public void reInit() throws IOException, ParseException {
+        init();
     }
     @Test
     public void turnManagerTest_checkDragColumn(){
@@ -117,5 +136,133 @@ public class TurnManagerTest {
         }
         Collections.shuffle(cellPlanks);
         assertTrue(turnManager.checkDrag(cellPlanks));
+    }
+    @Test
+    public void turnManagerTest_checkDrop(){
+        for(int i=0;i<turnManager.getUsers().activeUser().getBookshelf().getNumColumn();i++)
+        assertTrue(turnManager.checkDrop(3,i));
+    }
+    @Test
+    public void turnManagerTest_checkDrop2() throws Exception {
+        Bookshelf bookshelf=turnManager.getUsers().activeUser().getBookshelf();
+        for(int column=0;column<bookshelf.getNumColumn();column++)
+            for(int row=0;row<bookshelf.getNumRow()-2;row++)
+                bookshelf.insertBookshelf(objectCard,column);
+
+        for(int column=0;column<bookshelf.getNumColumn();column++)
+            assertFalse(turnManager.checkDrop(3,column));
+    }
+    @Test
+    public void turnManagerTest_updateGame() {
+        Bookshelf bookshelf=turnManager.getUsers().activeUser().getBookshelf();
+        ArrayList<CellPlank> cellPlanks=new ArrayList<>();
+        cellPlanks.add(new CellPlank(objectCard,0,0));
+        assertThrows(Exception.class,
+                () -> turnManager.updateGame(cellPlanks,0));//first if
+        cellPlanks.get(0).setPlayable(true);
+        for(int row=0;row<bookshelf.getNumColumn();row++){
+            cellPlanks.add(new CellPlank(objectCard,0,0));
+            cellPlanks.get(row+1).setPlayable(true);
+        }
+        assertThrows(Exception.class,
+                () -> turnManager.updateGame(cellPlanks,0));//second if
+    }
+    @Test
+    public void simulateGame() throws Exception {
+        //1 player start
+        ArrayList<CellPlank> deck=new ArrayList<>();
+        deck.add(turnManager.getPlank().getBoard()[2][1]);
+        User user=turnManager.getUsers().activeUser();
+        turnManager.updateGame(deck,0);
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-1,0),deck.get(0).getObjectCard());
+        //2 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[1][2]));
+        deck.add((turnManager.getPlank().getBoard()[2][2]));
+        deck.add((turnManager.getPlank().getBoard()[3][2]));
+        user=turnManager.getUsers().activeUser();
+        turnManager.updateGame(deck,0);
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-1,0),deck.get(0).getObjectCard());
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-2,0),deck.get(1).getObjectCard());
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-3,0),deck.get(2).getObjectCard());
+        //3 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[2][3]));
+        turnManager.updateGame(deck,0);
+        //4 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[0][4]));
+        turnManager.updateGame(deck,0);
+        //1 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[2][5]));
+        turnManager.updateGame(deck,0);
+        //2 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[1][6]));
+        deck.add((turnManager.getPlank().getBoard()[2][6]));
+        deck.add((turnManager.getPlank().getBoard()[3][6]));
+        turnManager.updateGame(deck,0);
+        //3 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[4][0]));
+        turnManager.updateGame(deck,0);
+        //4 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[8][4]));
+        turnManager.updateGame(deck,0);
+        //1 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[4][8]));
+        turnManager.updateGame(deck,0);
+        //2 player start but column is full
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[7][2]));
+        ArrayList<CellPlank> finalDeck = deck;
+        assertThrows(Exception.class,
+                () -> turnManager.updateGame(finalDeck,0));
+        //2 player start but cell playable is false
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[6][6]));
+        ArrayList<CellPlank> finalDeck1 = deck;
+        assertThrows(Exception.class,
+                () -> turnManager.updateGame(finalDeck1,1));
+        //2 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[7][7]));
+        turnManager.updateGame(deck,1);
+        //3 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[7][7]));//verificate plank refull
+        turnManager.updateGame(deck,1);
+    }
+    @Test
+    public void simulateGame2() throws Exception {
+        Bookshelf bookshelfFirstUser=turnManager.getUsers().activeUser().getBookshelf();
+        ArrayList<CellPlank> deck=new ArrayList<>();
+        //only one cellshelf empty
+        for(int column=0;column<bookshelfFirstUser.getNumColumn();column++){
+            for(int row=0;row<bookshelfFirstUser.getNumRow()-1;row++){
+                bookshelfFirstUser.insertBookshelf(objectCard,column);
+            }
+        }
+        for(int column=0;column<bookshelfFirstUser.getNumColumn()-1;column++)
+            bookshelfFirstUser.insertBookshelf(objectCard,column);
+        //1 player start
+        deck.add((turnManager.getPlank().getBoard()[8][4]));
+        assertNotNull(turnManager.updateGame(deck,bookshelfFirstUser.getNumColumn()-1));//bookshelf is full
+        //2 player start
+        deck=new ArrayList<>();
+        deck.add(turnManager.getPlank().getBoard()[2][1]);
+        assertNotNull(turnManager.updateGame(deck,0));
+        //3 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[2][3]));
+        assertNotNull(turnManager.updateGame(deck,0));
+        //4 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[0][4]));
+        assertNull(turnManager.updateGame(deck,0));
+
     }
 }

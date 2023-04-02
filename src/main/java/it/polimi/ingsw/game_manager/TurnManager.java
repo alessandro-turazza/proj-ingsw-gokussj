@@ -4,10 +4,10 @@ import it.polimi.ingsw.common_goal.CommonGoal;
 import it.polimi.ingsw.plank.CellPlank;
 import it.polimi.ingsw.plank.Plank;
 import it.polimi.ingsw.user.User;
+import it.polimi.ingsw.user.bookshelf.Bookshelf;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Objects;
 
 
@@ -51,10 +51,16 @@ public class TurnManager {
         return true;
     }
 
+    public boolean checkDrop(int numCard,int column){
+        if(users.activeUser().getBookshelf().checkColumn(column)+1>=numCard)return true;
+        return false;
+    }
+
 
     //public void activeTurnUser(){}
     public User updateGame(ArrayList<CellPlank> chosenCard, int column) throws Exception {
-        if(!checkDrag(chosenCard))throw new Exception("Ripetere scelta");
+        if(!checkDrag(chosenCard))throw new Exception("Ripetere scelta, tessere non valide");
+        if(!checkDrop(chosenCard.size(),column))throw new Exception("Ripetere scelta, troppe tessere");
         for(CellPlank cellPlank:chosenCard){
             plank.dragObjectCard(cellPlank.getRow(), cellPlank.getColumn());
             users.activeUser().dropObjectCard(cellPlank.getObjectCard(),column);
@@ -70,4 +76,11 @@ public class TurnManager {
 
     }
 
+    public TurnUser getUsers() {
+        return users;
+    }
+
+    public Plank getPlank() {
+        return plank;
+    }
 }

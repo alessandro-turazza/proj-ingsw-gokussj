@@ -9,12 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-
-import java.io.FileReader;
 import java.io.IOException;
-
-
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,38 +21,21 @@ public class PlankTest {
     @BeforeAll
     public static void initTest(){plank=new Plank();}
     @BeforeEach
-    public void reInit(){plank=new Plank();}
-
-    private int[][] loadFileintoArray(String path) throws IOException {
-        BufferedReader buff = new BufferedReader(new FileReader(path));
-        int[][] result=new int[plank.getDIM()][plank.getDIM()];
-        int row=0;
-        int column=0;
-        String line = buff.readLine();
-        while(line != null){
-            String[] params = line.split(";");
-            for(String param:params){
-                result[row][column]=Integer.parseInt(param);
-                column++;
-            }
-            column=0;
-            row++;
-            line = buff.readLine();
-        }
-        return result;
+    public void reInit() throws IOException, ParseException {
+        plank=new Plank();
+        GameData.loadObjectCards("src/data/Object_Cards_Data.json");
     }
 
     @Test
-    public void plankTest_initializePlank() throws IOException {
+    public void plankTest_initializePlank() throws IOException, ParseException {
         for(int i=MINUSER;i<=MAXUSER;i++){
-            int[][] array;
-            array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup1");
-            plank.initializePlank(array,i);
+            GameData.loadPlankConfig("src/data/Plank_Config_1.json");
+            plank.initializePlank(GameData.getPlank_config(),i);
             CellPlank[][] board;
             board= plank.getBoard();
             for(int row=0;row<plank.getDIM();row++){
                 for(int column=0;column<plank.getDIM();column++){
-                    if(array[row][column]>i || array[row][column]==0)assertNull(board[row][column]);
+                    if(GameData.getPlank_config()[row][column]>i || GameData.getPlank_config()[row][column]==0)assertNull(board[row][column]);
                     else {
                         assertNotNull(board[row][column]);
                         assertNull(board[row][column].getObjectCard());
@@ -70,17 +48,15 @@ public class PlankTest {
     @Test
     public void plankTest_fillPlank() throws IOException, ParseException {
         for(int i=MINUSER;i<=MAXUSER;i++){
-            int[][] array;
-            array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup1");
-            plank.initializePlank(array,i);
-            GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+            GameData.loadPlankConfig("src/data/Plank_Config_1.json");
+            plank.initializePlank(GameData.getPlank_config(),i);
             plank.initializeCardBag(GameData.getDataObjectCards());
             plank.fillPlank();
             CellPlank[][] board;
             board= plank.getBoard();
             for(int row=0;row<plank.getDIM();row++){
                 for(int column=0;column<plank.getDIM();column++){
-                    if(array[row][column]>i || array[row][column]==0)assertNull(board[row][column]);
+                    if(GameData.getPlank_config()[row][column]>i || GameData.getPlank_config()[row][column]==0)assertNull(board[row][column]);
                     else {
                         assertNotNull(board[row][column]);
                         assertNotNull(board[row][column].getObjectCard());
@@ -94,10 +70,8 @@ public class PlankTest {
     @Test
     public void plankTest_dragObjectCard() throws Exception {
         for(int i=MINUSER;i<=MAXUSER;i++){
-            int[][] array;
-            array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankSetup1");
-            plank.initializePlank(array,i);
-            GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+            GameData.loadPlankConfig("src/data/Plank_Config_1.json");
+            plank.initializePlank(GameData.getPlank_config(),i);
             plank.initializeCardBag(GameData.getDataObjectCards());
             plank.fillPlank();
             CellPlank[][] board;
@@ -106,7 +80,7 @@ public class PlankTest {
                 for(int column=0;column<plank.getDIM();column++){
                     int finalRow = row;
                     int finalColumn = column;
-                    if(array[row][column]>i || array[row][column]==0) {
+                    if(GameData.getPlank_config()[row][column]>i || GameData.getPlank_config()[row][column]==0) {
 
                         assertThrows(Exception.class,
                                 () -> plank.dragObjectCard(finalRow, finalColumn));
@@ -128,10 +102,8 @@ public class PlankTest {
     }
     @Test
     public void plankTest_checkPlayable() throws Exception {
-        int[][] array;
-        array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankTest_checkPlayable");
-        plank.initializePlank(array,2);
-        GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+        GameData.loadPlankConfig("src/test/TestFiles/PlankTest/PlankTest_checkPlayable.json");
+        plank.initializePlank(GameData.getPlank_config(),2);
         plank.initializeCardBag(GameData.getDataObjectCards());
         plank.fillPlank();
         CellPlank[][] board= plank.getBoard();
@@ -169,10 +141,8 @@ public class PlankTest {
 
     @Test
     public void plankTest_checkReFull() throws Exception {
-        int[][] array;
-        array=loadFileintoArray("src/test/TestFiles/PlankTest/PlankTest_checkPlayable");
-        plank.initializePlank(array,2);
-        GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+        GameData.loadPlankConfig("src/test/TestFiles/PlankTest/PlankTest_checkPlayable.json");
+        plank.initializePlank(GameData.getPlank_config(),2);
         plank.initializeCardBag(GameData.getDataObjectCards());
         plank.fillPlank();
         assertFalse(plank.checkRefull());

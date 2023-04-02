@@ -80,7 +80,9 @@ public class Plank {
         board[row][column].setPlayable(false);
         return result;
     }
-
+    public ObjectCard dragObjectCard(CellPlank cellPlank)throws Exception{
+        return dragObjectCard(cellPlank.getRow(),cellPlank.getColumn());
+    }
     private char colorChar(Color color){
         if(color == Color.YELLOW)
             return 'Y';

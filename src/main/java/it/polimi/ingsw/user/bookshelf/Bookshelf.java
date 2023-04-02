@@ -28,7 +28,7 @@ public class Bookshelf {
     public int getNumColumn(){
         return NUM_COLUMN;
     }
-    private Integer checkColumn(int column){
+    public Integer checkColumn(int column){
         for(int i = getNumRow() - 1; i >= 0; i--){
             if(bookshelf[i][column] == null)
                     return i;
@@ -104,6 +104,8 @@ public class Bookshelf {
         return counter;
 
     }
-
+    public ObjectCard getObjectCard(int row,int column){
+        return bookshelf[row][column].getObjectCard();
+    }
 
 }
