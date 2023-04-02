@@ -44,7 +44,6 @@ public class GameManager {
         }
 
         return tokens;
-
     }
 
     private void generateCommonGoalList(){

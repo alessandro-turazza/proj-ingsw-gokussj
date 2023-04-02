@@ -31,7 +31,7 @@ public class Plank {
             for(int c=0;c<DIM;c++){
                 if(plank[r][c]>numUser || plank[r][c]==0)board[r][c]=null;
                 else{
-                    CellPlank cellPlank=new CellPlank(null);
+                    CellPlank cellPlank=new CellPlank(null,r,c);
                     board[r][c]=cellPlank;
                 }
             }

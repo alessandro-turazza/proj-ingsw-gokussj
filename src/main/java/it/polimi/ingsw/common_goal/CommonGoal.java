@@ -22,6 +22,8 @@ public class CommonGoal {
         return tokenCards;
     }
 
+    public TokenCard getTokenCard(){return tokenCards.get(0);}//correggere questo metodo
+
     public boolean checkRule(User user){
         return rule.newRule(user);
     }
