@@ -1,75 +1,43 @@
 package it.polimi.ingsw.user_test;
 
-import it.polimi.ingsw.object_card.ObjectCard;
-import it.polimi.ingsw.user.personal_goal.Costraints;
-import it.polimi.ingsw.user.personal_goal.PersonalGoalCard;
+import it.polimi.ingsw.game_data.GameData;
 import it.polimi.ingsw.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.user.bookshelf.CellShelf;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.IOException;
 
-import static it.polimi.ingsw.object_card.ObjectCard.convertToColor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonalGoalCardTest {
     private static Bookshelf bookshelf;
-    private static PersonalGoalCard personalGoal;
 
     @BeforeAll
-    public static void initBookshelf(){
-        bookshelf = new Bookshelf();
-    }
-
-    @BeforeEach
-    public void reInit(){
-        bookshelf = new Bookshelf();
-        personalGoal = new PersonalGoalCard(1);
-    }
-
-
-    private void readFile(String fileName) throws Exception {
-        BufferedReader buff = new BufferedReader(new FileReader(fileName));
-
-        String line = buff.readLine();
-
-        while(!line.equals("//")){
-            String[] params = line.split(";");
-
-            ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
-            bookshelf.insertBookshelf(card, Integer.parseInt(params[2]));
-
-            line = buff.readLine();
-        }
-
-        line = buff.readLine();
-
-        while(line != null){
-            String[] params = line.split(";");
-
-            personalGoal.getCostraints().add(new Costraints(Integer.parseInt(params[1]), Integer.parseInt(params[2]), convertToColor(params[0])));
-
-            line = buff.readLine();
-        }
+    public static void initBookshelf() throws IOException, ParseException {
+        GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+        GameData.loadPersonalGoals("src/data/PersonalGoals_Data.json");
     }
 
     @Test
     public void personalGoalCard1() throws Exception {
-        this.readFile("src/test/TestFiles/PersonalGoalCardTest/PersonalGoalCard_1");
-        assertEquals(personalGoal.checkRule(bookshelf), 6);
+        CellShelf[][] cs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/Bookshelf_PersonalGoal_1.json");
+        bookshelf = new Bookshelf(cs);
+        assertEquals(GameData.getPersonalGoalCards().get(0).checkRule(bookshelf), 6);
     }
 
     @Test
     public void personalGoalCard2() throws Exception {
-        this.readFile("src/test/TestFiles/PersonalGoalCardTest/PersonalGoalCard_2");
-        assertEquals(personalGoal.checkRule(bookshelf), 3);
+        CellShelf[][] cs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/Bookshelf_PersonalGoal_2.json");
+        bookshelf = new Bookshelf(cs);
+        assertEquals(GameData.getPersonalGoalCards().get(0).checkRule(bookshelf), 3);
     }
 
     @Test
     public void personalGoalCard3() throws Exception {
-        this.readFile("src/test/TestFiles/PersonalGoalCardTest/PersonalGoalCard_3");
-        assertEquals(personalGoal.checkRule(bookshelf), 2);
+        CellShelf[][] cs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/Bookshelf_PersonalGoal_3.json");
+        bookshelf = new Bookshelf(cs);
+        assertEquals(GameData.getPersonalGoalCards().get(0).checkRule(bookshelf), 2);
     }
 }

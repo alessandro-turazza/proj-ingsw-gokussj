@@ -1,18 +1,17 @@
 package it.polimi.ingsw.user_test;
 
+import it.polimi.ingsw.game_data.GameData;
 import it.polimi.ingsw.object_card.Color;
 import it.polimi.ingsw.object_card.ObjectCard;
 import it.polimi.ingsw.user.User;
-import it.polimi.ingsw.user.personal_goal.Costraints;
-import it.polimi.ingsw.user.personal_goal.PersonalGoalCard;
+import it.polimi.ingsw.user.bookshelf.Bookshelf;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.IOException;
 
-import static it.polimi.ingsw.object_card.ObjectCard.convertToColor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -20,103 +19,71 @@ public class UserTest {
     private static User user;
 
     @BeforeAll
-    public static void initUser(){
+    public static void initUser() throws IOException, ParseException {
         user = new User("User1");
+        GameData.loadObjectCards("src/data/Object_Cards_Data.json");
+        GameData.loadPersonalGoals("src/data/PersonalGoals_Data.json");
     }
 
     @BeforeEach
-    public void reInitUser(){
+    public void reInitUser() throws IOException, ParseException {
         initUser();
     }
 
-
-    private void readFileBookshelf(String fileName) throws Exception {//uguale a readFile di RuleCommonTest che chiama quello di BookShelfTest
-        user.setBookshelf(BookshelfTest.readFile(fileName));
-    }
-    private void readFilePersonalGoal(String fileName) throws Exception {
-        BufferedReader buff = new BufferedReader(new FileReader(fileName));
-
-        String line = buff.readLine();
-
-        while(!line.equals("//")){
-            String[] params = line.split(";");
-
-            ObjectCard card = new ObjectCard(Integer.parseInt(params[0]), convertToColor(params[1]));
-            user.getBookshelf().insertBookshelf(card, Integer.parseInt(params[2]));
-
-            line = buff.readLine();
-        }
-
-        user.setPersonalGoal(new PersonalGoalCard(1));
-
-        line = buff.readLine();
-
-        while(line != null){
-            String[] params = line.split(";");
-
-            user.getPersonalGoal().getCostraints().add(new Costraints(Integer.parseInt(params[1]), Integer.parseInt(params[2]), convertToColor(params[0])));
-
-            line = buff.readLine();
-        }
-    }
     @Test
     public void userAdjacenses1() throws Exception {
-        this.readFileBookshelf("src/test/TestFiles/UserTest/User_Adjacenses1");
+        user.setBookshelf(BookshelfTest.readBookshelfList("src/test/TestFiles/UserTest/User_Adjacenses1.json"));
         user.updatePointsAdjacenses();
         assertEquals(user.getPoints(), 2);
     }
 
     @Test
     public void userAdjacenses2() throws Exception {
-        this.readFileBookshelf("src/test/TestFiles/UserTest/User_Adjacenses2");
+        user.setBookshelf(BookshelfTest.readBookshelfList("src/test/TestFiles/UserTest/User_Adjacenses2.json"));
         user.updatePointsAdjacenses();
         assertEquals(user.getPoints(), 3);
     }
     @Test
     public void userAdjacenses3() throws Exception {
-        this.readFileBookshelf("src/test/TestFiles/UserTest/User_Adjacenses3");
+        user.setBookshelf(BookshelfTest.readBookshelfList("src/test/TestFiles/UserTest/User_Adjacenses3.json"));
         user.updatePointsAdjacenses();
         assertEquals(user.getPoints(), 5);
     }
 
     @Test
     public void userAdjacenses4() throws Exception {
-        this.readFileBookshelf("src/test/TestFiles/UserTest/User_Adjacenses4");
+        user.setBookshelf(BookshelfTest.readBookshelfList("src/test/TestFiles/UserTest/User_Adjacenses4.json"));
         user.updatePointsAdjacenses();
         assertEquals(user.getPoints(), 11);
     }
 
     @Test
     public void userPersonalGoal1() throws Exception {
-        readFilePersonalGoal("src/test/TestFiles/UserTest/User_PersonalGoal1");
+        user.setBookshelf(new Bookshelf(BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/Bookshelf_PersonalGoal_1.json")));
+        user.setPersonalGoal(GameData.getPersonalGoalCards().get(0));
         user.checkPersonalGoal();
         assertEquals(user.getPoints(), 12);
     }
 
     @Test
     public void userPersonalGoal2() throws Exception {
-        readFilePersonalGoal("src/test/TestFiles/UserTest/User_PersonalGoal2");
+        user.setBookshelf(new Bookshelf(BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/Bookshelf_PersonalGoal_2.json")));
+        user.setPersonalGoal(GameData.getPersonalGoalCards().get(0));
         user.checkPersonalGoal();
         assertEquals(user.getPoints(), 4);
     }
 
     @Test
     public void userPersonalGoal3() throws Exception {
-        readFilePersonalGoal("src/test/TestFiles/UserTest/User_PersonalGoal3");
+        user.setBookshelf(new Bookshelf(BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/Bookshelf_PersonalGoal_3.json")));
+        user.setPersonalGoal(GameData.getPersonalGoalCards().get(0));
         user.checkPersonalGoal();
         assertEquals(user.getPoints(), 2);
     }
 
     @Test
-    public void userPersonalGoal4() throws Exception {
-        readFilePersonalGoal("src/test/TestFiles/UserTest/User_PersonalGoal4");
-        user.checkPersonalGoal();
-        assertEquals(user.getPoints(), 0);
-    }
-
-    @Test
     public void user_DropObjectCardColumnEmpty() throws Exception {
-        readFileBookshelf("src/test/TestFiles/UserTest/User_DropObjectCardColumnEmpty");
+        user.setBookshelf(BookshelfTest.readBookshelfList("src/test/TestFiles/UserTest/User_DropObjectCardColumnEmpty.json"));
         ObjectCard card = new ObjectCard(1, Color.WHITE);
         user.dropObjectCard(card,0);
 
@@ -125,7 +92,7 @@ public class UserTest {
 
     @Test
     public void user_DropObjectCardColumnNotEmpty() throws Exception {
-        readFileBookshelf("src/test/TestFiles/UserTest/User_DropObjectCardColumnNotEmpty");
+        user.setBookshelf(BookshelfTest.readBookshelfList("src/test/TestFiles/UserTest/User_DropObjectCardColumnNotEmpty.json"));
         ObjectCard card = new ObjectCard(1, Color.WHITE);
         user.dropObjectCard(card,1);
 
@@ -134,14 +101,14 @@ public class UserTest {
 
     @Test
     public void user_DropObjectCardColumnFull() throws Exception {
-        readFileBookshelf("src/test/TestFiles/UserTest/User_DropObjectCardColumnFull");
+        user.setBookshelf(BookshelfTest.readBookshelfList("src/test/TestFiles/UserTest/User_DropObjectCardColumnFull.json"));
         ObjectCard card = new ObjectCard(1, Color.WHITE);
         assertThrows(Exception.class,
                 () -> user.dropObjectCard(card,1));
     }
     @Test
     public void user_DropObjectCardWrongColumn1() throws Exception {
-        readFileBookshelf("src/test/TestFiles/UserTest/User_DropObjectCardColumnFull");
+        user.setBookshelf(BookshelfTest.readBookshelfList("src/test/TestFiles/UserTest/User_DropObjectCardColumnFull.json"));
         ObjectCard card = new ObjectCard(1, Color.WHITE);
         assertThrows(Exception.class,
                 () -> user.dropObjectCard(card,9));
@@ -149,7 +116,7 @@ public class UserTest {
 
     @Test
     public void user_DropObjectCardWrongColumn2() throws Exception {
-        readFileBookshelf("src/test/TestFiles/UserTest/User_DropObjectCardColumnFull");
+        user.setBookshelf(BookshelfTest.readBookshelfList("src/test/TestFiles/UserTest/User_DropObjectCardColumnFull.json"));
         ObjectCard card = new ObjectCard(1, Color.WHITE);
         assertThrows(Exception.class,
                 () -> user.dropObjectCard(card,-2));

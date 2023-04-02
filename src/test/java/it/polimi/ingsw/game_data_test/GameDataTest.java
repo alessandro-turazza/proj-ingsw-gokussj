@@ -52,5 +52,32 @@ public class GameDataTest {
 
     }
 
+    @Test
+    public void testLoadTokensData() throws IOException, ParseException {
+        String path = "src/data/Tokens_Data.json";
+        gameData.loadTokens(path);
+
+        assertEquals(gameData.getDataTokens().get(0).get(0),8);
+        assertEquals(gameData.getDataTokens().get(0).get(1),4);
+
+        assertEquals(gameData.getDataTokens().get(1).get(0),8);
+        assertEquals(gameData.getDataTokens().get(1).get(1),6);
+        assertEquals(gameData.getDataTokens().get(1).get(2),4);
+
+        assertEquals(gameData.getDataTokens().get(2).get(0),8);
+        assertEquals(gameData.getDataTokens().get(2).get(1),6);
+        assertEquals(gameData.getDataTokens().get(2).get(2),4);
+        assertEquals(gameData.getDataTokens().get(2).get(3),2);
+    }
+
+    @Test
+    public void testLoadIdCommonGoals() throws IOException, ParseException {
+        String path = "src/data/Common_Goals_Setup.json";
+        gameData.loadIdCommonGoals(path);
+
+        assertEquals(gameData.getIdCommonGoals().get(0), 1);
+        assertEquals(gameData.getIdCommonGoals().get(1), 2);
+    }
+
 
 }

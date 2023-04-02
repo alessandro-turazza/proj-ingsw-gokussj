@@ -19,8 +19,9 @@ public class GameData {
     private static ArrayList<DataObjectCard> dataObjectCards;
     private static ArrayList<PersonalGoalCard> personalGoalCards;
     private static int[][] plank_config;
-
     private static ArrayList<RuleCommon> ruleCommons;
+    private static ArrayList<Integer> idCommonGoals;
+    private static ArrayList<ArrayList<Integer>> dataTokens;
 
     private static final int DIM = 9;
 
@@ -39,6 +40,14 @@ public class GameData {
 
     public static ArrayList<RuleCommon> getRuleCommons(){
         return ruleCommons;
+    }
+
+    public static ArrayList<ArrayList<Integer>> getDataTokens(){
+        return dataTokens;
+    }
+
+    public static ArrayList<Integer> getIdCommonGoals(){
+        return idCommonGoals;
     }
 
     public static void loadRuleCommons(){
@@ -126,6 +135,37 @@ public class GameData {
 
     }
 
+    public static void loadTokens(String path) throws IOException, ParseException {
+        dataTokens = new ArrayList<>();
+
+        JSONObject obj = readJson(path);
+        JSONArray list = (JSONArray) obj.get("tokens");
+
+        for(Object o: list){
+            JSONObject jOb = (JSONObject) o;
+            ArrayList<Integer> singleList = new ArrayList<>();
+            JSONArray singleArr = (JSONArray) jOb.get("points");
+
+            for(Object o2: singleArr){
+                singleList.add(Integer.parseInt(o2.toString()));
+            }
+
+            dataTokens.add(singleList);
+
+        }
+
+    }
+
+    public static void loadIdCommonGoals(String path) throws IOException, ParseException {
+        idCommonGoals = new ArrayList<>();
+
+        JSONObject obj = readJson(path);
+        JSONArray list = (JSONArray) obj.get("listIdCommonGoal");
+
+        for(Object o: list){
+            idCommonGoals.add(Integer.parseInt(o.toString()));
+        }
+    }
 
 
 }

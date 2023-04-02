@@ -1,7 +1,6 @@
 package it.polimi.ingsw.game_manager;
 
 import it.polimi.ingsw.common_goal.CommonGoal;
-import it.polimi.ingsw.common_goal.TokenCard;
 import it.polimi.ingsw.game_data.GameData;
 import it.polimi.ingsw.plank.CellPlank;
 import it.polimi.ingsw.plank.Plank;
@@ -15,8 +14,8 @@ public class GameManager {
     private Plank plank;
     private ArrayList<User> users;
     private ArrayList<CommonGoal> commonGoals;
-
     private TurnManager turnManager;
+    private User winner;
 
     public GameManager(ArrayList<User> users){
         this.users = users;
@@ -34,57 +33,44 @@ public class GameManager {
         return commonGoals;
     }
 
+    public User getWinner(){
+        return winner;
+    }
+
     private ArrayList<Integer> generateTokens(){
         ArrayList<Integer> tokens = new ArrayList<>();
 
-        switch(users.size()){
-            case 2: Collections.addAll(tokens,8,4);
-                break;
-            case 3: Collections.addAll(tokens, 8,6,4);
-                break;
-            case 4: Collections.addAll(tokens, 8,6,4,2);
-                break;
-        }
+        tokens.addAll(GameData.getDataTokens().get(users.size()-2));
 
         return tokens;
     }
 
     private void generateCommonGoalList(){
-        int ind1 = -1;
-        int ind2 = -1;
-
-        while(ind1 == ind2){
-            Random random = new Random();
-            ind1 = random.nextInt(12);
-            random = new Random();
-            ind2 = random.nextInt(12);
-        }
-
-        CommonGoal firstGoal = new CommonGoal(1, GameData.getRuleCommons().get(ind1));
-        CommonGoal secondGoal = new CommonGoal(2, GameData.getRuleCommons().get(ind2));
-
-        ArrayList<TokenCard> tokenCards1 = new ArrayList<>();
-
-        ArrayList<Integer> tokens = generateTokens();
-
-        for(int i = 0; i < tokens.size(); i++){
-            TokenCard t = new TokenCard(tokens.get(i), 1);
-            tokenCards1.add(t);
-        }
-
-        ArrayList<TokenCard> tokenCards2 = new ArrayList<>();
-
-        for(int i = 0; i < tokens.size(); i++){
-            TokenCard t = new TokenCard(tokens.get(i), 2);
-            tokenCards2.add(t);
-        }
-
-        firstGoal.setTokenCards(tokenCards1);
-        secondGoal.setTokenCards(tokenCards2);
-
         this.commonGoals = new ArrayList<>();
-        commonGoals.add(firstGoal);
-        commonGoals.add(secondGoal);
+        ArrayList<Integer> indexes = new ArrayList<>();
+        int numCommonGoal = GameData.getIdCommonGoals().size();
+        int i = 0;
+
+        while(i < numCommonGoal){
+            Random random = new Random();
+            int n = random.nextInt(12);
+
+            if(!indexes.contains(n)){
+                indexes.add(n);
+                i++;
+            }
+        }
+
+        for(i = 0; i < numCommonGoal; i++){
+            commonGoals.add(new CommonGoal(GameData.getIdCommonGoals().get(i), GameData.getRuleCommons().get(indexes.get(i))));
+        }
+
+        for(i = 0; i < numCommonGoal; i++){
+            ArrayList<Integer> tokens = generateTokens();
+            commonGoals.get(i).setTokenCardsInteger(tokens, i+1);
+        }
+
+
     }
 
     private void assignPersonalGoal(){
@@ -122,5 +108,14 @@ public class GameManager {
         if(turnManager.updateGame(chosenCard,column)==null)endGame();
         //else notify controller
     }
-    public void endGame(){}//ovviamente da completare
+    public void endGame(){
+        winner = users.get(0);
+        for(User user: users){
+            user.updatePointsAdjacenses();
+            user.checkPersonalGoal();
+
+            if(winner.getPoints() < user.getPoints())
+                winner = user;
+        }
+    }
 }
