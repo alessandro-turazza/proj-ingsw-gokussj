@@ -3,6 +3,7 @@ package it.polimi.ingsw.game_manager;
 import it.polimi.ingsw.common_goal.CommonGoal;
 import it.polimi.ingsw.common_goal.TokenCard;
 import it.polimi.ingsw.game_data.GameData;
+import it.polimi.ingsw.plank.CellPlank;
 import it.polimi.ingsw.plank.Plank;
 import it.polimi.ingsw.user.User;
 
@@ -14,6 +15,8 @@ public class GameManager {
     private Plank plank;
     private ArrayList<User> users;
     private ArrayList<CommonGoal> commonGoals;
+
+    private TurnManager turnManager;
 
     public GameManager(ArrayList<User> users){
         this.users = users;
@@ -115,5 +118,9 @@ public class GameManager {
 
     }
 
-
+    public void updateGame(ArrayList<CellPlank> chosenCard, int column) throws Exception {
+        if(turnManager.updateGame(chosenCard,column)==null)endGame();
+        //else notify controller
+    }
+    public void endGame(){}//ovviamente da completare
 }

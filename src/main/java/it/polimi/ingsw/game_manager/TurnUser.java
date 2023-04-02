@@ -10,6 +10,7 @@ public class TurnUser {
     private int pos;
 
     public TurnUser(ArrayList<User> users) {
+        //first user is in 0 pos
         this.users = users;
         this.pos = 0;
         this.lastTurn=false;
