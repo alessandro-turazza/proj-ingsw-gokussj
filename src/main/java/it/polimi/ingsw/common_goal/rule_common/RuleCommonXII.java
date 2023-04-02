@@ -7,33 +7,6 @@ public class RuleCommonXII implements RuleCommon{
     //Five columns of increasing or decreasing height. Starting from the first column on the left or on the right, each next column must be made of exactly one more tile. Tiles can be of any type.
     @Override
     public boolean newRule(User user) {
-        /*int depths;
-        int pervDepths;
-        for(pervDepths=user.getBookshelf().getNumRow()-1;pervDepths>=1;pervDepths--)
-            if(user.getBookshelf().getBookshelf()[pervDepths][0]==null)
-                break;
-        for(int i=1; i<=user.getBookshelf().getNumColumn()-1; i++){
-            for(depths=user.getBookshelf().getNumRow()-1;depths>=1;depths--)
-                if(user.getBookshelf().getBookshelf()[depths][i]==null)
-                    break;
-            if(depths-pervDepths!=1)
-                break;
-            if(i==user.getBookshelf().getNumColumn()-1)
-                return true;
-        }
-        for(pervDepths=user.getBookshelf().getNumRow()-1;pervDepths>=1;pervDepths--)
-            if(user.getBookshelf().getBookshelf()[pervDepths][0]==null)
-                break;
-        for(int i=user.getBookshelf().getNumColumn()-2; i>=0; i--){
-            for(depths=user.getBookshelf().getNumRow()-1;pervDepths>=1;pervDepths--)
-                if(user.getBookshelf().getBookshelf()[depths][i]==null)
-                    break;
-            if(depths-pervDepths!=1)
-                break;
-            if(i==0)
-                return true;
-        }
-        return false;*/
         int prevHeight=user.getBookshelf().getNumRow();
         int height;
         int startingPoint=0;
