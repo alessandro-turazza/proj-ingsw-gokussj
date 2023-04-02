@@ -22,7 +22,9 @@ public class CommonGoal {
         return tokenCards;
     }
 
-    public TokenCard getTokenCard(){return tokenCards.get(0);}//correggere questo metodo
+    public int getPoint(){
+        return tokenCards.remove(0).getPoints();
+    }
 
     public boolean checkRule(User user){
         return rule.newRule(user);

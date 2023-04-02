@@ -26,7 +26,7 @@ public class TurnManager {
 
         }
         for(CommonGoal commonGoal: commonGoals){
-            if(commonGoal.checkRule(users.activeUser()))users.activeUser().setPoints(users.activeUser().getPoints()+commonGoal.getTokenCard().getPoints());
+            if(commonGoal.checkRule(users.activeUser()))users.activeUser().setPoints(users.activeUser().getPoints()+commonGoal.getPoint());
         }
         plank.checkPlayable();
         if(plank.checkRefull())plank.fillPlank();
