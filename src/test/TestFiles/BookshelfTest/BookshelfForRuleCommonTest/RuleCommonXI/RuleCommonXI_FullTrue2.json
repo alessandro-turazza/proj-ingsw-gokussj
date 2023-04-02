@@ -1,0 +1,22 @@
+{
+  "bookshelf": [
+    {
+      "row":["YELLOW","WHITE","YELLOW","PINK","YELLOW"]
+    },
+    {
+      "row":["GREEN", "YELLOW","YELLOW","PINK","YELLOW"]
+    },
+    {
+      "row":["LIGHT_BLUE", "YELLOW","BLUE","LIGHT_BLUE","WHITE"]
+    },
+    {
+      "row":["YELLOW", "GREEN","PINK","GREEN","WHITE"]
+    },
+    {
+      "row":["PINK", "WHITE","GREEN","YELLOW","BLUE"]
+    },
+    {
+      "row":["WHITE", "YELLOW","BLUE","GREEN","BLUE"]
+    }
+  ]
+}
