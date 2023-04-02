@@ -4,7 +4,6 @@ import it.polimi.ingsw.common_goal.CommonGoal;
 import it.polimi.ingsw.plank.CellPlank;
 import it.polimi.ingsw.plank.Plank;
 import it.polimi.ingsw.user.User;
-import it.polimi.ingsw.user.bookshelf.Bookshelf;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,8 +51,7 @@ public class TurnManager {
     }
 
     public boolean checkDrop(int numCard,int column){
-        if(users.activeUser().getBookshelf().checkColumn(column)+1>=numCard)return true;
-        return false;
+        return users.activeUser().getBookshelf().checkColumn(column) + 1 >= numCard;
     }
 
 

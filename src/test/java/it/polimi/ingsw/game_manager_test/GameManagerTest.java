@@ -30,7 +30,7 @@ public class GameManagerTest {
     }
 
     @Test
-    public void startGameTest2Players() throws IOException, ParseException {
+    public void startGameTest2Players() {
         usersTest = new ArrayList<>();
         usersTest.add(new User("User1"));
         usersTest.add(new User("User2"));
@@ -60,7 +60,7 @@ public class GameManagerTest {
     }
 
     @Test
-    public void startGameTest3Players() throws IOException, ParseException {
+    public void startGameTest3Players() {
         usersTest = new ArrayList<>();
         usersTest.add(new User("User1"));
         usersTest.add(new User("User2"));
@@ -91,7 +91,7 @@ public class GameManagerTest {
     }
 
     @Test
-    public void startGameTest4Players() throws IOException, ParseException {
+    public void startGameTest4Players() {
         usersTest = new ArrayList<>();
         usersTest.add(new User("User1"));
         usersTest.add(new User("User2"));

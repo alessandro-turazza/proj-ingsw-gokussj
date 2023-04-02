@@ -38,11 +38,8 @@ public class GameManager {
     }
 
     private ArrayList<Integer> generateTokens(){
-        ArrayList<Integer> tokens = new ArrayList<>();
 
-        tokens.addAll(GameData.getDataTokens().get(users.size()-2));
-
-        return tokens;
+        return new ArrayList<>(GameData.getDataTokens().get(users.size() - 2));
     }
 
     private void generateCommonGoalList(){

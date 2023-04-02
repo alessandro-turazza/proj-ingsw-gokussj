@@ -9,12 +9,9 @@ import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static it.polimi.ingsw.object_card.ObjectCard.convertToColor;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CardBagTest {

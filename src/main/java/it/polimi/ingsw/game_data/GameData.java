@@ -68,8 +68,7 @@ public class GameData {
 
     private static JSONObject readJson(String path) throws IOException, ParseException {
         FileReader fr = new FileReader(path);
-        JSONObject obj = (JSONObject) new JSONParser().parse(fr);
-        return obj;
+        return (JSONObject) new JSONParser().parse(fr);
     }
 
     public static void loadObjectCards(String path) throws IOException, ParseException {
