@@ -6,6 +6,7 @@ import it.polimi.ingsw.user.bookshelf.Bookshelf;
 import it.polimi.ingsw.user.bookshelf.CellShelf;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RuleCommonSupportClass {
 
@@ -42,10 +43,11 @@ public class RuleCommonSupportClass {
             if(checkColorsRow(user, i)==null)
                 return counter>=lines;
             if(greaterOrLesser){
-                if(checkColorsRow(user, i).size()>=colors)
+                if(Objects.requireNonNull(checkColorsRow(user, i)).size()>=colors)
                     counter++;
-            } else if(checkColorsRow(user, i).size()<=colors)
-                        counter++;
+            } else if(Objects.requireNonNull(checkColorsRow(user, i)).size()<=colors) {
+                counter++;
+            }
             i--;
         }
         return counter>=lines;
@@ -57,9 +59,9 @@ public class RuleCommonSupportClass {
        while(i>=0){
            if (checkColorsColumn(user, i)!=null) {
                if (greaterOrLesser) {
-                   if (checkColorsColumn(user, i).size() >= colors)
+                   if (Objects.requireNonNull(checkColorsColumn(user, i)).size() >= colors)
                        counter++;
-               } else if (checkColorsColumn(user, i).size() <= colors)
+               } else if (Objects.requireNonNull(checkColorsColumn(user, i)).size() <= colors)
                    counter++;
            }
            i--;
