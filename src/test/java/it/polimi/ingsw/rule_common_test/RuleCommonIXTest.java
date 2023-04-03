@@ -30,7 +30,7 @@ public class RuleCommonIXTest extends RuleCommonTest{
     }
 
     @Test
-    public void ruleCommonVI2() throws Exception {
+    public void ruleCommonIX2() throws Exception {
         CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIX/RuleCommonIX_FullFalse.json");
         Bookshelf b = new Bookshelf(bs);
         user.setBookshelf(b);
@@ -38,7 +38,7 @@ public class RuleCommonIXTest extends RuleCommonTest{
     }
 
     @Test
-    public void ruleCommonVI3() throws Exception {
+    public void ruleCommonIX3() throws Exception {
         CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIX/RuleCommonIX_NotFullTrue.json");
         Bookshelf b = new Bookshelf(bs);
         user.setBookshelf(b);
@@ -46,7 +46,7 @@ public class RuleCommonIXTest extends RuleCommonTest{
     }
 
     @Test
-    public void ruleCommonVI4() throws Exception {
+    public void ruleCommonIX4() throws Exception {
         CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonIX/RuleCommonIX_NotFullFalse.json");
         Bookshelf b = new Bookshelf(bs);
         user.setBookshelf(b);

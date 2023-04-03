@@ -70,6 +70,7 @@ public class RuleCommonSupportClass {
    public static boolean countNumberAdjacences(User user, int groups, int tiels){
        ArrayList<Integer> adj = user.getBookshelf().numberAdjacenses();
        adj.removeIf(i -> i < tiels);
+
        return adj.size()>=groups;
    }
 
