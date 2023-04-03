@@ -22,6 +22,8 @@ public class RuleCommonXII implements RuleCommon{
                     break;
                 height--;
             }
+            if(height==0)
+                return false;
             if(prevHeight-height!=1)
                 break;
             prevHeight=height;
@@ -42,14 +44,15 @@ public class RuleCommonXII implements RuleCommon{
                     break;
                 height--;
             }
+            if(height==1)
+                return false;
             if(prevHeight-height!=1)
                 break;
             prevHeight=height;
-            if(j==user.getBookshelf().getNumColumn()-1)
+            if(j==1)
                 return true;
         }
         return false;
-
     }
 
 

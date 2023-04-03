@@ -51,4 +51,51 @@ public class RuleCommonXIITest extends RuleCommonTest{
         user.setBookshelf(b);
         assertFalse(ruleCommon.newRule(user));
     }
+
+    @Test
+    public void ruleCommonXII5() throws Exception {
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonXII/RuleCommonXII_FromLeftFalse3.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
+        assertFalse(ruleCommon.newRule(user));
+    }
+
+    @Test
+    public void ruleCommonXII6() throws Exception {
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonXII/RuleCommonXII_FromRightTrue1.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
+        assertTrue(ruleCommon.newRule(user));
+    }
+
+    @Test
+    public void ruleCommonXII7() throws Exception {
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonXII/RuleCommonXII_FromRightTrue2.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
+        assertTrue(ruleCommon.newRule(user));
+    }
+    @Test
+    public void ruleCommonXII8() throws Exception {
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonXII/RuleCommonXII_FromRightFalse1.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
+        assertFalse(ruleCommon.newRule(user));
+    }
+
+    @Test
+    public void ruleCommonXII9() throws Exception {
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonXII/RuleCommonXII_FromRightFalse2.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
+        assertFalse(ruleCommon.newRule(user));
+    }
+
+    @Test
+    public void ruleCommonXII10() throws Exception {
+        CellShelf[][] bs = BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/BookshelfForRuleCommonTest/RuleCommonXII/RuleCommonXII_FromRightFalse3.json");
+        Bookshelf b = new Bookshelf(bs);
+        user.setBookshelf(b);
+        assertFalse(ruleCommon.newRule(user));
+    }
 }

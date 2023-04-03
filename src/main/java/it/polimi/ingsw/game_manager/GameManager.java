@@ -66,8 +66,6 @@ public class GameManager {
             ArrayList<Integer> tokens = generateTokens();
             commonGoals.get(i).setTokenCardsInteger(tokens, i+1);
         }
-
-
     }
 
     private void assignPersonalGoal(){
