@@ -45,8 +45,10 @@ public class User {
     public String getName() {
         return name;
     }
-
     public int getPoints() {
+        return points;
+    }
+    public int getTotalPointsToken() {
         int result=0;
         for(Integer point:pointsToken)
             result+=point;
