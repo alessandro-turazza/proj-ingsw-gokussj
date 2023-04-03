@@ -29,6 +29,7 @@ public class CommonGoal {
     }
 
     public int getPoint(){
+        if(tokenCards.size()==0)return 0;
         return tokenCards.remove(0).getPoints();
     }
 

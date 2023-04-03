@@ -9,15 +9,22 @@ import java.util.ArrayList;
 public class User {
     private String name;
     private int points;
+    private ArrayList<Integer> pointsToken;
     private PersonalGoalCard personalGoal;
     private Bookshelf bookshelf;
 
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setPoints(int points) {
-        this.points = points;
+    public void initializePointsToken(int numToken){
+        for(int i=0;i<numToken;i++)
+            pointsToken.add(0);
+    }
+    public void setPointsToken(int points,int index) {
+        this.pointsToken.set(points,index);
+    }
+    public Integer getPointsToken(int index) {
+        return pointsToken.get(index);
     }
 
     public void setBookshelf(Bookshelf bookshelf) {
@@ -26,7 +33,8 @@ public class User {
 
     public User(String name) {
         this.name = name;
-        this.points = 0;
+        this.pointsToken = new ArrayList<>();
+        this.points=0;
         this.bookshelf = new Bookshelf();
     }
 
@@ -39,7 +47,10 @@ public class User {
     }
 
     public int getPoints() {
-        return points;
+        int result=0;
+        for(Integer point:pointsToken)
+            result+=point;
+        return result;
     }
 
     public PersonalGoalCard getPersonalGoal() {
