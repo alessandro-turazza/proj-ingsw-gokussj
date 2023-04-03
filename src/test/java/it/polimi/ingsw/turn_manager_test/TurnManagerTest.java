@@ -37,7 +37,7 @@ public class TurnManagerTest {
         plank.initializePlank(GameData.getPlank_config(),users.size());
         plank.initializeCardBag(GameData.getDataObjectCards());
         plank.fillPlank();
-        GameData.loadTokens("src/data/Tokens_data.json");
+        GameData.loadTokens("src/data/Tokens_Data.json");
         ArrayList<Integer> tokenCards=GameData.getDataTokens().get(users.size()-2);
         ArrayList<CommonGoal> commonGoals=new ArrayList<>();
         commonGoals.add(new CommonGoal(1,new RuleCommonXII()));
