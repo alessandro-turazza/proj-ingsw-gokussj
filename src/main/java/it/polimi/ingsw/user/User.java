@@ -21,7 +21,7 @@ public class User {
             pointsToken.add(0);
     }
     public void setPointsToken(int points,int index) {
-        this.pointsToken.set(points,index);
+        this.pointsToken.set(index,points);
     }
     public Integer getPointsToken(int index) {
         return pointsToken.get(index);

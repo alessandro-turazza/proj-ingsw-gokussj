@@ -16,7 +16,11 @@ public class TurnManager {
 
     private ArrayList<CommonGoal> commonGoals;
 
-    public TurnManager(ArrayList<User> users,Plank plank, ArrayList<CommonGoal> commonGoals) {
+    public ArrayList<CommonGoal> getCommonGoals() {
+        return commonGoals;
+    }
+
+    public TurnManager(ArrayList<User> users, Plank plank, ArrayList<CommonGoal> commonGoals) {
         for(User user:users)user.initializePointsToken(commonGoals.size());
         this.users = new TurnUser(users);
         this.plank=plank;
@@ -62,13 +66,13 @@ public class TurnManager {
         if(!checkDrag(chosenCard))throw new Exception("Ripetere scelta, tessere non valide");
         if(!checkDrop(chosenCard.size(),column))throw new Exception("Ripetere scelta, troppe tessere");
         for(CellPlank cellPlank:chosenCard){
-            plank.dragObjectCard(cellPlank);
-            users.activeUser().dropObjectCard(cellPlank.getObjectCard(),column);
+            users.activeUser().dropObjectCard(plank.dragObjectCard(cellPlank),column);
         }
         if(users.activeUser().getBookshelf().isFull())users.lastTurn();
         for(int index=0;index<commonGoals.size();index++){
             if(users.activeUser().getPointsToken(index)==0){
-                if(commonGoals.get(index).checkRule(users.activeUser()))users.activeUser().setPointsToken(commonGoals.get(index).getPoint(),index);
+                if(commonGoals.get(index).checkRule(users.activeUser()))
+                    users.activeUser().setPointsToken(commonGoals.get(index).getPoint(), index);
             }
         }
         plank.checkPlayable();

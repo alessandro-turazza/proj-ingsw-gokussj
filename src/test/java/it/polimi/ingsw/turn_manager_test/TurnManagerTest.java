@@ -1,6 +1,8 @@
 package it.polimi.ingsw.turn_manager_test;
 
 import it.polimi.ingsw.common_goal.CommonGoal;
+import it.polimi.ingsw.common_goal.rule_common.RuleCommonV;
+import it.polimi.ingsw.common_goal.rule_common.RuleCommonXII;
 import it.polimi.ingsw.game_data.GameData;
 import it.polimi.ingsw.game_manager.TurnManager;
 import it.polimi.ingsw.object_card.Color;
@@ -9,6 +11,8 @@ import it.polimi.ingsw.plank.CellPlank;
 import it.polimi.ingsw.plank.Plank;
 import it.polimi.ingsw.user.User;
 import it.polimi.ingsw.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.user.bookshelf.CellShelf;
+import it.polimi.ingsw.user_test.BookshelfTest;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +37,13 @@ public class TurnManagerTest {
         plank.initializePlank(GameData.getPlank_config(),users.size());
         plank.initializeCardBag(GameData.getDataObjectCards());
         plank.fillPlank();
+        GameData.loadTokens("src/data/Tokens_data.json");
+        ArrayList<Integer> tokenCards=GameData.getDataTokens().get(users.size()-2);
         ArrayList<CommonGoal> commonGoals=new ArrayList<>();
+        commonGoals.add(new CommonGoal(1,new RuleCommonXII()));
+        commonGoals.add(new CommonGoal(2,new RuleCommonV()));
+        commonGoals.get(0).setTokenCardsInteger(tokenCards,1);
+        commonGoals.get(1).setTokenCardsInteger(tokenCards,2);
         turnManager=new TurnManager(users,plank,commonGoals);
         objectCard=new ObjectCard(1, Color.WHITE);
     }
@@ -139,8 +149,7 @@ public class TurnManagerTest {
     }
     @Test
     public void turnManagerTest_checkDrop(){
-        for(int i=0;i<turnManager.getUsers().activeUser().getBookshelf().getNumColumn();i++)
-        assertTrue(turnManager.checkDrop(3,i));
+        for(int i=0;i<turnManager.getUsers().activeUser().getBookshelf().getNumColumn();i++)assertTrue(turnManager.checkDrop(3,i));
     }
     @Test
     public void turnManagerTest_checkDrop2() throws Exception {
@@ -172,19 +181,36 @@ public class TurnManagerTest {
         //1 player start
         ArrayList<CellPlank> deck=new ArrayList<>();
         deck.add(turnManager.getPlank().getBoard()[2][1]);
+        Color color=deck.get(0).getObjectCard().getColor();
+        int id=deck.get(0).getObjectCard().getId();
         User user=turnManager.getUsers().activeUser();
         turnManager.updateGame(deck,0);
-        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-1,0),deck.get(0).getObjectCard());
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-1,0).getColor(),color);
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-1,0).getId(),id);
         //2 player start
         deck=new ArrayList<>();
+        int[] ids=new int[3];
+        Color[] colors=new Color[3];
         deck.add((turnManager.getPlank().getBoard()[1][2]));
+        colors[0]=deck.get(0).getObjectCard().getColor();
+        ids[0]=deck.get(0).getObjectCard().getId();
         deck.add((turnManager.getPlank().getBoard()[2][2]));
+        colors[1]=deck.get(1).getObjectCard().getColor();
+        ids[1]=deck.get(1).getObjectCard().getId();
         deck.add((turnManager.getPlank().getBoard()[3][2]));
+        colors[2]=deck.get(2).getObjectCard().getColor();
+        ids[2]=deck.get(2).getObjectCard().getId();
         user=turnManager.getUsers().activeUser();
         turnManager.updateGame(deck,0);
-        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-1,0),deck.get(0).getObjectCard());
-        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-2,0),deck.get(1).getObjectCard());
-        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-3,0),deck.get(2).getObjectCard());
+
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-1,0).getColor(),colors[0]);
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-1,0).getId(),ids[0]);
+
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-2,0).getColor(),colors[1]);
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-2,0).getId(),ids[1]);
+
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-3,0).getColor(),colors[2]);
+        assertEquals(user.getBookshelf().getObjectCard(user.getBookshelf().getNumRow()-3,0).getId(),ids[2]);
         //3 player start
         deck=new ArrayList<>();
         deck.add((turnManager.getPlank().getBoard()[2][3]));
@@ -263,6 +289,51 @@ public class TurnManagerTest {
         deck=new ArrayList<>();
         deck.add((turnManager.getPlank().getBoard()[0][4]));
         assertNull(turnManager.updateGame(deck,0));
-
+    }
+    @Test
+    public void simulateUpdateGameCommonGoal() throws Exception {
+        CellShelf[][] cellPlanks= BookshelfTest.readBookshelfMatrix("src/test/TestFiles/TurnManagerTest/TurnManagerTestCommonGoal.json");
+        Bookshelf bookshelfFirstPlayer=new Bookshelf(cellPlanks);
+        ArrayList<CellPlank> deck=new ArrayList<>();
+        turnManager.getUsers().activeUser().setBookshelf(bookshelfFirstPlayer);
+        int point= turnManager.getCommonGoals().get(0).getTokenCards().get(0).getPoints();
+        assertEquals(turnManager.getUsers().activeUser().getPointsToken(0),0);
+        //1 player start
+        deck.add((turnManager.getPlank().getBoard()[8][4]));
+        User firstUser=turnManager.getUsers().activeUser();
+        turnManager.updateGame(deck, 4);//complete commonGoal
+        assertEquals(firstUser.getTotalPointsToken(),point);
+        //2 player start
+        deck=new ArrayList<>();
+        deck.add(turnManager.getPlank().getBoard()[2][1]);
+        ObjectCard objectCard=new ObjectCard(1,deck.get(0).getObjectCard().getColor());
+        for(int row=0;row<bookshelfFirstPlayer.getNumRow();row++){
+            turnManager.getUsers().activeUser().getBookshelf().insertBookshelf(objectCard,0);
+        }
+        for(int row=0;row<bookshelfFirstPlayer.getNumRow()-1;row++){
+            turnManager.getUsers().activeUser().getBookshelf().insertBookshelf(objectCard,bookshelfFirstPlayer.getNumColumn()-1);
+        }
+        point= turnManager.getCommonGoals().get(1).getTokenCards().get(0).getPoints();
+        assertEquals(turnManager.getUsers().activeUser().getPointsToken(1),0);
+        User secondUser=turnManager.getUsers().activeUser();
+        turnManager.updateGame(deck,bookshelfFirstPlayer.getNumColumn()-1);//complete commonGoal
+        assertEquals(secondUser.getTotalPointsToken(),point);
+        //3 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[2][3]));
+        assertNotNull(turnManager.updateGame(deck,0));
+        //4 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[0][4]));
+        assertNotNull(turnManager.updateGame(deck,0));
+        //1 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[4][0]));
+        assertNotNull(turnManager.updateGame(deck,1));
+        //2 player start
+        deck=new ArrayList<>();
+        deck.add((turnManager.getPlank().getBoard()[4][8]));
+        assertNotNull(turnManager.updateGame(deck,2));
+        assertEquals(secondUser.getTotalPointsToken(),point);
     }
 }
