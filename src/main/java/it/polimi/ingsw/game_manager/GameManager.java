@@ -13,12 +13,29 @@ import java.util.Random;
 public class GameManager {
     private Plank plank;
     private ArrayList<User> users;
+    private int numUser;
+    private int idGame;
     private ArrayList<CommonGoal> commonGoals;
     private TurnManager turnManager;
     private User winner;
 
     public GameManager(ArrayList<User> users){
         this.users = users;
+    }
+
+    public GameManager(User startUser, int numUser, int codGame){
+        users = new ArrayList<>();
+        users.add(startUser);
+        this.numUser = numUser;
+        this.idGame = codGame;
+    }
+
+    public int getNumUser(){
+        return numUser;
+    }
+
+    public int getIdGame() {
+        return idGame;
     }
 
     public Plank getPlank() {
