@@ -10,11 +10,11 @@ public class ClientMain {
         clientList = new ArrayList<>();
 
         Client c3 = new Client("User3", false);
-        c3.setIdGame(0);
+        c3.setIdGame(1);
         Client c4 = new Client("User4", false);
-        c4.setIdGame(1);
+        c4.setIdGame(2);
         Client c5 = new Client("User5", false);
-        c5.setIdGame(0);
+        c5.setIdGame(1);
 
         clientList.add(c3);
         clientList.add(c4);

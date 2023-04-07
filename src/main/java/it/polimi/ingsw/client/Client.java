@@ -2,8 +2,9 @@ package it.polimi.ingsw.client;
 
 import org.json.simple.JSONObject;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 public class Client extends Thread{
@@ -34,14 +35,17 @@ public class Client extends Thread{
         if(creator){
             try {
                 Socket socket = new Socket(ipServer,PORT);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
+                //PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
+                BufferedWriter out = new BufferedWriter(new OutputStreamWriter( socket.getOutputStream()));
 
                 JSONObject obj = new JSONObject();
                 obj.put("command","new_game");
                 obj.put("name",name);
                 obj.put("numPlayers",  numPlayers);
 
-                out.println(obj.toJSONString());
+                out.write(obj.toJSONString());
+                out.flush();
+                //out.close();
                 //socket.close();
 
             } catch (IOException e) {
@@ -50,15 +54,20 @@ public class Client extends Thread{
         }else{
             try {
                 Socket socket = new Socket(ipServer,PORT);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
+                //PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
+                BufferedWriter out = new BufferedWriter(new OutputStreamWriter( socket.getOutputStream()));
 
                 JSONObject obj = new JSONObject();
                 obj.put("command","enter_in_game");
                 obj.put("name",name);
                 obj.put("idGame",  idGame);
 
-                out.println(obj.toJSONString());
-                //socket.close();
+                out.write(obj.toJSONString());
+                out.flush();
+                out.close();
+
+                //out.print(obj);
+                socket.close();
 
             } catch (IOException e) {
                 throw new RuntimeException(e);

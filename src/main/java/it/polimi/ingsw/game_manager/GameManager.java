@@ -114,6 +114,8 @@ public class GameManager {
 
         Collections.shuffle(users);
 
+        System.out.println("Game " + idGame +" starts");
+
     }
 
     public void updateGame(ArrayList<CellPlank> chosenCard, int column) throws Exception {
