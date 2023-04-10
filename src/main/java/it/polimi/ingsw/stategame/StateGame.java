@@ -20,15 +20,17 @@ public class StateGame {
 
 
     public StateGame(GameManager gameManager) {
-        this.usersClone=new ArrayList<>();
+        usersClone=new ArrayList<>();
+
         for(User user: gameManager.getUsers()){
             User userClone=new User(user.getName());
             Bookshelf bookshelfUser=user.getBookshelf();
             CellShelf[][] cellShelves=new CellShelf[bookshelfUser.getNumRow()][bookshelfUser.getNumColumn()];
             for(int i = 0; i < bookshelfUser.getNumRow(); i++){
                 for(int j = 0; j < bookshelfUser.getNumColumn(); j++){
+                    if(bookshelfUser.getObjectCard(i,j)!=null){
                     ObjectCard objectCardUser=new ObjectCard(bookshelfUser.getObjectCard(i,j).getId(),bookshelfUser.getObjectCard(i,j).getColor());
-                    cellShelves[i][j]=new CellShelf(objectCardUser);
+                    cellShelves[i][j]=new CellShelf(objectCardUser);}
                 }
             }
             userClone.setBookshelf(new Bookshelf(cellShelves));
@@ -45,10 +47,13 @@ public class StateGame {
         CellPlank[][] boardClone=new CellPlank[gameManager.getPlank().getDIM()][gameManager.getPlank().getDIM()];
         for(int i = 0; i < gameManager.getPlank().getDIM(); i++) {
             for (int j = 0; j < gameManager.getPlank().getDIM(); j++) {
-                ObjectCard objectCard=new ObjectCard(board[i][j].getObjectCard().getId(),board[i][j].getObjectCard().getColor());
-                boardClone[i][j]=new CellPlank(objectCard,i,j);
+                if(board[i][j]!=null && board[i][j].getObjectCard()!=null){
+                    ObjectCard objectCard=new ObjectCard(board[i][j].getObjectCard().getId(),board[i][j].getObjectCard().getColor());
+                    boardClone[i][j]=new CellPlank(objectCard,i,j);
+                }
             }
         }
+        plankClone=new Plank();
         plankClone.setBoard(boardClone);
         commonGoalsClone=new ArrayList<>();
         for(CommonGoal commonGoal:gameManager.getCommonGoals())
@@ -57,9 +62,14 @@ public class StateGame {
     }
 
 
-    public String messageStateGame(GameManager gameManager){
-        new StateGame(gameManager);
+    public String messageStateGame(){
         return new Gson().toJson(this);
+    }
+    public String messagePlank(){
+        return new Gson().toJson(this.plankClone);
+    }
+    public String messageUser(){
+        return new Gson().toJson(this.usersClone);
     }
 
     public ArrayList<User> getUsersClone() {

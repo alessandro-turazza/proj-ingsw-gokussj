@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.game_manager.GameManager;
+import it.polimi.ingsw.stategame.StateGame;
 import it.polimi.ingsw.user.User;
 import org.json.simple.JSONObject;
 
@@ -28,9 +29,10 @@ public class ServerSender {
 
     public void sendInitConfig(GameManager gm, User user){
         JSONObject obj = new JSONObject();
+        StateGame stateGame=new StateGame(gm);
         obj.put("response","new_turn");
         obj.put("active_user", user.getName());
-        obj.put("plank", gm.getPlank());
+        obj.put("plank", stateGame.messagePlank());
         out.println(obj.toJSONString());
     }
 }

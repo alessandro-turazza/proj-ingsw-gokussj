@@ -105,6 +105,7 @@ public class Bookshelf {
 
     }
     public ObjectCard getObjectCard(int row,int column){
+        if(bookshelf[row][column]==null)return null;
         return bookshelf[row][column].getObjectCard();
     }
 
