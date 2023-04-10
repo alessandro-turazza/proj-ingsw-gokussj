@@ -28,8 +28,9 @@ public class Server {
         return gameList;
     }
 
-    public synchronized static void insertNewGame(ServerThread st, User user, int numPlayers){
+    public synchronized static int insertNewGame(ServerThread st, User user, int numPlayers){
         gameList.add(new ServerGame(st, user, numPlayers, gameList.size()+1));
+        return gameList.size();
     }
 
     public synchronized static ServerGame getServerGameFromId(int id){
@@ -46,6 +47,8 @@ public class Server {
     public static void main(String[] args) throws IOException, ParseException {
         gameList = new ArrayList<>();
         serverSocket = new ServerSocket(PORT);
+
+        System.out.println("Server ON");
 
         loadDatas();
 

@@ -101,14 +101,22 @@ public class GameManager {
             }
         }
     }
-    public void startGame(){
 
+    public boolean addNewPlayer(User user){
+        if(users.size() < numUser){
+            users.add(user);
+            return true;
+        }
+        return false;
+    }
+    public void startGame(){
         this.plank = new Plank();
         plank.initializePlank(GameData.getPlank_config(), users.size());
         plank.initializeCardBag(GameData.getDataObjectCards());
         plank.fillPlank();
 
         generateCommonGoalList();
+        this.turnManager = new TurnManager(users, plank, commonGoals);
 
         assignPersonalGoal();
 
@@ -116,6 +124,10 @@ public class GameManager {
 
         System.out.println("Game " + idGame +" starts");
 
+    }
+
+    public User nextUserTurn(){
+        return turnManager.getUsers().next();
     }
 
     public void updateGame(ArrayList<CellPlank> chosenCard, int column) throws Exception {

@@ -10,9 +10,9 @@ public class JSONServerVisitor implements VisitorServer{
         m.setUser(new User(obj.get("name").toString()));
         m.setNumPlayer(Integer.parseInt(obj.get("numPlayers").toString()));
     }
-
     @Override
-    public void visitMessageAddPlayer() {
-
+    public void visitMessageAddPlayer(MessageEnterInGame m, JSONObject obj) {
+        m.setUser(new User(obj.get("name").toString()));
+        m.setIdGame(Integer.parseInt(obj.get("idGame").toString()));
     }
 }

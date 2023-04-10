@@ -4,5 +4,5 @@ import org.json.simple.JSONObject;
 
 public interface VisitorServer {
     public void visitMessageNewGame(MessageStartGameServer m, JSONObject obj);
-    public void visitMessageAddPlayer();
+    public void visitMessageAddPlayer(MessageEnterInGame m, JSONObject obj);
 }

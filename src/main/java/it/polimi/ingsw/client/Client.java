@@ -1,10 +1,11 @@
 package it.polimi.ingsw.client;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Client extends Thread{
@@ -35,41 +36,53 @@ public class Client extends Thread{
         if(creator){
             try {
                 Socket socket = new Socket(ipServer,PORT);
-                //PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-                BufferedWriter out = new BufferedWriter(new OutputStreamWriter( socket.getOutputStream()));
+                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
 
+                String s;
                 JSONObject obj = new JSONObject();
                 obj.put("command","new_game");
                 obj.put("name",name);
                 obj.put("numPlayers",  numPlayers);
 
-                out.write(obj.toJSONString());
-                out.flush();
-                //out.close();
-                //socket.close();
 
-            } catch (IOException e) {
+                out.println(obj.toJSONString());
+
+                String resp = input.readLine();
+                JSONObject r = (JSONObject) new JSONParser().parse(resp);
+
+                System.out.println(r.get("response"));
+
+
+
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }else{
             try {
                 Socket socket = new Socket(ipServer,PORT);
-                //PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-                BufferedWriter out = new BufferedWriter(new OutputStreamWriter( socket.getOutputStream()));
+                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
 
                 JSONObject obj = new JSONObject();
                 obj.put("command","enter_in_game");
                 obj.put("name",name);
                 obj.put("idGame",  idGame);
 
-                out.write(obj.toJSONString());
-                out.flush();
-                out.close();
+                out.println(obj.toJSONString());
 
-                //out.print(obj);
-                socket.close();
+                String s = input.readLine();
 
-            } catch (IOException e) {
+                JSONObject r = (JSONObject) new JSONParser().parse(s);
+
+                System.out.println(r.get("response"));
+
+                s = input.readLine();
+
+                System.out.println(s);
+
+
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }

@@ -30,4 +30,28 @@ public class ServerGame {
         return idGame;
     }
 
+    public synchronized boolean addNewPlayer(ServerThread st, User user){
+        boolean res = gameManager.addNewPlayer(user);
+
+        if(res){
+            players.add(st);
+            System.out.println(user.getName() + " has just joined game " + idGame);
+
+            if(gameManager.getNumUser() == players.size()){
+                gameManager.startGame();
+                st.setStartGame();
+            }
+        }
+
+        return res;
+    }
+
+    public synchronized void firstTurn(){
+        User startUser = gameManager.nextUserTurn();
+
+        for(ServerThread st: players){
+            st.getSs().sendInitConfig(gameManager, startUser);
+        }
+    }
+
 }

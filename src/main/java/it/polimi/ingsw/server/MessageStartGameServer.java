@@ -7,6 +7,8 @@ public class MessageStartGameServer implements MessageServer{
     private User user;
     private int numPlayer;
 
+    private int idGame;
+
     private ServerThread serverThread;
 
     public MessageStartGameServer(ServerThread serverThread) {
@@ -29,9 +31,20 @@ public class MessageStartGameServer implements MessageServer{
         this.numPlayer = numPlayer;
     }
 
+    public int getIdGame() {
+        return idGame;
+    }
+
+    public void setIdGame(int idGame) {
+        this.idGame = idGame;
+    }
+
     @Override
     public void accept(VisitorServer v, JSONObject obj) {
         v.visitMessageNewGame(this, obj);
-        Server.insertNewGame(serverThread, user, numPlayer);
+        idGame = Server.insertNewGame(serverThread, user, numPlayer);
+        serverThread.setIdGame(idGame);
+        serverThread.getSs().sendOk();
+        serverThread.setUser(user);
     }
 }
