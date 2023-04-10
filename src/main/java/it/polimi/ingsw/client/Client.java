@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Client extends Thread{
+public class Client extends Thread implements Runnable{
     private final int PORT = 4500;
     private final String ipServer= "localhost";
     private String name;
@@ -30,6 +30,7 @@ public class Client extends Thread{
         if(numPlayers >= 2 && numPlayers <= 4)
             this.numPlayers = numPlayers;
     }
+
 
     @Override
     public void run() {
@@ -63,6 +64,7 @@ public class Client extends Thread{
                 Socket socket = new Socket(ipServer,PORT);
                 BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
+
 
                 JSONObject obj = new JSONObject();
                 obj.put("command","enter_in_game");
