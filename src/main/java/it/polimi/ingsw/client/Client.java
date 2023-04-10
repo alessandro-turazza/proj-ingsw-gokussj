@@ -17,6 +17,8 @@ public class Client extends Thread implements Runnable{
     private int numPlayers;
     private boolean creator;
 
+    private ClientSender sender;
+
     public Client(String name, boolean creator){
         this.name = name;
         this.creator = creator;
@@ -34,61 +36,57 @@ public class Client extends Thread implements Runnable{
 
     @Override
     public void run() {
-        if(creator){
             try {
                 Socket socket = new Socket(ipServer,PORT);
                 BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-
-                String s;
-                JSONObject obj = new JSONObject();
-                obj.put("command","new_game");
-                obj.put("name",name);
-                obj.put("numPlayers",  numPlayers);
-
-
-                out.println(obj.toJSONString());
+                sender =new ClientSender(socket);
+                if(creator)
+                    sender.sendCreateGame(numPlayers,name);
+                else sender.sendJoinGame(idGame, name);
 
                 String resp = input.readLine();
-                JSONObject r = (JSONObject) new JSONParser().parse(resp);
+                JSONObject obj = (JSONObject) new JSONParser().parse(resp);
 
-                System.out.println(r.get("response"));
+                String response = (String) obj.get("response");
 
+                MessageClient ms;
+                if(response.equals("OK")){
+                    ms= new MessageOKClient();                  //dovrà semplicemente confermare che ha il permesso di procedere (in sostanza non farà quasi nulla)
+                    ms.accept(new JSONClientVisitor(), obj);
+                }else if (response.equals("KO")){
+                    ms = new MessageKOClient();                 //dovrà interrompere il processo e mandare un messaggio d'errore (e al più killare il thread e farne partire uno nuovo)
+                    ms.accept(new JSONClientVisitor(), obj);
+                }
+                while (true){
+                    resp = input.readLine();
+                    obj = (JSONObject) new JSONParser().parse(resp);
+                    String message = (String) obj.get("response");
 
+                    if(message.equals("new_turn")){
+                        ms = new MessageNewTurnClient();
+                        ms.accept(new JSONClientVisitor(), obj);
+                        if(((MessageNewTurnClient)ms).getUsername().equals(name)){
+                            do {
+                                //attende i comandi della view, che con un metodo caricheranno la drag e la drop sul Client Sender
+                                sender.sendDragAndDrop();
 
+                                resp = input.readLine();
+                                obj = (JSONObject) new JSONParser().parse(resp);
+                                message = (String) obj.get("response");
+
+                            }while(response.equals("OK"));
+                        }
+                    }else{throw new RuntimeException();}
+                }
+
+               // System.out.println(r.get("response"));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-        }else{
-            try {
-                Socket socket = new Socket(ipServer,PORT);
-                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
 
-
-                JSONObject obj = new JSONObject();
-                obj.put("command","enter_in_game");
-                obj.put("name",name);
-                obj.put("idGame",  idGame);
-
-                out.println(obj.toJSONString());
-
-                String s = input.readLine();
-
-                JSONObject r = (JSONObject) new JSONParser().parse(s);
-
-                System.out.println(r.get("response"));
-
-                s = input.readLine();
-
-                System.out.println(s);
-
-
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
         }
 
         //while (true);
     }
-}
+

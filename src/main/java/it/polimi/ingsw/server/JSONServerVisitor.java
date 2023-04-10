@@ -15,4 +15,10 @@ public class JSONServerVisitor implements VisitorServer{
         m.setUser(new User(obj.get("name").toString()));
         m.setIdGame(Integer.parseInt(obj.get("idGame").toString()));
     }
+
+    public  void visitMessageDragAndDrop(MessageDragAndDropServer m, JSONObject obj){
+        m.setColumn((Integer) obj.get("column"));
+        m.setX_coordinate((Integer) obj.get("x_coordinate"));
+        m.setY_coordinate((Integer) obj.get("y_coordinate"));
+    }
 }

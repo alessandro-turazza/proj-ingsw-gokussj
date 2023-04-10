@@ -72,15 +72,24 @@ public class ServerThread extends Thread{
                         ms = new MessageEnterInGame(this);
                         ms.accept(new JSONServerVisitor(), obj);
 
-                        if(startGame)
+                        while(startGame){
                             Server.getServerGameFromId(idGame).firstTurn();
+                            s=input.readLine();
+                            obj = (JSONObject) new JSONParser().parse(s);
+                            command = (String) obj.get("command");
+                            if(command.equals("drag_and_drop")){
+                                ms = new MessageDragAndDropServer();
+                                ms.accept(new JSONServerVisitor(), obj);
+                            }
+                        }
+
+                        //Notifica la fine della partita ai giocatori, che si disconnetteranno
+
                     }
                 }
 
 
             }
-
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
