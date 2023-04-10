@@ -144,4 +144,8 @@ public class GameManager {
                 winner = user;
         }
     }
+
+    public TurnManager getTurnManager() {
+        return turnManager;
+    }
 }

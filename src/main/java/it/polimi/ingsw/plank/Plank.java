@@ -7,14 +7,18 @@ import it.polimi.ingsw.object_card.ObjectCard;
 import java.util.ArrayList;
 
 public class Plank {
-    private static CellPlank[][] board;
-    private static CardBag cardBag;
+    private CellPlank[][] board;
+    private CardBag cardBag;
     private final int DIM=9;
 
 
     public Plank() {
         board=new CellPlank[DIM][DIM];
         cardBag=new CardBag();
+    }
+
+    public void setBoard(CellPlank[][] board) {
+        this.board = board;
     }
 
     public CellPlank[][] getBoard() {

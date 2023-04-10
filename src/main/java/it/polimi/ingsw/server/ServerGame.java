@@ -10,7 +10,7 @@ public class ServerGame {
     private GameManager gameManager;
     private int idGame;
 
-    public ServerGame(ServerThread s, User user,int numPlayer, int id){
+    public ServerGame(ServerThread s, User user, int numPlayer, int id){
         players = new ArrayList<>();
         players.add(s);
         this.gameManager = new GameManager(user, numPlayer, id);

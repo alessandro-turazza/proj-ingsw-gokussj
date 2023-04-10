@@ -15,6 +15,12 @@ public class CommonGoal {
         this.rule = rule;
         this.tokenCards = new ArrayList<>();
     }
+
+    public CommonGoal(int id, RuleCommon rule, ArrayList<TokenCard> tokenCards) {
+        this.id = id;
+        this.rule = rule;
+        this.tokenCards = tokenCards;
+    }
     public void setTokenCards(ArrayList<TokenCard> tokenCards) {
         this.tokenCards = tokenCards;
     }
@@ -27,6 +33,12 @@ public class CommonGoal {
     public ArrayList<TokenCard> getTokenCards(){
         return tokenCards;
     }
+    public ArrayList<TokenCard> getTokenCardsClone(){
+        ArrayList<TokenCard> result=new ArrayList<>();
+        for(TokenCard tokenCard:tokenCards)
+            result.add(new TokenCard(tokenCard.getPoints(),tokenCard.getSeries()));
+        return result;
+    }
 
     public int getPoint(){
         if(tokenCards.size()==0)return 0;
@@ -37,5 +49,13 @@ public class CommonGoal {
 
     public boolean checkRule(User user){
         return rule.newRule(user);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public RuleCommon getRule() {
+        return rule;
     }
 }

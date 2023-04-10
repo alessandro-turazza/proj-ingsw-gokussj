@@ -103,4 +103,8 @@ public class User {
         //Per la parte relativa al modello la drop (e la drag) necessita della colonna come parametro che verrà passata dal controller successivamente da CLI o GUI
         this.bookshelf.insertBookshelf(card,column);
     }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
 }
