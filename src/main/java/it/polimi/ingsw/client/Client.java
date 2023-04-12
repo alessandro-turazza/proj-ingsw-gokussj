@@ -61,9 +61,9 @@ public class Client extends Thread implements Runnable{
                 while (true){
                     resp = input.readLine();
                     obj = (JSONObject) new JSONParser().parse(resp);
-                    String message = (String) obj.get("response");
+                    response = (String) obj.get("response");
 
-                    if(message.equals("new_turn")){
+                    if(response.equals("new_turn")){
                         ms = new MessageNewTurnClient();
                         ms.accept(new JSONClientVisitor(), obj);
                         if(((MessageNewTurnClient)ms).getUsername().equals(name)){
@@ -73,7 +73,7 @@ public class Client extends Thread implements Runnable{
 
                                 resp = input.readLine();
                                 obj = (JSONObject) new JSONParser().parse(resp);
-                                message = (String) obj.get("response");
+                                response = (String) obj.get("response");
 
                             }while(response.equals("OK"));
                         }

@@ -66,27 +66,28 @@ public class ServerThread extends Thread{
 
                     if (command.equals("new_game")) {
 
-                        ms = new MessageStartGameServer(this);
-                        ms.accept(new JSONServerVisitor(), obj);
+                        ms = new MessageStartGameServer(this, obj);
+                        ms.accept(new JSONServerVisitor());
 
                     }else if(command.equals("enter_in_game")){
 
-                        ms = new MessageEnterInGame(this);
-                        ms.accept(new JSONServerVisitor(), obj);
+                        ms = new MessageEnterInGame(this, obj);
+                        ms.accept(new JSONServerVisitor());
+                        if(startGame)
+                            Server.getServerGameFromId(idGame).firstTurn();
                     }}
-                        while(startGame){
-                            Server.getServerGameFromId(idGame).firstTurn(); //non può essere chiamato qui
+                        while(true){
                             s=input.readLine();
                             obj = (JSONObject) new JSONParser().parse(s);
                             command = (String) obj.get("command");
                             if(command.equals("drag_and_drop")){
-                                ms = new MessageDragAndDropServer();
-                                ms.accept(new JSONServerVisitor(), obj);
+                                ms = new MessageDragAndDropServer(this, obj);
+                                ms.accept(new JSONServerVisitor());
                             }
                         }
 
-                        ss.sendEndOfGame();
-                        return;
+                        //ss.sendEndOfGame();
+                        //return;
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

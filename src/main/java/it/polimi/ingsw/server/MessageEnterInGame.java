@@ -9,7 +9,11 @@ public class MessageEnterInGame implements MessageServer{
 
     private ServerThread serverThread;
 
-    public MessageEnterInGame(ServerThread st){
+    public MessageEnterInGame(ServerThread st, JSONObject obj){
+
+        JSONObject jobj= (JSONObject) obj;
+        user = new User(obj.get("name").toString());
+        idGame=Integer.parseInt(jobj.get("idGame").toString());
         this.serverThread = st;
     }
 
@@ -30,15 +34,11 @@ public class MessageEnterInGame implements MessageServer{
     }
 
     @Override
-    public void accept(VisitorServer v, JSONObject obj) {
-        v.visitMessageAddPlayer(this, obj);
-        boolean res = Server.getServerGameFromId(idGame).addNewPlayer(serverThread, user);
+    public void accept(VisitorServer v) {
+        v.visitMessageAddPlayer(this);
+    }
 
-        if(res){
-            serverThread.setIdGame(idGame);
-            serverThread.getSs().sendOk();
-            serverThread.setUser(user);
-        }else
-            serverThread.getSs().sendKO();
+    public ServerThread getServerThread() {
+        return serverThread;
     }
 }

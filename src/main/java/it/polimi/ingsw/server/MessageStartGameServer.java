@@ -12,8 +12,10 @@ public class MessageStartGameServer implements MessageServer{
 
     private ServerThread serverThread;
 
-    public MessageStartGameServer(ServerThread serverThread) {
-        this.serverThread = serverThread;
+    public MessageStartGameServer(ServerThread serverThread, JSONObject obj) {
+        this.serverThread=serverThread;
+        user= new User(obj.get("name").toString());
+        numPlayer = Integer.parseInt(obj.get("numPlayers").toString());
     }
 
     public User getUser() {
@@ -41,11 +43,12 @@ public class MessageStartGameServer implements MessageServer{
     }
 
     @Override
-    public void accept(VisitorServer v, JSONObject obj) {
-        v.visitMessageNewGame(this, obj);
-        idGame = Server.insertNewGame(serverThread, user, numPlayer);
-        serverThread.setIdGame(idGame);
-        serverThread.getSs().sendOk();
-        serverThread.setUser(user);
+    public void accept(VisitorServer v) {
+        v.visitMessageNewGame(this);
+
+    }
+
+    public ServerThread getServerThread() {
+        return serverThread;
     }
 }
