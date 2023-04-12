@@ -56,11 +56,13 @@ public class ServerThread extends Thread{
             while(true){
 
                 s = input.readLine();
-
+                JSONObject obj;
+                String command;
+                MessageServer ms;
                 if(s != null) {
-                    JSONObject obj = (JSONObject) new JSONParser().parse(s);
-                    String command = (String) obj.get("command");
-                    MessageServer ms;
+                    obj = (JSONObject) new JSONParser().parse(s);
+                    command = (String) obj.get("command");
+
 
                     if (command.equals("new_game")) {
 
@@ -71,9 +73,9 @@ public class ServerThread extends Thread{
 
                         ms = new MessageEnterInGame(this);
                         ms.accept(new JSONServerVisitor(), obj);
-
+                    }}
                         while(startGame){
-                            Server.getServerGameFromId(idGame).firstTurn();
+                            Server.getServerGameFromId(idGame).firstTurn(); //non può essere chiamato qui
                             s=input.readLine();
                             obj = (JSONObject) new JSONParser().parse(s);
                             command = (String) obj.get("command");
@@ -83,12 +85,8 @@ public class ServerThread extends Thread{
                             }
                         }
 
-                        //Notifica la fine della partita ai giocatori, che si disconnetteranno
-
-                    }
-                }
-
-
+                        ss.sendEndOfGame();
+                        return;
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

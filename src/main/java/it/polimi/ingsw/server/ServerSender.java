@@ -35,4 +35,11 @@ public class ServerSender {
         obj.put("plank", stateGame.messagePlank());
         out.println(obj.toJSONString());
     }
+
+    public void sendEndOfGame(){
+        JSONObject obj = new JSONObject();
+        obj.put("response","end_game");
+        //manda anche i punteggi di ogni giocatore
+        out.println(obj.toJSONString());
+    }
 }
