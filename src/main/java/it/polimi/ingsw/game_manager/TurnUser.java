@@ -30,4 +30,8 @@ public class TurnUser {
     public void lastTurn(){
         lastTurn=true;
     }
+
+    public boolean isLastTurn() {
+        return lastTurn;
+    }
 }

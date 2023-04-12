@@ -13,6 +13,7 @@ public class MessageDragAndDropServer implements MessageServer{
 
     private ArrayList<Integer> y_coordinate;
     private int column;
+    private ServerThread serverThread;
 
     public MessageDragAndDropServer(ServerThread st, JSONObject obj) {
         Type listType = new TypeToken<ArrayList<Integer>>() {}.getType();
@@ -20,6 +21,7 @@ public class MessageDragAndDropServer implements MessageServer{
         x_coordinate=gobj.fromJson(obj.get("x_coordinate").toString(),listType);
         y_coordinate=gobj.fromJson(obj.get("y_coordinate").toString(),listType);
         column=(Integer) obj.get("column");
+        serverThread=st;
     }
 
     @Override
@@ -38,5 +40,21 @@ public class MessageDragAndDropServer implements MessageServer{
 
     public void setColumn(int column) {
         this.column = column;
+    }
+
+    public ArrayList<Integer> getX_coordinate() {
+        return x_coordinate;
+    }
+
+    public ArrayList<Integer> getY_coordinate() {
+        return y_coordinate;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public ServerThread getServerThread() {
+        return serverThread;
     }
 }

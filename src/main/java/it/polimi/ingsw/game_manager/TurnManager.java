@@ -14,6 +14,8 @@ public class TurnManager {
     private TurnUser users;
     private Plank plank;
 
+    private Integer messageLastTurn;
+
     private ArrayList<CommonGoal> commonGoals;
 
     public ArrayList<CommonGoal> getCommonGoals() {
@@ -25,6 +27,7 @@ public class TurnManager {
         this.users = new TurnUser(users);
         this.plank=plank;
         this.commonGoals=commonGoals;
+        messageLastTurn=0;
     }
     public boolean checkDrag(ArrayList<CellPlank> chosenCard){
         ArrayList<Integer> rows=new ArrayList<>();
@@ -69,6 +72,7 @@ public class TurnManager {
             users.activeUser().dropObjectCard(plank.dragObjectCard(cellPlank),column);
         }
         if(users.activeUser().getBookshelf().isFull())users.lastTurn();
+        if(users.isLastTurn() && messageLastTurn==0)messageLastTurn=1;
         for(int index=0;index<commonGoals.size();index++){
             if(users.activeUser().getPointsToken(index)==0){
                 if(commonGoals.get(index).checkRule(users.activeUser()))
@@ -80,6 +84,15 @@ public class TurnManager {
         return users.next();
 
     }
+    public User updateGame(ArrayList<Integer> X,ArrayList<Integer> Y, int column) throws Exception {
+        if(X.size()!=Y.size())throw new Exception("Posizioni non valide");
+        ArrayList<CellPlank> cellPlanks=new ArrayList<>();
+        for(int i=0;i< X.size();i++){
+            if(plank.getBoard()[X.get(i)][Y.get(i)]==null)throw new Exception("Posizioni non valide");
+            cellPlanks.add(plank.getBoard()[X.get(i)][Y.get(i)]);
+        }
+        return updateGame(cellPlanks,column);
+    }
 
     public TurnUser getUsers() {
         return users;
@@ -87,5 +100,13 @@ public class TurnManager {
 
     public Plank getPlank() {
         return plank;
+    }
+
+    public Integer getMessageLastTurn() {
+        return messageLastTurn;
+    }
+
+    public void setMessageLastTurn(Integer messageLastTurn) {
+        this.messageLastTurn = messageLastTurn;
     }
 }

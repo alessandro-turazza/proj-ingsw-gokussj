@@ -46,11 +46,20 @@ public class ServerGame {
         return res;
     }
 
-    public synchronized void firstTurn(){
-        User startUser = gameManager.nextUserTurn();
-
+    public synchronized void lastTurnNotify(User user){
         for(ServerThread st: players){
-            st.getSs().sendInitConfig(gameManager, startUser);
+            st.getSs().sendLastTurn(gameManager, user);
+        }
+    }
+    public synchronized void updateStateGame(){
+        for(ServerThread st: players){
+            st.getSs().sendStateGame(gameManager);
+        }
+    }
+
+    public synchronized void endGame(){
+        for(ServerThread st: players){
+            st.getSs().sendStateGame(gameManager);
         }
     }
 

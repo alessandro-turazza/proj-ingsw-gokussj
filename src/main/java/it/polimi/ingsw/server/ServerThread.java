@@ -74,7 +74,7 @@ public class ServerThread extends Thread{
                         ms = new MessageEnterInGame(this, obj);
                         ms.accept(new JSONServerVisitor());
                         if(startGame)
-                            Server.getServerGameFromId(idGame).firstTurn();
+                            Server.getServerGameFromId(idGame).updateStateGame();
                     }}
                         while(true){
                             s=input.readLine();
@@ -92,5 +92,9 @@ public class ServerThread extends Thread{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int getIdGame() {
+        return idGame;
     }
 }

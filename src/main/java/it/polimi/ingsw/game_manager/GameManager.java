@@ -126,9 +126,9 @@ public class GameManager {
 
     }
 
-    public User nextUserTurn(){
+    /*public User nextUserTurn(){
         return turnManager.getUsers().next();
-    }
+    }//questo è sbagliato*/
 
     public void updateGame(ArrayList<CellPlank> chosenCard, int column) throws Exception {
         if(turnManager.updateGame(chosenCard,column)==null)endGame();

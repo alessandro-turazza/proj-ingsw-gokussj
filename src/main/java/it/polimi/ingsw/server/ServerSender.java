@@ -35,11 +35,25 @@ public class ServerSender {
         obj.put("plank", stateGame.messagePlank());
         out.println(obj.toJSONString());
     }
-
-    public void sendEndOfGame(){
+    public void sendStateGame(GameManager gm){
         JSONObject obj = new JSONObject();
+        StateGame stateGame=new StateGame(gm);
+        obj.put("response","new_turn");
+        obj.put("state_game", stateGame.messageStateGame());
+        out.println(obj.toJSONString());
+    }
+
+    public void sendLastTurn(GameManager gm, User user){
+        JSONObject obj = new JSONObject();
+        obj.put("response","last_turn");
+        obj.put("user",user);
+        out.println(obj.toJSONString());
+    }
+    public void sendEndOfGame(GameManager gm){
+        JSONObject obj = new JSONObject();
+        StateGame stateGame=new StateGame(gm);
         obj.put("response","end_game");
-        //manda anche i punteggi di ogni giocatore
+        obj.put("state_game", stateGame.messageStateGame());
         out.println(obj.toJSONString());
     }
 }
