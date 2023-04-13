@@ -139,7 +139,7 @@ public class GameManager {
         for(User user: users){
             user.updatePointsAdjacenses();
             user.checkPersonalGoal();
-
+            user.addTokenPointsToPoints();
             if(winner.getPoints() < user.getPoints())
                 winner = user;
         }

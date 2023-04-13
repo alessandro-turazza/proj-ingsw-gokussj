@@ -27,14 +27,7 @@ public class ServerSender {
         out.println(obj.toJSONString());
     }
 
-    public void sendInitConfig(GameManager gm, User user){
-        JSONObject obj = new JSONObject();
-        StateGame stateGame=new StateGame(gm);
-        obj.put("response","new_turn");
-        obj.put("active_user", user.getName());
-        obj.put("plank", stateGame.messagePlank());
-        out.println(obj.toJSONString());
-    }
+
     public void sendStateGame(GameManager gm){
         JSONObject obj = new JSONObject();
         StateGame stateGame=new StateGame(gm);

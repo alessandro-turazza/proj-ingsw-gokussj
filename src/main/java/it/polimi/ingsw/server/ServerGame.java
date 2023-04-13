@@ -54,7 +54,7 @@ public class ServerGame {
 
     public synchronized void endGame(){
         for(ServerThread st: players){
-            st.getSs().sendStateGame(gameManager);
+            st.getSs().sendEndOfGame(gameManager);
         }
     }
 

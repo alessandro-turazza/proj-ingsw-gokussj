@@ -48,10 +48,12 @@ public class User {
     public int getPoints() {
         return points;
     }
-    public int getTotalPointsToken() {
+
+    public int addTokenPointsToPoints() {
         int result=0;
         for(Integer point:pointsToken)
             result+=point;
+        points+=result;
         return result;
     }
 

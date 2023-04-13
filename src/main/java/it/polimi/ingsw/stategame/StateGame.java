@@ -16,12 +16,15 @@ import java.util.ArrayList;
 public class StateGame {
     private ArrayList<User> usersClone;
     private Plank plankClone;
+
+    private String activeUser;
+
     private ArrayList<CommonGoal> commonGoalsClone;
 
 
     public StateGame(GameManager gameManager) {
         usersClone=new ArrayList<>();
-
+        activeUser=gameManager.getTurnManager().getUsers().activeUser().getName();
         for(User user: gameManager.getUsers()){
             User userClone=new User(user.getName());
             Bookshelf bookshelfUser=user.getBookshelf();
@@ -82,5 +85,9 @@ public class StateGame {
 
     public ArrayList<CommonGoal> getCommonGoalsClone() {
         return commonGoalsClone;
+    }
+
+    public String getActiveUser() {
+        return activeUser;
     }
 }
