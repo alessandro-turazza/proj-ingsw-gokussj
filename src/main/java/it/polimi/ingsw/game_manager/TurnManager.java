@@ -14,7 +14,6 @@ public class TurnManager {
     private TurnUser users;
     private Plank plank;
 
-    private Integer messageLastTurn;
 
     private ArrayList<CommonGoal> commonGoals;
 
@@ -27,7 +26,6 @@ public class TurnManager {
         this.users = new TurnUser(users);
         this.plank=plank;
         this.commonGoals=commonGoals;
-        messageLastTurn=0;
     }
     public boolean checkDrag(ArrayList<CellPlank> chosenCard){
         ArrayList<Integer> rows=new ArrayList<>();
@@ -72,7 +70,6 @@ public class TurnManager {
             users.activeUser().dropObjectCard(plank.dragObjectCard(cellPlank),column);
         }
         if(users.activeUser().getBookshelf().isFull())users.lastTurn();
-        if(users.isLastTurn() && messageLastTurn==0)messageLastTurn=1;
         for(int index=0;index<commonGoals.size();index++){
             if(users.activeUser().getPointsToken(index)==0){
                 if(commonGoals.get(index).checkRule(users.activeUser()))
@@ -102,11 +99,4 @@ public class TurnManager {
         return plank;
     }
 
-    public Integer getMessageLastTurn() {
-        return messageLastTurn;
-    }
-
-    public void setMessageLastTurn(Integer messageLastTurn) {
-        this.messageLastTurn = messageLastTurn;
-    }
 }

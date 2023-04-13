@@ -46,11 +46,6 @@ public class ServerGame {
         return res;
     }
 
-    public synchronized void lastTurnNotify(User user){
-        for(ServerThread st: players){
-            st.getSs().sendLastTurn(gameManager, user);
-        }
-    }
     public synchronized void updateStateGame(){
         for(ServerThread st: players){
             st.getSs().sendStateGame(gameManager);

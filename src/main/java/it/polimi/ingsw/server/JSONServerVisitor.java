@@ -48,10 +48,6 @@ public class JSONServerVisitor implements VisitorServer{
             m.getServerThread().getSs().sendKO();
         }
         m.getServerThread().getSs().sendOk();
-        if(gm.getTurnManager().getMessageLastTurn()==1){
-            serverGame.lastTurnNotify(activeUser);
-            gm.getTurnManager().setMessageLastTurn(-1);
-        }
         if(user==null){
             gm.endGame(); //gestisce ovviamente anche il caso di return=null
             serverGame.endGame();

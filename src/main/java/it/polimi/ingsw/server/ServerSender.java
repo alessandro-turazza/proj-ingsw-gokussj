@@ -43,12 +43,6 @@ public class ServerSender {
         out.println(obj.toJSONString());
     }
 
-    public void sendLastTurn(GameManager gm, User user){
-        JSONObject obj = new JSONObject();
-        obj.put("response","last_turn");
-        obj.put("user",user);
-        out.println(obj.toJSONString());
-    }
     public void sendEndOfGame(GameManager gm){
         JSONObject obj = new JSONObject();
         StateGame stateGame=new StateGame(gm);
