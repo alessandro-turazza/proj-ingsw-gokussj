@@ -1,30 +1,30 @@
 package it.polimi.ingsw.client;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.stategame.StateGame;
+import org.json.simple.JSONObject;
+
+import java.lang.reflect.Type;
+
 public class MessageNewTurnClient implements MessageClient {
 
-    private String username;
+    private StateGame stateGame;
+    private Client client;
 
-    private  String plank;
-
-    public void setPlank(String plank) {
-        this.plank = plank;
+    public MessageNewTurnClient(Client cl, JSONObject obj) {
+        client=cl;
+        Type Type = new TypeToken<StateGame>() {}.getType();
+        Gson gobj= new Gson();
+        stateGame=gobj.fromJson(obj.get("state_game").toString(),Type);
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPlank() {
-        return plank;
-    }
-
     @Override
-    public void accept(VisitorClient visitor, Object obj) {
-        visitor.visit(this, obj);
+    public void accept(VisitorClient visitor) {
+        visitor.visit(this);
     }
 
 
+    public StateGame getStateGame() {
+        return stateGame;
+    }
 }

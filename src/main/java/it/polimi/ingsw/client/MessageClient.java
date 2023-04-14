@@ -2,6 +2,6 @@ package it.polimi.ingsw.client;
 
 public interface MessageClient {
 
-    void accept(VisitorClient visitor, Object obj);
+    void accept(VisitorClient visitor);
 
 }

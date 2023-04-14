@@ -10,10 +10,8 @@ public class MessageEnterInGame implements MessageServer{
     private ServerThread serverThread;
 
     public MessageEnterInGame(ServerThread st, JSONObject obj){
-
-        JSONObject jobj= (JSONObject) obj;
         user = new User(obj.get("name").toString());
-        idGame=Integer.parseInt(jobj.get("idGame").toString());
+        idGame=Integer.parseInt(obj.get("idGame").toString());
         this.serverThread = st;
     }
 
@@ -35,7 +33,7 @@ public class MessageEnterInGame implements MessageServer{
 
     @Override
     public void accept(VisitorServer v) {
-        v.visitMessageAddPlayer(this);
+        v.visit(this);
     }
 
     public ServerThread getServerThread() {

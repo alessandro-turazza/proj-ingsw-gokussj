@@ -4,7 +4,6 @@ import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.Socket;
 
 public class ClientSender {
 
@@ -16,8 +15,8 @@ public class ClientSender {
 
     private int dropColumn;
 
-    public ClientSender(Socket s)throws IOException {
-        this.out = new PrintWriter(s.getOutputStream(), true);
+    public ClientSender(PrintWriter out){
+        this.out = out;
 
     }
 
@@ -43,6 +42,15 @@ public class ClientSender {
         obj.put("x_cordinate", dragXCoordinate);
         obj.put("y_coordinate", dragYCoordinate);
         obj.put("column", dropColumn);
+        out.println(obj.toJSONString());
     }
+
+    public void sendMessage(String name, String message){
+        JSONObject obj = new JSONObject();
+        obj.put("player_name", name);
+        obj.put("message", message);
+        out.println(obj.toJSONString());
+    }
+
 
 }

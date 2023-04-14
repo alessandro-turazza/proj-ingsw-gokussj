@@ -1,9 +1,8 @@
 package it.polimi.ingsw.server;
 
-import org.json.simple.JSONObject;
-
 public interface VisitorServer {
-    void visitMessageNewGame(MessageStartGameServer m);
-    void visitMessageAddPlayer(MessageEnterInGame m);
-    void visitMessageDragAndDrop(MessageDragAndDropServer m);
+    void visit(MessageStartGameServer m);
+    void visit(MessageEnterInGame m);
+    void visit(MessageDragAndDropServer m);
+    void visit(MessageChatServer m);
 }

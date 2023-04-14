@@ -2,7 +2,6 @@ package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.game_manager.GameManager;
 import it.polimi.ingsw.stategame.StateGame;
-import it.polimi.ingsw.user.User;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
@@ -41,6 +40,13 @@ public class ServerSender {
         StateGame stateGame=new StateGame(gm);
         obj.put("response","end_game");
         obj.put("state_game", stateGame.messageStateGame());
+        out.println(obj.toJSONString());
+    }
+
+    public void sendMessage(String name, String message){
+        JSONObject obj = new JSONObject();
+        obj.put("player_name", name);
+        obj.put("message", message);
         out.println(obj.toJSONString());
     }
 }

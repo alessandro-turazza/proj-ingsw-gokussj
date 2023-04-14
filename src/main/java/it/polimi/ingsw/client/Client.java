@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.chat.ClientChatReader;
+import it.polimi.ingsw.client.chat.ClientChatWriter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -19,9 +21,16 @@ public class Client extends Thread implements Runnable{
 
     private ClientSender sender;
 
+    private ClientChatReader chatReader;
+    private ClientChatWriter chatWriter;
+
     public Client(String name, boolean creator){
         this.name = name;
         this.creator = creator;
+        chatReader=new ClientChatReader();
+        chatWriter=new ClientChatWriter();
+        chatWriter.setPlayerName(this.name);
+
     }
 
     public void setIdGame(int idGame) {
@@ -37,36 +46,37 @@ public class Client extends Thread implements Runnable{
     @Override
     public void run() {
             try {
-                Socket socket = new Socket(ipServer,PORT);
-                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream(),true);
-                sender =new ClientSender(socket);
-                if(creator)
-                    sender.sendCreateGame(numPlayers,name);
-                else sender.sendJoinGame(idGame, name);
+                    Socket socket = new Socket(ipServer, PORT);
+                    BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                    String resp;
+                    chatWriter.start();
+                    chatReader.start();
+                    sender = new ClientSender(out);
+                    JSONObject obj;
+                    String response;
+                    do {
+                        if (creator)
+                            sender.sendCreateGame(numPlayers, name);
+                        else sender.sendJoinGame(idGame, name);
 
-                String resp = input.readLine();
-                JSONObject obj = (JSONObject) new JSONParser().parse(resp);
-
-                String response = (String) obj.get("response");
+                        resp = input.readLine();
+                        obj = (JSONObject) new JSONParser().parse(resp);
+                        response = obj.get("response").toString();
+                        if(response.equals("KO"))
+                            throw new Exception();
+                    }while(!response.equals("OK"));
 
                 MessageClient ms;
-                if(response.equals("OK")){
-                    ms= new MessageOKClient();                  //dovrà semplicemente confermare che ha il permesso di procedere (in sostanza non farà quasi nulla)
-                    ms.accept(new JSONClientVisitor(), obj);
-                }else if (response.equals("KO")){
-                    ms = new MessageKOClient();                 //dovrà interrompere il processo e mandare un messaggio d'errore (e al più killare il thread e farne partire uno nuovo)
-                    ms.accept(new JSONClientVisitor(), obj);
-                }
                 while (true){
                     resp = input.readLine();
                     obj = (JSONObject) new JSONParser().parse(resp);
                     response = (String) obj.get("response");
 
-                    if(response.equals("new_turn")){
-                        ms = new MessageNewTurnClient();
-                        ms.accept(new JSONClientVisitor(), obj);
-                        if(((MessageNewTurnClient)ms).getUsername().equals(name)){
+                    if(response.equals("new_turn")) {
+                        ms = new MessageNewTurnClient(this, obj);
+                        ms.accept(new JSONClientVisitor());
+                        if (((MessageNewTurnClient) ms).getStateGame().getActiveUser().equals(name)) {
                             do {
                                 //attende i comandi della view, che con un metodo caricheranno la drag e la drop sul Client Sender
                                 sender.sendDragAndDrop();
@@ -75,18 +85,19 @@ public class Client extends Thread implements Runnable{
                                 obj = (JSONObject) new JSONParser().parse(resp);
                                 response = (String) obj.get("response");
 
-                            }while(response.equals("OK"));
+                            } while (!response.equals("OK"));
                         }
-                    }else{throw new RuntimeException();}
+                    }else if(response.equals("end_game")){
+                        ms= new MessageEndGameClient();
+                        ms.accept(new JSONClientVisitor());
+                    }
                 }
-
-               // System.out.println(r.get("response"));
+                //Killa i thread della chat
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
 
         }
 
-        //while (true);
     }
 

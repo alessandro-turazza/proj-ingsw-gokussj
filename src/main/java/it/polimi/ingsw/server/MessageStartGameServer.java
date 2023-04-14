@@ -44,7 +44,7 @@ public class MessageStartGameServer implements MessageServer{
 
     @Override
     public void accept(VisitorServer v) {
-        v.visitMessageNewGame(this);
+        v.visit(this);
 
     }
 

@@ -1,27 +1,20 @@
 package it.polimi.ingsw.server;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.game_manager.GameManager;
 import it.polimi.ingsw.user.User;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 
 public class JSONServerVisitor implements VisitorServer{
 
     @Override
-    public void visitMessageNewGame(MessageStartGameServer m) {
+    public void visit(MessageStartGameServer m) {
         int idGame=Server.insertNewGame(m.getServerThread(), m.getUser(), m.getNumPlayer());
         m.getServerThread().setIdGame(idGame);
         m.getServerThread().getSs().sendOk();
         m.getServerThread().setUser(m.getUser());
     }
     @Override
-    public void visitMessageAddPlayer(MessageEnterInGame m) {
+    public void visit(MessageEnterInGame m) {
         boolean res = Server.getServerGameFromId(m.getIdGame()).addNewPlayer(m.getServerThread(), m.getUser());
 
         if(res){
@@ -32,8 +25,8 @@ public class JSONServerVisitor implements VisitorServer{
             m.getServerThread().getSs().sendKO();
     }
 
-
-    public  void visitMessageDragAndDrop(MessageDragAndDropServer m){
+    @Override
+    public  void visit(MessageDragAndDropServer m){
         ServerGame serverGame=Server.getServerGameFromId(m.getServerThread().getIdGame());
         GameManager gm=serverGame.getGameManager();
         User user=null;
@@ -53,5 +46,10 @@ public class JSONServerVisitor implements VisitorServer{
             serverGame.endGame();
         }
         else serverGame.updateStateGame();//prepara il ServerThread per inviare i dati aggiornati
+    }
+
+    @Override
+    public void visit(MessageChatServer m) {
+        Server.getServerGameFromId(m.getReader().getIdGame()).messageChat(m.getPlayerName(), m.getMessage());
     }
 }

@@ -58,4 +58,11 @@ public class ServerGame {
         }
     }
 
+    public synchronized void messageChat(String playerName, String message){
+        for(ServerThread st: players){
+            if(!playerName.equals(st.getUser().getName()))
+                st.getSs().sendMessage(playerName, message);
+        }
+    }
+
 }

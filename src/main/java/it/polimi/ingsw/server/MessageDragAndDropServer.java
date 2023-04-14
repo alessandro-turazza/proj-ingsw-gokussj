@@ -26,7 +26,7 @@ public class MessageDragAndDropServer implements MessageServer{
 
     @Override
     public void accept(VisitorServer v) {
-        v.visitMessageDragAndDrop(this);
+        v.visit(this);
 
     }
 
