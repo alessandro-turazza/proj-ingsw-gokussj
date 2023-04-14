@@ -18,6 +18,12 @@ public class MessageStartGameServer implements MessageServer{
         numPlayer = Integer.parseInt(obj.get("numPlayers").toString());
     }
 
+    public MessageStartGameServer(ServerThread serverThread, JSONObject obj) {
+        this.serverThread=serverThread;
+        user= new User(obj.get("name").toString());
+        numPlayer = Integer.parseInt(obj.get("numPlayers").toString());
+    }
+
     public User getUser() {
         return user;
     }

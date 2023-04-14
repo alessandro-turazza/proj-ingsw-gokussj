@@ -6,13 +6,21 @@ import it.polimi.ingsw.user.User;
 
 public class JSONServerVisitor implements VisitorServer{
 
-    @Override
+   /* @Override
     public void visit(MessageStartGameServer m) {
         int idGame=Server.insertNewGame(m.getServerChatWriter(),m.getServerThread(), m.getUser(), m.getNumPlayer());
         m.getServerThread().setIdGame(idGame);
         m.getServerThread().getSs().sendOk();
         m.getServerThread().setUser(m.getUser());
-    }
+    }*/
+   @Override
+   public void visit(MessageStartGameServer m) {
+       int idGame=Server.insertNewGame(m.getServerThread(), m.getUser(), m.getNumPlayer());
+       m.getServerThread().setIdGame(idGame);
+       m.getServerThread().getSs().sendOk();
+       m.getServerThread().setUser(m.getUser());
+   }
+
     @Override
     public void visit(MessageEnterInGame m) {
         boolean res = Server.getServerGameFromId(m.getIdGame()).addNewPlayer(m.getServerThread(), m.getUser());

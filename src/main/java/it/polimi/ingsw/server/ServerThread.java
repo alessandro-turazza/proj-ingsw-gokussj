@@ -1,6 +1,5 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.server.chat.ServerChatAccepter;
 import it.polimi.ingsw.user.User;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -46,7 +45,7 @@ public class ServerThread extends Thread{
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String s;
 
-            ServerChatAccepter chat = new ServerChatAccepter();
+            //ServerChatAccepter chat = new ServerChatAccepter();
 
 
             s = input.readLine();
@@ -60,7 +59,8 @@ public class ServerThread extends Thread{
 
                 if (command.equals("new_game")) {
 
-                    ms = new MessageStartGameServer(chat.getServerChatWriter(), this, obj);
+                    //ms = new MessageStartGameServer(chat.getServerChatWriter(), this, obj);
+                    ms = new MessageStartGameServer(this, obj);
                     ms.accept(new JSONServerVisitor());
 
                 }else if(command.equals("enter_in_game")){
@@ -71,7 +71,7 @@ public class ServerThread extends Thread{
                 }
             }
 
-            chat.acceptConnection(idGame);
+            //chat.acceptConnection(idGame);
 
             while(true){
                 s=input.readLine();

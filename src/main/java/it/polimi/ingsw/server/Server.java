@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.game_data.GameData;
-import it.polimi.ingsw.server.chat.ServerChatWriter;
 import it.polimi.ingsw.user.User;
 import org.json.simple.parser.ParseException;
 
@@ -29,8 +28,8 @@ public class Server {
         return gameList;
     }
 
-    public synchronized static int insertNewGame(ServerChatWriter w, ServerThread st, User user, int numPlayers){
-        gameList.add(new ServerGame(w, st, user, numPlayers, gameList.size()+1));
+    public synchronized static int insertNewGame(ServerThread st, User user, int numPlayers){
+        gameList.add(new ServerGame(st, user, numPlayers, gameList.size()+1));
         return gameList.size();
     }
 
