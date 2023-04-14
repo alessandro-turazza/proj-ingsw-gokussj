@@ -21,6 +21,9 @@ public class JSONServerVisitor implements VisitorServer{
             m.getServerThread().setIdGame(m.getIdGame());
             m.getServerThread().getSs().sendOk();
             m.getServerThread().setUser(m.getUser());
+
+            if(Server.getServerGameFromId(m.getIdGame()).getPlayers().size() == Server.getServerGameFromId(m.getIdGame()).getGameManager().getNumUser())
+                Server.getServerGameFromId(m.getIdGame()).updateStateGame();
         }else
             m.getServerThread().getSs().sendKO();
     }

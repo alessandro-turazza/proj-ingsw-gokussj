@@ -45,14 +45,13 @@ public class Server {
 
     }
 
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void startServer() throws IOException, ParseException {
         gameList = new ArrayList<>();
         serverSocket = new ServerSocket(PORT);
 
         System.out.println("Server ON");
 
         loadDatas();
-
 
         while(true){
             Socket socket = serverSocket.accept();

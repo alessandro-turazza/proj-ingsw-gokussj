@@ -44,7 +44,6 @@ public class ServerGame {
 
             if(gameManager.getNumUser() == players.size()){
                 gameManager.startGame();
-                st.setStartGame();
             }
         }
 
