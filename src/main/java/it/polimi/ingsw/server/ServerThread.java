@@ -15,7 +15,6 @@ public class ServerThread extends Thread{
     private int idGame;
     private ServerSender ss;
     private User user;
-
     private boolean startGame;
 
 
@@ -69,7 +68,7 @@ public class ServerThread extends Thread{
 
                     if (command.equals("new_game")) {
 
-                        ms = new MessageStartGameServer(this, obj);
+                        ms = new MessageStartGameServer(chat.getServerChatWriter(), this, obj);
                         ms.accept(new JSONServerVisitor());
 
                     }else if(command.equals("enter_in_game")){
@@ -89,7 +88,6 @@ public class ServerThread extends Thread{
                             }
                         }
             }
-            //killare le chat
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -1,18 +1,18 @@
 package it.polimi.ingsw.server;
 
 
+import it.polimi.ingsw.server.chat.ServerChatWriter;
 import it.polimi.ingsw.user.User;
 import org.json.simple.JSONObject;
 
 public class MessageStartGameServer implements MessageServer{
     private User user;
     private int numPlayer;
-
     private int idGame;
-
     private ServerThread serverThread;
-
-    public MessageStartGameServer(ServerThread serverThread, JSONObject obj) {
+    private ServerChatWriter serverChatWriter;
+    public MessageStartGameServer(ServerChatWriter serverChatWriter,ServerThread serverThread, JSONObject obj) {
+        this.serverChatWriter=serverChatWriter;
         this.serverThread=serverThread;
         user= new User(obj.get("name").toString());
         numPlayer = Integer.parseInt(obj.get("numPlayers").toString());
@@ -50,5 +50,9 @@ public class MessageStartGameServer implements MessageServer{
 
     public ServerThread getServerThread() {
         return serverThread;
+    }
+
+    public ServerChatWriter getServerChatWriter() {
+        return serverChatWriter;
     }
 }

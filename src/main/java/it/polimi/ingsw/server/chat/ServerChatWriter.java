@@ -5,7 +5,7 @@ import it.polimi.ingsw.server.ServerSender;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ServerChatWriter extends Thread{
+public class ServerChatWriter{
 
     private int idGame;
 
@@ -25,13 +25,6 @@ public class ServerChatWriter extends Thread{
         this.idGame=idGame;
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            //si mette in wait e attende che gli vengano passati i dati del messaggio
-            ss.sendMessage(playerName, message);
-        }
-    }
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
@@ -43,5 +36,13 @@ public class ServerChatWriter extends Thread{
 
     public int getIdGame() {
         return idGame;
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public ServerSender getSs() {
+        return ss;
     }
 }

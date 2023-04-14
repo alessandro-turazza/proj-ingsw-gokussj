@@ -1,16 +1,21 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.game_manager.GameManager;
+import it.polimi.ingsw.server.chat.ServerChatWriter;
 import it.polimi.ingsw.user.User;
 
 import java.util.ArrayList;
 
 public class ServerGame {
     private ArrayList<ServerThread> players;
+
+    private ArrayList<ServerChatWriter> writers;
     private GameManager gameManager;
     private int idGame;
 
-    public ServerGame(ServerThread s, User user, int numPlayer, int id){
+    public ServerGame(ServerChatWriter w, ServerThread s, User user, int numPlayer, int id){
+        writers=new ArrayList<>();
+        writers.add(w);
         players = new ArrayList<>();
         players.add(s);
         this.gameManager = new GameManager(user, numPlayer, id);
@@ -59,9 +64,9 @@ public class ServerGame {
     }
 
     public synchronized void messageChat(String playerName, String message){
-        for(ServerThread st: players){
-            if(!playerName.equals(st.getUser().getName()))
-                st.getSs().sendMessage(playerName, message);
+        for(ServerChatWriter wr: writers){
+            if(!playerName.equals(wr.getPlayerName()))
+                wr.getSs().sendMessage(playerName, message);
         }
     }
 

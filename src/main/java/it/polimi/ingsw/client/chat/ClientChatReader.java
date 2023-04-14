@@ -25,6 +25,7 @@ public class ClientChatReader extends Thread{
                MessageChatClient ms=new MessageChatClient(this, obj);
                ms.accept(new JSONClientVisitor());
             }
+
         }catch (Exception e){throw new RuntimeException();}
 
     }

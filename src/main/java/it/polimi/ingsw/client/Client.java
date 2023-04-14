@@ -92,7 +92,6 @@ public class Client extends Thread implements Runnable{
                         ms.accept(new JSONClientVisitor());
                     }
                 }
-                //Killa i thread della chat
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

@@ -14,8 +14,6 @@ public class JSONClientVisitor implements VisitorClient {
     @Override
     public void visit(MessageNewTurnClient element) {
 
-
-
     }
 
     @Override

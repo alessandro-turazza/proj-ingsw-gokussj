@@ -10,6 +10,10 @@ public class ServerChatAccepter {
     private static ServerSocket serverSocketReader;
     private static ServerSocket serverSocketWriter;
 
+    private ServerChatReader serverChatReader;
+
+    private ServerChatWriter serverChatWriter;
+
     public ServerChatAccepter() throws Exception{
         try {
             serverSocketReader=new ServerSocket(READ_PORT);
@@ -20,11 +24,14 @@ public class ServerChatAccepter {
     public void acceptConnection(int idGame) throws Exception{
         try{
         Socket sreadrer = serverSocketReader.accept();
-        ServerChatReader sr = new ServerChatReader(sreadrer, idGame);
+        serverChatReader = new ServerChatReader(sreadrer, idGame);
         Socket swriter = serverSocketWriter.accept();
-        ServerChatWriter sw = new ServerChatWriter(swriter, idGame);
-        sr.start();
-        sw.start();
+        serverChatWriter = new ServerChatWriter(swriter, idGame);
+        serverChatReader.start();
         }catch (IOException e){throw new Exception();}
+    }
+
+    public ServerChatWriter getServerChatWriter() {
+        return serverChatWriter;
     }
 }

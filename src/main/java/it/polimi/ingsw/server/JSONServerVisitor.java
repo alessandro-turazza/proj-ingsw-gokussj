@@ -8,7 +8,7 @@ public class JSONServerVisitor implements VisitorServer{
 
     @Override
     public void visit(MessageStartGameServer m) {
-        int idGame=Server.insertNewGame(m.getServerThread(), m.getUser(), m.getNumPlayer());
+        int idGame=Server.insertNewGame(m.getServerChatWriter(),m.getServerThread(), m.getUser(), m.getNumPlayer());
         m.getServerThread().setIdGame(idGame);
         m.getServerThread().getSs().sendOk();
         m.getServerThread().setUser(m.getUser());
