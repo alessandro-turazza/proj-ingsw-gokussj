@@ -1,16 +1,7 @@
 package it.polimi.ingsw.client.chat;
 
-import it.polimi.ingsw.client.JSONClientVisitor;
-import it.polimi.ingsw.client.MessageChatClient;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.Socket;
-
 public class ClientChatReader extends Thread{
-    private final int PORT = 4501;
+    /*private final int PORT = 4501;
     private final String ipServer= "localhost";
     @Override
     public void run() throws RuntimeException {
@@ -28,5 +19,5 @@ public class ClientChatReader extends Thread{
 
         }catch (Exception e){throw new RuntimeException();}
 
-    }
+    }*/
 }

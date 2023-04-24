@@ -7,23 +7,27 @@ import org.json.simple.parser.JSONParser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ServerThread extends Thread{
     private Socket socket;
+    private PrintWriter out;
+    private BufferedReader input;
     private int idGame;
-    private ServerSender ss;
+    private ServerController controller;
     private User user;
 
 
-    public ServerSender getSs() {
-        return ss;
+
+    public ServerController getController() {
+        return controller;
     }
 
 
     public ServerThread(Socket socket) throws IOException {
         this.socket = socket;
-        this.ss = new ServerSender(socket);
+        this.controller = new ServerController(this);
     }
 
     public User getUser() {
@@ -42,49 +46,25 @@ public class ServerThread extends Thread{
     public void run() {
         try {
 
-            BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String s;
-
-            //ServerChatAccepter chat = new ServerChatAccepter();
-
-
-            s = input.readLine();
-            JSONObject obj;
-            String command;
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+            String messageIn;
             MessageServer ms;
 
-            if(s != null) {
-                obj = (JSONObject) new JSONParser().parse(s);
-                command = (String) obj.get("command");
+            do{
+                messageIn = input.readLine();
+                JSONObject obj = (JSONObject) new JSONParser().parse(messageIn);
+                ms = controller.handleMessage(obj);
+                ms.accept(new JSONServerVisitor());
+            }while(true);
 
-                if (command.equals("new_game")) {
-
-                    //ms = new MessageStartGameServer(chat.getServerChatWriter(), this, obj);
-                    ms = new MessageStartGameServer(this, obj);
-                    ms.accept(new JSONServerVisitor());
-
-                }else if(command.equals("enter_in_game")){
-
-                    ms = new MessageEnterInGame(this, obj);
-                    ms.accept(new JSONServerVisitor());
-
-                }
-            }
-
-            //chat.acceptConnection(idGame);
-
-            while(true){
-                s=input.readLine();
-                obj = (JSONObject) new JSONParser().parse(s);
-                command = (String) obj.get("command");
-                if(command.equals("drag_and_drop")){
-                    ms = new MessageDragAndDropServer(this, obj);
-                    ms.accept(new JSONServerVisitor());
-                }
-            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void sendMessage(JSONObject obj){
+        out.println(obj.toJSONString());
     }
 
     public int getIdGame() {

@@ -1,7 +1,5 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.client.chat.ClientChatReader;
-import it.polimi.ingsw.client.chat.ClientChatWriter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -14,27 +12,23 @@ import java.util.Scanner;
 public class Client extends Thread implements Runnable{
     private final int PORT = 4500;
     private final String ipServer= "localhost";
+
+    private BufferedReader input;
+
+    private PrintWriter out;
     private String name;
     private int idGame;
 
     private int numPlayers;
     private boolean creator;
 
-    private ClientSender sender;
-
-    private ClientChatReader chatReader;
-    private ClientChatWriter chatWriter;
+    private ClientController controller;
 
     public Client(){}
     public Client(String name, boolean creator){
         this.name = name;
         this.creator = creator;
-        chatReader=new ClientChatReader();
-        chatWriter=new ClientChatWriter();
-        chatWriter.setPlayerName(this.name);
-
     }
-
     public void setIdGame(int idGame) {
         this.idGame = idGame;
     }
@@ -79,62 +73,35 @@ public class Client extends Thread implements Runnable{
     public void startConnection() {
         try {
             Socket socket = new Socket(ipServer, PORT);
-            BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            String resp;
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+            String messageIn;
+            String messageOut;
+            MessageClient mc;
 
-            /*chatWriter.start();
-            chatReader.start();*/
 
-            sender = new ClientSender(out);
+            controller = new ClientController(this);
 
-            JSONObject obj;
-            String response;
+            if (creator)
+                this.sendMessage(controller.sendCreateGame(numPlayers, name));
+            else
+                this.sendMessage(controller.sendJoinGame(idGame, name));
 
-            do {
-                if (creator)
-                    sender.sendCreateGame(numPlayers, name);
-                else
-                    sender.sendJoinGame(idGame, name);
+            do{
+                messageIn = input.readLine();
+                JSONObject obj = (JSONObject) new JSONParser().parse(messageIn);
+                mc = controller.handleMessage(obj);
+                mc.accept(new JSONClientVisitor());
+            }while(true);
 
-                resp = input.readLine();
-                obj = (JSONObject) new JSONParser().parse(resp);
-                response = obj.get("response").toString();
-                if(response.equals("KO"))
-                    throw new Exception();
-            }while(!response.equals("OK"));
-
-            System.out.println("Waiting for the other players");
-
-            MessageClient ms;
-            while (true){
-                resp = input.readLine();
-                obj = (JSONObject) new JSONParser().parse(resp);
-                response = (String) obj.get("response");
-
-                /*if(response.equals("new_turn")) {
-                    ms = new MessageNewTurnClient(this, obj);
-                    ms.accept(new JSONClientVisitor());
-                    if (((MessageNewTurnClient) ms).getStateGame().getActiveUser().equals(name)) {
-                        do {
-                                //attende i comandi della view, che con un metodo caricheranno la drag e la drop sul Client Sender
-                            sender.sendDragAndDrop();
-
-                            resp = input.readLine();
-                            obj = (JSONObject) new JSONParser().parse(resp);
-                            response = (String) obj.get("response");
-
-                        } while (!response.equals("OK"));
-                    }
-                }else if(response.equals("end_game")){
-                    ms= new MessageEndGameClient();
-                    ms.accept(new JSONClientVisitor());
-                }*/
-            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void sendMessage(JSONObject obj){
+        out.println(obj.toJSONString());
     }
 
 }

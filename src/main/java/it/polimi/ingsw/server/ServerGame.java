@@ -50,21 +50,17 @@ public class ServerGame {
 
     public synchronized void updateStateGame(){
         for(ServerThread st: players){
-            st.getSs().sendStateGame(gameManager);
+            st.sendMessage(st.getController().sendStateGame(gameManager));
+            //st.getSs().sendStateGame(gameManager);
         }
     }
 
     public synchronized void endGame(){
         for(ServerThread st: players){
-            st.getSs().sendEndOfGame(gameManager);
+            //st.getSs().sendEndOfGame(gameManager);
+            st.sendMessage(st.getController().sendEndOfGame(gameManager));
         }
     }
 
-    public synchronized void messageChat(String playerName, String message){
-        for(ServerChatWriter wr: writers){
-            if(!playerName.equals(wr.getPlayerName()))
-                wr.getSs().sendMessage(playerName, message);
-        }
-    }
 
 }

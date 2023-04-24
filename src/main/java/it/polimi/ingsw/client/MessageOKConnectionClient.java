@@ -1,8 +1,8 @@
 package it.polimi.ingsw.client;
 
-public class MessageOKClient implements MessageClient {
+public class MessageOKConnectionClient implements MessageClient {
 
-    public MessageOKClient() {
+    public MessageOKConnectionClient() {
     }
 
     @Override

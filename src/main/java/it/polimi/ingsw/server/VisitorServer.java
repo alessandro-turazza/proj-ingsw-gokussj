@@ -4,5 +4,4 @@ public interface VisitorServer {
     void visit(MessageStartGameServer m);
     void visit(MessageEnterInGame m);
     void visit(MessageDragAndDropServer m);
-    void visit(MessageChatServer m);
 }

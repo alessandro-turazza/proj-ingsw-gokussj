@@ -17,7 +17,7 @@ public class JSONServerVisitor implements VisitorServer{
    public void visit(MessageStartGameServer m) {
        int idGame=Server.insertNewGame(m.getServerThread(), m.getUser(), m.getNumPlayer());
        m.getServerThread().setIdGame(idGame);
-       m.getServerThread().getSs().sendOk();
+       m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection());
        m.getServerThread().setUser(m.getUser());
    }
 
@@ -27,13 +27,13 @@ public class JSONServerVisitor implements VisitorServer{
 
         if(res){
             m.getServerThread().setIdGame(m.getIdGame());
-            m.getServerThread().getSs().sendOk();
+            m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection());
             m.getServerThread().setUser(m.getUser());
 
             if(Server.getServerGameFromId(m.getIdGame()).getPlayers().size() == Server.getServerGameFromId(m.getIdGame()).getGameManager().getNumUser())
                 Server.getServerGameFromId(m.getIdGame()).updateStateGame();
         }else
-            m.getServerThread().getSs().sendKO();
+            m.getServerThread().sendMessage(m.getServerThread().getController().sendKoConnection());
     }
 
     @Override
@@ -49,9 +49,12 @@ public class JSONServerVisitor implements VisitorServer{
         }
         catch (Exception e){
             //gestisce anche il caso di eccezioni(nel qual caso manda una KO al Client)
-            m.getServerThread().getSs().sendKO();
+            //m.getServerThread().getSs().sendKO();
+            m.getServerThread().sendMessage(m.getServerThread().getController().sendKoDED());
         }
-        m.getServerThread().getSs().sendOk();
+        //m.getServerThread().getSs().sendOk();
+        m.getServerThread().sendMessage(m.getServerThread().getController().sendOkDED());
+
         if(user==null){
             gm.endGame(); //gestisce ovviamente anche il caso di return=null
             serverGame.endGame();
@@ -59,8 +62,4 @@ public class JSONServerVisitor implements VisitorServer{
         else serverGame.updateStateGame();//prepara il ServerThread per inviare i dati aggiornati
     }
 
-    @Override
-    public void visit(MessageChatServer m) {
-        Server.getServerGameFromId(m.getReader().getIdGame()).messageChat(m.getPlayerName(), m.getMessage());
-    }
 }

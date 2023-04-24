@@ -1,18 +1,8 @@
 package it.polimi.ingsw.server.chat;
 
-import it.polimi.ingsw.server.JSONServerVisitor;
-import it.polimi.ingsw.server.MessageChatServer;
-import it.polimi.ingsw.server.MessageServer;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.Socket;
-
 public class ServerChatReader extends Thread{
 
-    private int idGame;
+    /*private int idGame;
     private Socket socket;
     public ServerChatReader(Socket socket, int idGame){
         this.socket=socket;
@@ -41,5 +31,5 @@ public class ServerChatReader extends Thread{
 
     public int getIdGame() {
         return idGame;
-    }
+    }*/
 }

@@ -1,17 +1,12 @@
 package it.polimi.ingsw.server.chat;
 
-import it.polimi.ingsw.server.ServerSender;
-
-import java.io.IOException;
-import java.net.Socket;
-
 public class ServerChatWriter{
 
-    private int idGame;
+    /*private int idGame;
 
     private Socket socket;
 
-    private ServerSender ss;
+    private ServerController ss;
 
     private String playerName;
 
@@ -21,7 +16,7 @@ public class ServerChatWriter{
 
     public ServerChatWriter(Socket socket, int idGame) throws IOException {
         this.socket = socket;
-        ss = new ServerSender(socket);
+        ss = new ServerController(this);
         this.idGame=idGame;
     }
 
@@ -42,7 +37,7 @@ public class ServerChatWriter{
         return playerName;
     }
 
-    public ServerSender getSs() {
+    public ServerController getSs() {
         return ss;
-    }
+    }*/
 }

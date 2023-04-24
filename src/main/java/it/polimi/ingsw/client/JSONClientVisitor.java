@@ -1,10 +1,7 @@
 package it.polimi.ingsw.client;
 
 public class JSONClientVisitor implements VisitorClient {
-    @Override
-    public void visit(MessageEndGameClient element) {
 
-    }
 
     @Override
     public void visit(MessageGameStateClient element) {
@@ -17,16 +14,16 @@ public class JSONClientVisitor implements VisitorClient {
     }
 
     @Override
-    public void visit(MessageOKClient element) {
-
+    public void visit(MessageOKConnectionClient element) {
+        System.out.println("Connessione effettuata");
     }
 
     @Override
-    public void visit(MessageKOClient element) {
-
+    public void visit(MessageKOConnectionClient element) {
+        System.out.println("Connessione NON riuscita");
     }
-
-    public void visit(MessageChatClient element) {
+    @Override
+    public void visit(MessageEndGameClient element) {
 
     }
 }

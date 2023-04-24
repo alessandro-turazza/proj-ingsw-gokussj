@@ -1,11 +1,7 @@
 package it.polimi.ingsw.server.chat;
 
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-
 public class ServerChatAccepter {
-    private static final int READ_PORT = 4502;
+    /*private static final int READ_PORT = 4502;
     private static final int WRITE_PORT = 4501;
     private static ServerSocket serverSocketReader;
     private static ServerSocket serverSocketWriter;
@@ -33,5 +29,5 @@ public class ServerChatAccepter {
 
     public ServerChatWriter getServerChatWriter() {
         return serverChatWriter;
-    }
+    }*/
 }
