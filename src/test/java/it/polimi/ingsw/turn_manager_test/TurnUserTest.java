@@ -1,7 +1,7 @@
 package it.polimi.ingsw.turn_manager_test;
 
-import it.polimi.ingsw.game_manager.TurnUser;
-import it.polimi.ingsw.user.User;
+import it.polimi.ingsw.server.model.game_manager.TurnUser;
+import it.polimi.ingsw.server.model.user.User;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

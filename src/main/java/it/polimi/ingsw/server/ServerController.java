@@ -1,7 +1,10 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.game_manager.GameManager;
-import it.polimi.ingsw.stategame.StateGame;
+import it.polimi.ingsw.server.model.game_manager.GameManager;
+import it.polimi.ingsw.server.message.MessageDragAndDropServer;
+import it.polimi.ingsw.server.message.MessageEnterInGame;
+import it.polimi.ingsw.server.message.MessageServer;
+import it.polimi.ingsw.server.message.MessageStartGameServer;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.game_data_test;
 
-import it.polimi.ingsw.game_data.GameData;
-import it.polimi.ingsw.object_card.Color;
+import it.polimi.ingsw.server.game_data.GameData;
+import it.polimi.ingsw.server.model.object_card.Color;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
 

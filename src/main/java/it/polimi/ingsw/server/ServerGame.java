@@ -1,8 +1,8 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.game_manager.GameManager;
+import it.polimi.ingsw.server.model.game_manager.GameManager;
 import it.polimi.ingsw.server.chat.ServerChatWriter;
-import it.polimi.ingsw.user.User;
+import it.polimi.ingsw.server.model.user.User;
 
 import java.util.ArrayList;
 

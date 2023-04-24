@@ -1,10 +1,10 @@
 package it.polimi.ingsw.user_test;
 
-import it.polimi.ingsw.game_data.GameData;
-import it.polimi.ingsw.object_card.Color;
-import it.polimi.ingsw.object_card.ObjectCard;
-import it.polimi.ingsw.user.User;
-import it.polimi.ingsw.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.server.game_data.GameData;
+import it.polimi.ingsw.server.model.object_card.Color;
+import it.polimi.ingsw.server.model.object_card.ObjectCard;
+import it.polimi.ingsw.server.model.user.User;
+import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

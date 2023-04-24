@@ -1,8 +1,8 @@
 package it.polimi.ingsw.rule_common_test;
 
-import it.polimi.ingsw.common_goal.rule_common.RuleCommonV;
-import it.polimi.ingsw.user.bookshelf.Bookshelf;
-import it.polimi.ingsw.user.bookshelf.CellShelf;
+import it.polimi.ingsw.server.model.common_goal.rule_common.RuleCommonV;
+import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import it.polimi.ingsw.user_test.BookshelfTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

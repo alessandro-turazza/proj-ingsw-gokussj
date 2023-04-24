@@ -1,9 +1,9 @@
 package it.polimi.ingsw.game_manager_test;
 
-import it.polimi.ingsw.game_manager.GameManager;
-import it.polimi.ingsw.game_data.GameData;
-import it.polimi.ingsw.user.User;
-import it.polimi.ingsw.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.server.model.game_manager.GameManager;
+import it.polimi.ingsw.server.game_data.GameData;
+import it.polimi.ingsw.server.model.user.User;
+import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
 import it.polimi.ingsw.user_test.BookshelfTest;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;

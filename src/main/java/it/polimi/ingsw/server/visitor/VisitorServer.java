@@ -1,0 +1,11 @@
+package it.polimi.ingsw.server.visitor;
+
+import it.polimi.ingsw.server.message.MessageDragAndDropServer;
+import it.polimi.ingsw.server.message.MessageEnterInGame;
+import it.polimi.ingsw.server.message.MessageStartGameServer;
+
+public interface VisitorServer {
+    void visit(MessageStartGameServer m);
+    void visit(MessageEnterInGame m);
+    void visit(MessageDragAndDropServer m);
+}

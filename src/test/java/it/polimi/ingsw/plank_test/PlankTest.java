@@ -1,9 +1,9 @@
 package it.polimi.ingsw.plank_test;
 
-import it.polimi.ingsw.game_data.GameData;
-import it.polimi.ingsw.object_card.ObjectCard;
-import it.polimi.ingsw.plank.CellPlank;
-import it.polimi.ingsw.plank.Plank;
+import it.polimi.ingsw.server.game_data.GameData;
+import it.polimi.ingsw.server.model.object_card.ObjectCard;
+import it.polimi.ingsw.server.model.plank.CellPlank;
+import it.polimi.ingsw.server.model.plank.Plank;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

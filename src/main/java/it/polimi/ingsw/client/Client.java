@@ -1,5 +1,9 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.message.MessageClient;
+import it.polimi.ingsw.client.view.CLI;
+import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.visitor.JSONClientVisitor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -13,12 +17,11 @@ public class Client extends Thread implements Runnable{
     private final int PORT = 4500;
     private final String ipServer= "localhost";
 
+    private View view;
     private BufferedReader input;
-
     private PrintWriter out;
     private String name;
     private int idGame;
-
     private int numPlayers;
     private boolean creator;
 
@@ -39,33 +42,37 @@ public class Client extends Thread implements Runnable{
     }
 
     public void startClient(){
-        System.out.println("Insert a username");
+        System.out.println("Press C to start CLI interface");
+        System.out.println("Press G to start GUI interface");
+
         Scanner in = new Scanner(System.in);
-
-        this.name = in.nextLine();
-
-        System.out.println("Press C to create a new game");
-        System.out.println("Press J to join into an existent game");
 
         char choose = Character.toUpperCase(in.nextLine().charAt(0));
 
-        while(choose != 'C' && choose != 'J'){
-            System.out.println("Invalid character, retype your chosen");
-            choose = Character.toUpperCase(in.nextLine().charAt(0));
+        JSONObject userDatas;
+
+        switch(choose){
+            case 'C':
+                view = new CLI();
+                break;
+            case 'G':
+                //view = new GUI();
+                break;
         }
 
-        switch (choose){
-            case 'C':
-                System.out.println("Insert the number of the players in game");
-                this.numPlayers = in.nextInt();
-                this.creator = true;
-                break;
-            case 'J':
-                System.out.println("Insert the ID of a game");
-                this.idGame = in.nextInt();
-                this.creator = false;
-                break;
-        }
+        userDatas = view.lobby();
+
+        this.name = userDatas.get("username").toString();
+
+        if(userDatas.get("type").toString().equals("create"))
+            this.creator = true;
+        else
+            this.creator = false;
+
+        if(creator)
+            this.numPlayers = Integer.parseInt(userDatas.get("numPlayers").toString());
+        else
+            this.idGame = Integer.parseInt(userDatas.get("idGame").toString());
 
         this.startConnection();
 

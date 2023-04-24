@@ -1,16 +1,16 @@
 package it.polimi.ingsw.turn_manager_test;
 
-import it.polimi.ingsw.common_goal.CommonGoal;
-import it.polimi.ingsw.common_goal.rule_common.RuleCommon;
-import it.polimi.ingsw.game_data.GameData;
-import it.polimi.ingsw.game_manager.TurnManager;
-import it.polimi.ingsw.object_card.Color;
-import it.polimi.ingsw.object_card.ObjectCard;
-import it.polimi.ingsw.plank.CellPlank;
-import it.polimi.ingsw.plank.Plank;
-import it.polimi.ingsw.user.User;
-import it.polimi.ingsw.user.bookshelf.Bookshelf;
-import it.polimi.ingsw.user.bookshelf.CellShelf;
+import it.polimi.ingsw.server.model.common_goal.CommonGoal;
+import it.polimi.ingsw.server.model.common_goal.rule_common.RuleCommon;
+import it.polimi.ingsw.server.game_data.GameData;
+import it.polimi.ingsw.server.model.game_manager.TurnManager;
+import it.polimi.ingsw.server.model.object_card.Color;
+import it.polimi.ingsw.server.model.object_card.ObjectCard;
+import it.polimi.ingsw.server.model.plank.CellPlank;
+import it.polimi.ingsw.server.model.plank.Plank;
+import it.polimi.ingsw.server.model.user.User;
+import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import it.polimi.ingsw.user_test.BookshelfTest;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.user.User;
+import it.polimi.ingsw.server.message.MessageServer;
+import it.polimi.ingsw.server.visitor.JSONServerVisitor;
+import it.polimi.ingsw.server.model.user.User;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 

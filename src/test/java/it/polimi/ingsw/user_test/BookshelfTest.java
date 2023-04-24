@@ -1,10 +1,10 @@
 package it.polimi.ingsw.user_test;
 
 
-import it.polimi.ingsw.object_card.Color;
-import it.polimi.ingsw.object_card.ObjectCard;
-import it.polimi.ingsw.user.bookshelf.Bookshelf;
-import it.polimi.ingsw.user.bookshelf.CellShelf;
+import it.polimi.ingsw.server.model.object_card.Color;
+import it.polimi.ingsw.server.model.object_card.ObjectCard;
+import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,7 +17,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static it.polimi.ingsw.object_card.ObjectCard.convertToColor;
+import static it.polimi.ingsw.server.model.object_card.ObjectCard.convertToColor;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BookshelfTest {

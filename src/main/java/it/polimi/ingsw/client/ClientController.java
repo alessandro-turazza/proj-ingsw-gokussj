@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.message.*;
 import org.json.simple.JSONObject;
 
 public class ClientController {
