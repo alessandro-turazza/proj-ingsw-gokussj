@@ -18,6 +18,8 @@ public class GameManager {
     private ArrayList<CommonGoal> commonGoals;
     private TurnManager turnManager;
     private User winner;
+    private static final int numPersonalGoal = 12;
+    private static final int numCommonGoal = 12;
 
     public GameManager(ArrayList<User> users){
         this.users = users;
@@ -67,7 +69,7 @@ public class GameManager {
 
         while(i < numCommonGoal){
             Random random = new Random();
-            int n = random.nextInt(12);
+            int n = random.nextInt(numCommonGoal);
 
             if(!indexes.contains(n)){
                 indexes.add(n);
@@ -92,7 +94,7 @@ public class GameManager {
 
         while (i < users.size()){
             Random random = new Random();
-            int n = random.nextInt(12);
+            int n = random.nextInt(numPersonalGoal);
 
             if(!indexPersGoal.contains(n)){
                 indexPersGoal.add(n);

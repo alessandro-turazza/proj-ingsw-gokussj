@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class ServerGame {
     private ArrayList<ServerThread> players;
 
-    private ArrayList<ServerChatWriter> writers;
     private GameManager gameManager;
     private int idGame;
 
