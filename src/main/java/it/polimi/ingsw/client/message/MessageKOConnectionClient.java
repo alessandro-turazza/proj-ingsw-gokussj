@@ -1,10 +1,22 @@
 package it.polimi.ingsw.client.message;
 
+import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.visitor.VisitorClient;
 
 public class MessageKOConnectionClient implements MessageClient {
+    private Client client;
+    private String object;
+    public MessageKOConnectionClient(Client client, String object) {
+        this.client = client;
+        this.object = object;
+    }
 
-    public MessageKOConnectionClient() {
+    public Client getClient(){
+        return client;
+    }
+
+    public String getObject() {
+        return object;
     }
 
     @Override

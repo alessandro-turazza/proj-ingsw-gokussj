@@ -22,9 +22,9 @@ public class ClientController {
         String response = obj.get("response").toString();
 
         if(response.equals("OK_CONNECTION"))
-            return new MessageOKConnectionClient();
+            return new MessageOKConnectionClient(Integer.parseInt(obj.get("object").toString()));
         if(response.equals("KO_CONNECTION"))
-            return new MessageKOConnectionClient();
+            return new MessageKOConnectionClient(client, obj.get("object").toString());
         if(response.equals("NEW_TURN"))
             return new MessageNewTurnClient(client, obj);
         if(response.equals("OK_DED"))

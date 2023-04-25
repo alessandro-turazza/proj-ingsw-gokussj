@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public interface View {
+    void showErrorServer();
     JSONObject lobby();
     void showMessage(String message);
     void showPlank();

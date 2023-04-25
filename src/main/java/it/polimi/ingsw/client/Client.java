@@ -49,8 +49,6 @@ public class Client extends Thread implements Runnable{
 
         char choose = Character.toUpperCase(in.nextLine().charAt(0));
 
-        JSONObject userDatas;
-
         switch(choose){
             case 'C':
                 view = new CLI();
@@ -60,6 +58,12 @@ public class Client extends Thread implements Runnable{
                 break;
         }
 
+        this.setUserDatas();
+
+    }
+
+    public void setUserDatas(){
+        JSONObject userDatas;
         userDatas = view.lobby();
 
         this.name = userDatas.get("username").toString();
@@ -86,13 +90,14 @@ public class Client extends Thread implements Runnable{
             String messageOut;
             MessageClient mc;
 
-
             controller = new ClientController(this);
 
             if (creator)
                 this.sendMessage(controller.sendCreateGame(numPlayers, name));
             else
                 this.sendMessage(controller.sendJoinGame(idGame, name));
+
+
 
             do{
                 messageIn = input.readLine();
@@ -102,7 +107,8 @@ public class Client extends Thread implements Runnable{
             }while(true);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            view.showErrorServer();
+            //throw new RuntimeException(e);
         }
 
     }

@@ -10,15 +10,15 @@ import java.util.Scanner;
 public class RunApp {
     public static void main(String[] args) throws IOException, ParseException {
         System.out.println("Welcome to MyShelfie");
-        System.out.println("Press C to start as client");
-        System.out.println("Press S to start as server");
+        System.out.println("Premi C per essere client");
+        System.out.println("Premi S per essere server");
 
         Scanner in = new Scanner(System.in);
 
         char choose = Character.toUpperCase(in.nextLine().charAt(0));
 
         while(choose != 'C' && choose != 'S'){
-            System.out.println("Invalid character, retype your chosen");
+            System.out.println("Carattere invalido, reinserisci la tua scelta");
             choose = Character.toUpperCase(in.nextLine().charAt(0));
         }
 
@@ -28,6 +28,7 @@ public class RunApp {
                 break;
             case 'C':
                 Client client = new Client();
+                client.startClient();
                 break;
         }
     }

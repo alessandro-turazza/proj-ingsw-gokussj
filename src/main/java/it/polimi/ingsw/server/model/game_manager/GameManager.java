@@ -106,6 +106,12 @@ public class GameManager {
 
     public boolean addNewPlayer(User user){
         if(users.size() < numUser){
+
+            for(User u: users){
+                if(u.getName().equals(user.getName()))
+                    return false;
+            }
+
             users.add(user);
             return true;
         }

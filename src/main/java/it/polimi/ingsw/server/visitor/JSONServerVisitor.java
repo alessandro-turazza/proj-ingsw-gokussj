@@ -22,23 +22,28 @@ public class JSONServerVisitor implements VisitorServer{
    public void visit(MessageStartGameServer m) {
        int idGame= Server.insertNewGame(m.getServerThread(), m.getUser(), m.getNumPlayer());
        m.getServerThread().setIdGame(idGame);
-       m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection());
+       m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection(idGame+""));
        m.getServerThread().setUser(m.getUser());
    }
 
     @Override
     public void visit(MessageEnterInGame m) {
-        boolean res = Server.getServerGameFromId(m.getIdGame()).addNewPlayer(m.getServerThread(), m.getUser());
 
-        if(res){
-            m.getServerThread().setIdGame(m.getIdGame());
-            m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection());
-            m.getServerThread().setUser(m.getUser());
+        if(Server.getServerGameFromId(m.getIdGame()) != null){
+            boolean res = Server.getServerGameFromId(m.getIdGame()).addNewPlayer(m.getServerThread(), m.getUser());
 
-            if(Server.getServerGameFromId(m.getIdGame()).getPlayers().size() == Server.getServerGameFromId(m.getIdGame()).getGameManager().getNumUser())
-                Server.getServerGameFromId(m.getIdGame()).updateStateGame();
+            if(res){
+                m.getServerThread().setIdGame(m.getIdGame());
+                m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection(m.getIdGame()+""));
+                m.getServerThread().setUser(m.getUser());
+
+                if(Server.getServerGameFromId(m.getIdGame()).getPlayers().size() == Server.getServerGameFromId(m.getIdGame()).getGameManager().getNumUser())
+                    Server.getServerGameFromId(m.getIdGame()).updateStateGame();
+            }else
+                m.getServerThread().sendMessage(m.getServerThread().getController().sendKoConnection("USER/FULL"));
         }else
-            m.getServerThread().sendMessage(m.getServerThread().getController().sendKoConnection());
+            m.getServerThread().sendMessage(m.getServerThread().getController().sendKoConnection("NOTEX"));
+
     }
 
     @Override

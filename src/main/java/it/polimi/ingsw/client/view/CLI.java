@@ -7,6 +7,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CLI implements View{
+
+    private static final int MIN_PLAYERS = 2;
+    private static final int MAX_PLAYERS = 4;
+
+    @Override
+    public void showErrorServer() {
+        System.out.println(Colors.RED + "Errore, nessun server connesso!" + Colors.COLOR_RESET);
+    }
     @Override
     public JSONObject lobby() {
         JSONObject userDatas = new JSONObject();
@@ -16,24 +24,32 @@ public class CLI implements View{
 
         userDatas.put("username", in.nextLine());
 
-        System.out.println("Press C to create a new game");
-        System.out.println("Press J to join into an existent game");
+        System.out.println("Premi C per creare una nuova partita");
+        System.out.println("Premi J per unirti ad una partita esistente");
 
         char choose = Character.toUpperCase(in.nextLine().charAt(0));
 
         while(choose != 'C' && choose != 'J'){
-            System.out.println("Invalid character, retype your chosen");
+            System.out.println(Colors.RED + "Carattere invalido, reinserisci la scelta" + Colors.COLOR_RESET);
             choose = Character.toUpperCase(in.nextLine().charAt(0));
         }
 
         switch (choose){
             case 'C':
-                System.out.println("Insert the number of the players in game");
+
                 userDatas.put("type", "create");
-                userDatas.put("numPlayers", in.nextInt());
+                int nPlayers;
+
+                do{
+                    System.out.println("Inerisci il numero dei giocatori (da 2 a 4)");
+                    nPlayers = in.nextInt();
+
+                }while(nPlayers < MIN_PLAYERS || nPlayers > MAX_PLAYERS);
+
+                userDatas.put("numPlayers", nPlayers);
                 break;
             case 'J':
-                System.out.println("Insert the ID of a game");
+                System.out.println("Inserisci l'ID della partita");
                 userDatas.put("type", "join");
                 userDatas.put("idGame", in.nextInt());
                 break;

@@ -35,15 +35,17 @@ public class ServerController {
         return null;
     }
 
-    public JSONObject sendOkConnection(){
+    public JSONObject sendOkConnection(String object){
         JSONObject obj = new JSONObject();
         obj.put("response", "OK_CONNECTION");
+        obj.put("object", object);
         return obj;
     }
 
-    public JSONObject sendKoConnection(){
+    public JSONObject sendKoConnection(String object){
         JSONObject obj = new JSONObject();
         obj.put("response", "KO_CONNECTION");
+        obj.put("object", object);
         return obj;
     }
 

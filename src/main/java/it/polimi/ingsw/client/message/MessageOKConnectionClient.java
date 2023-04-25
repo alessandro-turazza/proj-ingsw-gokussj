@@ -3,8 +3,14 @@ package it.polimi.ingsw.client.message;
 import it.polimi.ingsw.client.visitor.VisitorClient;
 
 public class MessageOKConnectionClient implements MessageClient {
+    private int idGame;
 
-    public MessageOKConnectionClient() {
+    public MessageOKConnectionClient(int idGame) {
+        this.idGame = idGame;
+    }
+
+    public int getIdGame() {
+        return idGame;
     }
 
     @Override
