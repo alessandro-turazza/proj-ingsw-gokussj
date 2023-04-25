@@ -1,7 +1,14 @@
 package it.polimi.ingsw.client.chat;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.Socket;
+
 public class ClientChatReader extends Thread{
-    /*private final int PORT = 4501;
+    private final int PORT = 4501;
     private final String ipServer= "localhost";
     @Override
     public void run() throws RuntimeException {
@@ -13,11 +20,9 @@ public class ClientChatReader extends Thread{
             {
                String resp = input.readLine();
                JSONObject obj = (JSONObject) new JSONParser().parse(resp);
-               MessageChatClient ms=new MessageChatClient(this, obj);
-               ms.accept(new JSONClientVisitor());
+               //metodo che passa obj alla view per visualizzare il nuovo messaggio in chat
             }
-
         }catch (Exception e){throw new RuntimeException();}
 
-    }*/
+    }
 }

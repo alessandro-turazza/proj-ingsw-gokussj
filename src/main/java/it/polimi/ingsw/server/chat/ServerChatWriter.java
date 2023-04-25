@@ -1,43 +1,30 @@
 package it.polimi.ingsw.server.chat;
 
+import org.json.simple.JSONObject;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+
 public class ServerChatWriter{
 
-    /*private int idGame;
+    private int idGame;
 
     private Socket socket;
-
-    private ServerController ss;
-
-    private String playerName;
-
-    private String message;
-
 
 
     public ServerChatWriter(Socket socket, int idGame) throws IOException {
         this.socket = socket;
-        ss = new ServerController(this);
         this.idGame=idGame;
-    }
-
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public int getIdGame() {
         return idGame;
     }
 
-    public String getPlayerName() {
-        return playerName;
-    }
+    public void sendMessage(JSONObject obj) throws IOException {
+        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+        out.println(obj.toJSONString());
 
-    public ServerController getSs() {
-        return ss;
-    }*/
+    }
 }

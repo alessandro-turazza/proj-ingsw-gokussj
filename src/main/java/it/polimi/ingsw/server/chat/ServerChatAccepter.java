@@ -1,14 +1,20 @@
 package it.polimi.ingsw.server.chat;
 
+import org.json.simple.JSONObject;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+
 public class ServerChatAccepter {
-    /*private static final int READ_PORT = 4502;
+    private static final int READ_PORT = 4502;
     private static final int WRITE_PORT = 4501;
     private static ServerSocket serverSocketReader;
     private static ServerSocket serverSocketWriter;
-
     private ServerChatReader serverChatReader;
+    private static ArrayList<ServerChatWriter> serverChatWriters;
 
-    private ServerChatWriter serverChatWriter;
 
     public ServerChatAccepter() throws Exception{
         try {
@@ -22,12 +28,19 @@ public class ServerChatAccepter {
         Socket sreadrer = serverSocketReader.accept();
         serverChatReader = new ServerChatReader(sreadrer, idGame);
         Socket swriter = serverSocketWriter.accept();
-        serverChatWriter = new ServerChatWriter(swriter, idGame);
+        ServerChatWriter scw = new ServerChatWriter(swriter, idGame);
+        serverChatWriters.add(scw);
         serverChatReader.start();
         }catch (IOException e){throw new Exception();}
     }
 
-    public ServerChatWriter getServerChatWriter() {
-        return serverChatWriter;
-    }*/
+    public static void sendAll(JSONObject obj, int idGame) throws Exception{
+        for (ServerChatWriter scw : serverChatWriters)
+            if(scw.getIdGame()==idGame)
+                try {
+                    scw.sendMessage(obj);
+                }catch (IOException e){throw new Exception();}
+
+
+    }
 }
