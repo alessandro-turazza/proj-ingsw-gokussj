@@ -33,6 +33,12 @@ public class CommonGoal {
     public ArrayList<TokenCard> getTokenCards(){
         return tokenCards;
     }
+
+    public TokenCard getLastTokenCard(){
+        if(tokenCards.size()==0)return null;
+        return tokenCards.get(0);
+    }
+
     public ArrayList<TokenCard> getTokenCardsClone(){
         ArrayList<TokenCard> result=new ArrayList<>();
         for(TokenCard tokenCard:tokenCards)
