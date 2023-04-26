@@ -15,7 +15,7 @@ public class Server {
     private static ArrayList<ServerGame> gameList;
 
 
-    public static void loadDatas() throws IOException, ParseException {
+    public void loadDatas() throws IOException, ParseException {
         GameData.loadPlankConfig("src/data/Plank_Config_1.json");
         GameData.loadTokens("src/data/Tokens_Data.json");
         GameData.loadIdCommonGoals("src/data/Common_Goals_Setup.json");
@@ -24,42 +24,36 @@ public class Server {
         GameData.loadObjectCards("src/data/Object_Cards_Data.json");
     }
 
-    public synchronized static ArrayList<ServerGame> getGameList() {
+    public synchronized ArrayList<ServerGame> getGameList() {
         return gameList;
     }
 
-    public synchronized static int insertNewGame(ServerThread st, User user, int numPlayers){
-        gameList.add(new ServerGame(st, user, numPlayers, gameList.size()+1));
+    public synchronized int insertNewGame(ServerThread st, User user, int numPlayers){
+        this.gameList.add(new ServerGame(st, user, numPlayers, gameList.size()+1));
         return gameList.size();
     }
 
-    public synchronized static ServerGame getServerGameFromId(int id){
-
+    public synchronized ServerGame getServerGameFromId(int id){
         for(ServerGame s: gameList){
             if(s.getIdGame() == id)
                 return s;
         }
-
         return null;
-
     }
 
-    public static void startServer() throws IOException, ParseException {
+    public void startServer() throws IOException, ParseException {
         gameList = new ArrayList<>();
         serverSocket = new ServerSocket(PORT);
 
         System.out.println("Server ON");
 
-        loadDatas();
+        this.loadDatas();
 
         while(true){
             Socket socket = serverSocket.accept();
-            ServerThread st = new ServerThread(socket);
+            ServerThread st = new ServerThread(this, socket);
             st.start();
         }
-
-
     }
-
 
 }

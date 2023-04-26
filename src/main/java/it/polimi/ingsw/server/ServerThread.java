@@ -14,6 +14,7 @@ import java.net.Socket;
 
 public class ServerThread extends Thread{
     private Socket socket;
+    private Server server;
     private PrintWriter out;
     private BufferedReader input;
     private int idGame;
@@ -21,17 +22,18 @@ public class ServerThread extends Thread{
     private User user;
 
 
-
-    public ServerController getController() {
-        return controller;
-    }
-
-
-    public ServerThread(Socket socket) throws IOException {
+    public ServerThread(Server server, Socket socket) throws IOException {
+        this.server = server;
         this.socket = socket;
         this.controller = new ServerController(this);
     }
 
+    public Server getServer() {
+        return server;
+    }
+    public ServerController getController() {
+        return controller;
+    }
     public User getUser() {
         return user;
     }
@@ -40,6 +42,9 @@ public class ServerThread extends Thread{
         this.user = user;
     }
 
+    public int getIdGame() {
+        return idGame;
+    }
     public void setIdGame(int idGame) {
         this.idGame = idGame;
     }
@@ -69,7 +74,4 @@ public class ServerThread extends Thread{
         out.println(obj.toJSONString());
     }
 
-    public int getIdGame() {
-        return idGame;
-    }
 }

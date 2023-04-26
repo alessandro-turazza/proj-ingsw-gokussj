@@ -24,7 +24,8 @@ public class RunApp {
 
         switch (choose){
             case 'S':
-                Server.startServer();
+                Server server = new Server();
+                server.startServer();
                 break;
             case 'C':
                 Client client = new Client();

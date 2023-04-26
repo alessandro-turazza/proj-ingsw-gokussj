@@ -1,7 +1,6 @@
 package it.polimi.ingsw.server;
 
 import it.polimi.ingsw.server.model.game_manager.GameManager;
-import it.polimi.ingsw.server.chat.ServerChatWriter;
 import it.polimi.ingsw.server.model.user.User;
 
 import java.util.ArrayList;
@@ -12,13 +11,15 @@ public class ServerGame {
     private GameManager gameManager;
     private int idGame;
 
+
     public ServerGame(ServerThread s, User user, int numPlayer, int id){
-        players = new ArrayList<>();
-        players.add(s);
+        this.players = new ArrayList<>();
+        this.players.add(s);
         this.gameManager = new GameManager(user, numPlayer, id);
         this.idGame = id;
         System.out.println(user.getName() + " has just created game " + id);
     }
+
 
     public synchronized GameManager getGameManager() {
         return gameManager;
@@ -47,7 +48,7 @@ public class ServerGame {
         return res;
     }
 
-    public synchronized void updateStateGame(){
+    /*public synchronized void updateStateGame(){
         for(ServerThread st: players){
             st.sendMessage(st.getController().sendStateGame(gameManager));
             //st.getSs().sendStateGame(gameManager);
@@ -59,7 +60,7 @@ public class ServerGame {
             //st.getSs().sendEndOfGame(gameManager);
             st.sendMessage(st.getController().sendEndOfGame(gameManager));
         }
-    }
+    }*/
 
 
 }

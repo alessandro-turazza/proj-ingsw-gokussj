@@ -2,9 +2,9 @@ package it.polimi.ingsw.server.message;
 
 
 import it.polimi.ingsw.server.ServerThread;
-import it.polimi.ingsw.server.visitor.VisitorServer;
 import it.polimi.ingsw.server.chat.ServerChatWriter;
 import it.polimi.ingsw.server.model.user.User;
+import it.polimi.ingsw.server.visitor.VisitorServer;
 import org.json.simple.JSONObject;
 
 public class MessageStartGameServer implements MessageServer{

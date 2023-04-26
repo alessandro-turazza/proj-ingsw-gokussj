@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server.visitor;
 
+import it.polimi.ingsw.server.ServerThread;
 import it.polimi.ingsw.server.model.game_manager.GameManager;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.ServerGame;
@@ -11,34 +12,34 @@ import it.polimi.ingsw.server.model.user.User;
 
 public class JSONServerVisitor implements VisitorServer{
 
-   /* @Override
-    public void visit(MessageStartGameServer m) {
-        int idGame=Server.insertNewGame(m.getServerChatWriter(),m.getServerThread(), m.getUser(), m.getNumPlayer());
-        m.getServerThread().setIdGame(idGame);
-        m.getServerThread().getSs().sendOk();
-        m.getServerThread().setUser(m.getUser());
-    }*/
    @Override
    public void visit(MessageStartGameServer m) {
-       int idGame= Server.insertNewGame(m.getServerThread(), m.getUser(), m.getNumPlayer());
+       int idGame = m.getServerThread().getServer().insertNewGame(m.getServerThread(), m.getUser(), m.getNumPlayer());
        m.getServerThread().setIdGame(idGame);
-       m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection(idGame+""));
        m.getServerThread().setUser(m.getUser());
+       m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection(idGame+""));
    }
 
     @Override
     public void visit(MessageEnterInGame m) {
 
-        if(Server.getServerGameFromId(m.getIdGame()) != null){
-            boolean res = Server.getServerGameFromId(m.getIdGame()).addNewPlayer(m.getServerThread(), m.getUser());
+       Server server = m.getServerThread().getServer();
+       ServerGame sg = server.getServerGameFromId(m.getIdGame());
+
+        if(sg != null){
+            boolean res = sg.addNewPlayer(m.getServerThread(), m.getUser());
 
             if(res){
                 m.getServerThread().setIdGame(m.getIdGame());
                 m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection(m.getIdGame()+""));
                 m.getServerThread().setUser(m.getUser());
 
-                if(Server.getServerGameFromId(m.getIdGame()).getPlayers().size() == Server.getServerGameFromId(m.getIdGame()).getGameManager().getNumUser())
-                    Server.getServerGameFromId(m.getIdGame()).updateStateGame();
+                if(sg.getPlayers().size() == sg.getGameManager().getNumUser()){
+                    //sg.updateStateGame();
+                    for(ServerThread st: sg.getPlayers())
+                        st.sendMessage(st.getController().sendStateGame(sg.getGameManager()));
+                }
+
             }else
                 m.getServerThread().sendMessage(m.getServerThread().getController().sendKoConnection("USER/FULL"));
         }else
@@ -48,7 +49,7 @@ public class JSONServerVisitor implements VisitorServer{
 
     @Override
     public  void visit(MessageDragAndDropServer m){
-        ServerGame serverGame=Server.getServerGameFromId(m.getServerThread().getIdGame());
+        ServerGame serverGame=m.getServerThread().getServer().getServerGameFromId(m.getServerThread().getIdGame());
         GameManager gm=serverGame.getGameManager();
         User user=null;
         User activeUser=gm.getTurnManager().getUsers().activeUser();
@@ -67,9 +68,15 @@ public class JSONServerVisitor implements VisitorServer{
 
         if(user==null){
             gm.endGame(); //gestisce ovviamente anche il caso di return=null
-            serverGame.endGame();
+            //serverGame.endGame();
+            for(ServerThread st: serverGame.getPlayers())
+                st.sendMessage(st.getController().sendEndOfGame(gm));
+        } else {
+            //serverGame.updateStateGame();//prepara il ServerThread per inviare i dati aggiornati
+            for(ServerThread st: serverGame.getPlayers())
+                st.sendMessage(st.getController().sendStateGame(gm));
         }
-        else serverGame.updateStateGame();//prepara il ServerThread per inviare i dati aggiornati
+
     }
 
 }

@@ -18,6 +18,7 @@ public class JSONClientVisitor implements VisitorClient {
 
     @Override
     public void visit(MessageOKConnectionClient element) {
+        //DA FARE CON VIEW (in element ci deve essere un client)
         System.out.println(Colors.GREEN + "Sei stato aggiunto correttamente alla partita " + element.getIdGame() + Colors.COLOR_RESET);
         System.out.println("In attesa degli altri giocatori...");
     }
