@@ -60,9 +60,11 @@ public class ServerThread extends Thread{
 
             do{
                 messageIn = input.readLine();
-                JSONObject obj = (JSONObject) new JSONParser().parse(messageIn);
-                ms = controller.handleMessage(obj);
-                ms.accept(new JSONServerVisitor());
+                if(messageIn!=null) {
+                    JSONObject obj = (JSONObject) new JSONParser().parse(messageIn);
+                    ms = controller.handleMessage(obj);
+                    ms.accept(new JSONServerVisitor());
+                }
             }while(true);
 
         } catch (Exception e) {

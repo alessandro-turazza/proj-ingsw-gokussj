@@ -65,9 +65,11 @@ public class Client extends Thread implements Runnable{
 
             do{
                 messageIn = input.readLine();
-                JSONObject obj = (JSONObject) new JSONParser().parse(messageIn);
-                mc = controller.handleMessage(obj);
-                mc.accept(new JSONClientVisitor());
+                if(messageIn!=null) {
+                    JSONObject obj = (JSONObject) new JSONParser().parse(messageIn);
+                    mc = controller.handleMessage(obj);
+                    mc.accept(new JSONClientVisitor());
+                }
             }while(true);
 
         } catch (Exception e) {

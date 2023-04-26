@@ -14,12 +14,12 @@ import it.polimi.ingsw.server.model.user.personal_goal.PersonalGoalCard;
 import java.util.ArrayList;
 
 public class StateGame {
-    private ArrayList<User> usersClone;
-    private Plank plankClone;
+    private static ArrayList<User> usersClone;
+    private static Plank plankClone;
 
-    private String activeUser;
+    private static String activeUser;
 
-    private ArrayList<CommonGoal> commonGoalsClone;
+    private static ArrayList<CommonGoal> commonGoalsClone;
 
 
     public StateGame(GameManager gameManager) {

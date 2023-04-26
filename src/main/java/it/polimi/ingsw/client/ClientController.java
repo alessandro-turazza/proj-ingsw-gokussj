@@ -26,7 +26,7 @@ public class ClientController {
         if(response.equals("KO_CONNECTION"))
             return new MessageKOConnectionClient(client, obj.get("object").toString());
         if(response.equals("NEW_TURN"))
-            return new MessageNewTurnClient(client, obj);
+            return new MessageNewTurnClient(client,obj);
         if(response.equals("OK_DED"))
             return new MessageOKDedClient();
         if(response.equals("KO_DED"))

@@ -16,10 +16,10 @@ public class MessageNewTurnClient implements MessageClient {
 
     public MessageNewTurnClient(Client cl, JSONObject obj) {
         client=cl;
-
         Type Type = new TypeToken<StateGame>() {}.getType();
         Gson gobj= new Gson();
-        stateGame=gobj.fromJson(obj.get("state_game").toString(), Type);
+        String jsonString = obj.getOrDefault("state_game",null).toString();
+        stateGame= gobj.fromJson(jsonString, Type);
     }
     @Override
     public void accept(VisitorClient visitor) {
