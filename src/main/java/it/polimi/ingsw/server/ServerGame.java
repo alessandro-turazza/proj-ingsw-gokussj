@@ -48,19 +48,4 @@ public class ServerGame {
         return res;
     }
 
-    /*public synchronized void updateStateGame(){
-        for(ServerThread st: players){
-            st.sendMessage(st.getController().sendStateGame(gameManager));
-            //st.getSs().sendStateGame(gameManager);
-        }
-    }
-
-    public synchronized void endGame(){
-        for(ServerThread st: players){
-            //st.getSs().sendEndOfGame(gameManager);
-            st.sendMessage(st.getController().sendEndOfGame(gameManager));
-        }
-    }*/
-
-
 }

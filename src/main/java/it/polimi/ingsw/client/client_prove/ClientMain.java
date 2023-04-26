@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class ClientMain {
     private static ArrayList<Client> clientList;
 
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         clientList = new ArrayList<>();
 
         Client c3 = new Client("User3", false);
@@ -28,5 +28,5 @@ public class ClientMain {
 
 
 
-    }
+    }*/
 }

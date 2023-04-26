@@ -11,10 +11,7 @@ public class CLI implements View{
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
 
-    @Override
-    public void showErrorServer() {
-        System.out.println(Colors.RED + "Errore, nessun server connesso!" + Colors.COLOR_RESET);
-    }
+
     @Override
     public JSONObject lobby() {
         JSONObject userDatas = new JSONObject();
@@ -59,8 +56,17 @@ public class CLI implements View{
     }
 
     @Override
-    public void showMessage(String message) {
+    public void showNormalMessage(String message) {
+        System.out.println(message);
+    }
 
+    @Override
+    public void showCorrectMessage(String message) {
+        System.out.println(Colors.GREEN + message + Colors.COLOR_RESET);
+    }
+    @Override
+    public void showErrorMessage(String message) {
+        System.out.println(Colors.RED + message + Colors.COLOR_RESET);
     }
 
     @Override

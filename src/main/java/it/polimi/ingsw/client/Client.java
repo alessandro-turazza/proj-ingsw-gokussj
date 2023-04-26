@@ -1,103 +1,66 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.message.MessageClient;
-import it.polimi.ingsw.client.view.CLI;
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.view.ViewController;
 import it.polimi.ingsw.client.visitor.JSONClientVisitor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client extends Thread implements Runnable{
     private final int PORT = 4500;
     private final String ipServer= "localhost";
-
-    private View view;
     private BufferedReader input;
     private PrintWriter out;
     private String name;
     private int idGame;
-    private int numPlayers;
-    private boolean creator;
-
     private ClientController controller;
+    private ViewController viewController;
 
     public Client(){}
-    public Client(String name, boolean creator){
+
+    public void setUsername(String name) {
         this.name = name;
-        this.creator = creator;
     }
     public void setIdGame(int idGame) {
         this.idGame = idGame;
     }
-
-    public void setNumPlayers(int numPlayers) {
-        if(numPlayers >= 2 && numPlayers <= 4)
-            this.numPlayers = numPlayers;
+    public ClientController getController() {
+        return controller;
+    }
+    public ViewController getViewController() {
+        return viewController;
     }
 
-    public void startClient(){
-        System.out.println("Press C to start CLI interface");
-        System.out.println("Press G to start GUI interface");
+    public void startClient() throws IOException {
+        Socket socket = new Socket(ipServer, PORT);
+        input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        out = new PrintWriter(socket.getOutputStream(), true);
 
-        Scanner in = new Scanner(System.in);
+        this.controller = new ClientController(this);
+        this.viewController = new ViewController(this);
 
-        char choose = Character.toUpperCase(in.nextLine().charAt(0));
-
-        switch(choose){
-            case 'C':
-                view = new CLI();
-                break;
-            case 'G':
-                //view = new GUI();
-                break;
-        }
-
-        this.setUserDatas();
-
-    }
-
-    public void setUserDatas(){
-        JSONObject userDatas;
-        userDatas = view.lobby();
-
-        this.name = userDatas.get("username").toString();
-
-        if(userDatas.get("type").toString().equals("create"))
-            this.creator = true;
-        else
-            this.creator = false;
-
-        if(creator)
-            this.numPlayers = Integer.parseInt(userDatas.get("numPlayers").toString());
-        else
-            this.idGame = Integer.parseInt(userDatas.get("idGame").toString());
-
+        viewController.startViewController();
         this.startConnection();
-
     }
+
+    public void sendMessage(JSONObject obj){
+        out.println(obj.toJSONString());
+    }
+
     public void startConnection() {
         try {
-            Socket socket = new Socket(ipServer, PORT);
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), true);
+
             String messageIn;
             String messageOut;
             MessageClient mc;
 
-            controller = new ClientController(this);
-
-            if (creator)
-                this.sendMessage(controller.sendCreateGame(numPlayers, name));
-            else
-                this.sendMessage(controller.sendJoinGame(idGame, name));
-
-
+            this.sendMessage(viewController.setClientDatas());
 
             do{
                 messageIn = input.readLine();
@@ -107,15 +70,11 @@ public class Client extends Thread implements Runnable{
             }while(true);
 
         } catch (Exception e) {
-            view.showErrorServer();
-            //throw new RuntimeException(e);
+            viewController.getView().showErrorMessage("Errore, server non connesso");
         }
 
     }
 
-    public void sendMessage(JSONObject obj){
-        out.println(obj.toJSONString());
-    }
 
 }
 

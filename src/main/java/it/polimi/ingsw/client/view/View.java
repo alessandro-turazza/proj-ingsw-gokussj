@@ -6,9 +6,10 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public interface View {
-    void showErrorServer();
     JSONObject lobby();
-    void showMessage(String message);
+    void showNormalMessage(String message);
+    void showCorrectMessage(String message);
+    void showErrorMessage(String message);
     void showPlank();
     void showBookshelf();
     void showPersonalGoal();
