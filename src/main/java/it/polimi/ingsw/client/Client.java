@@ -38,9 +38,7 @@ public class Client extends Thread implements Runnable{
     }
 
     public void startClient() throws IOException {
-        Socket socket = new Socket(ipServer, PORT);
-        input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new PrintWriter(socket.getOutputStream(), true);
+
 
         this.controller = new ClientController(this);
         this.viewController = new ViewController(this);
@@ -55,6 +53,9 @@ public class Client extends Thread implements Runnable{
 
     public void startConnection() {
         try {
+            Socket socket = new Socket(ipServer, PORT);
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
 
             String messageIn;
             String messageOut;
