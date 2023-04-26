@@ -1,6 +1,10 @@
 package it.polimi.ingsw.client.visitor;
 
+import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.message.*;
+import it.polimi.ingsw.server.model.user.User;
+
+import java.util.ArrayList;
 
 public class JSONClientVisitor implements VisitorClient {
 
@@ -12,6 +16,18 @@ public class JSONClientVisitor implements VisitorClient {
 
     @Override
     public void visit(MessageNewTurnClient element) {
+        Client client = element.getClient();
+        ArrayList<User> users = element.getStateGame().getUsersClone();
+
+        client.getViewController().getView().showNormalMessage("Giocatori:");
+
+
+        for(User u: users){
+            if(u.getName().equals(element.getStateGame().getActiveUser()))
+                client.getViewController().getView().showNormalMessage("->"+u.getName()+"<-");
+            else
+                client.getViewController().getView().showNormalMessage(u.getName());
+        }
 
     }
 

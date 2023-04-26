@@ -10,6 +10,7 @@ public interface View {
     void showNormalMessage(String message);
     void showCorrectMessage(String message);
     void showErrorMessage(String message);
+
     void showPlank();
     void showBookshelf();
     void showPersonalGoal();

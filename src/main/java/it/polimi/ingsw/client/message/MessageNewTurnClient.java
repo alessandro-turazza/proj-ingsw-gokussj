@@ -21,13 +21,18 @@ public class MessageNewTurnClient implements MessageClient {
         String jsonString = obj.getOrDefault("state_game",null).toString();
         stateGame= gobj.fromJson(jsonString, Type);
     }
+
+    public Client getClient() {
+        return client;
+    }
+    public StateGame getStateGame() {
+        return stateGame;
+    }
     @Override
     public void accept(VisitorClient visitor) {
         visitor.visit(this);
     }
 
 
-    public StateGame getStateGame() {
-        return stateGame;
-    }
+
 }

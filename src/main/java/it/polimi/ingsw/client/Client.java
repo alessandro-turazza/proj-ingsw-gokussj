@@ -73,7 +73,8 @@ public class Client extends Thread implements Runnable{
             }while(true);
 
         } catch (Exception e) {
-            viewController.getView().showErrorMessage("Errore, server non connesso");
+            throw new RuntimeException();
+            //viewController.getView().showErrorMessage("Errore, server non connesso");
         }
 
     }
