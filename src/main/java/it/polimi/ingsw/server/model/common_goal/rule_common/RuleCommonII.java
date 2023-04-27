@@ -4,6 +4,12 @@ import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
 
 public class RuleCommonII implements RuleCommon{
+    private int idRule = 2;
+
+    @Override
+    public int getIdRule() {
+        return idRule;
+    }
 
     //Five tiels of the same type forming a diagonal.
     @Override

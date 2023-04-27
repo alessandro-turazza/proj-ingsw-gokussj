@@ -13,6 +13,15 @@ public class PersonalGoalCard {
         costraints = new ArrayList<>();
     }
 
+    public PersonalGoalCard(int id, ArrayList<Costraints> costraints){
+        this.id = id;
+        this.costraints = new ArrayList<>();
+
+        for(Costraints c: costraints){
+            this.costraints.add(new Costraints(c.getRow(), c.getColumn(), c.getColor()));
+        }
+    }
+
 
     public int getId() {
         return id;

@@ -4,6 +4,13 @@ import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import it.polimi.ingsw.server.model.user.User;
 
 public class RuleCommonV implements RuleCommon {
+    private int idRule = 5;
+
+    @Override
+    public int getIdRule() {
+        return idRule;
+    }
+
     //Four tiles of the same type in the four corners of the bookshelf.
     @Override
     public boolean newRule(User user) {

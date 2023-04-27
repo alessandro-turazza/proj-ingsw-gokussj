@@ -5,6 +5,12 @@ import it.polimi.ingsw.server.model.object_card.ObjectCard;
 import it.polimi.ingsw.server.model.user.User;
 
 public class RuleCommonXI implements RuleCommon{
+    private int idRule = 11;
+
+    @Override
+    public int getIdRule() {
+        return idRule;
+    }
 
     //Eight tiles of the same type. There’s no restriction about the position of these tiles.
     @Override

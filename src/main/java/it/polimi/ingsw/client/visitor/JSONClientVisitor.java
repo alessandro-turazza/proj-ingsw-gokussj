@@ -21,7 +21,6 @@ public class JSONClientVisitor implements VisitorClient {
 
         client.getViewController().getView().showNormalMessage("Giocatori:");
 
-
         for(User u: users){
             if(u.getName().equals(element.getStateGame().getActiveUser()))
                 client.getViewController().getView().showNormalMessage("->"+u.getName()+"<-");

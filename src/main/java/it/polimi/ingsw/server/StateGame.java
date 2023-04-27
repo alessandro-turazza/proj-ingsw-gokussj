@@ -14,12 +14,12 @@ import it.polimi.ingsw.server.model.user.personal_goal.PersonalGoalCard;
 import java.util.ArrayList;
 
 public class StateGame {
-    private static ArrayList<User> usersClone;
-    private static Plank plankClone;
+    private ArrayList<User> usersClone;
+    private Plank plankClone;
 
-    private static String activeUser;
+    private String activeUser;
 
-    private static ArrayList<CommonGoal> commonGoalsClone;
+    private ArrayList<CommonGoal> commonGoalsClone;
 
 
     public StateGame(GameManager gameManager) {
@@ -37,7 +37,7 @@ public class StateGame {
                 }
             }
             userClone.setBookshelf(new Bookshelf(cellShelves));
-            userClone.setPersonalGoal(new PersonalGoalCard(user.getPersonalGoal().getId()));
+            userClone.setPersonalGoal(new PersonalGoalCard(user.getPersonalGoal().getId(),user.getPersonalGoal().getCostraints()));
             userClone.setPoints(user.getPoints());
             userClone.initializePointsToken(gameManager.getCommonGoals().size());
             for(int i=0;i<gameManager.getCommonGoals().size();i++)
@@ -63,7 +63,6 @@ public class StateGame {
             commonGoalsClone.add(new CommonGoal(commonGoal.getId(), commonGoal.getRule(),commonGoal.getTokenCardsClone()));
 
     }
-
 
     public String messageStateGame(){
         return new Gson().toJson(this);

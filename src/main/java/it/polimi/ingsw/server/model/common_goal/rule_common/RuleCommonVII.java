@@ -4,6 +4,13 @@ import it.polimi.ingsw.server.model.user.User;
 import static it.polimi.ingsw.server.model.common_goal.rule_common.RuleCommonSupportClass.IsSquare;
 
 public class RuleCommonVII implements RuleCommon {
+    private int idRule = 7;
+
+    @Override
+    public int getIdRule() {
+        return idRule;
+    }
+
     //Two groups each containing 4 tiles of the same type in a 2x2 square. The tiles of one square can be different from those of the other square.
     @Override
     public boolean newRule(User user) {

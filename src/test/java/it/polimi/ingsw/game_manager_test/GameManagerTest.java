@@ -46,10 +46,13 @@ public class GameManagerTest {
         gameManager.getPlank().printPlank();
 
         System.out.println("Common goal 1: ");
+        System.out.println(gameManager.getCommonGoals().get(0).getRule().getIdRule());
+
         for(int i = 0; i < gameManager.getUsers().size(); i++)
             System.out.println("Token: " + gameManager.getCommonGoals().get(0).getTokenCards().get(i).getPoints());
 
         System.out.println("Common goal 2: ");
+        System.out.println(gameManager.getCommonGoals().get(1).getRule().getIdRule());
         for(int i = 0; i < gameManager.getUsers().size(); i++)
             System.out.println("Token: " + gameManager.getCommonGoals().get(1).getTokenCards().get(i).getPoints());
 

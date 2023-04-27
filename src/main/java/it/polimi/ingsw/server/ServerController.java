@@ -1,10 +1,10 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.server.model.game_manager.GameManager;
 import it.polimi.ingsw.server.message.MessageDragAndDropServer;
 import it.polimi.ingsw.server.message.MessageEnterInGame;
 import it.polimi.ingsw.server.message.MessageServer;
 import it.polimi.ingsw.server.message.MessageStartGameServer;
+import it.polimi.ingsw.server.model.game_manager.GameManager;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
@@ -67,6 +67,8 @@ public class ServerController {
         StateGame stateGame=new StateGame(gm);
         obj.put("response","NEW_TURN");
         obj.put("state_game", stateGame.messageStateGame());
+        System.out.println(stateGame.messageStateGame());
+
         return obj;
     }
 

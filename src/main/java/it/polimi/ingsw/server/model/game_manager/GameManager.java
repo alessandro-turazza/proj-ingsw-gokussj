@@ -64,10 +64,10 @@ public class GameManager {
     private void generateCommonGoalList(){
         this.commonGoals = new ArrayList<>();
         ArrayList<Integer> indexes = new ArrayList<>();
-        int numCommonGoal = GameData.getIdCommonGoals().size();
+        int dimCommonGoal = GameData.getIdCommonGoals().size();
         int i = 0;
 
-        while(i < numCommonGoal){
+        while(i < dimCommonGoal){
             Random random = new Random();
             int n = random.nextInt(numCommonGoal);
 
@@ -77,11 +77,11 @@ public class GameManager {
             }
         }
 
-        for(i = 0; i < numCommonGoal; i++){
+        for(i = 0; i < dimCommonGoal; i++){
             commonGoals.add(new CommonGoal(GameData.getIdCommonGoals().get(i), GameData.getRuleCommons().get(indexes.get(i))));
         }
 
-        for(i = 0; i < numCommonGoal; i++){
+        for(i = 0; i < dimCommonGoal; i++){
             ArrayList<Integer> tokens = generateTokens();
             commonGoals.get(i).setTokenCardsInteger(tokens, i+1);
         }

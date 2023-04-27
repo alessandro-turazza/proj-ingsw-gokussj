@@ -4,6 +4,13 @@ import it.polimi.ingsw.server.model.user.User;
 import static it.polimi.ingsw.server.model.common_goal.rule_common.RuleCommonSupportClass.IsCross;
 
 public class RuleCommonX implements RuleCommon {
+    private int idRule = 10;
+
+    @Override
+    public int getIdRule() {
+        return idRule;
+    }
+
     @Override
     public boolean newRule(User user) {
         user.getBookshelf().deleteMark();

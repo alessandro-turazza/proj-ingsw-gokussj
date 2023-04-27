@@ -4,6 +4,12 @@ import it.polimi.ingsw.server.model.user.User;
 import static it.polimi.ingsw.server.model.common_goal.rule_common.RuleCommonSupportClass.columnsChecker;
 
 public class RuleCommonVI implements RuleCommon{
+    private int idRule = 6;
+
+    @Override
+    public int getIdRule() {
+        return idRule;
+    }
 
     //Two columns each formed by 6 different types of tiles.
     @Override

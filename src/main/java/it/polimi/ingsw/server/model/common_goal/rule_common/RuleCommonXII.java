@@ -3,6 +3,12 @@ package it.polimi.ingsw.server.model.common_goal.rule_common;
 import it.polimi.ingsw.server.model.user.User;
 
 public class RuleCommonXII implements RuleCommon{
+    private int idRule = 12;
+
+    @Override
+    public int getIdRule() {
+        return idRule;
+    }
 
     //Five columns of increasing or decreasing height. Starting from the first column on the left or on the right, each next column must be made of exactly one more tile. Tiles can be of any type.
     @Override
