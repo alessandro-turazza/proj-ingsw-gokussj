@@ -28,6 +28,14 @@ public class JSONClientVisitor implements VisitorClient {
                 client.getViewController().getView().showNormalMessage(u.getName());
         }
 
+        element.getStateGame().getPlankClone().printPlank();
+
+        client.getViewController().getView().showNormalMessage("Obiettivo comune 1: " + element.getStateGame().getCommonGoalsClone().get(0).getIdRule());
+
+        client.getViewController().getView().showNormalMessage("Obiettivo comune 2: " + element.getStateGame().getCommonGoalsClone().get(1).getIdRule());
+
+
+
     }
 
     @Override

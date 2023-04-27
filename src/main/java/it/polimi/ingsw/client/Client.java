@@ -61,6 +61,8 @@ public class Client extends Thread implements Runnable{
             String messageOut;
             MessageClient mc;
 
+            //viewController.start();
+            //this.wait();
             this.sendMessage(viewController.setClientDatas());
 
             do{

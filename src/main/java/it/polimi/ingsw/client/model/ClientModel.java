@@ -1,9 +1,8 @@
 package it.polimi.ingsw.client.model;
 
 import it.polimi.ingsw.client.view.View;
-import it.polimi.ingsw.server.StateGame;
-import it.polimi.ingsw.server.model.common_goal.CommonGoal;
-import it.polimi.ingsw.server.model.common_goal.TokenCard;
+import it.polimi.ingsw.server.state_game.CommonGoalClone;
+import it.polimi.ingsw.server.state_game.StateGame;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.plank.Plank;
 import it.polimi.ingsw.server.model.user.User;
@@ -22,7 +21,7 @@ public class ClientModel {
 
     private String myName;
 
-    private ArrayList<CommonGoal> commonGoals;
+    private ArrayList<CommonGoalClone> commonGoals;
 
 
     public ClientModel(StateGame stateGame, String clientName, View view) {
@@ -143,11 +142,11 @@ public class ClientModel {
         throw new Exception("Errore nickname non trovato");
     }
 
-    public TokenCard getLastTokenCardCommonGoal(int series) throws Exception {
+    /*public TokenCard getLastTokenCardCommonGoal(int series) throws Exception {
         //if commongoal is empty return null
         if(series>=1 && series<=commonGoals.size())return commonGoals.get(series-1).getLastTokenCard();
         throw new Exception("Obiettivo comune non trovato");
-    }
+    }*/
 
     public ArrayList<User> getPlayers() {
         return players;
@@ -161,12 +160,12 @@ public class ClientModel {
         return activeUser;
     }
 
-    public ArrayList<CommonGoal> getCommonGoals() {
+    /*public ArrayList<CommonGoal> getCommonGoals() {
         return commonGoals;
     }
 
     public CommonGoal getCommonGoal(int series) throws Exception {
         if(series>=1 && series<=commonGoals.size())return commonGoals.get(series-1);
         throw new Exception("Obiettivo comune non trovato");
-    }
+    }*/
 }

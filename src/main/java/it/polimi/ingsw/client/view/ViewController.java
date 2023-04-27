@@ -50,7 +50,7 @@ public class ViewController {
             int idGame = Integer.parseInt(userDatas.get("idGame").toString());
             messOut = this.client.getController().sendJoinGame(idGame, nomeClient);
         }
-
+        //notify()
         return messOut;
     }
 

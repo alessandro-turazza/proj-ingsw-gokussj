@@ -1,4 +1,4 @@
-package it.polimi.ingsw.server;
+package it.polimi.ingsw.server.state_game;
 
 import com.google.gson.Gson;
 import it.polimi.ingsw.server.model.common_goal.CommonGoal;
@@ -19,7 +19,8 @@ public class StateGame {
 
     private String activeUser;
 
-    private ArrayList<CommonGoal> commonGoalsClone;
+    private ArrayList<CommonGoalClone> commonGoalsClone;
+
 
 
     public StateGame(GameManager gameManager) {
@@ -58,9 +59,11 @@ public class StateGame {
         }
         plankClone=new Plank();
         plankClone.setBoard(boardClone);
+
         commonGoalsClone=new ArrayList<>();
         for(CommonGoal commonGoal:gameManager.getCommonGoals())
-            commonGoalsClone.add(new CommonGoal(commonGoal.getId(), commonGoal.getRule(),commonGoal.getTokenCardsClone()));
+            commonGoalsClone.add(new CommonGoalClone(commonGoal));
+
 
     }
 
@@ -82,7 +85,7 @@ public class StateGame {
         return plankClone;
     }
 
-    public ArrayList<CommonGoal> getCommonGoalsClone() {
+    public ArrayList<CommonGoalClone> getCommonGoalsClone() {
         return commonGoalsClone;
     }
 
