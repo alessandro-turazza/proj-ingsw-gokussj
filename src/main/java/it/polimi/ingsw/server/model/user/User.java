@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.model.user;
 
 import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import it.polimi.ingsw.server.model.user.personal_goal.PersonalGoalCard;
 import it.polimi.ingsw.server.model.object_card.ObjectCard;
 
@@ -108,5 +109,25 @@ public class User {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public User getUserClone(){
+        User userClone=new User(this.getName());
+        Bookshelf bookshelfUser=this.getBookshelf();
+        CellShelf[][] cellShelves=new CellShelf[bookshelfUser.getNumRow()][bookshelfUser.getNumColumn()];
+        for(int i = 0; i < bookshelfUser.getNumRow(); i++){
+            for(int j = 0; j < bookshelfUser.getNumColumn(); j++){
+                if(bookshelfUser.getObjectCard(i,j)!=null){
+                    ObjectCard objectCardUser=new ObjectCard(bookshelfUser.getObjectCard(i,j).getId(),bookshelfUser.getObjectCard(i,j).getColor());
+                    cellShelves[i][j]=new CellShelf(objectCardUser);}
+            }
+        }
+        userClone.setBookshelf(new Bookshelf(cellShelves));
+        userClone.setPersonalGoal(new PersonalGoalCard(this.getPersonalGoal().getId(),this.getPersonalGoal().getCostraints()));
+        userClone.setPoints(this.getPoints());
+        userClone.initializePointsToken(this.pointsToken.size());
+        for(int i=0;i<this.pointsToken.size();i++)
+            userClone.setPointsToken(this.getPointsToken(i),i);
+        return userClone;
     }
 }
