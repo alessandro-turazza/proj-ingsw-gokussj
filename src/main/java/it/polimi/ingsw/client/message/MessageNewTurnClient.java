@@ -24,7 +24,7 @@ public class MessageNewTurnClient implements MessageClient {
         return stateGame;
     }
     @Override
-    public void accept(VisitorClient visitor) {
+    public void accept(VisitorClient visitor) throws Exception {
         visitor.visit(this);
     }
 

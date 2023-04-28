@@ -192,6 +192,14 @@ public class ClientModel {
         this.commonGoals = commonGoals;
     }
 
+    public User getUserByName(String name){
+        for(User user: this.players){
+            if(user.getName().equals(name))
+                return user;
+        }
+        return null;
+    }
+
     /*public ArrayList<CommonGoal> getCommonGoals() {
         return commonGoals;
     }

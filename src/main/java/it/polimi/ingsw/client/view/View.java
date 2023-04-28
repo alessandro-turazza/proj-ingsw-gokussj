@@ -10,11 +10,15 @@ public interface View {
     void showNormalMessage(String message);
     void showCorrectMessage(String message);
     void showErrorMessage(String message);
-
+    void showStateGame() throws Exception;
     void showPlank();
-    void showBookshelf();
+    void showBookshelfs();
+    void showBookshelf(String username) throws Exception;
     void showPersonalGoal();
-    void showCommonGoal();
+    void showCommonGoals();
+    void showUsers();
+    void showCommonGoal(int idCommonGoal);
+    String catchAction(boolean myTurn);
     ArrayList<CellPlank> drag();
     int drop();
     void showEndGame();
