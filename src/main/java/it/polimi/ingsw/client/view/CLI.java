@@ -16,7 +16,9 @@ public class CLI implements View{
     public JSONObject lobby() {
         JSONObject userDatas = new JSONObject();
 
-        System.out.println("Insert a username");
+        System.out.println("----------------------------");
+
+        System.out.println("Inserisci il nome utente");
         Scanner in = new Scanner(System.in);
 
         userDatas.put("username", in.nextLine());
@@ -51,6 +53,8 @@ public class CLI implements View{
                 userDatas.put("idGame", in.nextInt());
                 break;
         }
+
+        System.out.println("----------------------------");
 
         return userDatas;
     }

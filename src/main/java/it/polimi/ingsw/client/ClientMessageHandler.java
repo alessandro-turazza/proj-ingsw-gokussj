@@ -3,7 +3,7 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.client.message.*;
 import org.json.simple.JSONObject;
 
-public class ClientController {
+public class ClientMessageHandler {
 
     private Client client;
 
@@ -13,7 +13,7 @@ public class ClientController {
 
     private int dropColumn;
 
-    public ClientController(Client client){
+    public ClientMessageHandler(Client client){
         this.client = client;
 
     }

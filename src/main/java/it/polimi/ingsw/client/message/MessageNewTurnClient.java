@@ -13,7 +13,6 @@ public class MessageNewTurnClient implements MessageClient {
 
     public MessageNewTurnClient(Client cl, JSONObject obj) {
         client=cl;
-
         String s = obj.get("state_game").toString();
         stateGame = new Gson().fromJson(s, StateGame.class);
     }

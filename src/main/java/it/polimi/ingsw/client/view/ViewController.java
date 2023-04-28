@@ -17,8 +17,10 @@ public class ViewController {
     }
 
     public void startViewController(){
-        System.out.println("Press C to start CLI interface");
-        System.out.println("Press G to start GUI interface");
+
+        System.out.println("----------------------------");
+        System.out.println("Premi C per usare l'interfaccia CLI");
+        System.out.println("Premi G per usare l'interfaccia GUI");
 
         Scanner in = new Scanner(System.in);
 
@@ -33,25 +35,24 @@ public class ViewController {
                 break;
         }
 
+        System.out.println("----------------------------");
+
     }
 
-    public JSONObject setClientDatas(){
+    public void setClientDatas(){
         JSONObject userDatas;
         userDatas = view.lobby();
-        JSONObject messOut;
         String nomeClient = userDatas.get("username").toString();
 
-        client.setUsername(nomeClient);
+        client.getModel().setMyName(nomeClient);
 
         if(userDatas.get("type").toString().equals("create")){
             int numPlayers = Integer.parseInt(userDatas.get("numPlayers").toString());
-            messOut = this.client.getController().sendCreateGame(numPlayers,nomeClient);
+            this.client.getMessager().sendMessage(this.client.getMessager().getMessageHandler().sendCreateGame(numPlayers,nomeClient));
         }else{
             int idGame = Integer.parseInt(userDatas.get("idGame").toString());
-            messOut = this.client.getController().sendJoinGame(idGame, nomeClient);
+            this.client.getMessager().sendMessage(this.client.getMessager().getMessageHandler().sendJoinGame(idGame,nomeClient));
         }
-        //notify()
-        return messOut;
     }
 
 }

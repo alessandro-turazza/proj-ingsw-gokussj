@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class ClientModel {
-    private View view;
+    private int idGame;
     private ArrayList<User> players;
     private Plank plank;
 
@@ -23,14 +23,13 @@ public class ClientModel {
 
     private ArrayList<CommonGoalClone> commonGoals;
 
-
+    public ClientModel(){}
     public ClientModel(StateGame stateGame, String clientName, View view) {
         this.players = stateGame.getUsersClone();
         this.plank = stateGame.getPlankClone();
         this.activeUser = stateGame.getActiveUser();
         this.commonGoals = stateGame.getCommonGoalsClone();
         this.myName=clientName;
-        this.view=view;
     }
 
     public boolean checkDrop(int numCard,int column) throws Exception {
@@ -158,6 +157,39 @@ public class ClientModel {
 
     public String getActiveUser() {
         return activeUser;
+    }
+    public int getIdGame() {
+        return idGame;
+    }
+    public String getMyName() {
+        return myName;
+    }
+    public ArrayList<CommonGoalClone> getCommonGoals() {
+        return commonGoals;
+    }
+
+    public void setIdGame(int idGame) {
+        this.idGame = idGame;
+    }
+
+    public void setPlayers(ArrayList<User> players) {
+        this.players = players;
+    }
+
+    public void setPlank(Plank plank) {
+        this.plank = plank;
+    }
+
+    public void setActiveUser(String activeUser) {
+        this.activeUser = activeUser;
+    }
+
+    public void setMyName(String myName) {
+        this.myName = myName;
+    }
+
+    public void setCommonGoals(ArrayList<CommonGoalClone> commonGoals) {
+        this.commonGoals = commonGoals;
     }
 
     /*public ArrayList<CommonGoal> getCommonGoals() {

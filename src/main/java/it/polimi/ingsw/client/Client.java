@@ -1,25 +1,45 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.client.message.MessageClient;
+import it.polimi.ingsw.client.model.ClientModel;
 import it.polimi.ingsw.client.view.ViewController;
-import it.polimi.ingsw.client.visitor.JSONClientVisitor;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
 
-public class Client extends Thread implements Runnable{
-    private final int PORT = 4500;
+public class Client {
+    private ClientMessager messager;
+    private ViewController viewController;
+    private ClientModel model;
+
+    public Client() throws IOException {
+        this.messager = new ClientMessager(this);
+        this.viewController = new ViewController(this);
+        this.model = new ClientModel();
+    }
+    public ViewController getViewController() {
+        return viewController;
+    }
+
+    public ClientMessager getMessager() {
+        return messager;
+    }
+
+    public ClientModel getModel() {
+        return model;
+    }
+
+    public void startClient(){
+        this.viewController.startViewController();
+        this.viewController.setClientDatas();
+        this.messager.start();
+    }
+
+    /*private final int PORT = 4500;
     private final String ipServer= "localhost";
     private BufferedReader input;
     private PrintWriter out;
     private String name;
     private int idGame;
-    private ClientController controller;
+    private ClientMessageHandler messageHandler;
     private ViewController viewController;
 
     public Client(){}
@@ -30,8 +50,8 @@ public class Client extends Thread implements Runnable{
     public void setIdGame(int idGame) {
         this.idGame = idGame;
     }
-    public ClientController getController() {
-        return controller;
+    public ClientMessageHandler getMessageHandler() {
+        return messageHandler;
     }
     public ViewController getViewController() {
         return viewController;
@@ -40,7 +60,7 @@ public class Client extends Thread implements Runnable{
     public void startClient() throws IOException {
 
 
-        this.controller = new ClientController(this);
+        this.messageHandler = new ClientMessageHandler(this);
         this.viewController = new ViewController(this);
 
         viewController.startViewController();
@@ -69,7 +89,7 @@ public class Client extends Thread implements Runnable{
                 messageIn = input.readLine();
                 if(messageIn!=null) {
                     JSONObject obj = (JSONObject) new JSONParser().parse(messageIn);
-                    mc = controller.handleMessage(obj);
+                    mc = messageHandler.handleMessage(obj);
                     mc.accept(new JSONClientVisitor());
                 }
             }while(true);
@@ -79,7 +99,7 @@ public class Client extends Thread implements Runnable{
             //viewController.getView().showErrorMessage("Errore, server non connesso");
         }
 
-    }
+    }*/
 
 
 }

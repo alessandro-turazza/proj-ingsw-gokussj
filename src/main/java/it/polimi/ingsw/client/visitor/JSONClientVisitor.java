@@ -40,8 +40,9 @@ public class JSONClientVisitor implements VisitorClient {
 
     @Override
     public void visit(MessageOKConnectionClient element) {
-        element.getClient().getViewController().getView().showCorrectMessage("Sei stato aggiunto correttamente alla partita " + element.getIdGame());
-        element.getClient().getViewController().getView().showNormalMessage("In attesa degli altri giocatori...");
+        Client client = element.getClient();
+        client.getViewController().getView().showCorrectMessage("Sei stato aggiunto correttamente alla partita " + element.getIdGame());
+        client.getViewController().getView().showNormalMessage("In attesa degli altri giocatori...");
     }
 
     @Override
@@ -50,7 +51,7 @@ public class JSONClientVisitor implements VisitorClient {
             element.getClient().getViewController().getView().showErrorMessage("Errore, partita inesistente");
         else if(element.getObject().equals("USER/FULL"))
             element.getClient().getViewController().getView().showErrorMessage("Errore, username già in uso / partita piena");
-        element.getClient().startConnection();
+        element.getClient().getViewController().setClientDatas();
     }
     @Override
     public void visit(MessageEndGameClient element) {
