@@ -20,6 +20,6 @@ public interface View {
     void showCommonGoal(int idCommonGoal);
     String catchAction(boolean myTurn);
     ArrayList<CellPlank> drag();
-    int drop();
+    int drop(int numCards) throws Exception;
     void showEndGame();
 }

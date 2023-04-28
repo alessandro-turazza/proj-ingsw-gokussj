@@ -148,6 +148,14 @@ public class ClientModel {
         throw new Exception("Obiettivo comune non trovato");
     }
 
+    public User getUserByName(String username){
+        for(User user: players){
+            if(user.getName().equals(username))
+                return user;
+        }
+        return null;
+    }
+
     public ArrayList<User> getPlayers() {
         return players;
     }

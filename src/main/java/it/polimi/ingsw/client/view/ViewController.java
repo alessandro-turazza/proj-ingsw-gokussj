@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.server.model.plank.CellPlank;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class ViewController {
     private View view;
     private Client client;
 
-    private ArrayList<String> actions = new ArrayList<>(Arrays.asList("DRAG","DROP","BOOKSHELF"));
+    private ArrayList<String> actions = new ArrayList<>(Arrays.asList("DRAG/DROP","BOOKSHELF"));
 
     public ViewController(Client client){
         this.client = client;
@@ -74,9 +75,13 @@ public class ViewController {
 
         if(action.equals(actions.get(0))){
             //drag
-        }else if(action.equals(actions.get(1))){
+            ArrayList<CellPlank> cells = view.drag();
             //drop
-        }else if(act[0].equals(actions.get(2))){
+            int column = view.drop(cells.size());
+
+            System.out.println("colonna: "+ column);
+
+        }else if(act[0].equals(actions.get(1))){
             String username = act[1];
             view.showBookshelf(username);
         }

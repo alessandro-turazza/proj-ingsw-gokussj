@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.server.model.plank.CellPlank;
+import it.polimi.ingsw.server.model.plank.Plank;
 import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
 import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
@@ -98,12 +99,20 @@ public class CLI implements View{
         int dimPlank = client.getModel().getPlank().getDIM();
         CellPlank[][] board = client.getModel().getPlank().getBoard();
 
+        System.out.print("  ");
+        for(int i = 0; i < dimPlank; i++)
+            System.out.print(i+" ");
+
+        System.out.println("");
+
         for(int i = 0; i < dimPlank; i++){
+            System.out.print(i+" ");
             for(int j = 0; j < dimPlank; j++){
+
                 if(board[i][j] == null || board[i][j].getObjectCard() == null)
-                    System.out.print(" ");
+                    System.out.print("- ");
                 else
-                    System.out.print(Colors.colorChar(board[i][j].getObjectCard().getColor()));
+                    System.out.print(Colors.colorChar(board[i][j].getObjectCard().getColor()) + " ");
             }
             System.out.println(" ");
         }
@@ -121,12 +130,17 @@ public class CLI implements View{
 
         showNormalMessage("Libreria di " + username);
 
+        for(int i = 0; i < bookshelf.getNumColumn(); i++)
+            System.out.print(i+" ");
+
+        System.out.println("");
+
         for(int i = 0; i < bookshelf.getNumRow(); i++){
             for(int j = 0; j < bookshelf.getNumColumn(); j++){
                 if(cellShelf[i][j] != null)
-                    System.out.print(cellShelf[i][j].getObjectCard().getId());
+                    System.out.print(cellShelf[i][j].getObjectCard().getId() + " ");
                 else
-                    System.out.print("-");
+                    System.out.print("- ");
             }
             System.out.println(" ");
         }
@@ -170,20 +184,20 @@ public class CLI implements View{
         boolean exit = false;
 
         do{
-            showNormalMessage("Digita un azione (DRAG/DROP/BOOKSHELF <NAME>)");
+            showNormalMessage("Digita un azione (DRAG/DROP or BOOKSHELF <NAME>)");
             Scanner in = new Scanner(System.in);
             action = in.nextLine();
             String[] control = action.split(" ");
 
-            if(control[0].equals(possibleActions.get(0)) || control.equals(possibleActions.get(1)))
+            if(control[0].equals(possibleActions.get(0)))
                 exit = true;
 
-            if((control[0].equals(possibleActions.get(0)) && !myTurn) || (control[0].equals(possibleActions.get(1)) && !myTurn) ){
+            if((control[0].equals(possibleActions.get(0)) && !myTurn)){
                 showErrorMessage("Non è il tuo turno");
                 exit = false;
             }
 
-            if(control[0].equals(possibleActions.get(2))){
+            if(control[0].equals(possibleActions.get(1))){
                 for(User user: client.getModel().getPlayers()){
                     if(control[1].equals(user.getName()))
                         exit = true;
@@ -199,14 +213,94 @@ public class CLI implements View{
 
     }
 
-    @Override
-    public ArrayList<CellPlank> drag() {
-        return null;
+    private boolean addable(int row, int column, ArrayList<CellPlank> cells){
+        if(cells.size() == 0)
+            return true;
+        for(CellPlank c: cells){
+            if(row == c.getRow() && (column == c.getColumn() + 1 || column == c.getColumn() - 1))
+                return true;
+            if(column == c.getColumn() && (row == c.getRow() + 1 || row == c.getRow() -1))
+                return true;
+        }
+
+        return false;
     }
 
     @Override
-    public int drop() {
-        return 0;
+    public ArrayList<CellPlank> drag() {
+        this.showPlank();
+        ArrayList<CellPlank> cells = new ArrayList<>();
+        String input = "";
+        boolean exit = false;
+
+
+        do{
+            showNormalMessage("Inserisci coordinate della carta da prelevare (<riga>,<colonna>/STOP)");
+            Scanner in = new Scanner(System.in);
+
+            input = in.nextLine();
+
+            if(input.equals("STOP"))
+                exit = true;
+            else{
+                int row = -1;
+                int column = -1;
+
+                try{
+                    input.trim();
+                    String[] coordinates = input.split(",");
+
+                    row = Integer.parseInt(coordinates[0]);
+                    column = Integer.parseInt(coordinates[1]);
+
+                    Plank p = client.getModel().getPlank();
+                    p.checkPlayable();
+
+                    if(row >= 0 && row < p.getDIM() && column >= 0 && column < p.getDIM() && p.getBoard()[row][column].getPlayable()){
+                        boolean canAdd = addable(row, column, cells);
+                        //Controllo che le celle prese siano sulla stessa riga o colonna
+
+                        if(canAdd == true){
+                            CellPlank c = p.getBoard()[row][column];
+                            cells.add(c);
+                        }else
+                            showErrorMessage("Cella non selezionabile");
+
+                    }else
+                        showErrorMessage("Cella non selezionabile");
+                }catch(Exception e){
+                    showErrorMessage("Formato invalido");
+                }
+
+            }
+
+        }while(!exit && cells.size() < 3);
+
+        return cells;
+
+    }
+
+    @Override
+    public int drop(int numCards) throws Exception {
+        showBookshelf(client.getModel().getMyName());
+        int numColonna = -1;
+        boolean exit = true;
+
+        Bookshelf bookshelf = client.getModel().getMyBookshelf();
+
+        do{
+            showNormalMessage("Inserisci il numero della colonna dove inserire le tessere");
+            Scanner in = new Scanner(System.in);
+            numColonna = in.nextInt();
+
+            if(numColonna < 0 || numColonna >= bookshelf.getNumColumn() || bookshelf.checkColumn(numColonna) < numCards){
+                exit = false;
+                showErrorMessage("Impossibile riempire la colonna");
+            }
+
+        }while(!exit);
+
+        return numColonna;
     }
 
     @Override
