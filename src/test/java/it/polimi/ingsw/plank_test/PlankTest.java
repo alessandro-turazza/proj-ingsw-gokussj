@@ -150,4 +150,27 @@ public class PlankTest {
         plank.checkPlayable();
         assertTrue(plank.checkRefull());
     }
+
+    @Test
+    public void plankTest_getPlankClone() throws IOException, ParseException {
+        GameData.loadPlankConfig("src/test/TestFiles/PlankTest/PlankTest_checkPlayable.json");
+        plank.initializePlank(GameData.getPlank_config(),2);
+        plank.initializeCardBag(GameData.getDataObjectCards());
+        plank.fillPlank();
+        CellPlank[][] cellPlanksClone=plank.getPlankClone().getBoard();
+        CellPlank[][] cellPlanks=plank.getBoard();
+        for(int r=0;r< plank.getDIM();r++)
+            for(int c=0;c<plank.getDIM();c++){
+                if(cellPlanks[r][c]!=null){
+                    CellPlank cellPlank=cellPlanks[r][c];
+                    CellPlank cellPlankClone=cellPlanksClone[r][c];
+                    assertEquals(cellPlank.getColumn(),cellPlankClone.getColumn());
+                    assertEquals(cellPlank.getRow(),cellPlankClone.getRow());
+                    assertEquals(cellPlank.getObjectCard().getColor(),cellPlankClone.getObjectCard().getColor());
+                    assertEquals(cellPlank.getObjectCard().getId(),cellPlankClone.getObjectCard().getId());
+                    assertEquals(cellPlank.getPlayable(),cellPlankClone.getPlayable());
+                }
+                else assertNull(cellPlanksClone[r][c]);
+            }
+    }
 }

@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.model.object_card.Color;
 import it.polimi.ingsw.server.model.object_card.ObjectCard;
 import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
+import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,8 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
     private static User user;
@@ -121,6 +121,35 @@ public class UserTest {
         assertThrows(Exception.class,
                 () -> user.dropObjectCard(card,-2));
     }
+    @Test
+    public void user_getUserClone() throws IOException, ParseException {
+        user.setBookshelf(new Bookshelf(BookshelfTest.readBookshelfMatrix("src/test/TestFiles/BookshelfTest/Bookshelf_PersonalGoal_1.json")));
+        user.setPersonalGoal(GameData.getPersonalGoalCards().get(0));
+        User userClone=user.getUserClone();
+        assertEquals(user.getName(),userClone.getName());
+        assertEquals(user.getPoints(),userClone.getPoints());
+        for(int i=0;i<user.getPointsToken().size();i++)
+            assertEquals(user.getPointsToken(i),userClone.getPointsToken(i));
+        assertEquals(user.getPersonalGoal().getId(),userClone.getPersonalGoal().getId());
+        for(int i=0;i<user.getPersonalGoal().getCostraints().size();i++){
+            assertEquals(user.getPersonalGoal().getCostraints().get(i).getColor(),userClone.getPersonalGoal().getCostraints().get(i).getColor());
+            assertEquals(user.getPersonalGoal().getCostraints().get(i).getRow(),userClone.getPersonalGoal().getCostraints().get(i).getRow());
+            assertEquals(user.getPersonalGoal().getCostraints().get(i).getColumn(),userClone.getPersonalGoal().getCostraints().get(i).getColumn());
+        }
+        CellShelf[][] cellShelves=user.getBookshelf().getBookshelf();
+        CellShelf[][] cellShelvesClone=userClone.getBookshelf().getBookshelf();
+        for(int i = 0; i < user.getBookshelf().getNumRow(); i++){
+            for(int j = 0; j < user.getBookshelf().getNumColumn(); j++){
+                if(cellShelves[i][j] != null){
+                    assertEquals(cellShelves[i][j].getObjectCard().getColor(),cellShelvesClone[i][j].getObjectCard().getColor());
+                    assertEquals(cellShelves[i][j].getObjectCard().getId(),cellShelvesClone[i][j].getObjectCard().getId());
+                    if(cellShelves[i][j].isMarked())assertTrue(cellShelvesClone[i][j].isMarked());
+                    else assertFalse(cellShelvesClone[i][j].isMarked());
+                }
+                else assertNull(cellShelvesClone[i][j]);
+            }
+        }
 
+    }
 
 }

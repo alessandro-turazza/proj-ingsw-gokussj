@@ -25,7 +25,8 @@ public class User {
         this.pointsToken.set(index,points);
     }
     public Integer getPointsToken(int index) {
-        return pointsToken.get(index);
+        if(index>=0 && index<pointsToken.size()) return pointsToken.get(index);
+        else return null;
     }
 
     public void setBookshelf(Bookshelf bookshelf) {
@@ -129,5 +130,9 @@ public class User {
         for(int i=0;i<this.pointsToken.size();i++)
             userClone.setPointsToken(this.getPointsToken(i),i);
         return userClone;
+    }
+
+    public ArrayList<Integer> getPointsToken() {
+        return pointsToken;
     }
 }

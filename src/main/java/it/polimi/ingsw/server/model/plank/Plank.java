@@ -130,6 +130,7 @@ public class Plank {
         }
         Plank plankClone=new Plank();
         plankClone.setBoard(boardClone);
+        plankClone.checkPlayable();
         return plankClone;
     }
 }

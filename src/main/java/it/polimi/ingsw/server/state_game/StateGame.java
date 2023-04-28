@@ -32,17 +32,10 @@ public class StateGame {
         for(CommonGoal commonGoal:gameManager.getCommonGoals())
             commonGoalsClone.add(new CommonGoalClone(commonGoal));
 
-
     }
 
     public String messageStateGame(){
         return new Gson().toJson(this);
-    }
-    public String messagePlank(){
-        return new Gson().toJson(this.plankClone);
-    }
-    public String messageUser(){
-        return new Gson().toJson(this.usersClone);
     }
 
     public ArrayList<User> getUsersClone() {

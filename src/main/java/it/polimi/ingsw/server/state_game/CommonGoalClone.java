@@ -10,7 +10,7 @@ public class CommonGoalClone {
     protected int id;
     protected int idRule;
     protected ArrayList<TokenCard> tokens;
-    protected CommonGoalClone(CommonGoal commonGoal){
+    public CommonGoalClone(CommonGoal commonGoal){
         this.id = commonGoal.getId();
         this.idRule = commonGoal.getRule().getIdRule();
         this.tokens = new ArrayList<>();
