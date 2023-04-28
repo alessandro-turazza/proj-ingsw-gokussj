@@ -3,13 +3,8 @@ package it.polimi.ingsw.server.state_game;
 import com.google.gson.Gson;
 import it.polimi.ingsw.server.model.common_goal.CommonGoal;
 import it.polimi.ingsw.server.model.game_manager.GameManager;
-import it.polimi.ingsw.server.model.object_card.ObjectCard;
-import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.plank.Plank;
 import it.polimi.ingsw.server.model.user.User;
-import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
-import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
-import it.polimi.ingsw.server.model.user.personal_goal.PersonalGoalCard;
 
 import java.util.ArrayList;
 
@@ -25,40 +20,13 @@ public class StateGame {
 
     public StateGame(GameManager gameManager) {
         usersClone=new ArrayList<>();
-        activeUser=gameManager.getTurnManager().getUsers().activeUser().getName();
         for(User user: gameManager.getUsers()){
-            User userClone=new User(user.getName());
-            Bookshelf bookshelfUser=user.getBookshelf();
-            CellShelf[][] cellShelves=new CellShelf[bookshelfUser.getNumRow()][bookshelfUser.getNumColumn()];
-            for(int i = 0; i < bookshelfUser.getNumRow(); i++){
-                for(int j = 0; j < bookshelfUser.getNumColumn(); j++){
-                    if(bookshelfUser.getObjectCard(i,j)!=null){
-                    ObjectCard objectCardUser=new ObjectCard(bookshelfUser.getObjectCard(i,j).getId(),bookshelfUser.getObjectCard(i,j).getColor());
-                    cellShelves[i][j]=new CellShelf(objectCardUser);}
-                }
-            }
-            userClone.setBookshelf(new Bookshelf(cellShelves));
-            userClone.setPersonalGoal(new PersonalGoalCard(user.getPersonalGoal().getId(),user.getPersonalGoal().getCostraints()));
-            userClone.setPoints(user.getPoints());
-            userClone.initializePointsToken(gameManager.getCommonGoals().size());
-            for(int i=0;i<gameManager.getCommonGoals().size();i++)
-                userClone.setPointsToken(user.getPointsToken(i),i);
-            usersClone.add(userClone);
+            usersClone.add(user.getUserClone());
         }
 
+        activeUser=gameManager.getTurnManager().getUsers().activeUser().getName();
 
-        CellPlank[][] board=gameManager.getPlank().getBoard();
-        CellPlank[][] boardClone=new CellPlank[gameManager.getPlank().getDIM()][gameManager.getPlank().getDIM()];
-        for(int i = 0; i < gameManager.getPlank().getDIM(); i++) {
-            for (int j = 0; j < gameManager.getPlank().getDIM(); j++) {
-                if(board[i][j]!=null && board[i][j].getObjectCard()!=null){
-                    ObjectCard objectCard=new ObjectCard(board[i][j].getObjectCard().getId(),board[i][j].getObjectCard().getColor());
-                    boardClone[i][j]=new CellPlank(objectCard,i,j);
-                }
-            }
-        }
-        plankClone=new Plank();
-        plankClone.setBoard(boardClone);
+        plankClone=gameManager.getPlank().getPlankClone();
 
         commonGoalsClone=new ArrayList<>();
         for(CommonGoal commonGoal:gameManager.getCommonGoals())

@@ -117,4 +117,19 @@ public class Plank {
     public int getDIM() {
         return DIM;
     }
+
+    public Plank getPlankClone(){
+        CellPlank[][] boardClone=new CellPlank[DIM][DIM];
+        for(int i = 0; i < DIM; i++) {
+            for (int j = 0; j < DIM; j++) {
+                if(board[i][j]!=null && board[i][j].getObjectCard()!=null){
+                    ObjectCard objectCard=new ObjectCard(board[i][j].getObjectCard().getId(),board[i][j].getObjectCard().getColor());
+                    boardClone[i][j]=new CellPlank(objectCard,i,j);
+                }
+            }
+        }
+        Plank plankClone=new Plank();
+        plankClone.setBoard(boardClone);
+        return plankClone;
+    }
 }

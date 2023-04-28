@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.model;
 
 import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.server.model.common_goal.TokenCard;
 import it.polimi.ingsw.server.state_game.CommonGoalClone;
 import it.polimi.ingsw.server.state_game.StateGame;
 import it.polimi.ingsw.server.model.plank.CellPlank;
@@ -141,11 +142,11 @@ public class ClientModel {
         throw new Exception("Errore nickname non trovato");
     }
 
-    /*public TokenCard getLastTokenCardCommonGoal(int series) throws Exception {
+    public TokenCard getLastTokenCardCommonGoal(int series) throws Exception {
         //if commongoal is empty return null
         if(series>=1 && series<=commonGoals.size())return commonGoals.get(series-1).getLastTokenCard();
         throw new Exception("Obiettivo comune non trovato");
-    }*/
+    }
 
     public ArrayList<User> getPlayers() {
         return players;
@@ -192,12 +193,8 @@ public class ClientModel {
         this.commonGoals = commonGoals;
     }
 
-    /*public ArrayList<CommonGoal> getCommonGoals() {
-        return commonGoals;
-    }
-
-    public CommonGoal getCommonGoal(int series) throws Exception {
+    public CommonGoalClone getCommonGoal(int series) throws Exception {
         if(series>=1 && series<=commonGoals.size())return commonGoals.get(series-1);
         throw new Exception("Obiettivo comune non trovato");
-    }*/
+    }
 }
