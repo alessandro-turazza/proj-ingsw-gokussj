@@ -13,7 +13,7 @@ import java.net.Socket;
 
 public class ClientMessager extends Thread{
     private final int PORT = 4500;
-    private final String ipServer= "localhost";
+    private final String ipServer= "192.168.1.4";
     private BufferedReader input;
     private PrintWriter out;
     private Client client;

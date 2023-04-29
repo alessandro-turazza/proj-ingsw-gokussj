@@ -69,12 +69,12 @@ public class ViewController {
         }
 
         ClientChatReader chatReader = new ClientChatReader();
-        try {
+        /*try {
             view.getChatWriter().Connect();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        chatReader.run();
+        chatReader.run();*/
     }
 
     public void handleAction() throws Exception {

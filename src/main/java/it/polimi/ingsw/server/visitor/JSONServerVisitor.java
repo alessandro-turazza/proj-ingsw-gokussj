@@ -35,13 +35,13 @@ public class JSONServerVisitor implements VisitorServer{
 
        Server server = m.getServerThread().getServer();
        ServerGame sg = server.getServerGameFromId(m.getIdGame());
-        try {
+       /* try {
             ServerChatAccepter chatAccepter = ServerChatAccepter.getAccepter();
             chatAccepter.acceptConnection(m.getIdGame());
 
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
+        }*/
         if(sg != null){
             boolean res = sg.addNewPlayer(m.getServerThread(), m.getUser());
 
