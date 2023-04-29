@@ -1,16 +1,14 @@
 package it.polimi.ingsw.server.visitor;
 
-import it.polimi.ingsw.server.ServerThread;
-import it.polimi.ingsw.server.chat.ServerChatAccepter;
-import it.polimi.ingsw.server.model.game_manager.GameManager;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.ServerGame;
+import it.polimi.ingsw.server.ServerThread;
+import it.polimi.ingsw.server.chat.ServerChatAccepter;
 import it.polimi.ingsw.server.message.MessageDragAndDropServer;
 import it.polimi.ingsw.server.message.MessageEnterInGame;
 import it.polimi.ingsw.server.message.MessageStartGameServer;
+import it.polimi.ingsw.server.model.game_manager.GameManager;
 import it.polimi.ingsw.server.model.user.User;
-
-import java.io.IOException;
 
 
 public class JSONServerVisitor implements VisitorServer{
@@ -67,36 +65,37 @@ public class JSONServerVisitor implements VisitorServer{
     public  void visit(MessageDragAndDropServer m){
         ServerGame serverGame=m.getServerThread().getServer().getServerGameFromId(m.getServerThread().getIdGame());
         GameManager gm=serverGame.getGameManager();
-        User user=null;
-        User activeUser=gm.getTurnManager().getUsers().activeUser();
 
         try{
             //Chiama UpdateGame passando la drag e la drop generate dai suoi attributi.
-            user=gm.getTurnManager().updateGame(m.getDr().getRows(),m.getDr().getColumns(), m.getDr().getColumn());
+            User user=gm.getTurnManager().updateGame(m.getDr().getRows(),m.getDr().getColumns(), m.getDr().getColumn());
+
+            //m.getServerThread().getSs().sendOk();
+            m.getServerThread().sendMessage(m.getServerThread().getController().sendOkDED());
+
+            if(user==null){
+                gm.endGame(); //gestisce ovviamente anche il caso di return=null
+                //serverGame.endGame();
+                for(ServerThread st: serverGame.getPlayers()){
+                    st.sendMessage(st.getController().sendEndOfGame(gm));
+                    st.setCloseConnection(true);
+                }
+
+            }
+            else {
+                //serverGame.updateStateGame();//prepara il ServerThread per inviare i dati aggiornati
+                for(ServerThread st: serverGame.getPlayers()){
+                    st.sendMessage(st.getController().sendStateGame(gm));
+                }
+
+            }
         }
         catch (Exception e){
             //gestisce anche il caso di eccezioni(nel qual caso manda una KO al Client)
             //m.getServerThread().getSs().sendKO();
             m.getServerThread().sendMessage(m.getServerThread().getController().sendKoDED());
         }
-        //m.getServerThread().getSs().sendOk();
-        m.getServerThread().sendMessage(m.getServerThread().getController().sendOkDED());
 
-        if(user==null){
-            gm.endGame(); //gestisce ovviamente anche il caso di return=null
-            //serverGame.endGame();
-            for(ServerThread st: serverGame.getPlayers()){
-                st.sendMessage(st.getController().sendEndOfGame(gm));
-                st.setCloseConnection(true);
-            }
-
-        } else {
-            //serverGame.updateStateGame();//prepara il ServerThread per inviare i dati aggiornati
-            for(ServerThread st: serverGame.getPlayers()){
-                st.sendMessage(st.getController().sendStateGame(gm));
-            }
-
-        }
 
     }
 
