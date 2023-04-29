@@ -22,6 +22,7 @@ public class ServerChatAccepter {
 
             serverSocketReader=new ServerSocket(READ_PORT);
             serverSocketWriter=new ServerSocket(WRITE_PORT);
+            serverChatWriters = new ArrayList<>();
 
     }
 

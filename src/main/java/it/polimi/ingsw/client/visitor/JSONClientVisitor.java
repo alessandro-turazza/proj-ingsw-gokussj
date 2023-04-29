@@ -1,7 +1,10 @@
 package it.polimi.ingsw.client.visitor;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.chat.ClientChatReader;
 import it.polimi.ingsw.client.message.*;
+
+import java.io.IOException;
 
 public class JSONClientVisitor implements VisitorClient {
 
@@ -29,6 +32,7 @@ public class JSONClientVisitor implements VisitorClient {
         client.getViewController().getView().showCorrectMessage("Sei stato aggiunto correttamente alla partita " + element.getIdGame());
         client.getViewController().getView().showNormalMessage("In attesa degli altri giocatori...");
         client.getViewController().getView().showNormalMessage("----------------------------");
+        client.getViewController().connectChat();
     }
 
     @Override

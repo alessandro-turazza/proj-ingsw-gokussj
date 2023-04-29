@@ -10,6 +10,7 @@ import java.net.Socket;
 public class ClientChatReader extends Thread{
     private final int PORT = 4501;
     private final String ipServer= "localhost";
+    private Chat chat;
     @Override
     public void run() throws RuntimeException {
 
@@ -20,9 +21,13 @@ public class ClientChatReader extends Thread{
             {
                String resp = input.readLine();
                JSONObject obj = (JSONObject) new JSONParser().parse(resp);
-               //metodo che passa obj alla view per visualizzare il nuovo messaggio in chat
+               chat.chatAdd(obj);
             }
         }catch (Exception e){throw new RuntimeException();}
 
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
     }
 }

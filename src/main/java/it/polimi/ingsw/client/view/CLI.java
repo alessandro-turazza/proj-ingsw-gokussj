@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.client.chat.ClientChatWriter;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.plank.Plank;
@@ -9,6 +10,7 @@ import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
 import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import it.polimi.ingsw.server.state_game.CommonGoalClone;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -356,6 +358,20 @@ public class CLI implements View{
     @Override
     public ClientChatWriter getChatWriter() {
         return chatWriter;
+    }
+
+    @Override
+    public void openChat(Chat chat) {
+        System.out.println("Digita CLOSE_CHAT per chiudere");
+        Scanner in = new Scanner(System.in);String message;
+        JSONObject obj = new JSONObject();
+        while (true){
+            message = in.nextLine();
+            if(message.equals("CLOSE_CHAT"))
+                break;
+            chatWriter.sendMessage(message);
+        }
+
     }
 
 }

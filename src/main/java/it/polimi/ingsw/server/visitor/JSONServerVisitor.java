@@ -35,13 +35,8 @@ public class JSONServerVisitor implements VisitorServer{
 
        Server server = m.getServerThread().getServer();
        ServerGame sg = server.getServerGameFromId(m.getIdGame());
-       /* try {
-            ServerChatAccepter chatAccepter = ServerChatAccepter.getAccepter();
-            chatAccepter.acceptConnection(m.getIdGame());
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }*/
+
         if(sg != null){
             boolean res = sg.addNewPlayer(m.getServerThread(), m.getUser());
 
@@ -61,6 +56,11 @@ public class JSONServerVisitor implements VisitorServer{
         }else
             m.getServerThread().sendMessage(m.getServerThread().getController().sendKoConnection("NOTEX"));
 
+        try {
+            ServerChatAccepter.getAccepter().acceptConnection(m.getIdGame());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
