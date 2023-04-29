@@ -4,13 +4,11 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.client.chat.ClientChatWriter;
 import it.polimi.ingsw.server.model.plank.CellPlank;
-import it.polimi.ingsw.server.model.plank.Plank;
 import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
 import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import it.polimi.ingsw.server.state_game.CommonGoalClone;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -178,7 +176,7 @@ public class CLI implements View{
     public void showCommonGoals() {
         for(CommonGoalClone commonGoal: client.getModel().getCommonGoals()){
             if(commonGoal.getTokens() != null && commonGoal.getTokens().size() > 0)
-                showNormalMessage("Obiettivo comune " + commonGoal.getId() + ": " + commonGoal.getIdRule() + " Token: " + commonGoal.getTokens().get(0));
+                showNormalMessage("Obiettivo comune " + commonGoal.getId() + ": " + commonGoal.getIdRule() + " Token: " + commonGoal.getLastTokenCard().getPoints());
         }
     }
 
@@ -216,18 +214,6 @@ public class CLI implements View{
 
     }
 
-    private boolean addable(int row, int column, ArrayList<CellPlank> cells){
-        if(cells.size() == 0)
-            return true;
-        for(CellPlank c: cells){
-            if(row == c.getRow() && (column == c.getColumn() + 1 || column == c.getColumn() - 1))
-                return true;
-            if(column == c.getColumn() && (row == c.getRow() + 1 || row == c.getRow() -1))
-                return true;
-        }
-
-        return false;
-    }
 
     @Override
     public ArrayList<CellPlank> drag() {
@@ -256,21 +242,19 @@ public class CLI implements View{
                     row = Integer.parseInt(coordinates[0]);
                     column = Integer.parseInt(coordinates[1]);
 
-                    Plank p = client.getModel().getPlank();
-                    p.checkPlayable();
+                    CellPlank c = client.getModel().getCellPlank(row, column);
 
-                    if(row >= 0 && row < p.getDIM() && column >= 0 && column < p.getDIM() && p.getBoard()[row][column] != null && p.getBoard()[row][column].getPlayable()){
-                        boolean canAdd = addable(row, column, cells);
-                        //Controllo che le celle prese siano sulla stessa riga o colonna
-
-                        if(canAdd == true){
-                            CellPlank c = p.getBoard()[row][column];
-                            cells.add(c);
-                        }else
-                            showErrorMessage("Cella non selezionabile");
-
-                    }else
-                        showErrorMessage("Cella non selezionabile");
+                    if(c != null){
+                        cells.add(c);
+                        if(client.getModel().checkDrag(cells)){
+                            showCorrectMessage("Tessera aggiunta correttamente");
+                        }else{
+                            cells.remove(cells.size()-1);
+                            showErrorMessage("Tessera bloccata");
+                        }
+                    }else{
+                        showErrorMessage("Tessera vuota");
+                    }
                 }catch(Exception e){
                     showErrorMessage("Formato invalido");
                 }
@@ -297,7 +281,7 @@ public class CLI implements View{
             Scanner in = new Scanner(System.in);
             numColonna = in.nextInt();
 
-            if(numColonna < 0 || numColonna >= bookshelf.getNumColumn() || bookshelf.checkColumn(numColonna) < numCards){
+            if(numColonna < 0 || numColonna >= bookshelf.getNumColumn() || !client.getModel().checkDrop(numCards,numColonna)){
                 exit = false;
                 showErrorMessage("Impossibile riempire la colonna");
             }
