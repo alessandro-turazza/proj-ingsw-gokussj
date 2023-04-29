@@ -1,6 +1,7 @@
 package it.polimi.ingsw.server.visitor;
 
 import it.polimi.ingsw.server.ServerThread;
+import it.polimi.ingsw.server.chat.ServerChatAccepter;
 import it.polimi.ingsw.server.model.game_manager.GameManager;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.ServerGame;
@@ -8,6 +9,8 @@ import it.polimi.ingsw.server.message.MessageDragAndDropServer;
 import it.polimi.ingsw.server.message.MessageEnterInGame;
 import it.polimi.ingsw.server.message.MessageStartGameServer;
 import it.polimi.ingsw.server.model.user.User;
+
+import java.io.IOException;
 
 
 public class JSONServerVisitor implements VisitorServer{
@@ -18,6 +21,13 @@ public class JSONServerVisitor implements VisitorServer{
        m.getServerThread().setIdGame(idGame);
        m.getServerThread().setUser(m.getUser());
        m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection(idGame+""));
+       try {
+           ServerChatAccepter chatAccepter = ServerChatAccepter.getAccepter();
+           chatAccepter.acceptConnection(idGame);
+
+       } catch (Exception e) {
+           throw new RuntimeException(e);
+       }
    }
 
     @Override
@@ -25,7 +35,13 @@ public class JSONServerVisitor implements VisitorServer{
 
        Server server = m.getServerThread().getServer();
        ServerGame sg = server.getServerGameFromId(m.getIdGame());
+        try {
+            ServerChatAccepter chatAccepter = ServerChatAccepter.getAccepter();
+            chatAccepter.acceptConnection(m.getIdGame());
 
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         if(sg != null){
             boolean res = sg.addNewPlayer(m.getServerThread(), m.getUser());
 

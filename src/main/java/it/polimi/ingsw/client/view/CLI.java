@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.chat.ClientChatWriter;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.plank.Plank;
 import it.polimi.ingsw.server.model.user.User;
@@ -19,9 +20,13 @@ public class CLI implements View{
 
     private Client client;
 
+    private ClientChatWriter chatWriter;
+
     public CLI(Client client) {
         this.client = client;
+        chatWriter = new ClientChatWriter(client.getModel().getMyName());
     }
+
 
     @Override
     public JSONObject lobby() {
@@ -347,4 +352,10 @@ public class CLI implements View{
             System.out.println((i+1)+". " +users.get(i).getName()+" punti:  " + users.get(i).getPoints());
         }
     }
+
+    @Override
+    public ClientChatWriter getChatWriter() {
+        return chatWriter;
+    }
+
 }

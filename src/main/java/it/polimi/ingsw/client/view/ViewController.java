@@ -1,9 +1,12 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.chat.ClientChatReader;
+import it.polimi.ingsw.client.chat.ClientChatWriter;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import org.json.simple.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -12,7 +15,7 @@ public class ViewController {
     private View view;
     private Client client;
 
-    private ArrayList<String> actions = new ArrayList<>(Arrays.asList("HELP","DRAG/DROP","BOOKSHELF","PLANK","USERS","COMMON_GOALS","PERSONAL_GOAL"));
+    private ArrayList<String> actions = new ArrayList<>(Arrays.asList("HELP","DRAG/DROP","BOOKSHELF","PLANK","USERS","COMMON_GOALS","PERSONAL_GOAL", "OPEN_CHAT","CLOSE_CHAT"));
 
     public ViewController(Client client){
         this.client = client;
@@ -64,6 +67,14 @@ public class ViewController {
             int idGame = Integer.parseInt(userDatas.get("idGame").toString());
             this.client.getMessager().sendMessage(this.client.getMessager().getMessageHandler().sendJoinGame(idGame,nomeClient));
         }
+
+        ClientChatReader chatReader = new ClientChatReader();
+        try {
+            view.getChatWriter().Connect();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        chatReader.run();
     }
 
     public void handleAction() throws Exception {
@@ -96,15 +107,17 @@ public class ViewController {
                 view.showCommonGoals();
             }else if(action.equals(actions.get(6))){
                 view.showPersonalGoal();
+            }else if (action.equals(actions.get(7))) {
+
+            }else if (action.equals(actions.get(8))) {
+
             }else{
                 String[] act = action.split(" ");
                 String username = act[1];
                 view.showBookshelf(username);
             }
 
-        }catch(InterruptedException e){
-            return;
-        }
+        }catch(InterruptedException e){}
 
     }
 

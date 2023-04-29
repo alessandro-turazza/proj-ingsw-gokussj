@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ServerChatAccepter {
+
+    private static ServerChatAccepter instance;
     private static final int READ_PORT = 4502;
     private static final int WRITE_PORT = 4501;
     private static ServerSocket serverSocketReader;
@@ -16,11 +18,17 @@ public class ServerChatAccepter {
     private static ArrayList<ServerChatWriter> serverChatWriters;
 
 
-    public ServerChatAccepter() throws Exception{
-        try {
+    private ServerChatAccepter() throws IOException{
+
             serverSocketReader=new ServerSocket(READ_PORT);
             serverSocketWriter=new ServerSocket(WRITE_PORT);
-        }catch (IOException e){throw new Exception();}
+
+    }
+
+    public static ServerChatAccepter getAccepter() throws IOException {
+        if (instance==null)
+            instance = new ServerChatAccepter();
+        return instance;
     }
 
     public void acceptConnection(int idGame) throws Exception{

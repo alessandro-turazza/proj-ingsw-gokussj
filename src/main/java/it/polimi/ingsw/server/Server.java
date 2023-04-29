@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.server.chat.ServerChatAccepter;
 import it.polimi.ingsw.server.game_data.GameData;
 import it.polimi.ingsw.server.model.user.User;
 import org.json.simple.parser.ParseException;
