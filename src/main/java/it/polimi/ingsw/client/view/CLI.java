@@ -86,6 +86,7 @@ public class CLI implements View{
 
     @Override
     public void showStateGame() throws Exception {
+
         showNormalMessage("----------------------------");
         this.showUsers();
         this.showPlank();
@@ -169,7 +170,8 @@ public class CLI implements View{
     @Override
     public void showCommonGoals() {
         for(CommonGoalClone commonGoal: client.getModel().getCommonGoals()){
-            showNormalMessage("Obiettivo comune " + commonGoal.getId() + ": " + commonGoal.getIdRule());
+            if(commonGoal.getTokens() != null && commonGoal.getTokens().size() > 0)
+                showNormalMessage("Obiettivo comune " + commonGoal.getId() + ": " + commonGoal.getIdRule() + " Token: " + commonGoal.getTokens().get(0));
         }
     }
 
@@ -329,6 +331,20 @@ public class CLI implements View{
 
     @Override
     public void showEndGame() {
+        ArrayList<User> users = client.getModel().getPlayers();
 
+        for(int i = 0; i < users.size() - 1; i++){
+            for(int j = i+1; j < users.size(); j++){
+                if(users.get(j).getPoints() > users.get(i).getPoints()){
+                    User temp = users.get(i).getUserClone();
+                    users.set(i,users.get(j));
+                    users.set(j,temp);
+                }
+            }
+        }
+
+        for(int i = 0; i < users.size(); i++){
+            System.out.println((i+1)+". " +users.get(i).getName()+" punti:  " + users.get(i).getPoints());
+        }
     }
 }

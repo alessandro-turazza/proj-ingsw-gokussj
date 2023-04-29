@@ -31,7 +31,7 @@ public class ClientMessageHandler {
         if(response.equals("KO_DED"))
             return new MessageKODedClient();
         if(response.equals("END_GAME"))
-            return new MessageEndGameClient();
+            return new MessageEndGameClient(client,obj);
 
         return null;
     }

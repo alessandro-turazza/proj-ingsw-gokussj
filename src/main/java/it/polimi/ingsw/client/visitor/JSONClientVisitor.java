@@ -40,7 +40,13 @@ public class JSONClientVisitor implements VisitorClient {
         element.getClient().getViewController().setClientDatas();
     }
     @Override
-    public void visit(MessageEndGameClient element) {
-
+    public void visit(MessageEndGameClient element) throws Exception {
+        Client client = element.getClient();
+        client.getModel().setPlayers(element.getStateGame().getUsersClone());
+        client.getModel().setPlank(element.getStateGame().getPlankClone());
+        client.getModel().setCommonGoals(element.getStateGame().getCommonGoalsClone());
+        client.getModel().setActiveUser(element.getStateGame().getActiveUser());
+        client.getViewController().getView().showStateGame();
+        client.getViewController().getView().showEndGame();
     }
 }

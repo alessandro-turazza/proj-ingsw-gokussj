@@ -69,8 +69,11 @@ public class JSONServerVisitor implements VisitorServer{
         if(user==null){
             gm.endGame(); //gestisce ovviamente anche il caso di return=null
             //serverGame.endGame();
-            for(ServerThread st: serverGame.getPlayers())
+            for(ServerThread st: serverGame.getPlayers()){
                 st.sendMessage(st.getController().sendEndOfGame(gm));
+                st.setCloseConnection(true);
+            }
+
         } else {
             //serverGame.updateStateGame();//prepara il ServerThread per inviare i dati aggiornati
             for(ServerThread st: serverGame.getPlayers()){

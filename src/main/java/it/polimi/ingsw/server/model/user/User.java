@@ -135,4 +135,5 @@ public class User {
     public ArrayList<Integer> getPointsToken() {
         return pointsToken;
     }
+
 }

@@ -21,11 +21,14 @@ public class ServerThread extends Thread{
     private ServerController controller;
     private User user;
 
+    private boolean closeConnection;
+
 
     public ServerThread(Server server, Socket socket) throws IOException {
         this.server = server;
         this.socket = socket;
         this.controller = new ServerController(this);
+        this.closeConnection = false;
     }
 
     public Server getServer() {
@@ -49,6 +52,10 @@ public class ServerThread extends Thread{
         this.idGame = idGame;
     }
 
+    public void setCloseConnection(boolean closeConnection) {
+        this.closeConnection = closeConnection;
+    }
+
     @Override
     public void run() {
         try {
@@ -58,6 +65,8 @@ public class ServerThread extends Thread{
             String messageIn;
             MessageServer ms;
 
+
+
             do{
                 messageIn = input.readLine();
                 if(messageIn!=null) {
@@ -65,7 +74,8 @@ public class ServerThread extends Thread{
                     ms = controller.handleMessage(obj);
                     ms.accept(new JSONServerVisitor());
                 }
-            }while(true);
+            }while(!closeConnection);
+
 
         } catch (Exception e) {
             throw new RuntimeException(e);

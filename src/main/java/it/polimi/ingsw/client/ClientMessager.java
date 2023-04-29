@@ -42,7 +42,6 @@ public class ClientMessager extends Thread{
             MessageClient mc;
 
             do{
-
                 messageIn = input.readLine();
 
                 if(messageIn!=null) {
@@ -50,7 +49,6 @@ public class ClientMessager extends Thread{
                     mc = messageHandler.handleMessage(obj);
                     mc.accept(new JSONClientVisitor());
                 }
-
 
             }while(true);
 
