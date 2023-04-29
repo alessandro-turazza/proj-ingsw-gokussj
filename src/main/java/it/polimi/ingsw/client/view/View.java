@@ -18,8 +18,10 @@ public interface View {
     void showCommonGoals();
     void showUsers();
     void showCommonGoal(int idCommonGoal);
-    String catchAction(boolean myTurn);
+    String catchAction();
     ArrayList<CellPlank> drag();
     int drop(int numCards) throws Exception;
+
+    ArrayList<CellPlank> reorderCards(ArrayList<CellPlank> cells);
     void showEndGame();
 }

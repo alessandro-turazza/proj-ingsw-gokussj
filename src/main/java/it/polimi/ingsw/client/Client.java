@@ -9,11 +9,14 @@ public class Client {
     private ClientMessager messager;
     private ViewController viewController;
     private ClientModel model;
+    private InputAction inputAction;
+    private boolean inputReady;
 
     public Client() throws IOException {
         this.messager = new ClientMessager(this);
         this.viewController = new ViewController(this);
         this.model = new ClientModel();
+        this.inputReady = false;
     }
     public ViewController getViewController() {
         return viewController;
@@ -27,6 +30,10 @@ public class Client {
         return model;
     }
 
+    public void setInputReady(boolean inputReady) {
+        this.inputReady = inputReady;
+    }
+
     public void startClient() throws Exception {
         this.viewController.startViewController();
         this.viewController.setClientDatas();
@@ -34,10 +41,13 @@ public class Client {
     }
 
     public void handleTurn() throws Exception {
-        while (true)
-            this.viewController.handleAction();
+        if(!inputReady){
+            this.inputAction = new InputAction(viewController);
+            this.inputReady = true;
+            this.inputAction.start();
+        }else
+            this.viewController.getView().showNormalMessage("Digita un azione");
     }
-
 
 }
 

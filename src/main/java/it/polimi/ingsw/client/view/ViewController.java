@@ -12,7 +12,7 @@ public class ViewController {
     private View view;
     private Client client;
 
-    private ArrayList<String> actions = new ArrayList<>(Arrays.asList("DRAG/DROP","BOOKSHELF"));
+    private ArrayList<String> actions = new ArrayList<>(Arrays.asList("HELP","DRAG/DROP","BOOKSHELF","PLANK","USERS","COMMON_GOALS","PERSONAL_GOAL"));
 
     public ViewController(Client client){
         this.client = client;
@@ -67,23 +67,43 @@ public class ViewController {
     }
 
     public void handleAction() throws Exception {
-        boolean myTurn = client.getModel().getMyName().equals(client.getModel().getActiveUser());
-        String action = "";
 
-        action = view.catchAction(myTurn);
-        String[] act = action.split(" ");
+        try{
+            String action = "";
 
-        if(action.equals(actions.get(0))){
-            //drag
-            ArrayList<CellPlank> cells = view.drag();
-            //drop
-            int column = view.drop(cells.size());
+            action = view.catchAction();//myTurn);
 
-            System.out.println("colonna: "+ column);
 
-        }else if(act[0].equals(actions.get(1))){
-            String username = act[1];
-            view.showBookshelf(username);
+            if(action == null)
+                view.showErrorMessage("Azione non valida");
+            else if(action.equals(actions.get(0))){
+                for(String s: actions)
+                    view.showNormalMessage(s);
+            }else if(action.equals(actions.get(1))){
+                //drag
+                ArrayList<CellPlank> cells = view.drag();
+                //drop
+                int column = view.drop(cells.size());
+                //Reorder
+                cells = view.reorderCards(cells);
+
+                client.getMessager().sendMessage(client.getMessager().getMessageHandler().sendDragAndDrop(cells,column));
+            }else if(action.equals(actions.get(3))){
+                view.showPlank();
+            }else if(action.equals(actions.get(4))){
+                view.showUsers();
+            }else if(action.equals(actions.get(5))){
+                view.showCommonGoals();
+            }else if(action.equals(actions.get(6))){
+                view.showPersonalGoal();
+            }else{
+                String[] act = action.split(" ");
+                String username = act[1];
+                view.showBookshelf(username);
+            }
+
+        }catch(InterruptedException e){
+            return;
         }
 
     }

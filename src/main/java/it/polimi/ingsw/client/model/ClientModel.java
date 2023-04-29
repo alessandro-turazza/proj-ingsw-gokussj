@@ -156,52 +156,52 @@ public class ClientModel {
         return null;
     }
 
-    public ArrayList<User> getPlayers() {
+    public synchronized ArrayList<User> getPlayers() {
         return players;
     }
 
-    public Plank getPlank() {
+    public synchronized Plank getPlank() {
         return plank;
     }
 
-    public String getActiveUser() {
+    public synchronized String getActiveUser() {
         return activeUser;
     }
-    public int getIdGame() {
+    public synchronized int getIdGame() {
         return idGame;
     }
-    public String getMyName() {
+    public synchronized String getMyName() {
         return myName;
     }
-    public ArrayList<CommonGoalClone> getCommonGoals() {
+    public synchronized ArrayList<CommonGoalClone> getCommonGoals() {
         return commonGoals;
     }
 
-    public void setIdGame(int idGame) {
+    public synchronized void setIdGame(int idGame) {
         this.idGame = idGame;
     }
 
-    public void setPlayers(ArrayList<User> players) {
+    public synchronized void setPlayers(ArrayList<User> players) {
         this.players = players;
     }
 
-    public void setPlank(Plank plank) {
+    public synchronized void setPlank(Plank plank) {
         this.plank = plank;
     }
 
-    public void setActiveUser(String activeUser) {
+    public synchronized void setActiveUser(String activeUser) {
         this.activeUser = activeUser;
     }
 
-    public void setMyName(String myName) {
+    public synchronized void setMyName(String myName) {
         this.myName = myName;
     }
 
-    public void setCommonGoals(ArrayList<CommonGoalClone> commonGoals) {
+    public synchronized void setCommonGoals(ArrayList<CommonGoalClone> commonGoals) {
         this.commonGoals = commonGoals;
     }
 
-    public CommonGoalClone getCommonGoal(int series) throws Exception {
+    public synchronized CommonGoalClone getCommonGoal(int series) throws Exception {
         if(series>=1 && series<=commonGoals.size())return commonGoals.get(series-1);
         throw new Exception("Obiettivo comune non trovato");
     }

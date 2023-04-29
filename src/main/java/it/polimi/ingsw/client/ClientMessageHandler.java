@@ -1,17 +1,16 @@
 package it.polimi.ingsw.client;
 
+import com.google.gson.Gson;
 import it.polimi.ingsw.client.message.*;
+import it.polimi.ingsw.server.message.DropStructure;
+import it.polimi.ingsw.server.model.plank.CellPlank;
 import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
 
 public class ClientMessageHandler {
 
     private Client client;
-
-    private int dragXCoordinate;
-
-    private int dragYCoordinate;
-
-    private int dropColumn;
 
     public ClientMessageHandler(Client client){
         this.client = client;
@@ -53,13 +52,23 @@ public class ClientMessageHandler {
         return obj;
     }
 
-    public JSONObject sendDragAndDrop(){
+    public JSONObject sendDragAndDrop(ArrayList<CellPlank> cellPlanks, int column){
         JSONObject obj = new JSONObject();
         obj.put("command", "drag_and_drop");
-        obj.put("x_cordinate", dragXCoordinate);
-        obj.put("y_coordinate", dragYCoordinate);
-        obj.put("column", dropColumn);
+
+        DropStructure ds = new DropStructure();
+
+        for(CellPlank c: cellPlanks){
+            ds.getRows().add(c.getRow());
+            ds.getColumns().add(c.getColumn());
+        }
+
+        ds.setColumn(column);
+
+        obj.put("data", new Gson().toJson(ds));
+
         return obj;
     }
+
 
 }

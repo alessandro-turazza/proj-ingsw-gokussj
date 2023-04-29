@@ -138,7 +138,7 @@ public class CLI implements View{
         for(int i = 0; i < bookshelf.getNumRow(); i++){
             for(int j = 0; j < bookshelf.getNumColumn(); j++){
                 if(cellShelf[i][j] != null)
-                    System.out.print(cellShelf[i][j].getObjectCard().getId() + " ");
+                    System.out.print(Colors.colorChar(cellShelf[i][j].getObjectCard().getColor()) + " ");
                 else
                     System.out.print("- ");
             }
@@ -176,40 +176,34 @@ public class CLI implements View{
     @Override
     public void showCommonGoal(int idCommonGoal) {
     }
-
     @Override
-    public String catchAction(boolean myTurn) {
+    public String catchAction(/*boolean myTurn*/) {
         String action = "";
         ArrayList<String> possibleActions = client.getViewController().getActions();
-        boolean exit = false;
 
-        do{
-            showNormalMessage("Digita un azione (DRAG/DROP or BOOKSHELF <NAME>)");
-            Scanner in = new Scanner(System.in);
-            action = in.nextLine();
-            String[] control = action.split(" ");
+        boolean actOk = false;
 
-            if(control[0].equals(possibleActions.get(0)))
-                exit = true;
+        showNormalMessage("Digita un azione");
+        Scanner in = new Scanner(System.in);
 
-            if((control[0].equals(possibleActions.get(0)) && !myTurn)){
-                showErrorMessage("Non è il tuo turno");
-                exit = false;
+        action = in.nextLine();
+
+        String[] control = action.split(" ");
+
+        if(action.equals(possibleActions.get(1))) {
+            if (client.getModel().getMyName().equals(client.getModel().getActiveUser()))
+                actOk = true;
+        }else if(control[0].equals(possibleActions.get(2))){
+            for(User user: client.getModel().getPlayers()){
+                if(control[1].equals(user.getName()))
+                    actOk = true;
             }
+        }else if(possibleActions.contains(action))
+            actOk = true;
 
-            if(control[0].equals(possibleActions.get(1))){
-                for(User user: client.getModel().getPlayers()){
-                    if(control[1].equals(user.getName()))
-                        exit = true;
-                }
-            }
-
-            if(!exit)
-                showErrorMessage("Azione non valida");
-
-        }while(!exit);
-
-        return action;
+        if(actOk == true)
+            return action;
+        return null;
 
     }
 
@@ -256,7 +250,7 @@ public class CLI implements View{
                     Plank p = client.getModel().getPlank();
                     p.checkPlayable();
 
-                    if(row >= 0 && row < p.getDIM() && column >= 0 && column < p.getDIM() && p.getBoard()[row][column].getPlayable()){
+                    if(row >= 0 && row < p.getDIM() && column >= 0 && column < p.getDIM() && p.getBoard()[row][column] != null && p.getBoard()[row][column].getPlayable()){
                         boolean canAdd = addable(row, column, cells);
                         //Controllo che le celle prese siano sulla stessa riga o colonna
 
@@ -289,6 +283,7 @@ public class CLI implements View{
         Bookshelf bookshelf = client.getModel().getMyBookshelf();
 
         do{
+            exit = true;
             showNormalMessage("Inserisci il numero della colonna dove inserire le tessere");
             Scanner in = new Scanner(System.in);
             numColonna = in.nextInt();
@@ -301,6 +296,35 @@ public class CLI implements View{
         }while(!exit);
 
         return numColonna;
+    }
+
+    @Override
+    public ArrayList<CellPlank> reorderCards(ArrayList<CellPlank> cells) {
+        for(int i = 0; i < cells.size(); i++){
+            System.out.println(i+1 + ". Tessera: " + Colors.colorChar(cells.get(i).getObjectCard().getColor()));
+        }
+
+        ArrayList<CellPlank> cellsOrdered = new ArrayList<>();
+        ArrayList<Integer> alreadyInsert = new ArrayList<>();
+
+        Scanner in = new Scanner(System.in);
+
+        for(int i = 0; i < cells.size(); i++){
+            System.out.println("Inserisci il numero della "+ (i+1) + " tessera da inserire");
+            int index = in.nextInt();
+
+            while(index < 1 || index > cells.size() || alreadyInsert.contains(index)){
+                showErrorMessage("Azione non valida");
+                System.out.println("Inserisci il numero della "+ (i+1) + " tessera da inserire");
+                index = in.nextInt();
+            }
+
+            alreadyInsert.add(index);
+            cellsOrdered.add(cells.get(index-1));
+        }
+
+        return cellsOrdered;
+
     }
 
     @Override

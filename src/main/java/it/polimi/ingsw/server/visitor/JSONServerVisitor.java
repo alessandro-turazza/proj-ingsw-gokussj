@@ -56,7 +56,7 @@ public class JSONServerVisitor implements VisitorServer{
 
         try{
             //Chiama UpdateGame passando la drag e la drop generate dai suoi attributi.
-            user=gm.getTurnManager().updateGame(m.getX_coordinate(),m.getY_coordinate(),m.getColumn());
+            user=gm.getTurnManager().updateGame(m.getDr().getRows(),m.getDr().getColumns(), m.getDr().getColumn());
         }
         catch (Exception e){
             //gestisce anche il caso di eccezioni(nel qual caso manda una KO al Client)
@@ -73,8 +73,10 @@ public class JSONServerVisitor implements VisitorServer{
                 st.sendMessage(st.getController().sendEndOfGame(gm));
         } else {
             //serverGame.updateStateGame();//prepara il ServerThread per inviare i dati aggiornati
-            for(ServerThread st: serverGame.getPlayers())
+            for(ServerThread st: serverGame.getPlayers()){
                 st.sendMessage(st.getController().sendStateGame(gm));
+            }
+
         }
 
     }
