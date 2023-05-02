@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class Chat {
-    private ArrayList<ChatMessage> chatBuffer;
+    private ArrayList<ChatMessage> chatBuffer = new ArrayList<>();
     public void chatAdd(JSONObject obj){
         chatBuffer.add(new ChatMessage(obj.get("namePlayer").toString(),obj.get("message").toString()));
     }

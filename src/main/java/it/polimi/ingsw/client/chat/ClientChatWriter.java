@@ -18,8 +18,7 @@ public class ClientChatWriter{
 
     private boolean connected;
 
-    public ClientChatWriter(String playerName) {
-        this.playerName = playerName;
+    public ClientChatWriter() {
         connected = false;
     }
 
@@ -43,4 +42,7 @@ public class ClientChatWriter{
         return connected;
     }
 
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 }

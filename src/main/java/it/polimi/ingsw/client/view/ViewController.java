@@ -5,6 +5,7 @@ import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.client.chat.ClientChatReader;
 import it.polimi.ingsw.client.chat.ClientChatWriter;
 import it.polimi.ingsw.server.model.plank.CellPlank;
+import it.polimi.ingsw.server.model.user.User;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
@@ -59,11 +60,12 @@ public class ViewController {
         JSONObject userDatas;
         userDatas = view.lobby();
         String nomeClient = userDatas.get("username").toString();
-
+        view.getChatWriter().setPlayerName(nomeClient);
         client.getModel().setMyName(nomeClient);
 
         if(userDatas.get("type").toString().equals("create")){
             int numPlayers = Integer.parseInt(userDatas.get("numPlayers").toString());
+
             this.client.getMessager().sendMessage(this.client.getMessager().getMessageHandler().sendCreateGame(numPlayers,nomeClient));
         }else{
             int idGame = Integer.parseInt(userDatas.get("idGame").toString());
@@ -102,13 +104,12 @@ public class ViewController {
             }else if(action.equals(actions.get(6))){
                 view.showPersonalGoal();
             }else if (action.equals(actions.get(7))) {
-
+                    view.openChat(chat);
             }else{
                 String[] act = action.split(" ");
                 String username = act[1];
-                view.showBookshelf(username);
+                    view.showBookshelf(username);
             }
-
         }catch(InterruptedException e){}
 
     }
