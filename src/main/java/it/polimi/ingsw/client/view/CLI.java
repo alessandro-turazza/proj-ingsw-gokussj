@@ -130,8 +130,12 @@ public class CLI implements View{
     }
 
     @Override
-    public void showBookshelf(String username) throws Exception {
+    public void showBookshelf(String username){
         Bookshelf bookshelf = client.getModel().getBookshelf(username);
+        if(bookshelf==null){
+            showErrorMessage("Errore nickname non trovato");
+            return;
+        }
         CellShelf[][] cellShelf = bookshelf.getBookshelf();
 
         showNormalMessage("Libreria di " + username);
