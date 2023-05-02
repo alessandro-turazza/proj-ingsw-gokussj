@@ -8,8 +8,8 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class ClientChatReader extends Thread{
-    private final int PORT = 4501;
-    private final String ipServer= "localhost";
+    private final int PORT = 50001;
+    private final String ipServer= "31.27.157.205";
     private Chat chat;
     @Override
     public void run() throws RuntimeException {

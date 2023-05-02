@@ -8,8 +8,8 @@ import java.net.Socket;
 
 public class ClientChatWriter{
 
-    private final int PORT = 4502;
-    private final String ipServer= "localhost";
+    private final int PORT = 50002;
+    private final String ipServer= "31.27.157.205";
     private String playerName;
 
     private Socket socket;

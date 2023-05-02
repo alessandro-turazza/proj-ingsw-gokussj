@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class ServerChatAccepter {
 
     private static ServerChatAccepter instance;
-    private static final int READ_PORT = 4502;
-    private static final int WRITE_PORT = 4501;
+    private static final int READ_PORT = 50002;
+    private static final int WRITE_PORT = 50001;
     private static ServerSocket serverSocketReader;
     private static ServerSocket serverSocketWriter;
     private ServerChatReader serverChatReader;
