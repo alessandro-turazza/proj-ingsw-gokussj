@@ -237,7 +237,7 @@ public class CLI implements View{
         String input = "";
         boolean exit = false;
         int min=MAX_CELLS_DROP;
-        int maxCellFreeBookshelf=client.getModel().getMyBookshelf().getNumRow();
+        int maxCellFreeBookshelf=0;
         for(int i=0;i<client.getModel().getMyBookshelf().getNumColumn();i++){
             Integer temp=client.getModel().getMyBookshelf().checkColumn(i);
             if(temp!=null) if(temp+1>maxCellFreeBookshelf)maxCellFreeBookshelf=client.getModel().getMyBookshelf().checkColumn(i)+1;
