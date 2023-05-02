@@ -201,8 +201,8 @@ public class ClientModel {
         this.commonGoals = commonGoals;
     }
 
-    public synchronized CommonGoalClone getCommonGoal(int series) throws Exception {
+    public synchronized CommonGoalClone getCommonGoal(int series){
         if(series>=1 && series<=commonGoals.size())return commonGoals.get(series-1);
-        throw new Exception("Obiettivo comune non trovato");
+        return null;
     }
 }
