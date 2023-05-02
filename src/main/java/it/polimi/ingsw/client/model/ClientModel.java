@@ -127,25 +127,25 @@ public class ClientModel {
         return result;
     }
 
-    public CellPlank getCellPlank(int row,int column) throws Exception {
+    public CellPlank getCellPlank(int row,int column){
         if(row >= 0 && row< plank.getDIM() && column>=0 && column< plank.getDIM())return plank.getBoard()[row][column];
-        throw new Exception("Posizione non valida");
+        return null;
     }
 
-    public Bookshelf getMyBookshelf() throws Exception {
+    public Bookshelf getMyBookshelf() {
         for(User user:players)if(user.getName().equals(myName))return user.getBookshelf();
-        throw new Exception("Errore nickname non trovato");
+        return null;
     }
 
-    public Bookshelf getBookshelf(String player) throws Exception {
+    public Bookshelf getBookshelf(String player) {
         for(User user:players)if(user.getName().equals(player))return user.getBookshelf();
-        throw new Exception("Errore nickname non trovato");
+        return null;
     }
 
-    public TokenCard getLastTokenCardCommonGoal(int series) throws Exception {
+    public TokenCard getLastTokenCardCommonGoal(int series) {
         //if commongoal is empty return null
         if(series>=1 && series<=commonGoals.size())return commonGoals.get(series-1).getLastTokenCard();
-        throw new Exception("Obiettivo comune non trovato");
+        return null;
     }
 
     public User getUserByName(String username){
