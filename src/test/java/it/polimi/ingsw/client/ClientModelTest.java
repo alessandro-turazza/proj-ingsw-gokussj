@@ -190,8 +190,7 @@ public class ClientModelTest {
     @Test
     public void clientModel_getAdjacentCell() throws Exception {
         setPlankConfig1();
-        assertThrows(Exception.class,
-                () -> clientModel.getCellPlank(clientModel.getPlank().getDIM(),clientModel.getPlank().getDIM()));
+        assertNull(clientModel.getCellPlank(clientModel.getPlank().getDIM(),clientModel.getPlank().getDIM()));
         assertThrows(Exception.class,
                 () -> clientModel.getAdjacentCell(clientModel.getPlank().getBoard()[clientModel.getPlank().getDIM()][clientModel.getPlank().getDIM()]));
         //first test
@@ -264,25 +263,21 @@ public class ClientModelTest {
     @Test
     public void clientModel_getMyBookshelf(){
         clientModel.setMyName("pippo");
-        assertThrows(Exception.class,
-                () -> clientModel.getMyBookshelf());
+        assertNull(clientModel.getMyBookshelf());
     }
     @Test
     public void clientModel_getBookshelf(){
-        assertThrows(Exception.class,
-                () -> clientModel.getBookshelf("pippo"));
+        assertNull(clientModel.getBookshelf("pippo"));
     }
     @Test
-    public void clientModel_getLastTokenCardCommonGoal1() throws Exception {
-        assertThrows(Exception.class,
-                () -> clientModel.getLastTokenCardCommonGoal(42));
+    public void clientModel_getLastTokenCardCommonGoal1(){
+        assertNull(clientModel.getLastTokenCardCommonGoal(42));
         assertEquals(clientModel.getLastTokenCardCommonGoal(1).getPoints(),clientModel.getCommonGoals().get(0).getLastTokenCard().getPoints());
     }
 
     @Test
     public void clientModel_getCommonGoal(){
-        assertThrows(Exception.class,
-                () -> clientModel.getCommonGoal(42));
+        assertNull(clientModel.getCommonGoal(42));
         ArrayList<CommonGoalClone> commonGoals=new ArrayList<>();
         ArrayList<TokenCard> tokenCards=new ArrayList<>();
         commonGoals.add(new CommonGoalClone(new CommonGoal(1,new RuleCommonI(),tokenCards)));

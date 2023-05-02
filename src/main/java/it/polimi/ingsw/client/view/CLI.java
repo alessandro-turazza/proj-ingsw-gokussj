@@ -133,7 +133,7 @@ public class CLI implements View{
     public void showBookshelf(String username){
         Bookshelf bookshelf = client.getModel().getBookshelf(username);
         if(bookshelf==null){
-            showErrorMessage("Errore nickname non trovato");
+            showErrorMessage("Errore: nickname non trovato");
             return;
         }
         CellShelf[][] cellShelf = bookshelf.getBookshelf();
@@ -205,10 +205,7 @@ public class CLI implements View{
             if (client.getModel().getMyName().equals(client.getModel().getActiveUser()))
                 actOk = true;
         }else if(control[0].equals(possibleActions.get(2))){
-            for(User user: client.getModel().getPlayers()){
-                if(control[1].equals(user.getName()))
-                    actOk = true;
-            }
+            actOk = true;
         }else if(possibleActions.contains(action))
             actOk = true;
     }catch (ArrayIndexOutOfBoundsException e){
