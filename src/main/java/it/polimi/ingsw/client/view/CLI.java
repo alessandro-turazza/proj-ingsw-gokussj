@@ -15,7 +15,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CLI implements View{
-
+    private static final int MAX_CELLS_DROP=3;
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
 
@@ -236,7 +236,12 @@ public class CLI implements View{
         ArrayList<CellPlank> cells = new ArrayList<>();
         String input = "";
         boolean exit = false;
-
+        int min=MAX_CELLS_DROP;
+        int maxCellFreeBookshelf=client.getModel().getMyBookshelf().getNumRow();
+        for(int i=0;i<client.getModel().getMyBookshelf().getNumColumn();i++){
+            if(client.getModel().getMyBookshelf().checkColumn(i)+1>maxCellFreeBookshelf)maxCellFreeBookshelf=client.getModel().getMyBookshelf().checkColumn(i)+1;
+        }
+        min=Math.min(min,maxCellFreeBookshelf);
 
         do{
             showNormalMessage("Inserisci coordinate della carta da prelevare (<riga>,<colonna>/STOP)");
@@ -276,7 +281,7 @@ public class CLI implements View{
 
             }
 
-        }while(!exit && cells.size() < 3);
+        }while(!exit && cells.size() < min);
 
         return cells;
 
