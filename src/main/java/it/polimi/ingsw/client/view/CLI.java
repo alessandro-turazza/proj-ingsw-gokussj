@@ -239,7 +239,8 @@ public class CLI implements View{
         int min=MAX_CELLS_DROP;
         int maxCellFreeBookshelf=client.getModel().getMyBookshelf().getNumRow();
         for(int i=0;i<client.getModel().getMyBookshelf().getNumColumn();i++){
-            if(client.getModel().getMyBookshelf().checkColumn(i)+1>maxCellFreeBookshelf)maxCellFreeBookshelf=client.getModel().getMyBookshelf().checkColumn(i)+1;
+            Integer temp=client.getModel().getMyBookshelf().checkColumn(i);
+            if(temp!=null) if(temp+1>maxCellFreeBookshelf)maxCellFreeBookshelf=client.getModel().getMyBookshelf().checkColumn(i)+1;
         }
         min=Math.min(min,maxCellFreeBookshelf);
 

@@ -17,7 +17,7 @@ public class Server {
 
 
     public void loadDatas() throws IOException, ParseException {
-        GameData.loadPlankConfig("src/data/Plank_Config_1.json");
+        GameData.loadPlankConfig("src/data/package.json");
         GameData.loadTokens("src/data/Tokens_Data.json");
         GameData.loadIdCommonGoals("src/data/Common_Goals_Setup.json");
         GameData.loadRuleCommons();
