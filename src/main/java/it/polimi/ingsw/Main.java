@@ -2,7 +2,6 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.client.view.Colors;
 import org.json.simple.parser.ParseException;
-import jline.console.ConsoleReader;
 import java.io.IOException;
 import java.util.Scanner;
 
