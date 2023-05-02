@@ -34,7 +34,11 @@ public class ClientModel {
     }
 
     public boolean checkDrop(int numCard,int column) throws Exception {
-        for(User user:players)if(user.getName().equals(myName))return user.getBookshelf().checkColumn(column) + 1 >= numCard;
+        for(User user:players)
+            if(user.getName().equals(myName)){
+                if(user.getBookshelf().checkColumn(column)==null) return false;
+                return user.getBookshelf().checkColumn(column) + 1 >= numCard;
+            }
         throw new Exception("Errore nickname non trovato");
     }
 

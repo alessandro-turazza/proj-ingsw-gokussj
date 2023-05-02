@@ -11,6 +11,7 @@ import it.polimi.ingsw.server.state_game.CommonGoalClone;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CLI implements View{
@@ -54,19 +55,28 @@ public class CLI implements View{
 
                 userDatas.put("type", "create");
                 int nPlayers;
+                try {
+                    do {
+                        showNormalMessage("Inerisci il numero dei giocatori (da 2 a 4)");
 
-                do{
-                    showNormalMessage("Inerisci il numero dei giocatori (da 2 a 4)");
-                    nPlayers = in.nextInt();
+                        nPlayers = in.nextInt();
 
-                }while(nPlayers < MIN_PLAYERS || nPlayers > MAX_PLAYERS);
+                    } while (nPlayers < MIN_PLAYERS || nPlayers > MAX_PLAYERS);
 
-                userDatas.put("numPlayers", nPlayers);
+                    userDatas.put("numPlayers", nPlayers);
+                }catch (InputMismatchException e){
+                    showErrorMessage("Errore: inserire un numero");
+                }
                 break;
             case 'J':
                 showNormalMessage("Inserisci l'ID della partita");
-                userDatas.put("type", "join");
-                userDatas.put("idGame", in.nextInt());
+                try {
+                    userDatas.put("type", "join");
+                    userDatas.put("idGame", in.nextInt());
+                }
+                catch (InputMismatchException e){
+                    showErrorMessage("Errore: inserire un numero");
+                }
                 break;
         }
 
@@ -284,13 +294,17 @@ public class CLI implements View{
             exit = true;
             showNormalMessage("Inserisci il numero della colonna dove inserire le tessere");
             Scanner in = new Scanner(System.in);
-            numColonna = in.nextInt();
+            try {
+                numColonna = in.nextInt();
 
-            if(numColonna < 0 || numColonna >= bookshelf.getNumColumn() || !client.getModel().checkDrop(numCards,numColonna)){
-                exit = false;
-                showErrorMessage("Impossibile riempire la colonna");
+                if(numColonna < 0 || numColonna >= bookshelf.getNumColumn() || !client.getModel().checkDrop(numCards,numColonna)){
+                    exit = false;
+                    showErrorMessage("Impossibile riempire la colonna");
+                }
             }
-
+            catch (InputMismatchException e){
+                showErrorMessage("Errore: inserire un numero");
+            }
         }while(!exit);
 
         return numColonna;
@@ -307,20 +321,25 @@ public class CLI implements View{
 
         Scanner in = new Scanner(System.in);
 
-        for(int i = 0; i < cells.size(); i++){
-            System.out.println("Inserisci il numero della "+ (i+1) + " tessera da inserire");
-            int index = in.nextInt();
+            for (int i = 0; i < cells.size(); i++) {
+                System.out.println("Inserisci il numero della " + (i + 1) + " tessera da inserire");
+                try {
+                    int index = in.nextInt();
 
-            while(index < 1 || index > cells.size() || alreadyInsert.contains(index)){
-                showErrorMessage("Azione non valida");
-                System.out.println("Inserisci il numero della "+ (i+1) + " tessera da inserire");
-                index = in.nextInt();
+                    while (index < 1 || index > cells.size() || alreadyInsert.contains(index)) {
+                        showErrorMessage("Azione non valida");
+                        System.out.println("Inserisci il numero della " + (i + 1) + " tessera da inserire");
+                        index = in.nextInt();
+                    }
+
+                    alreadyInsert.add(index);
+                    cellsOrdered.add(cells.get(index - 1));
+                }
+                catch (InputMismatchException e){
+                        showErrorMessage("Errore: inserire un numero");
+                        i--;
+                }
             }
-
-            alreadyInsert.add(index);
-            cellsOrdered.add(cells.get(index-1));
-        }
-
         return cellsOrdered;
 
     }

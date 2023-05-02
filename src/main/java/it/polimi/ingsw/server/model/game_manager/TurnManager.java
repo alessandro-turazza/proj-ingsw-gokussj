@@ -58,6 +58,7 @@ public class TurnManager {
     }
 
     public boolean checkDrop(int numCard,int column){
+        if(users.activeUser().getBookshelf().checkColumn(column)==null)return false;
         return users.activeUser().getBookshelf().checkColumn(column) + 1 >= numCard;
     }
 
