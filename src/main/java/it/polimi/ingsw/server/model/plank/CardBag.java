@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class CardBag implements Iterator {
-    private static ArrayList<ObjectCard> cardBag;
+    private ArrayList<ObjectCard> cardBag;
 
     public CardBag() {
         cardBag=new ArrayList<>();
