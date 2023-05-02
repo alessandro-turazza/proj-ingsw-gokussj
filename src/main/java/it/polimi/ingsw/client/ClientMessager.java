@@ -12,8 +12,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientMessager extends Thread{
-    private final int PORT = 4500;
-    private final String ipServer= "localhost";
+    private final int PORT = 50000;
+    private final String ipServer= "31.27.157.205";
     private BufferedReader input;
     private PrintWriter out;
     private Client client;

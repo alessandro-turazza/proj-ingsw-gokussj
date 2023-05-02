@@ -11,7 +11,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Server {
-    private static final int PORT = 4500;
+    private static final int PORT = 50000;
     private static ServerSocket serverSocket;
     private static ArrayList<ServerGame> gameList;
 
