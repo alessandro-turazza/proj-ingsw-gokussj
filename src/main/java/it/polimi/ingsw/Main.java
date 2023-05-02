@@ -13,7 +13,7 @@ public class Main {
        // new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         //Runtime.getRuntime().exec("cls");
         //System.out.print("\033[H\033[2J");
-        ConsoleReader r = new ConsoleReader();
+        //ConsoleReader r = new ConsoleReader();
         //r.clearScreen();
 
         /*try
