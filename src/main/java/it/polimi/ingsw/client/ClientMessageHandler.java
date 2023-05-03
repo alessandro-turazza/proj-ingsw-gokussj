@@ -71,5 +71,10 @@ public class ClientMessageHandler {
         return obj;
     }
 
+    public JSONObject sendCloseConnection(){
+        JSONObject obj = new JSONObject();
+        obj.put("command","close_connection");
+        return obj;
+    }
 
 }

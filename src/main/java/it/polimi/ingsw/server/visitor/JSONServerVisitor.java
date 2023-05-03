@@ -4,6 +4,7 @@ import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.ServerGame;
 import it.polimi.ingsw.server.ServerThread;
 import it.polimi.ingsw.server.chat.ServerChatAccepter;
+import it.polimi.ingsw.server.message.MessageCloseConnection;
 import it.polimi.ingsw.server.message.MessageDragAndDropServer;
 import it.polimi.ingsw.server.message.MessageEnterInGame;
 import it.polimi.ingsw.server.message.MessageStartGameServer;
@@ -78,7 +79,6 @@ public class JSONServerVisitor implements VisitorServer{
                 //serverGame.endGame();
                 for(ServerThread st: serverGame.getPlayers()){
                     st.sendMessage(st.getController().sendEndOfGame(gm));
-                    st.setCloseConnection(true);
                 }
 
             }
@@ -98,5 +98,8 @@ public class JSONServerVisitor implements VisitorServer{
 
 
     }
-
+    @Override
+    public void visit(MessageCloseConnection m){
+       m.getServerThread().setCloseConnection(true);
+    }
 }

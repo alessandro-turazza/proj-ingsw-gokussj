@@ -75,7 +75,7 @@ public class ServerThread extends Thread{
                     ms.accept(new JSONServerVisitor());
                 }
             }while(!closeConnection);
-
+            System.out.println("Connessione chiusa con "+user.getName());
 
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -1,9 +1,6 @@
 package it.polimi.ingsw.server;
 
-import it.polimi.ingsw.server.message.MessageDragAndDropServer;
-import it.polimi.ingsw.server.message.MessageEnterInGame;
-import it.polimi.ingsw.server.message.MessageServer;
-import it.polimi.ingsw.server.message.MessageStartGameServer;
+import it.polimi.ingsw.server.message.*;
 import it.polimi.ingsw.server.model.game_manager.GameManager;
 import it.polimi.ingsw.server.state_game.StateGame;
 import org.json.simple.JSONObject;
@@ -31,6 +28,9 @@ public class ServerController {
 
         if(command.equals("drag_and_drop"))
             return new MessageDragAndDropServer(serverThread, obj);
+
+        if(command.equals("close_connection"))
+            return new MessageCloseConnection(serverThread);
 
 
         return null;
