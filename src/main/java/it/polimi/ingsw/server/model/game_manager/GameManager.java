@@ -138,13 +138,34 @@ public class GameManager {
         return turnManager.getUsers().next();
     }//questo è sbagliato*/
 
-    public void updateGame(ArrayList<CellPlank> chosenCard, int column) throws Exception {
-        if(turnManager.updateGame(chosenCard,column)==null)endGame();
-        //else notify controller
+    public User updateGame(ArrayList<CellPlank> chosenCard, int column) throws Exception {
+        User result=turnManager.updateGame(chosenCard,column);
+        if(result==null)endGame();
+        else calculatePoints();
+        return result;
     }
+    public User updateGame(ArrayList<Integer> X,ArrayList<Integer> Y, int column) throws Exception {
+        User result=turnManager.updateGame(X,Y,column);
+        if(result==null)endGame();
+        else calculatePoints();
+        return result;
+    }
+
     public void endGame(){
         winner = users.get(0);
         for(User user: users){
+            user.setPoints(0);
+            user.updatePointsAdjacenses();
+            user.checkPersonalGoal();
+            user.addTokenPointsToPoints();
+            if(winner.getPoints() < user.getPoints())
+                winner = user;
+        }
+    }
+    public void calculatePoints(){
+        winner = users.get(0);
+        for(User user: users){
+            user.setPoints(0);
             user.updatePointsAdjacenses();
             user.checkPersonalGoal();
             user.addTokenPointsToPoints();

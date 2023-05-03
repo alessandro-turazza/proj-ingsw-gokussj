@@ -179,9 +179,9 @@ public class CLI implements View{
 
         for(User u: client.getModel().getPlayers()){
             if(u.getName().equals(client.getModel().getActiveUser()))
-                showNormalMessage("->"+u.getName()+"<-");
+                showNormalMessage("->"+u.getName()+"<- "+ "Punteggio: "+u.getPoints());
             else
-                showNormalMessage(u.getName());
+                showNormalMessage(u.getName()+ " Punteggio: "+u.getPoints());
         }
     }
 
