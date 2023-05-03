@@ -72,7 +72,7 @@ public class Bookshelf {
 
     public ArrayList<Integer> numberAdjacenses(){
         ArrayList<Integer> numAdj = new ArrayList<>();
-
+        this.deleteMark();
         for(int i = 0; i < getNumRow(); i++){
             for(int j = 0; j < getNumColumn(); j++){
                 if(bookshelf[i][j] != null && !bookshelf[i][j].isMarked())
