@@ -8,4 +8,5 @@ public interface VisitorClient {
     void visit(MessageNewTurnClient element) throws Exception;
     void visit(MessageOKConnectionClient element);
     void visit(MessageKOConnectionClient element);
+    void visit(MessageChat element);
 }

@@ -20,6 +20,8 @@ public class ClientMessageHandler {
     public MessageClient handleMessage(JSONObject obj){
         String response = obj.get("response").toString();
 
+        if(response.equals("CHAT_MESSAGE"))
+            return new MessageChat(client, obj);
         if(response.equals("OK_CONNECTION"))
             return new MessageOKConnectionClient(client, Integer.parseInt(obj.get("object").toString()));
         if(response.equals("KO_CONNECTION"))
@@ -71,6 +73,13 @@ public class ClientMessageHandler {
         return obj;
     }
 
+    public JSONObject sendMessageChat(String message, String playerName){
+            JSONObject obj= new JSONObject();
+            obj.put("command", "chat_message");
+            obj.put("namePlayer", playerName);
+            obj.put("message", message);
+            return obj;
+    }
     public JSONObject sendCloseConnection(){
         JSONObject obj = new JSONObject();
         obj.put("command","close_connection");

@@ -18,6 +18,9 @@ public class ServerController {
 
         String command = (String) obj.get("command");
 
+        if (command.equals("chat_message"))
+
+            return new MessageChatServer(obj, serverThread);
         if (command.equals("new_game"))
 
             return new MessageStartGameServer(serverThread, obj);
@@ -81,4 +84,11 @@ public class ServerController {
         return obj;
     }
 
+    public JSONObject sendChatMessage(JSONObject object){
+        JSONObject obj = new JSONObject();
+        obj.put("response","CHAT_MESSAGE");
+        obj.put("namePlayer", object.get("namePlayer"));
+        obj.put("message", object.get("message"));
+        return obj;
+    }
 }

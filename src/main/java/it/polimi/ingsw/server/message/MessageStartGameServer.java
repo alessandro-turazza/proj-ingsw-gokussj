@@ -2,7 +2,6 @@ package it.polimi.ingsw.server.message;
 
 
 import it.polimi.ingsw.server.ServerThread;
-import it.polimi.ingsw.server.chat.ServerChatWriter;
 import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.visitor.VisitorServer;
 import org.json.simple.JSONObject;
@@ -12,13 +11,6 @@ public class MessageStartGameServer implements MessageServer{
     private int numPlayer;
     private int idGame;
     private ServerThread serverThread;
-    private ServerChatWriter serverChatWriter;
-    public MessageStartGameServer(ServerChatWriter serverChatWriter,ServerThread serverThread, JSONObject obj) {
-        this.serverChatWriter=serverChatWriter;
-        this.serverThread=serverThread;
-        user= new User(obj.get("name").toString());
-        numPlayer = Integer.parseInt(obj.get("numPlayers").toString());
-    }
 
     public MessageStartGameServer(ServerThread serverThread, JSONObject obj) {
         this.serverThread=serverThread;
@@ -60,7 +52,4 @@ public class MessageStartGameServer implements MessageServer{
         return serverThread;
     }
 
-    public ServerChatWriter getServerChatWriter() {
-        return serverChatWriter;
-    }
 }

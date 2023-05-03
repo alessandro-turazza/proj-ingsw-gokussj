@@ -66,7 +66,6 @@ public class ServerThread extends Thread{
             MessageServer ms;
 
 
-
             do{
                 messageIn = input.readLine();
                 if(messageIn!=null) {

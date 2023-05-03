@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.chat.Chat;
-import it.polimi.ingsw.client.chat.ClientChatWriter;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import org.json.simple.JSONObject;
 
@@ -25,6 +24,5 @@ public interface View {
     int drop(int numCards) throws Exception;
     ArrayList<CellPlank> reorderCards(ArrayList<CellPlank> cells);
     void showEndGame();
-    ClientChatWriter getChatWriter();
     void openChat(Chat chat);
 }

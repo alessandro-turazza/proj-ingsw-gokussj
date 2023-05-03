@@ -3,7 +3,7 @@ package it.polimi.ingsw.server.visitor;
 import it.polimi.ingsw.server.Server;
 import it.polimi.ingsw.server.ServerGame;
 import it.polimi.ingsw.server.ServerThread;
-import it.polimi.ingsw.server.chat.ServerChatAccepter;
+import it.polimi.ingsw.server.message.MessageChatServer;
 import it.polimi.ingsw.server.message.MessageCloseConnection;
 import it.polimi.ingsw.server.message.MessageDragAndDropServer;
 import it.polimi.ingsw.server.message.MessageEnterInGame;
@@ -20,13 +20,6 @@ public class JSONServerVisitor implements VisitorServer{
        m.getServerThread().setIdGame(idGame);
        m.getServerThread().setUser(m.getUser());
        m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection(idGame+""));
-       try {
-           ServerChatAccepter chatAccepter = ServerChatAccepter.getAccepter();
-           chatAccepter.acceptConnection(idGame);
-
-       } catch (Exception e) {
-           throw new RuntimeException(e);
-       }
    }
 
     @Override
@@ -55,11 +48,6 @@ public class JSONServerVisitor implements VisitorServer{
         }else
             m.getServerThread().sendMessage(m.getServerThread().getController().sendKoConnection("NOTEX"));
 
-        try {
-            ServerChatAccepter.getAccepter().acceptConnection(m.getIdGame());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -97,6 +85,15 @@ public class JSONServerVisitor implements VisitorServer{
 
 
     }
+
+    @Override
+    public void visit(MessageChatServer m) {
+        ServerGame serverGame=m.getServerThread().getServer().getServerGameFromId(m.getServerThread().getIdGame());
+        for(ServerThread st: serverGame.getPlayers()){
+            st.sendMessage(st.getController().sendChatMessage(m.getObj()));
+        }
+    }
+
     @Override
     public void visit(MessageCloseConnection m){
        m.getServerThread().setCloseConnection(true);

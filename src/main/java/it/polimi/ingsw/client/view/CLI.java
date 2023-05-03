@@ -2,7 +2,7 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.chat.Chat;
-import it.polimi.ingsw.client.chat.ClientChatWriter;
+
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
@@ -21,11 +21,9 @@ public class CLI implements View{
 
     private Client client;
 
-    private ClientChatWriter chatWriter;
 
     public CLI(Client client) {
         this.client = client;
-        chatWriter = new ClientChatWriter();
     }
 
 
@@ -210,7 +208,7 @@ public class CLI implements View{
         action = in.nextLine();
 
         String[] control = action.split(" ");
-    try {
+    /*try {*/
         if(action.equals(possibleActions.get(1))) {
             if (client.getModel().getMyName().equals(client.getModel().getActiveUser()))
                 actOk = true;
@@ -218,9 +216,9 @@ public class CLI implements View{
             actOk = true;
         }else if(possibleActions.contains(action))
             actOk = true;
-    }catch (ArrayIndexOutOfBoundsException e){
+    /*}catch (ArrayIndexOutOfBoundsException e){
         showErrorMessage("Digita il nome dell'utente di cui vuoi vedere la libreria");
-    }
+    }*/
 
 
         if(actOk == true)
@@ -369,23 +367,22 @@ public class CLI implements View{
         }
     }
 
-    @Override
-    public ClientChatWriter getChatWriter() {
-        return chatWriter;
-    }
 
     @Override
     public void openChat(Chat chat) {
-        showNormalMessage("Chat:");
+        chat.setOpen();
         showNormalMessage("Digita CLOSE_CHAT per chiudere");
+        showNormalMessage("Chat:");
         chat.chatPrint();
-        Scanner in = new Scanner(System.in);String message;
-        JSONObject obj = new JSONObject();
+        Scanner in = new Scanner(System.in);
+        String message;
         while (true){
             message = in.nextLine();
-            if(message.equals("CLOSE_CHAT"))
+            if(message.equals("CLOSE_CHAT")) {
+                chat.resetOpen();
                 break;
-            chatWriter.sendMessage(message);
+            }
+            client.getMessager().sendMessage(client.getMessager().getMessageHandler().sendMessageChat(message, client.getModel().getMyName()));
         }
 
     }

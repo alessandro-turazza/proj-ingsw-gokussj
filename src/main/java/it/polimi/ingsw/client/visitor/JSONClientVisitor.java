@@ -1,7 +1,6 @@
 package it.polimi.ingsw.client.visitor;
 
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.chat.ClientChatReader;
 import it.polimi.ingsw.client.message.*;
 
 import java.io.IOException;
@@ -32,7 +31,6 @@ public class JSONClientVisitor implements VisitorClient {
         client.getViewController().getView().showCorrectMessage("Sei stato aggiunto correttamente alla partita " + element.getIdGame());
         client.getViewController().getView().showNormalMessage("In attesa degli altri giocatori...");
         client.getViewController().getView().showNormalMessage("----------------------------");
-        client.getViewController().connectChat();
     }
 
     @Override
@@ -43,6 +41,12 @@ public class JSONClientVisitor implements VisitorClient {
             element.getClient().getViewController().getView().showErrorMessage("Errore, username già in uso / partita piena");
         element.getClient().getViewController().setClientDatas();
     }
+
+    @Override
+    public void visit(MessageChat element) {
+        element.getClient().getChat().chatAdd(element.getObj());
+    }
+
     @Override
     public void visit(MessageEndGameClient element) throws Exception {
         Client client = element.getClient();

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client;
 
+import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.client.model.ClientModel;
 import it.polimi.ingsw.client.view.ViewController;
 
@@ -10,9 +11,11 @@ public class Client {
     private ViewController viewController;
     private ClientModel model;
     private InputAction inputAction;
+    private Chat chat;
     private boolean inputReady;
 
     public Client() throws IOException {
+        this.chat= new Chat();
         this.messager = new ClientMessager(this);
         this.viewController = new ViewController(this);
         this.model = new ClientModel();
@@ -49,5 +52,8 @@ public class Client {
             this.viewController.getView().showNormalMessage("Digita un azione");
     }
 
+    public Chat getChat() {
+        return chat;
+    }
 }
 

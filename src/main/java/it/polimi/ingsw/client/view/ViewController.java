@@ -2,8 +2,6 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.chat.Chat;
-import it.polimi.ingsw.client.chat.ClientChatReader;
-import it.polimi.ingsw.client.chat.ClientChatWriter;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.user.User;
 import org.json.simple.JSONObject;
@@ -21,7 +19,7 @@ public class ViewController {
 
     public ViewController(Client client){
         this.client = client;
-        chat =new Chat();
+        chat =client.getChat();
     }
     public View getView() {
         return view;
@@ -60,7 +58,6 @@ public class ViewController {
         JSONObject userDatas;
         userDatas = view.lobby();
         String nomeClient = userDatas.get("username").toString();
-        view.getChatWriter().setPlayerName(nomeClient);
         client.getModel().setMyName(nomeClient);
 
         if(userDatas.get("type").toString().equals("create")){
@@ -106,24 +103,16 @@ public class ViewController {
             }else if (action.equals(actions.get(7))) {
                     view.openChat(chat);
             }else{
+                try{
                 String[] act = action.split(" ");
                 String username = act[1];
                     view.showBookshelf(username);
+                }catch (ArrayIndexOutOfBoundsException e){
+                    view.showErrorMessage("Errore: digita il nome dell'utente di cui vuoi vedere la libreria");
+                }
             }
         }catch(InterruptedException e){}
 
-    }
-
-    public void connectChat(){
-        ClientChatReader chatReader = new ClientChatReader();
-        chatReader.setChat(chat);
-        try {
-            if(!view.getChatWriter().isConnected())
-                view.getChatWriter().Connect();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        chatReader.start();
     }
 
 
