@@ -20,9 +20,13 @@ public class RuleCommonVII implements RuleCommon {
             for (int j = 0; j <= user.getBookshelf().getNumRow() - 2; j++) {
                 if (IsSquare(user.getBookshelf().getBookshelf(), j, i))
                     counter++;
-                if (counter == 2)
+                if (counter == 2){
+                    user.getBookshelf().deleteMark();
                     return true;
+                }
+
             }
+        user.getBookshelf().deleteMark();
         return false;
     }
 

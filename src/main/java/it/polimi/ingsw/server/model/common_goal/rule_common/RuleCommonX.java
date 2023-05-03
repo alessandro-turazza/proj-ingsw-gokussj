@@ -16,9 +16,13 @@ public class RuleCommonX implements RuleCommon {
         user.getBookshelf().deleteMark();
         for (int i = 0; i <= user.getBookshelf().getNumColumn() - 3; i++)
             for (int j = 0; j <= user.getBookshelf().getNumRow() - 3; j++) {
-                if (IsCross(user.getBookshelf().getBookshelf(), j, i))
+                if (IsCross(user.getBookshelf().getBookshelf(), j, i)){
+                    user.getBookshelf().deleteMark();
                     return true;
+                }
+
             }
+        user.getBookshelf().deleteMark();
         return false;
     }
 
