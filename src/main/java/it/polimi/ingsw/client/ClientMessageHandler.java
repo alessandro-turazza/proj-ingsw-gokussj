@@ -27,7 +27,6 @@ public class ClientMessageHandler {
         if(response.equals("KO_CONNECTION"))
             return new MessageKOConnectionClient(client, obj.get("object").toString());
         if(response.equals("NEW_TURN")){
-            System.out.println("messaggio arrivato");
             return new MessageNewTurnClient(client,obj);}
         if(response.equals("OK_DED"))
             return new MessageOKDedClient();

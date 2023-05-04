@@ -2,8 +2,7 @@ package it.polimi.ingsw.client.visitor;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.message.*;
-
-import java.io.IOException;
+import it.polimi.ingsw.client.view.Colors;
 
 public class JSONClientVisitor implements VisitorClient {
 
@@ -20,6 +19,8 @@ public class JSONClientVisitor implements VisitorClient {
         client.getModel().setPlank(element.getStateGame().getPlankClone());
         client.getModel().setCommonGoals(element.getStateGame().getCommonGoalsClone());
         client.getModel().setActiveUser(element.getStateGame().getActiveUser());
+        client.getViewController().getView().showNormalMessage("----------------------------");
+        client.getViewController().getView().showNormalMessage(Colors.WHITE_BOLD + "Nuovo turno"+ Colors.COLOR_RESET);
         client.getViewController().getView().showStateGame();
         client.handleTurn();
     }
@@ -28,9 +29,9 @@ public class JSONClientVisitor implements VisitorClient {
     public void visit(MessageOKConnectionClient element) {
         Client client = element.getClient();
         client.getModel().setIdGame(element.getIdGame());
+        client.getViewController().getView().showNormalMessage("----------------------------");
         client.getViewController().getView().showCorrectMessage("Sei stato aggiunto correttamente alla partita " + element.getIdGame());
         client.getViewController().getView().showNormalMessage("In attesa degli altri giocatori...");
-        client.getViewController().getView().showNormalMessage("----------------------------");
     }
 
     @Override

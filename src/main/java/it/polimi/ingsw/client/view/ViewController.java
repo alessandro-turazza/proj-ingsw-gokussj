@@ -3,10 +3,8 @@ package it.polimi.ingsw.client.view;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.server.model.plank.CellPlank;
-import it.polimi.ingsw.server.model.user.User;
 import org.json.simple.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -29,19 +27,29 @@ public class ViewController {
     }
 
     public void startViewController(){
-        char choose;
+        String choose;
 
-        do{
-            System.out.println("----------------------------");
+        System.out.println("----------------------------");
+        System.out.println(Colors.WHITE_BOLD + "Scelta interfaccia utente" + Colors.COLOR_RESET);
+        System.out.println("----------------------------");
+
+        System.out.println("Premi C per usare l'interfaccia CLI");
+        System.out.println("Premi G per usare l'interfaccia GUI");
+
+        Scanner in = new Scanner(System.in);
+        choose = in.nextLine();
+
+
+        while(!choose.equalsIgnoreCase("C") && !choose.equalsIgnoreCase("G")){
+            System.out.println(Colors.RED + "Errore, carattere invalido" + Colors.COLOR_RESET);
             System.out.println("Premi C per usare l'interfaccia CLI");
             System.out.println("Premi G per usare l'interfaccia GUI");
+            choose = in.nextLine();
+        }
 
-            Scanner in = new Scanner(System.in);
-            choose = Character.toUpperCase(in.nextLine().charAt(0));
+        char chooseChar = Character.toUpperCase(choose.charAt(0));
 
-        }while(choose != 'C' && choose != 'G');
-
-        switch(choose){
+        switch(chooseChar){
             case 'C':
                 view = new CLI(client);
                 break;
@@ -50,13 +58,14 @@ public class ViewController {
                 break;
         }
 
-        System.out.println("----------------------------");
+
 
     }
 
     public void setClientDatas(){
-        JSONObject userDatas;
-        userDatas = view.lobby();
+        char choose= view.selectTypeGame();
+        JSONObject userDatas = view.lobby(choose);
+
         String nomeClient = userDatas.get("username").toString();
         client.getModel().setMyName(nomeClient);
 
@@ -108,7 +117,7 @@ public class ViewController {
                 String username = act[1];
                     view.showBookshelf(username);
                 }catch (ArrayIndexOutOfBoundsException e){
-                    view.showErrorMessage("Errore: digita il nome dell'utente di cui vuoi vedere la libreria");
+                    view.showErrorMessage("Errore, digita il nome dell'utente di cui vuoi vedere la libreria");
                 }
             }
         }catch(InterruptedException e){}

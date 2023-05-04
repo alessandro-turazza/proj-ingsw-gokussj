@@ -10,7 +10,7 @@ public class Colors {
     public static final String BLUE = "\u001B[34m";
     public static final String LIGHT_BLUE = "\u001B[36m";
     public static final String PURPLE = "\u001B[35m";
-    public static final String WHITE = "\u001B[37m";
+    public static final String WHITE = "\u001B[97m";
 
     public static final String BLACK_BACKGROUND = "\u001B[40m";
     public static final String RED_BACKGROUND = "\u001B[41m";
@@ -21,20 +21,29 @@ public class Colors {
     public static final String CYAN_BACKGROUND = "\u001B[46m";
     public static final String WHITE_BACKGROUND = "\u001B[47m";
 
+    public static final String BLACK_BOLD = "\033[1;30m";
+    public static final String RED_BOLD = "\033[1;31m";
+    public static final String GREEN_BOLD = "\033[1;32m";
+    public static final String YELLOW_BOLD = "\033[1;33m";
+    public static final String BLUE_BOLD = "\033[1;34m";
+    public static final String PURPLE_BOLD = "\033[1;35m";
+    public static final String CYAN_BOLD = "\033[1;36m";
+    public static final String WHITE_BOLD = "\033[1;97m";
+
 
     public static String colorChar(Color color){
         if(color == Color.YELLOW)
-            return YELLOW + "Y" + COLOR_RESET;
+            return YELLOW_BACKGROUND + "   " + COLOR_RESET;
         if(color == Color.WHITE)
-            return WHITE + "W" + COLOR_RESET;
+            return WHITE_BACKGROUND + "   " + COLOR_RESET;
         if(color == Color.PINK)
-            return PURPLE + "P" + COLOR_RESET;
+            return PURPLE_BACKGROUND + "   " + COLOR_RESET;
         if(color == Color.BLUE)
-            return BLUE + "B" + COLOR_RESET;
+            return BLUE_BACKGROUND + "   " + COLOR_RESET;
         if(color == Color.LIGHT_BLUE)
-            return LIGHT_BLUE + "L" + COLOR_RESET;
+            return CYAN_BACKGROUND + "   " + COLOR_RESET;
         else
-            return GREEN + "G" + COLOR_RESET;
+            return GREEN_BACKGROUND + "   " + COLOR_RESET;
     }
 
 }

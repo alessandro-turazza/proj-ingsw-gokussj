@@ -1,5 +1,6 @@
 package it.polimi.ingsw.server;
 
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.server.game_data.GameData;
 import it.polimi.ingsw.server.model.user.User;
 import org.json.simple.parser.ParseException;
@@ -16,7 +17,8 @@ public class Server {
 
 
     public void loadDatas() throws IOException, ParseException {
-        GameData.loadPlankConfig("src/data/package.json");
+        //GameData.loadPlankConfig("src/data/package.json");
+        GameData.loadPlankConfig("src/data/Plank_Config_1.json");
         GameData.loadTokens("src/data/Tokens_Data.json");
         GameData.loadIdCommonGoals("src/data/Common_Goals_Setup.json");
         GameData.loadRuleCommons();
@@ -44,8 +46,9 @@ public class Server {
     public void startServer() throws IOException, ParseException {
         gameList = new ArrayList<>();
         serverSocket = new ServerSocket(PORT);
-
-        System.out.println("Server ON");
+        System.out.println("----------------------------");
+        System.out.println(Colors.WHITE_BOLD + "Stato del server" + Colors.COLOR_RESET);
+        System.out.println(Colors.GREEN + "Server ON" + Colors.COLOR_RESET);
 
         this.loadDatas();
 

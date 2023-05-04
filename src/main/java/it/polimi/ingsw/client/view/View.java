@@ -7,7 +7,9 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public interface View {
-    JSONObject lobby();
+    Character selectTypeGame();
+    JSONObject lobby(Character choose);
+
     void showNormalMessage(String message);
     void showCorrectMessage(String message);
     void showErrorMessage(String message);

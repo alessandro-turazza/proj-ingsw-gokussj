@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.chat.Chat;
-
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
@@ -11,7 +10,6 @@ import it.polimi.ingsw.server.state_game.CommonGoalClone;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CLI implements View{
@@ -26,62 +24,105 @@ public class CLI implements View{
         this.client = client;
     }
 
+    @Override
+    public Character selectTypeGame() {
+        showNormalMessage("----------------------------");
+        showNormalMessage(Colors.WHITE_BOLD + "Scelta tipo partita" + Colors.COLOR_RESET);
+        showNormalMessage("----------------------------");
+        showNormalMessage("Premi C per creare una nuova partita");
+        showNormalMessage("Premi J per unirti ad una partita esistente");
+        Scanner in = new Scanner(System.in);
+
+        String choose = in.nextLine();
+
+        while(!choose.equalsIgnoreCase("C") && !choose.equalsIgnoreCase("J")){
+            showErrorMessage("Errore, carattere invalido");
+            showNormalMessage("Premi C per creare una nuova partita");
+            showNormalMessage("Premi J per unirti ad una partita esistente");
+            choose = in.nextLine();
+        }
+
+        return Character.toUpperCase(choose.charAt(0));
+    }
 
     @Override
-    public JSONObject lobby() {
-        JSONObject userDatas = new JSONObject();
+    public JSONObject lobby(Character choose) {
 
+        JSONObject userDatas = new JSONObject();
+        Scanner in = new Scanner(System.in);
+        showNormalMessage("----------------------------");
+
+        switch(choose){
+            case 'C':
+                showNormalMessage(Colors.WHITE_BOLD + "Creazione di una nuova partita" + Colors.COLOR_RESET);
+                break;
+            case 'J':
+                showNormalMessage(Colors.WHITE_BOLD + "Inserimento in una partita esistente" + Colors.COLOR_RESET);
+                break;
+        }
         showNormalMessage("----------------------------");
 
         showNormalMessage("Inserisci il nome utente");
-        Scanner in = new Scanner(System.in);
+        String name = in.nextLine();
 
-        userDatas.put("username", in.nextLine());
-
-        showNormalMessage("Premi C per creare una nuova partita");
-        showNormalMessage("Premi J per unirti ad una partita esistente");
-
-        char choose = Character.toUpperCase(in.nextLine().charAt(0));
-
-        while(choose != 'C' && choose != 'J'){
-            showErrorMessage("Carattere invalido, reinserisci la scelta");
-            choose = Character.toUpperCase(in.nextLine().charAt(0));
+        while(name.equals("")){
+            showNormalMessage("Inserisci il nome utente");
+            name = in.nextLine();
         }
+
+        userDatas.put("username", name);
 
         switch (choose){
             case 'C':
 
                 userDatas.put("type", "create");
                 int nPlayers;
-                try {
-                    do {
-                        showNormalMessage("Inerisci il numero dei giocatori (da 2 a 4)");
 
-                        nPlayers = in.nextInt();
+                do {
+                    showNormalMessage("Inerisci il numero dei giocatori (da 2 a 4)");
+                    String num = in.nextLine();
 
-                    } while (nPlayers < MIN_PLAYERS || nPlayers > MAX_PLAYERS);
+                    try{
+                        nPlayers = Integer.parseInt(num);
+
+                        if(nPlayers < MIN_PLAYERS || nPlayers > MAX_PLAYERS)
+                            showErrorMessage("Errore, Numero non valido");
+
+                    }catch(Exception e){
+                        showErrorMessage("Errore, Numero non valido");
+                        nPlayers = 0;
+                    }
+                } while (nPlayers < MIN_PLAYERS || nPlayers > MAX_PLAYERS);
 
                     userDatas.put("numPlayers", nPlayers);
-                }catch (InputMismatchException e){
-                    showErrorMessage("Errore: inserire un numero");
-                }
                 break;
             case 'J':
-                showNormalMessage("Inserisci l'ID della partita");
-                try {
-                    userDatas.put("type", "join");
-                    userDatas.put("idGame", in.nextInt());
-                }
-                catch (InputMismatchException e){
-                    showErrorMessage("Errore: inserire un numero");
-                }
+
+                userDatas.put("type", "join");
+                int idGame = 0;
+
+                do {
+                    showNormalMessage("Inserisci l'ID della partita");
+                    String num = in.nextLine();
+                    try{
+                        idGame = Integer.parseInt(num);
+                        if(idGame <= 0)
+                            showErrorMessage("Errore, IdGame non valido");
+                    }catch(Exception e){
+                        showErrorMessage("Errore, IdGame non valido");
+                        idGame = 0;
+                    }
+                } while (idGame <= 0);
+
+                userDatas.put("idGame", idGame);
                 break;
         }
 
-        showNormalMessage("----------------------------");
 
         return userDatas;
     }
+
+
 
     @Override
     public void showNormalMessage(String message) {
@@ -115,7 +156,7 @@ public class CLI implements View{
 
         System.out.print("  ");
         for(int i = 0; i < dimPlank; i++)
-            System.out.print(i+" ");
+            System.out.print(" "+i+"  ");
 
         System.out.println("");
 
@@ -124,10 +165,11 @@ public class CLI implements View{
             for(int j = 0; j < dimPlank; j++){
 
                 if(board[i][j] == null || board[i][j].getObjectCard() == null)
-                    System.out.print("- ");
+                    System.out.print("    ");
                 else
                     System.out.print(Colors.colorChar(board[i][j].getObjectCard().getColor()) + " ");
             }
+            System.out.println(" ");
             System.out.println(" ");
         }
     }
@@ -141,7 +183,7 @@ public class CLI implements View{
     public void showBookshelf(String username){
         Bookshelf bookshelf = client.getModel().getBookshelf(username);
         if(bookshelf==null){
-            showErrorMessage("Errore: nickname non trovato");
+            showErrorMessage("Errore, username non trovato");
             return;
         }
         CellShelf[][] cellShelf = bookshelf.getBookshelf();
@@ -149,18 +191,21 @@ public class CLI implements View{
         showNormalMessage("Libreria di " + username);
 
         for(int i = 0; i < bookshelf.getNumColumn(); i++)
-            System.out.print(i+" ");
+            System.out.print("  "+i+" ");
 
         System.out.println("");
+        System.out.println("+---+---+---+---+---+");
 
         for(int i = 0; i < bookshelf.getNumRow(); i++){
+            System.out.print("|");
             for(int j = 0; j < bookshelf.getNumColumn(); j++){
                 if(cellShelf[i][j] != null)
-                    System.out.print(Colors.colorChar(cellShelf[i][j].getObjectCard().getColor()) + " ");
+                    System.out.print(Colors.colorChar(cellShelf[i][j].getObjectCard().getColor()) + "|");
                 else
-                    System.out.print("- ");
+                    System.out.print("   |");
             }
             System.out.println(" ");
+            System.out.println("+---+---+---+---+---+");
         }
     }
 
@@ -168,6 +213,7 @@ public class CLI implements View{
     public void showPersonalGoal() {
         User user = client.getModel().getUserByName(client.getModel().getMyName());
         showNormalMessage("Personal goal: " + user.getPersonalGoal().getId());
+        showNormalMessage("");
     }
 
 
@@ -177,10 +223,11 @@ public class CLI implements View{
 
         for(User u: client.getModel().getPlayers()){
             if(u.getName().equals(client.getModel().getActiveUser()))
-                showNormalMessage("->"+u.getName()+"<- "+ "Punteggio: "+u.getPoints());
+                showNormalMessage(Colors.WHITE_BOLD + "->"+u.getName()+"<- "+Colors.COLOR_RESET+ "Punteggio: "+u.getPoints());
             else
                 showNormalMessage(u.getName()+ " Punteggio: "+u.getPoints());
         }
+        showNormalMessage("");
     }
 
 
@@ -190,6 +237,7 @@ public class CLI implements View{
             if(commonGoal.getTokens() != null && commonGoal.getTokens().size() > 0)
                 showNormalMessage("Obiettivo comune " + commonGoal.getId() + ": " + commonGoal.getIdRule() + " Token: " + commonGoal.getLastTokenCard().getPoints());
         }
+        showNormalMessage("");
     }
 
     @Override
@@ -208,7 +256,7 @@ public class CLI implements View{
         action = in.nextLine();
 
         String[] control = action.split(" ");
-    /*try {*/
+
         if(action.equals(possibleActions.get(1))) {
             if (client.getModel().getMyName().equals(client.getModel().getActiveUser()))
                 actOk = true;
@@ -216,10 +264,6 @@ public class CLI implements View{
             actOk = true;
         }else if(possibleActions.contains(action))
             actOk = true;
-    /*}catch (ArrayIndexOutOfBoundsException e){
-        showErrorMessage("Digita il nome dell'utente di cui vuoi vedere la libreria");
-    }*/
-
 
         if(actOk == true)
             return action;
@@ -291,23 +335,25 @@ public class CLI implements View{
         showBookshelf(client.getModel().getMyName());
         int numColonna = -1;
         boolean exit = true;
-
+        Scanner in = new Scanner(System.in);
         Bookshelf bookshelf = client.getModel().getMyBookshelf();
 
         do{
             exit = true;
             showNormalMessage("Inserisci il numero della colonna dove inserire le tessere");
-            Scanner in = new Scanner(System.in);
+
+            String col = in.nextLine();
+
             try {
-                numColonna = in.nextInt();
+                numColonna = Integer.parseInt(col);
 
                 if(numColonna < 0 || numColonna >= bookshelf.getNumColumn() || !client.getModel().checkDrop(numCards,numColonna)){
                     exit = false;
                     showErrorMessage("Impossibile riempire la colonna");
                 }
-            }
-            catch (InputMismatchException e){
+            } catch (Exception e){
                 showErrorMessage("Errore: inserire un numero");
+                exit = false;
             }
         }while(!exit);
 
@@ -318,6 +364,7 @@ public class CLI implements View{
     public ArrayList<CellPlank> reorderCards(ArrayList<CellPlank> cells) {
         for(int i = 0; i < cells.size(); i++){
             System.out.println(i+1 + ". Tessera: " + Colors.colorChar(cells.get(i).getObjectCard().getColor()));
+            System.out.println(" ");
         }
 
         ArrayList<CellPlank> cellsOrdered = new ArrayList<>();
@@ -325,25 +372,28 @@ public class CLI implements View{
 
         Scanner in = new Scanner(System.in);
 
-            for (int i = 0; i < cells.size(); i++) {
-                System.out.println("Inserisci il numero della " + (i + 1) + " tessera da inserire");
-                try {
-                    int index = in.nextInt();
+        for (int i = 0; i < cells.size(); i++) {
+            System.out.println("Inserisci il numero della " + (i + 1) + " tessera da inserire");
+            String ind = in.nextLine();
 
-                    while (index < 1 || index > cells.size() || alreadyInsert.contains(index)) {
-                        showErrorMessage("Azione non valida");
-                        System.out.println("Inserisci il numero della " + (i + 1) + " tessera da inserire");
-                        index = in.nextInt();
-                    }
+            try {
+                int index = Integer.parseInt(ind);
 
-                    alreadyInsert.add(index);
-                    cellsOrdered.add(cells.get(index - 1));
+                while (index < 1 || index > cells.size() || alreadyInsert.contains(index)) {
+                    showErrorMessage("Azione non valida");
+                    System.out.println("Inserisci il numero della " + (i + 1) + " tessera da inserire");
+                    ind = in.nextLine();
+                    index = Integer.parseInt(ind);
                 }
-                catch (InputMismatchException e){
-                        showErrorMessage("Errore: inserire un numero");
-                        i--;
-                }
+
+                alreadyInsert.add(index);
+                cellsOrdered.add(cells.get(index - 1));
             }
+            catch (Exception e){
+                showErrorMessage("Errore, inserire un numero");
+                i--;
+            }
+        }
         return cellsOrdered;
 
     }
