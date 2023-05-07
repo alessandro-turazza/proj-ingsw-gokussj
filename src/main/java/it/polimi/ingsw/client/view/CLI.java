@@ -2,13 +2,16 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.chat.Chat;
+import it.polimi.ingsw.server.model.object_card.ObjectCard;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
 import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
+import it.polimi.ingsw.server.model.user.personal_goal.Costraints;
 import it.polimi.ingsw.server.state_game.CommonGoalClone;
 import org.json.simple.JSONObject;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -209,11 +212,39 @@ public class CLI implements View{
         }
     }
 
+    public void showPersonalGoalBookshelf(){
+        Bookshelf bookshelf = client.getModel().getMyBookshelf();
+        ArrayList<Costraints> costraints = client.getModel().getUserByName(client.getModel().getMyName()).getPersonalGoal().getCostraints();
+        if(bookshelf==null){
+            showErrorMessage("Errore, username non trovato");
+            return;
+        }
+        CellShelf[][] cellShelf = new CellShelf[bookshelf.getNumRow()][bookshelf.getNumColumn()];
+        for(Costraints temp:costraints)cellShelf[temp.getRow()][temp.getColumn()]=new CellShelf(new ObjectCard(1,temp.getColor()));
+
+        for(int i = 0; i < bookshelf.getNumColumn(); i++)
+            System.out.print("  "+i+" ");
+
+        System.out.println("");
+        System.out.println("+---+---+---+---+---+");
+
+        for(int i = 0; i < bookshelf.getNumRow(); i++){
+            System.out.print("|");
+            for(int j = 0; j < bookshelf.getNumColumn(); j++){
+                if(cellShelf[i][j] != null)
+                    System.out.print(Colors.colorChar(cellShelf[i][j].getObjectCard().getColor()) + "|");
+                else
+                    System.out.print(" x |");
+            }
+            System.out.println(" ");
+            System.out.println("+---+---+---+---+---+");
+        }
+    }
     @Override
     public void showPersonalGoal() {
         User user = client.getModel().getUserByName(client.getModel().getMyName());
         showNormalMessage("Personal goal: " + user.getPersonalGoal().getId());
-        showNormalMessage("");
+        showPersonalGoalBookshelf();
     }
 
 
@@ -235,7 +266,7 @@ public class CLI implements View{
     public void showCommonGoals() {
         for(CommonGoalClone commonGoal: client.getModel().getCommonGoals()){
             if(commonGoal.getTokens() != null && commonGoal.getTokens().size() > 0)
-                showNormalMessage("Obiettivo comune " + commonGoal.getId() + ": " + commonGoal.getIdRule() + " Token: " + commonGoal.getLastTokenCard().getPoints());
+                showNormalMessage("Obiettivo comune " + commonGoal.getId() + ": " + commonGoal.getIdRule() + " Token: " + commonGoal.getLastTokenCard().getPoints()+"\n Testo: "+client.getModel().getTextCommonGoal(commonGoal.getId()));
         }
         showNormalMessage("");
     }

@@ -23,14 +23,18 @@ public class ClientModel {
     private String myName;
 
     private ArrayList<CommonGoalClone> commonGoals;
+    private TextCommonGoals textCommonGoals;
 
-    public ClientModel(){}
+    public ClientModel(){
+        textCommonGoals=new TextCommonGoals();
+    }
     public ClientModel(StateGame stateGame, String clientName, View view) {
         this.players = stateGame.getUsersClone();
         this.plank = stateGame.getPlankClone();
         this.activeUser = stateGame.getActiveUser();
         this.commonGoals = stateGame.getCommonGoalsClone();
         this.myName=clientName;
+        textCommonGoals=new TextCommonGoals();
     }
 
     public boolean checkDrop(int numCard,int column) throws Exception {
@@ -203,10 +207,19 @@ public class ClientModel {
 
     public synchronized void setCommonGoals(ArrayList<CommonGoalClone> commonGoals) {
         this.commonGoals = commonGoals;
+
     }
 
     public synchronized CommonGoalClone getCommonGoal(int series){
         if(series>=1 && series<=commonGoals.size())return commonGoals.get(series-1);
         return null;
     }
+
+    public String getTextCommonGoal(int id){
+        for(TextCommonGoal textCommonGoal: textCommonGoals.getTextCommonGoals()){
+            if(id==textCommonGoal.getId())return textCommonGoal.getText();
+        }
+        return null;
+    }
+
 }
