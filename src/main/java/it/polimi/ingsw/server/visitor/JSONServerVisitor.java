@@ -1,8 +1,6 @@
 package it.polimi.ingsw.server.visitor;
 
-import it.polimi.ingsw.server.Server;
-import it.polimi.ingsw.server.ServerGame;
-import it.polimi.ingsw.server.ServerThread;
+import it.polimi.ingsw.server.*;
 import it.polimi.ingsw.server.message.MessageChatServer;
 import it.polimi.ingsw.server.message.MessageCloseConnection;
 import it.polimi.ingsw.server.message.MessageDragAndDropServer;
@@ -19,6 +17,7 @@ public class JSONServerVisitor implements VisitorServer{
        int idGame = m.getServerThread().getServer().insertNewGame(m.getServerThread(), m.getUser(), m.getNumPlayer());
        m.getServerThread().setIdGame(idGame);
        m.getServerThread().setUser(m.getUser());
+       initializeVerifier(m.getServerThread());
        m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection(idGame+""));
    }
 
@@ -34,13 +33,18 @@ public class JSONServerVisitor implements VisitorServer{
 
             if(res){
                 m.getServerThread().setIdGame(m.getIdGame());
+                initializeVerifier(m.getServerThread());
                 m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection(m.getIdGame()+""));
                 m.getServerThread().setUser(m.getUser());
-
+                m.getServerThread().getVeriferSender().setUser(m.getUser());
                 if(sg.getPlayers().size() == sg.getGameManager().getNumUser()){
                     //sg.updateStateGame();
-                    for(ServerThread st: sg.getPlayers())
+                    for(ServerThread st: sg.getPlayers()){
                         st.sendMessage(st.getController().sendStateGame(sg.getGameManager()));
+                        st.getVeriferSender().setGameStarted(true);
+                        System.out.println(st.getUser().getName() + "Settato verifier true");
+                    }
+
                 }
 
             }else
@@ -97,5 +101,23 @@ public class JSONServerVisitor implements VisitorServer{
     @Override
     public void visit(MessageCloseConnection m){
        m.getServerThread().setCloseConnection(true);
+    }
+
+    private void initializeVerifier(ServerThread st){
+       VerifierBuffer buffer = new VerifierBuffer();
+       VeriferSender sender = new VeriferSender();
+       VerifierReciver reciver = new VerifierReciver();
+       sender.setBuffer(buffer);
+       reciver.setBuffer(buffer);
+       sender.setGame(st.getServer().getServerGameFromId(st.getIdGame()));
+       sender.setUser(st.getUser());
+       sender.setWriteSocket(Server.getVerifierWriteSocket());
+       reciver.setReadSocket(Server.getVerifierReadSocket());
+       st.setVeriferSender(sender);
+       st.setVerifierReciver(reciver);
+       sender.setServerThread(st);
+       sender.setGameStarted(false);
+       sender.start();
+       reciver.start();
     }
 }

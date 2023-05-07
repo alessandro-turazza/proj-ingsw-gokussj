@@ -60,4 +60,8 @@ public class ClientMessager extends Thread{
         }
 
     }
+
+    public String getIpServer() {
+        return ipServer;
+    }
 }

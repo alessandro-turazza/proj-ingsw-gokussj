@@ -9,4 +9,5 @@ public interface VisitorClient {
     void visit(MessageOKConnectionClient element);
     void visit(MessageKOConnectionClient element);
     void visit(MessageChat element);
+    void visit(MessageDisconnection element);
 }

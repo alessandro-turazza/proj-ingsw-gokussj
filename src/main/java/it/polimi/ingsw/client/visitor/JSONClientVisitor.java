@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.visitor;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.ConnectionDeamon;
 import it.polimi.ingsw.client.message.*;
 import it.polimi.ingsw.client.view.Colors;
 
@@ -27,11 +28,15 @@ public class JSONClientVisitor implements VisitorClient {
 
     @Override
     public void visit(MessageOKConnectionClient element) {
+
         Client client = element.getClient();
         client.getModel().setIdGame(element.getIdGame());
         client.getViewController().getView().showNormalMessage("----------------------------");
         client.getViewController().getView().showCorrectMessage("Sei stato aggiunto correttamente alla partita " + element.getIdGame());
         client.getViewController().getView().showNormalMessage("In attesa degli altri giocatori...");
+        ConnectionDeamon deamon = new ConnectionDeamon();
+        deamon.setIpServer(element.getClient().getMessager().getIpServer());
+        deamon.start();
     }
 
     @Override
@@ -46,6 +51,11 @@ public class JSONClientVisitor implements VisitorClient {
     @Override
     public void visit(MessageChat element) {
         element.getClient().getChat().chatAdd(element.getObj());
+    }
+
+    @Override
+    public void visit(MessageDisconnection element) {
+        element.getView().showErrorMessage("L'utente " + element.getObj().get("user").toString() + " si è disconnesso.\nPartita terminata.");
     }
 
     @Override

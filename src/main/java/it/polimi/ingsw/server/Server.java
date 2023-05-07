@@ -12,8 +12,20 @@ import java.util.ArrayList;
 
 public class Server {
     private static final int PORT = 50000;
+    private static final int VERIFIER_READ_PORT = 50002;
+    private static final int VERIFIER_WRITE_PORT = 50001;
     private static ServerSocket serverSocket;
+    private static ServerSocket verifierReadSocket;
+    private static ServerSocket verifierWriteSocket;
     private static ArrayList<ServerGame> gameList;
+
+    public static ServerSocket getVerifierReadSocket() {
+        return verifierReadSocket;
+    }
+
+    public static ServerSocket getVerifierWriteSocket() {
+        return verifierWriteSocket;
+    }
 
 
     public void loadDatas() throws IOException, ParseException {
@@ -46,6 +58,8 @@ public class Server {
     public void startServer() throws IOException, ParseException {
         gameList = new ArrayList<>();
         serverSocket = new ServerSocket(PORT);
+        verifierReadSocket = new ServerSocket(VERIFIER_READ_PORT);
+        verifierWriteSocket = new ServerSocket(VERIFIER_WRITE_PORT);
         System.out.println("----------------------------");
         System.out.println(Colors.WHITE_BOLD + "Stato del server" + Colors.COLOR_RESET);
         System.out.println(Colors.GREEN + "Server ON" + Colors.COLOR_RESET);

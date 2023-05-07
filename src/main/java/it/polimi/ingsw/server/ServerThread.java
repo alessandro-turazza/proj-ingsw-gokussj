@@ -13,6 +13,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ServerThread extends Thread{
+
+    private VeriferSender veriferSender;
+    private VerifierReciver verifierReciver;
     private Socket socket;
     private Server server;
     private PrintWriter out;
@@ -54,12 +57,13 @@ public class ServerThread extends Thread{
 
     public void setCloseConnection(boolean closeConnection) {
         this.closeConnection = closeConnection;
+        veriferSender.setCloseConnection(closeConnection);
+        verifierReciver.setCloseConnection(closeConnection);
     }
 
     @Override
     public void run() {
         try {
-
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             String messageIn;
@@ -85,4 +89,19 @@ public class ServerThread extends Thread{
         out.println(obj.toJSONString());
     }
 
+    public void setVeriferSender(VeriferSender veriferSender) {
+        this.veriferSender = veriferSender;
+    }
+
+    public void setVerifierReciver(VerifierReciver verifierReciver) {
+        this.verifierReciver = verifierReciver;
+    }
+
+    public VeriferSender getVeriferSender() {
+        return veriferSender;
+    }
+
+    public VerifierReciver getVerifierReciver() {
+        return verifierReciver;
+    }
 }
