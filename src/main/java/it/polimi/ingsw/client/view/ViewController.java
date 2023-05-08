@@ -54,7 +54,7 @@ public class ViewController {
                 view = new CLI(client);
                 break;
             case 'G':
-                //view = new GUI();
+                view = new GUI();
                 break;
         }
 

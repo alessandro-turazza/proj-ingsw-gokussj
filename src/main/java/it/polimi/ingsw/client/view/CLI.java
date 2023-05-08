@@ -11,7 +11,6 @@ import it.polimi.ingsw.server.model.user.personal_goal.Costraints;
 import it.polimi.ingsw.server.state_game.CommonGoalClone;
 import org.json.simple.JSONObject;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -148,8 +147,8 @@ public class CLI implements View{
         this.showUsers();
         this.showPlank();
         this.showCommonGoals();
-        this.showBookshelf(client.getModel().getMyName());
-        this.showPersonalGoal();
+        //this.showBookshelf(client.getModel().getMyName());
+        //this.showPersonalGoal();
     }
 
     @Override
@@ -323,9 +322,13 @@ public class CLI implements View{
 
             input = in.nextLine();
 
-            if(input.equals("STOP"))
+            if(input.equals("STOP")){
                 exit = true;
-            else{
+                if(cells.size() == 0){
+                    showErrorMessage("Errore, nessuna tessera scelta");
+                    exit = false;
+                }
+            }else{
                 int row = -1;
                 int column = -1;
 
@@ -442,6 +445,9 @@ public class CLI implements View{
                 }
             }
         }
+
+        showNormalMessage("----------------------------");
+        showNormalMessage(Colors.WHITE_BOLD + "Fine partita" + Colors.COLOR_RESET);
 
         for(int i = 0; i < users.size(); i++){
             System.out.println((i+1)+". " +users.get(i).getName()+" punti:  " + users.get(i).getPoints());

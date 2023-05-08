@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.message.MessageClient;
+import it.polimi.ingsw.client.view.Colors;
 import it.polimi.ingsw.client.visitor.JSONClientVisitor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -24,9 +25,17 @@ public class ClientMessager extends Thread{
     public ClientMessager(Client client) throws IOException {
         this.client = client;
         this.messageHandler = new ClientMessageHandler(client);
-        Socket socket = new Socket(ipServer, PORT);
-        input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new PrintWriter(socket.getOutputStream(), true);
+        Socket socket;
+
+        try{
+            socket = new Socket(ipServer, PORT);
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+        }catch(Exception e){
+            System.out.println(Colors.RED + "Server OFF" + Colors.COLOR_RESET);
+            System.out.println("Sembra che il server non sia disponibile, ritenta più tardi...");
+        }
+
     }
 
     public ClientMessageHandler getMessageHandler() {
