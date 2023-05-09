@@ -3,7 +3,6 @@ module it.polimi.ingsw.client {
     requires javafx.fxml;
     requires json.simple;
     requires com.google.gson;
-
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
 
