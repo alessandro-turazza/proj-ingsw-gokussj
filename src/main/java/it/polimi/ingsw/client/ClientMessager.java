@@ -17,6 +17,8 @@ public class ClientMessager extends Thread{
     //private final String ipServer= "31.27.157.205";
     private final String ipServer= "localhost";
 
+    //private final String ipServer= "192.168.249.95";
+
     private BufferedReader input;
     private PrintWriter out;
     private Client client;

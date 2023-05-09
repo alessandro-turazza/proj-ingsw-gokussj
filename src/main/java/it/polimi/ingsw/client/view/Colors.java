@@ -12,14 +12,14 @@ public class Colors {
     public static final String PURPLE = "\u001B[35m";
     public static final String WHITE = "\u001B[97m";
 
-    public static final String BLACK_BACKGROUND = "\u001B[40m";
-    public static final String RED_BACKGROUND = "\u001B[41m";
-    public static final String GREEN_BACKGROUND = "\u001B[42m";
-    public static final String YELLOW_BACKGROUND = "\u001B[43m";
+    public static final String BLACK_BACKGROUND = "\u001B[100m";
+    public static final String RED_BACKGROUND = "\u001B[101m";
+    public static final String GREEN_BACKGROUND = "\u001B[102m";
+    public static final String YELLOW_BACKGROUND = "\u001B[103m";
     public static final String BLUE_BACKGROUND = "\u001B[44m";
-    public static final String PURPLE_BACKGROUND = "\u001B[45m";
-    public static final String CYAN_BACKGROUND = "\u001B[46m";
-    public static final String WHITE_BACKGROUND = "\u001B[47m";
+    public static final String PURPLE_BACKGROUND = "\u001B[105m";
+    public static final String CYAN_BACKGROUND = "\u001B[106m";
+    public static final String WHITE_BACKGROUND = "\u001B[107m";
 
     public static final String BLACK_BOLD = "\033[1;30m";
     public static final String RED_BOLD = "\033[1;31m";
