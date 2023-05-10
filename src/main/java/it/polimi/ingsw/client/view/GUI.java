@@ -110,12 +110,10 @@ public class GUI extends Application implements View{
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        stage.setMaximized(true);
+        Scene scene = new Scene(fxmlLoader.load(), stage.getMaxHeight(), stage.getMaxWidth());
+        stage.setTitle("MyShelfie");
         stage.setScene(scene);
         stage.show();
-    }
-    public static void main(String[] args) {
-        launch();
     }
 }
