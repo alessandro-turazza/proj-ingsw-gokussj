@@ -120,7 +120,8 @@ public class GUI extends Application implements View{
 
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/Display_1.jpg");
         Image imgBackground = new Image(reader);
-        BackgroundImage backgroundImage = new BackgroundImage(imgBackground, BackgroundRepeat.NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
+        BackgroundImage backgroundImage = new BackgroundImage(imgBackground, BackgroundRepeat.NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         root.setBackground(new Background(backgroundImage));
 
         stage.setMaximized(true);
