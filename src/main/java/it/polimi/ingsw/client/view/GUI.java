@@ -126,7 +126,7 @@ public class GUI extends Application implements View{
         BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
 
         root.setBackground(new Background(backgroundImage));
-        Scene startScene = new Scene(root, 1920,1080);
+        Scene startScene = new Scene(root, 1000,600);
 
         stage.setScene(startScene);
         stage.show();

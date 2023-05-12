@@ -8,7 +8,7 @@
 
     <HBox spacing="10" alignment="CENTER">
         <Button text = "Nuova partita" onAction="#onCreateGameClick"></Button>
-        <Button text = "Unisciti a partita "></Button>
+        <Button text = "Unisciti a partita" onAction="#onJoinGameClick"></Button>
     </HBox>
 
     <!--<Label fx:id="welcomeText" />

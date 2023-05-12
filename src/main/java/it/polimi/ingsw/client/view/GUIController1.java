@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -23,6 +24,9 @@ public class GUIController1 {
     @FXML
     private Label welcomeText;
 
+    @FXML
+    private TextField userCreate,numPlayersCreate,userEnter,idEnter;
+
 
     @FXML
     protected void onHelloButtonClick() {
@@ -36,13 +40,30 @@ public class GUIController1 {
         BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         root.setBackground(new Background(backgroundImage));
-        sceneLobby = new Scene(root, 1920,1080);
+        sceneLobby = new Scene(root, 1000,600);
         stage.setScene(sceneLobby);
     }
 
     @FXML
-    protected void onJoinGame(){
-        System.out.println("Join in game");
+    protected void onJoinGameClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-join.fxml"));
+        Pane root = fxmlLoader.load();
+        BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
+        BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
+        root.setBackground(new Background(backgroundImage));
+        sceneLobby = new Scene(root, 1000,600);
+        stage.setScene(sceneLobby);
+    }
+
+    @FXML
+    protected void onConfirmCreateClick(){
+        System.out.println(userCreate.getText() + " " + numPlayersCreate.getText());
+
+    }
+
+    @FXML
+    protected void onConfirmEnterClick(){
+        System.out.println(userEnter.getText() + " " + idEnter.getText());
     }
 
 }

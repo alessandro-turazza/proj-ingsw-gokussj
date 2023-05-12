@@ -3,7 +3,6 @@ package it.polimi.ingsw.client.view;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.server.model.plank.CellPlank;
-import javafx.application.Application;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class ViewController {
                 break;
             case 'G':
                 view = new GUI();
-                Application.launch(GUI.class);
+
                 break;
         }
 
