@@ -56,6 +56,14 @@ public class GameManager {
         return winner;
     }
 
+    public static int getNumCommonGoal() {
+        return numCommonGoal;
+    }
+
+    public static int getNumPersonalGoal() {
+        return numPersonalGoal;
+    }
+
     private ArrayList<Integer> generateTokens(){
 
         return new ArrayList<>(GameData.getDataTokens().get(users.size() - 2));

@@ -1,0 +1,94 @@
+{
+  "cardList" : [
+    {
+      "path": "Cornici1.1.png",
+      "color": "BLUE",
+      "id": 1
+    },
+    {
+      "path": "Cornici1.2.png",
+      "color": "BLUE",
+      "id": 2
+    },
+    {
+      "path": "Cornici1.3.png",
+      "color": "BLUE",
+      "id": 3
+    },
+    {
+      "path": "Gatti1.1.png",
+      "color": "GREEN",
+      "id": 1
+    },
+    {
+      "path": "Gatti1.2.png",
+      "color": "GREEN",
+      "id": 2
+    },
+    {
+      "path": "Gatti1.3.png",
+      "color": "GREEN",
+      "id": 3
+    },
+    {
+      "path": "Giochi1.1.png",
+      "color": "YELLOW",
+      "id": 1
+    },
+    {
+      "path": "Giochi1.2.png",
+      "color": "YELLOW",
+      "id": 2
+    },
+    {
+      "path": "Giochi1.3.png",
+      "color": "YELLOW",
+      "id": 3
+    },
+    {
+      "path": "Libri1.1.png",
+      "color": "WHITE",
+      "id": 1
+    },
+    {
+      "path": "Libri1.2.png",
+      "color": "WHITE",
+      "id": 2
+    },
+    {
+      "path": "Libri1.3.png",
+      "color": "WHITE",
+      "id": 3
+    },
+    {
+      "path": "Piante1.1.png",
+      "color": "PINK",
+      "id": 1
+    },
+    {
+      "path": "Piante1.2.png",
+      "color": "PINK",
+      "id": 2
+    },
+    {
+      "path": "Piante1.3.png",
+      "color": "PINK",
+      "id": 3
+    },
+    {
+      "path": "Trofei1.1.png",
+      "color": "LIGHT_BLUE",
+      "id": 1
+    },
+    {
+      "path": "Trofei1.2.png",
+      "color": "LIGHT_BLUE",
+      "id": 2
+    },
+    {
+      "path": "Trofei1.3.png",
+      "color": "LIGHT_BLUE",
+      "id": 3
+    }
+  ]
+}
