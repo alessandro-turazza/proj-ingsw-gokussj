@@ -2,27 +2,63 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.client.model.ClientModel;
-import it.polimi.ingsw.client.view.ViewController;
+import it.polimi.ingsw.client.view.*;
 
 import java.io.IOException;
+import java.util.Scanner;
+
+import static javafx.application.Application.launch;
 
 public class Client {
     private ClientMessager messager;
-    private ViewController viewController;
     private ClientModel model;
-    private InputAction inputAction;
+
     private Chat chat;
-    private boolean inputReady;
+
+    private static Controller controller;
 
     public Client() throws IOException {
         this.chat= new Chat();
         this.messager = new ClientMessager(this);
-        this.viewController = new ViewController(this);
         this.model = new ClientModel();
-        this.inputReady = false;
     }
-    public ViewController getViewController() {
-        return viewController;
+    public void startViewController(){
+        String choose;
+
+        System.out.println("----------------------------");
+        System.out.println(Colors.WHITE_BOLD + "Scelta interfaccia utente" + Colors.COLOR_RESET);
+        System.out.println("----------------------------");
+
+        System.out.println("Premi C per usare l'interfaccia CLI");
+        System.out.println("Premi G per usare l'interfaccia GUI");
+
+        Scanner in = new Scanner(System.in);
+        choose = in.nextLine();
+
+
+        while(!choose.equalsIgnoreCase("C") && !choose.equalsIgnoreCase("G")){
+            System.out.println(Colors.RED + "Errore, carattere invalido" + Colors.COLOR_RESET);
+            System.out.println("Premi C per usare l'interfaccia CLI");
+            System.out.println("Premi G per usare l'interfaccia GUI");
+            choose = in.nextLine();
+        }
+
+        char chooseChar = Character.toUpperCase(choose.charAt(0));
+
+        switch(chooseChar){
+            case 'C':
+                controller = new CLIController(this);
+                break;
+            case 'G':
+                controller= new GUIController(this);
+
+                break;
+        }
+
+    }
+
+    public static Controller getViewController() {
+        return controller;
     }
 
     public ClientMessager getMessager() {
@@ -33,24 +69,13 @@ public class Client {
         return model;
     }
 
-    public void setInputReady(boolean inputReady) {
-        this.inputReady = inputReady;
-    }
 
     public void startClient() throws Exception {
-        this.viewController.startViewController();
-        this.viewController.setClientDatas();
+        this.startViewController();
+        this.controller.startController();
         this.messager.start();
     }
 
-    public void handleTurn() throws Exception {
-        if(!inputReady){
-            this.inputAction = new InputAction(viewController);
-            this.inputReady = true;
-            this.inputAction.start();
-        }else
-            this.viewController.getView().showNormalMessage("Digita un azione");
-    }
 
     public Chat getChat() {
         return chat;

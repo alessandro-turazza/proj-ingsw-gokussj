@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.InputAction;
 import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import org.json.simple.JSONObject;
@@ -9,59 +10,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class ViewController {
-    private View view;
+public class CLIController implements Controller{
+    private CLI view;
     private Client client;
     private Chat chat;
     private ArrayList<String> actions = new ArrayList<>(Arrays.asList("HELP","DRAG/DROP","BOOKSHELF","PLANK","USERS","COMMON_GOALS","PERSONAL_GOAL", "OPEN_CHAT"));
+    private InputAction inputAction;
+    private boolean inputReady;
 
-    public ViewController(Client client){
+    public CLIController(Client client){
         this.client = client;
         chat =client.getChat();
+        this.inputReady = false;
+        this.view=new CLI(client);
     }
-    public View getView() {
+    public CLI getView() {
         return view;
     }
     public ArrayList<String> getActions() {
         return actions;
     }
 
-    public void startViewController(){
-        String choose;
 
-        System.out.println("----------------------------");
-        System.out.println(Colors.WHITE_BOLD + "Scelta interfaccia utente" + Colors.COLOR_RESET);
-        System.out.println("----------------------------");
-
-        System.out.println("Premi C per usare l'interfaccia CLI");
-        System.out.println("Premi G per usare l'interfaccia GUI");
-
-        Scanner in = new Scanner(System.in);
-        choose = in.nextLine();
-
-
-        while(!choose.equalsIgnoreCase("C") && !choose.equalsIgnoreCase("G")){
-            System.out.println(Colors.RED + "Errore, carattere invalido" + Colors.COLOR_RESET);
-            System.out.println("Premi C per usare l'interfaccia CLI");
-            System.out.println("Premi G per usare l'interfaccia GUI");
-            choose = in.nextLine();
-        }
-
-        char chooseChar = Character.toUpperCase(choose.charAt(0));
-
-        switch(chooseChar){
-            case 'C':
-                view = new CLI(client);
-                break;
-            case 'G':
-                view = new GUI();
-
-                break;
-        }
-
-    }
-
-    public void setClientDatas(){
+    @Override
+    public void startController(){
         char choose= view.selectTypeGame();
         JSONObject userDatas = view.lobby(choose);
 
@@ -83,7 +55,7 @@ public class ViewController {
         try{
             String action = "";
 
-            action = view.catchAction();//myTurn);
+            action = catchAction();//myTurn);
 
 
             if(action == null)
@@ -121,6 +93,60 @@ public class ViewController {
             }
         }catch(InterruptedException e){}
 
+    }
+    @Override
+    public void showStateGame() throws Exception {
+        view.showStateGame();
+        handleTurn();
+    }
+    @Override
+    public void showEndGame(){
+        view.showEndGame();
+    }
+
+    @Override
+    public  void showErrorMessage(String message){
+        view.showErrorMessage(message);
+    }
+    @Override
+    public void showOkConnection(Integer idGame){
+        view.showNormalMessage("----------------------------");
+        view.showCorrectMessage("Sei stato aggiunto correttamente alla partita " + idGame);
+        view.showNormalMessage("In attesa degli altri giocatori...");
+    }
+    public String catchAction(/*boolean myTurn*/) {
+        String action = "";
+        ArrayList<String> possibleActions = this.getActions();
+
+        boolean actOk = false;
+
+        view.showNormalMessage("Digita un azione");
+        Scanner in = new Scanner(System.in);
+
+        action = in.nextLine();
+
+        String[] control = action.split(" ");
+
+        if(action.equals(possibleActions.get(1))) {
+            if (client.getModel().getMyName().equals(client.getModel().getActiveUser()))
+                actOk = true;
+        }else if(control[0].equals(possibleActions.get(2))){
+            actOk = true;
+        }else if(possibleActions.contains(action))
+            actOk = true;
+
+        if(actOk == true)
+            return action;
+        return null;
+
+    }
+    public void handleTurn() {
+        if(!inputReady){
+            this.inputAction = new InputAction(this);
+            this.inputReady = true;
+            this.inputAction.start();
+        }else
+            this.getView().showNormalMessage("Digita un azione");
     }
 
 

@@ -9,12 +9,12 @@ import it.polimi.ingsw.server.model.user.User;
 import java.util.ArrayList;
 
 public class StateGame {
-    private ArrayList<User> usersClone;
-    private Plank plankClone;
+    public ArrayList<User> usersClone;
+    public Plank plankClone;
 
-    private String activeUser;
+    public String activeUser;
 
-    private ArrayList<CommonGoalClone> commonGoalsClone;
+    public ArrayList<CommonGoalClone> commonGoalsClone;
 
 
 

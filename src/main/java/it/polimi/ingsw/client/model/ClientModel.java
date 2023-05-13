@@ -1,6 +1,5 @@
 package it.polimi.ingsw.client.model;
 
-import it.polimi.ingsw.client.view.View;
 import it.polimi.ingsw.server.model.common_goal.TokenCard;
 import it.polimi.ingsw.server.state_game.CommonGoalClone;
 import it.polimi.ingsw.server.state_game.StateGame;
@@ -28,7 +27,7 @@ public class ClientModel {
     public ClientModel(){
         textCommonGoals=new TextCommonGoals();
     }
-    public ClientModel(StateGame stateGame, String clientName, View view) {
+    public ClientModel(StateGame stateGame, String clientName) {
         this.players = stateGame.getUsersClone();
         this.plank = stateGame.getPlankClone();
         this.activeUser = stateGame.getActiveUser();

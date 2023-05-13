@@ -1,6 +1,6 @@
 package it.polimi.ingsw.client.message;
 
-import it.polimi.ingsw.client.view.View;
+import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.visitor.VisitorClient;
 import org.json.simple.JSONObject;
 
@@ -8,11 +8,11 @@ public class MessageDisconnection implements MessageClient{
 
     private JSONObject obj;
 
-    private View view;
+    private Client client;
 
-    public MessageDisconnection(JSONObject obj, View view) {
+    public MessageDisconnection(JSONObject obj, Client client) {
         this.obj = obj;
-        this.view = view;
+        this.client = client;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class MessageDisconnection implements MessageClient{
         return obj;
     }
 
-    public View getView() {
-        return view;
+    public Client getClient() {
+        return client;
     }
 }

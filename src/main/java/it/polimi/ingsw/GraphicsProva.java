@@ -14,7 +14,7 @@ public class GraphicsProva extends Application {
     ///home/alessandro/.jdks/openjdk-19.0.2
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(GraphicsProva.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GraphicsProva.class.getResource("startmenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);

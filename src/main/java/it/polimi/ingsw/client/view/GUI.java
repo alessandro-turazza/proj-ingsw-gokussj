@@ -1,124 +1,33 @@
 package it.polimi.ingsw.client.view;
 
-import it.polimi.ingsw.client.chat.Chat;
-import it.polimi.ingsw.server.model.plank.CellPlank;
+import it.polimi.ingsw.client.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import org.json.simple.JSONObject;
-
-import java.util.ArrayList;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI extends Application implements View{
+public class GUI extends Application{
+    private static final int MAX_CELLS_DROP=3;
+    private static final int MIN_PLAYERS = 2;
+    private static final int MAX_PLAYERS = 4;
 
+    private GUIController controller;
 
-    @Override
-    public Character selectTypeGame() {
-        return null;
-    }
-
-    @Override
-    public JSONObject lobby(Character choose) {
-        return null;
-    }
-
-    @Override
-    public void showNormalMessage(String message) {
-
-    }
-
-    @Override
-    public void showCorrectMessage(String message) {
-
-    }
-
-    @Override
-    public void showErrorMessage(String message) {
-
-    }
-
-    @Override
-    public void showStateGame() throws Exception {
-
-    }
-
-    @Override
-    public void showPlank() {
-
-    }
-
-    @Override
-    public void showBookshelfs() {
-
-    }
-
-    @Override
-    public void showBookshelf(String username) throws Exception {
-
-    }
-
-    @Override
-    public void showPersonalGoal() {
-
-    }
-
-    @Override
-    public void showCommonGoals() {
-
-    }
-
-    @Override
-    public void showUsers() {
-
-    }
-
-    @Override
-    public void showCommonGoal(int idCommonGoal) {
-
-    }
-
-    @Override
-    public String catchAction() {
-        return null;
-    }
-
-    @Override
-    public ArrayList<CellPlank> drag() {
-        return null;
-    }
-
-    @Override
-    public int drop(int numCards) throws Exception {
-        return 0;
-    }
-
-    @Override
-    public ArrayList<CellPlank> reorderCards(ArrayList<CellPlank> cells) {
-        return null;
-    }
-
-    @Override
-    public void showEndGame() {
-
-    }
-
-    @Override
-    public void openChat(Chat chat) {
-
-    }
 
 
     @Override
     public void start(Stage stage) throws Exception {
+        controller= (GUIController) Client.getViewController();
         PicturesLoad.loadImages();
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("startmenu.fxml"));
         Pane root = fxmlLoader.load();
+        GUI_MenuController ctrl=new GUI_MenuController();
+        GUI_MenuController.setStage(stage);
+        ctrl.setClient(controller.getClient());
 
-        GUIController1.setStage(stage);
 
         stage.setTitle("MyShelfie");
 
@@ -130,5 +39,9 @@ public class GUI extends Application implements View{
 
         stage.setScene(startScene);
         stage.show();
+    }
+
+    public GUIController getController() {
+        return controller;
     }
 }

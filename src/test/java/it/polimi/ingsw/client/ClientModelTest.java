@@ -49,7 +49,7 @@ public class ClientModelTest {
 
         StateGame stateGame=new StateGame(gameManager);
 
-        clientModel=new ClientModel(stateGame,"User1", null);
+        clientModel=new ClientModel(stateGame,"User1");
         objectCard=new ObjectCard(1, Color.WHITE);
     }
 

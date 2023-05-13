@@ -20,10 +20,7 @@ public class JSONClientVisitor implements VisitorClient {
         client.getModel().setPlank(element.getStateGame().getPlankClone());
         client.getModel().setCommonGoals(element.getStateGame().getCommonGoalsClone());
         client.getModel().setActiveUser(element.getStateGame().getActiveUser());
-        client.getViewController().getView().showNormalMessage("----------------------------");
-        client.getViewController().getView().showNormalMessage(Colors.WHITE_BOLD + "Nuovo turno"+ Colors.COLOR_RESET);
-        client.getViewController().getView().showStateGame();
-        client.handleTurn();
+        client.getViewController().showStateGame();
     }
 
     @Override
@@ -31,9 +28,7 @@ public class JSONClientVisitor implements VisitorClient {
 
         Client client = element.getClient();
         client.getModel().setIdGame(element.getIdGame());
-        client.getViewController().getView().showNormalMessage("----------------------------");
-        client.getViewController().getView().showCorrectMessage("Sei stato aggiunto correttamente alla partita " + element.getIdGame());
-        client.getViewController().getView().showNormalMessage("In attesa degli altri giocatori...");
+        client.getViewController().showOkConnection(element.getIdGame());
         ConnectionDeamon deamon = new ConnectionDeamon();
         deamon.setIpServer(element.getClient().getMessager().getIpServer());
         deamon.start();
@@ -42,10 +37,10 @@ public class JSONClientVisitor implements VisitorClient {
     @Override
     public void visit(MessageKOConnectionClient element) {
         if(element.getObject().equals("NOTEX"))
-            element.getClient().getViewController().getView().showErrorMessage("Errore, partita inesistente");
+            element.getClient().getViewController().showErrorMessage("Errore, partita inesistente");
         else if(element.getObject().equals("USER/FULL"))
-            element.getClient().getViewController().getView().showErrorMessage("Errore, username già in uso / partita piena");
-        element.getClient().getViewController().setClientDatas();
+            element.getClient().getViewController().showErrorMessage("Errore, username già in uso / partita piena");
+        element.getClient().getViewController().startController();
     }
 
     @Override
@@ -55,7 +50,7 @@ public class JSONClientVisitor implements VisitorClient {
 
     @Override
     public void visit(MessageDisconnection element) {
-        element.getView().showErrorMessage("L'utente " + element.getObj().get("user").toString() + " si è disconnesso.\nPartita terminata.");
+        element.getClient().getViewController().showErrorMessage("L'utente " + element.getObj().get("user").toString() + " si è disconnesso.\nPartita terminata.");
     }
 
     @Override
@@ -65,8 +60,8 @@ public class JSONClientVisitor implements VisitorClient {
         client.getModel().setPlank(element.getStateGame().getPlankClone());
         client.getModel().setCommonGoals(element.getStateGame().getCommonGoalsClone());
         client.getModel().setActiveUser(element.getStateGame().getActiveUser());
-        client.getViewController().getView().showStateGame();
-        client.getViewController().getView().showEndGame();
+        client.getViewController().showStateGame();
+        client.getViewController().showEndGame();
         client.getMessager().sendMessage(client.getMessager().getMessageHandler().sendCloseConnection());
     }
 }

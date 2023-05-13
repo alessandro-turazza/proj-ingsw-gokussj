@@ -1,11 +1,11 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.client.view.ViewController;
+import it.polimi.ingsw.client.view.CLIController;
 
 public class InputAction extends Thread{
-    private ViewController viewController;
+    private CLIController viewController;
 
-    public InputAction(ViewController v){
+    public InputAction(CLIController v){
         this.viewController = v;
     }
     @Override

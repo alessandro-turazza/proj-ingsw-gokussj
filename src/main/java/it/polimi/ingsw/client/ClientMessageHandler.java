@@ -20,7 +20,7 @@ public class ClientMessageHandler {
     public MessageClient handleMessage(JSONObject obj){
         String response = obj.get("response").toString();
         if (response.equals("DISCONNECTION"))
-            return  new MessageDisconnection(obj, client.getViewController().getView());
+            return  new MessageDisconnection(obj, client);
         if(response.equals("CHAT_MESSAGE"))
             return new MessageChat(client, obj);
         if(response.equals("OK_CONNECTION"))

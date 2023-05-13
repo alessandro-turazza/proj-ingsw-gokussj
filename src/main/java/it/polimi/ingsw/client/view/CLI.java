@@ -14,7 +14,7 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CLI implements View{
+public class CLI{
     private static final int MAX_CELLS_DROP=3;
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
@@ -26,7 +26,6 @@ public class CLI implements View{
         this.client = client;
     }
 
-    @Override
     public Character selectTypeGame() {
         showNormalMessage("----------------------------");
         showNormalMessage(Colors.WHITE_BOLD + "Scelta tipo partita" + Colors.COLOR_RESET);
@@ -47,7 +46,7 @@ public class CLI implements View{
         return Character.toUpperCase(choose.charAt(0));
     }
 
-    @Override
+
     public JSONObject lobby(Character choose) {
 
         JSONObject userDatas = new JSONObject();
@@ -126,23 +125,24 @@ public class CLI implements View{
 
 
 
-    @Override
+
     public void showNormalMessage(String message) {
         System.out.println(message);
     }
 
-    @Override
+
     public void showCorrectMessage(String message) {
         System.out.println(Colors.GREEN + message + Colors.COLOR_RESET);
     }
-    @Override
+
     public void showErrorMessage(String message) {
         System.out.println(Colors.RED + message + Colors.COLOR_RESET);
     }
 
-    @Override
-    public void showStateGame() throws Exception {
 
+    public void showStateGame() throws Exception {
+        showNormalMessage("----------------------------");
+        showNormalMessage(Colors.WHITE_BOLD + "Nuovo turno"+ Colors.COLOR_RESET);
         showNormalMessage("----------------------------");
         this.showUsers();
         this.showPlank();
@@ -151,7 +151,7 @@ public class CLI implements View{
         //this.showPersonalGoal();
     }
 
-    @Override
+
     public void showPlank() {
         int dimPlank = client.getModel().getPlank().getDIM();
         CellPlank[][] board = client.getModel().getPlank().getBoard();
@@ -176,12 +176,8 @@ public class CLI implements View{
         }
     }
 
-    @Override
-    public void showBookshelfs() {
 
-    }
 
-    @Override
     public void showBookshelf(String username){
         Bookshelf bookshelf = client.getModel().getBookshelf(username);
         if(bookshelf==null){
@@ -239,7 +235,7 @@ public class CLI implements View{
             System.out.println("+---+---+---+---+---+");
         }
     }
-    @Override
+
     public void showPersonalGoal() {
         User user = client.getModel().getUserByName(client.getModel().getMyName());
         showNormalMessage("Personal goal: " + user.getPersonalGoal().getId());
@@ -247,7 +243,7 @@ public class CLI implements View{
     }
 
 
-    @Override
+
     public void showUsers() {
         showNormalMessage("Giocatori: ");
 
@@ -261,7 +257,7 @@ public class CLI implements View{
     }
 
 
-    @Override
+
     public void showCommonGoals() {
         for(CommonGoalClone commonGoal: client.getModel().getCommonGoals()){
             if(commonGoal.getTokens() != null && commonGoal.getTokens().size() > 0)
@@ -270,39 +266,6 @@ public class CLI implements View{
         showNormalMessage("");
     }
 
-    @Override
-    public void showCommonGoal(int idCommonGoal) {
-    }
-    @Override
-    public String catchAction(/*boolean myTurn*/) {
-        String action = "";
-        ArrayList<String> possibleActions = client.getViewController().getActions();
-
-        boolean actOk = false;
-
-        showNormalMessage("Digita un azione");
-        Scanner in = new Scanner(System.in);
-
-        action = in.nextLine();
-
-        String[] control = action.split(" ");
-
-        if(action.equals(possibleActions.get(1))) {
-            if (client.getModel().getMyName().equals(client.getModel().getActiveUser()))
-                actOk = true;
-        }else if(control[0].equals(possibleActions.get(2))){
-            actOk = true;
-        }else if(possibleActions.contains(action))
-            actOk = true;
-
-        if(actOk == true)
-            return action;
-        return null;
-
-    }
-
-
-    @Override
     public ArrayList<CellPlank> drag() {
         this.showPlank();
         ArrayList<CellPlank> cells = new ArrayList<>();
@@ -364,7 +327,7 @@ public class CLI implements View{
 
     }
 
-    @Override
+
     public int drop(int numCards) throws Exception {
         showBookshelf(client.getModel().getMyName());
         int numColonna = -1;
@@ -394,7 +357,7 @@ public class CLI implements View{
         return numColonna;
     }
 
-    @Override
+
     public ArrayList<CellPlank> reorderCards(ArrayList<CellPlank> cells) {
         for(int i = 0; i < cells.size(); i++){
             System.out.println(i+1 + ". Tessera: " + Colors.colorChar(cells.get(i).getObjectCard().getColor()));
@@ -432,7 +395,7 @@ public class CLI implements View{
 
     }
 
-    @Override
+
     public void showEndGame() {
         ArrayList<User> users = client.getModel().getPlayers();
 
@@ -455,7 +418,7 @@ public class CLI implements View{
     }
 
 
-    @Override
+
     public void openChat(Chat chat) {
         chat.setOpen();
         showNormalMessage("Digita CLOSE_CHAT per chiudere");
@@ -473,5 +436,7 @@ public class CLI implements View{
         }
 
     }
+
+
 
 }
