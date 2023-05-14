@@ -3,6 +3,8 @@ package it.polimi.ingsw.client.message;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.visitor.VisitorClient;
 
+import java.io.IOException;
+
 public class MessageOKConnectionClient implements MessageClient {
     private Client client;
     private int idGame;
@@ -20,7 +22,7 @@ public class MessageOKConnectionClient implements MessageClient {
     }
 
     @Override
-    public void accept(VisitorClient visitor) {
+    public void accept(VisitorClient visitor) throws IOException {
         visitor.visit(this);
     }
 }

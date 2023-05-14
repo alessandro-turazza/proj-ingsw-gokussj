@@ -4,7 +4,6 @@ import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
 import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import it.polimi.ingsw.server.model.user.personal_goal.PersonalGoalCard;
 import it.polimi.ingsw.server.model.object_card.ObjectCard;
-
 import java.util.ArrayList;
 
 public class User {

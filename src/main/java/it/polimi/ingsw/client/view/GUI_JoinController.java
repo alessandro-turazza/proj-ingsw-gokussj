@@ -20,6 +20,7 @@ public class GUI_JoinController {
 
     @FXML
     protected void onConfirmEnterClick(){
+        stage = GUI.getStage();
         client = GUIController.getClient();
         String username=userEnter.getText();
         Integer idGame=Integer.parseInt(idEnter.getText());

@@ -25,6 +25,7 @@ public class GUI_CreateController {
 
     @FXML
     protected void onConfirmCreateClick(){
+        stage = GUI.getStage();
         client = GUIController.getClient();
         String username=userCreate.getText();
         Integer numPlayers=Integer.parseInt(numPlayersCreate.getText());

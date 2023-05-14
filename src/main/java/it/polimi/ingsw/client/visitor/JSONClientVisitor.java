@@ -5,6 +5,8 @@ import it.polimi.ingsw.client.ConnectionDeamon;
 import it.polimi.ingsw.client.message.*;
 import it.polimi.ingsw.client.view.Colors;
 
+import java.io.IOException;
+
 public class JSONClientVisitor implements VisitorClient {
 
 
@@ -24,8 +26,8 @@ public class JSONClientVisitor implements VisitorClient {
     }
 
     @Override
-    public void visit(MessageOKConnectionClient element) {
-
+    public void visit(MessageOKConnectionClient element) throws IOException {
+        System.out.println("in visitor");
         Client client = element.getClient();
         client.getModel().setIdGame(element.getIdGame());
         client.getViewController().showOkConnection(element.getIdGame());

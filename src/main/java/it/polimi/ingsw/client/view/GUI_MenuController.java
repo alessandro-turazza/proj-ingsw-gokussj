@@ -17,19 +17,15 @@ public class GUI_MenuController {
     private static Stage stage;
     private Client client; //CLIENT STATICO ANCHE?
 
-    public static void setStage(Stage stage) {
-        GUI_MenuController.stage = stage;
-    }
 
 
 
     @FXML
     protected void onCreateGameClick() throws IOException {
+        stage = GUI.getStage();
         client = GUIController.getClient();
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-create.fxml"));
         Pane root = fxmlLoader.load();
-        GUI_CreateController controller=new GUI_CreateController();
-        GUI_CreateController.setStage(stage);
         BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         root.setBackground(new Background(backgroundImage));
@@ -40,11 +36,10 @@ public class GUI_MenuController {
 
     @FXML
     protected void onJoinGameClick() throws IOException {
+        stage = GUI.getStage();
         client = GUIController.getClient();
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-join.fxml"));
         Pane root = fxmlLoader.load();
-        GUI_JoinController ctrl=new GUI_JoinController();
-        GUI_JoinController.setStage(stage);
         BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         root.setBackground(new Background(backgroundImage));

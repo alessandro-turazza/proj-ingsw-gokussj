@@ -2,6 +2,8 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
 
+import java.io.IOException;
+
 import static javafx.application.Application.launch;
 
 public class GUIController implements Controller{
@@ -16,12 +18,18 @@ public class GUIController implements Controller{
 
     @Override
     public void startController() {
-        launch(GUI.class);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                launch(GUI.class);
+            }
+        }
+        ).start();
     }
 
     @Override
     public void showStateGame() throws Exception {
-
+        GUI.showStateGame();
     }
 
     @Override
@@ -35,8 +43,9 @@ public class GUIController implements Controller{
     }
 
     @Override
-    public void showOkConnection(Integer idGame) {
-
+    public void showOkConnection(Integer idGame) throws IOException {
+        System.out.println("in showOk controller");
+        GUI.showOkConnection(idGame);
     }
 
     public static Client getClient(){
