@@ -7,11 +7,10 @@ import static javafx.application.Application.launch;
 public class GUIController implements Controller{
     private GUI view;
 
-    private Client client;
+    private static Client client;
 
     public GUIController(Client client) {
-        this.view = new GUI();
-        this.client=client;
+        GUIController.client = client;
     }
 
 
@@ -40,7 +39,8 @@ public class GUIController implements Controller{
 
     }
 
-    public Client getClient() {
+    public static Client getClient(){
         return client;
     }
+
 }

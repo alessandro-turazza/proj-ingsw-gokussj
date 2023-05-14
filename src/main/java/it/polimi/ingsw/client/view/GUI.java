@@ -14,19 +14,19 @@ public class GUI extends Application{
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
 
-    private GUIController controller;
+    //private GUIController controller;
+    private Client client;
 
 
 
     @Override
     public void start(Stage stage) throws Exception {
-        controller= (GUIController) Client.getViewController();
+        this.client = GUIController.getClient();
         PicturesLoad.loadImages();
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("startmenu.fxml"));
         Pane root = fxmlLoader.load();
         GUI_MenuController ctrl=new GUI_MenuController();
         GUI_MenuController.setStage(stage);
-        ctrl.setClient(controller.getClient());
 
 
         stage.setTitle("MyShelfie");
@@ -41,7 +41,7 @@ public class GUI extends Application{
         stage.show();
     }
 
-    public GUIController getController() {
-        return controller;
+    public Client getClient() {
+        return client;
     }
 }

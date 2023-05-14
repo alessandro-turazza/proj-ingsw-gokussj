@@ -20,12 +20,10 @@ public class GUI_JoinController {
 
     @FXML
     protected void onConfirmEnterClick(){
+        client = GUIController.getClient();
         String username=userEnter.getText();
         Integer idGame=Integer.parseInt(idEnter.getText());
         client.getMessager().sendMessage(client.getMessager().getMessageHandler().sendJoinGame(idGame,username));
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
 }

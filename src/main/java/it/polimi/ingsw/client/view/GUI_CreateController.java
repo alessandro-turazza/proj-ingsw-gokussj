@@ -25,12 +25,10 @@ public class GUI_CreateController {
 
     @FXML
     protected void onConfirmCreateClick(){
+        client = GUIController.getClient();
         String username=userCreate.getText();
         Integer numPlayers=Integer.parseInt(numPlayersCreate.getText());
         client.getMessager().sendMessage(client.getMessager().getMessageHandler().sendCreateGame(numPlayers,username));
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
 }

@@ -2,12 +2,13 @@ package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.client.model.ClientModel;
-import it.polimi.ingsw.client.view.*;
+import it.polimi.ingsw.client.view.CLIController;
+import it.polimi.ingsw.client.view.Colors;
+import it.polimi.ingsw.client.view.Controller;
+import it.polimi.ingsw.client.view.GUIController;
 
 import java.io.IOException;
 import java.util.Scanner;
-
-import static javafx.application.Application.launch;
 
 public class Client {
     private ClientMessager messager;
@@ -15,7 +16,7 @@ public class Client {
 
     private Chat chat;
 
-    private static Controller controller;
+    private Controller controller;
 
     public Client() throws IOException {
         this.chat= new Chat();
@@ -51,13 +52,12 @@ public class Client {
                 break;
             case 'G':
                 controller= new GUIController(this);
-
                 break;
         }
 
     }
 
-    public static Controller getViewController() {
+    public Controller getViewController() {
         return controller;
     }
 
