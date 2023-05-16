@@ -18,6 +18,7 @@ public class GUIController implements Controller{
 
     @Override
     public void startController() {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -25,6 +26,11 @@ public class GUIController implements Controller{
             }
         }
         ).start();
+    }
+
+    @Override
+    public void resetStart() throws IOException {
+        GUI.showKoConnection();
     }
 
     @Override

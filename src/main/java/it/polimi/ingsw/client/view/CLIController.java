@@ -50,6 +50,11 @@ public class CLIController implements Controller{
         }
     }
 
+    @Override
+    public void resetStart(){
+        startController();
+    }
+
     public void handleAction() throws Exception {
 
         try{

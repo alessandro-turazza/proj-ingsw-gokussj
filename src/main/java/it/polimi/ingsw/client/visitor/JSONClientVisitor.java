@@ -3,7 +3,6 @@ package it.polimi.ingsw.client.visitor;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.ConnectionDeamon;
 import it.polimi.ingsw.client.message.*;
-import it.polimi.ingsw.client.view.Colors;
 
 import java.io.IOException;
 
@@ -27,7 +26,7 @@ public class JSONClientVisitor implements VisitorClient {
 
     @Override
     public void visit(MessageOKConnectionClient element) throws IOException {
-        System.out.println("in visitor");
+        //System.out.println("in visitor");
         Client client = element.getClient();
         client.getModel().setIdGame(element.getIdGame());
         client.getViewController().showOkConnection(element.getIdGame());
@@ -37,12 +36,12 @@ public class JSONClientVisitor implements VisitorClient {
     }
 
     @Override
-    public void visit(MessageKOConnectionClient element) {
+    public void visit(MessageKOConnectionClient element) throws IOException {
         if(element.getObject().equals("NOTEX"))
             element.getClient().getViewController().showErrorMessage("Errore, partita inesistente");
         else if(element.getObject().equals("USER/FULL"))
             element.getClient().getViewController().showErrorMessage("Errore, username già in uso / partita piena");
-        element.getClient().getViewController().startController();
+        element.getClient().getViewController().resetStart();
     }
 
     @Override

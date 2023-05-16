@@ -24,14 +24,14 @@ public class GUI_MenuController {
     protected void onCreateGameClick() throws IOException {
         stage = GUI.getStage();
         client = GUIController.getClient();
+
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-create.fxml"));
         Pane root = fxmlLoader.load();
         BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         root.setBackground(new Background(backgroundImage));
-        sceneLobby = new Scene(root, 1000,600);
+        sceneLobby = new Scene(root,stage.getWidth(), stage.getHeight());
         stage.setScene(sceneLobby);
-
     }
 
     @FXML
@@ -43,7 +43,7 @@ public class GUI_MenuController {
         BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         root.setBackground(new Background(backgroundImage));
-        sceneLobby = new Scene(root, 1000,600);
+        sceneLobby = new Scene(root, stage.getWidth(), stage.getHeight());
         stage.setScene(sceneLobby);
 
     }

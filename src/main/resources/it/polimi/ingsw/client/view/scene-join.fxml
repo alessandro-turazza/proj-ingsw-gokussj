@@ -8,7 +8,7 @@
 <VBox alignment="CENTER" prefHeight="101.0" prefWidth="97.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="it.polimi.ingsw.client.view.GUI_JoinController">
 
     <TextField promptText="Username" maxWidth="300" fx:id="userEnter"></TextField>
-    <TextField promptText="Id partita" maxWidth="300" fx:id="idEnter"></TextField>
+    <Spinner min="0" max="100000" fx:id="idEnter"></Spinner>
     <Button text="Conferma" onAction="#onConfirmEnterClick"></Button>
 
 </VBox>
