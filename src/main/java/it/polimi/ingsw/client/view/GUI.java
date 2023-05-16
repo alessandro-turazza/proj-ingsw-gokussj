@@ -23,7 +23,10 @@ public class GUI extends Application{
     private static final int MAX_CELLS_DROP=3;
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
+    private static final double FULL_SCREEN=1;
+    private static final double HALF_SCREEN=0.5;
 
+    private static double resolution;
     //private GUIController controller;
     private static Client client;
     private static Stage stage;
@@ -34,13 +37,12 @@ public class GUI extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+            resolution=FULL_SCREEN;
             GUI.stage=stage;
             this.client = GUIController.getClient();
             PicturesLoad.loadImages();
             FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("startmenu.fxml"));
             Pane root = fxmlLoader.load();
-            stage.setMaximized(true);
-            //stage.setFullScreen(true);
             stage.setTitle("MyShelfie");
             Screen screen = Screen.getPrimary();
             Rectangle2D bounds = screen.getVisualBounds();
@@ -49,9 +51,7 @@ public class GUI extends Application{
             BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
 
             root.setBackground(new Background(backgroundImage));
-            Scene startScene = new Scene(root);
-            stage.setMinWidth(bounds.getWidth());
-            stage.setMinHeight(bounds.getHeight());
+            Scene startScene = new Scene(root,bounds.getWidth()*resolution,bounds.getHeight()*resolution);
 
             stage.setResizable(false);
 
