@@ -6,11 +6,13 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,15 +40,18 @@ public class GUI extends Application{
             FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("startmenu.fxml"));
             Pane root = fxmlLoader.load();
             stage.setMaximized(true);
+            //stage.setFullScreen(true);
             stage.setTitle("MyShelfie");
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
 
             BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
             BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
 
             root.setBackground(new Background(backgroundImage));
             Scene startScene = new Scene(root);
-            stage.setMinWidth(1000);
-            stage.setMinHeight(600);
+            stage.setMinWidth(bounds.getWidth());
+            stage.setMinHeight(bounds.getHeight());
 
             stage.setResizable(false);
 
