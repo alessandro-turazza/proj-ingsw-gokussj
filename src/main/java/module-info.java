@@ -8,6 +8,8 @@ module it.polimi.ingsw.client {
 
     opens it.polimi.ingsw.client.view to javafx.fxml;
     exports it.polimi.ingsw.client.view;
+    opens it.polimi.ingsw.client to javafx.fxml;
+    exports it.polimi.ingsw.client;
     opens it.polimi.ingsw.server.state_game to com.google.gson;
     exports it.polimi.ingsw.server.state_game;
     opens it.polimi.ingsw.server.visitor to com.google.gson;

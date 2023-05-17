@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view;
 
+import it.polimi.ingsw.client.PersonalButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +40,7 @@ public class GUI_MenuController {
         numPlayers.setPromptText("Numero Giocatori");
         numPlayers.setMaxSize(0.3*resolution*bounds.getWidth(), 0.3*resolution* bounds.getHeight());
 
-        Button confirm = new Button();
+        PersonalButton confirm = new PersonalButton();
         confirm.setText("Conferma");
 
         root.getChildren().add(username);
@@ -53,7 +54,7 @@ public class GUI_MenuController {
             }
         });
 
-        Button resizeWindow = new Button();
+        PersonalButton resizeWindow = new PersonalButton();
         resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
         root.getChildren().add(resizeWindow);
 
@@ -97,7 +98,7 @@ public class GUI_MenuController {
         idGame.setPromptText("Id partita");
         idGame.setMaxSize(0.3*resolution*bounds.getWidth(), 0.3*resolution* bounds.getHeight());
 
-        Button confirm = new Button();
+        PersonalButton confirm = new PersonalButton();
         confirm.setText("Conferma");
 
         root.getChildren().add(username);
@@ -112,7 +113,7 @@ public class GUI_MenuController {
         });
 
 
-        Button resizeWindow = new Button();
+        PersonalButton resizeWindow = new PersonalButton();
         resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
         root.getChildren().add(resizeWindow);
 

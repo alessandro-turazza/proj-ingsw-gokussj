@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.PersonalButton;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -63,7 +64,7 @@ public class GUI extends Application{
         hBox.setSpacing(10);
         hBox.setAlignment(Pos.CENTER);
 
-        Button create = new Button();
+        PersonalButton create = new PersonalButton();
         create.setText("Nuova partita");
         hBox.getChildren().add(create);
 
@@ -78,7 +79,7 @@ public class GUI extends Application{
             }
         });
 
-        Button join = new Button();
+        PersonalButton join = new PersonalButton();
         join.setText("Unisciti a partita");
         hBox.getChildren().add(join);
         join.setOnAction(new EventHandler<ActionEvent>() {
@@ -95,7 +96,7 @@ public class GUI extends Application{
 
         root.getChildren().add(hBox);
 
-        Button resizeWindow = new Button();
+        PersonalButton resizeWindow = new PersonalButton();
         resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
         root.getChildren().add(resizeWindow);
 
@@ -156,7 +157,7 @@ public class GUI extends Application{
             waitLabel.setTextFill(Color.rgb(0,0,255));
             root.getChildren().add(waitLabel);
 
-            Button resizeWindow = new Button();
+            PersonalButton resizeWindow = new PersonalButton();
             resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
             root.getChildren().add(resizeWindow);
 

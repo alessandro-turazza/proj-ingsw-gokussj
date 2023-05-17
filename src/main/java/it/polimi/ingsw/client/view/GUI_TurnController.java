@@ -1,5 +1,6 @@
 package it.polimi.ingsw.client.view;
 
+import it.polimi.ingsw.client.PersonalButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -50,7 +51,7 @@ public class GUI_TurnController {
 
         hBox.getChildren().add(l2);
 
-        Button resizeWindow = new Button();
+        PersonalButton resizeWindow = new PersonalButton();
         resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
         l2.getChildren().add(resizeWindow);
 
