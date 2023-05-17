@@ -10,9 +10,9 @@ import javafx.scene.text.Font;
 public class PersonalButton extends Button {
 
     public  PersonalButton(){
-        setBackground(new Background(new BackgroundFill(Color.rgb(96, 64, 32), CornerRadii.EMPTY, Insets.EMPTY)));
+        setStyle("-fx-background-color: #734d26; -fx-background-radius: 15px");
         setTextFill(Color.rgb(204, 153, 102));
-        setFont(new Font("Times New Roman", 20));
-        setBorder(new Border(new BorderStroke(Color.rgb(179, 119, 0),  BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        setFont(new Font("Comic Sans MS", 20));
+        setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(5))));
     }
 }
