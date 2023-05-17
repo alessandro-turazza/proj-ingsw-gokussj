@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.json.simple.parser.ParseException;
@@ -148,17 +149,24 @@ public class GUI extends Application{
     public static void showOkConnection( int idGame) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-wait.fxml"));
         Pane root = fxmlLoader.load();
+
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
 
+        BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
+        BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getParquet(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
+
+        root.setBackground(new Background(backgroundImage));
         Scene scene = new Scene(root, bounds.getWidth()*resolution, bounds.getHeight()*resolution);
+
         Platform.runLater(()->{
             waitLabel = new Label();
             waitLabel.setAlignment(Pos.CENTER);
-            waitLabel.setBackground(new Background(new BackgroundFill(Color.rgb(200,200,200), CornerRadii.EMPTY, Insets.EMPTY)));
+            waitLabel.setBackground(new Background(new BackgroundFill(null, CornerRadii.EMPTY, Insets.EMPTY)));
             waitLabel.setPrefSize(bounds.getWidth()*resolution*0.6, bounds.getHeight()*resolution*0.2);
             waitLabel.setText("Sei stato aggiunto correttamente alla partita " + idGame +".\nIn attesa deli altri giocatori...");
-            waitLabel.setTextFill(Color.rgb(0,0,255));
+            waitLabel.setTextFill(Color.rgb(204, 153, 102));
+            waitLabel.setFont(new Font("Comic Sans MS", 30));
             root.getChildren().add(waitLabel);
 
             PersonalButton resizeWindow = new PersonalButton();

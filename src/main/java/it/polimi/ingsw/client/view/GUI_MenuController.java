@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
@@ -75,6 +76,22 @@ public class GUI_MenuController {
             }
         });
 
+        PersonalButton back = new PersonalButton();
+        back.setText("←Indietro");
+
+        root.getChildren().add(back);
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    GUI.showStart();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+
     }
 
     public static void onJoinGameClick() throws IOException {
@@ -135,6 +152,21 @@ public class GUI_MenuController {
                     throw new RuntimeException(e);
                 }
                 GUI.getStage().setResizable(false);
+            }
+        });
+
+        PersonalButton back = new PersonalButton();
+        back.setText("←Indietro");
+
+        root.getChildren().add(back);
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    GUI.showStart();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 

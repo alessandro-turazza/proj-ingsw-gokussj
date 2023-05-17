@@ -16,13 +16,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PicturesLoad {
+
+    private static Image parquet;
     private static Image backgroundStart;
     private static Image plankImg;
     private static Image bookshelfImg;
     private static ArrayList<ObjectCardImg> objectCardImgs;
     private static ArrayList<Image> commonGoalsImgs;
     private static ArrayList<Image> personalGoalCardsImgs;
-
     public static Image getBackgroundStart() {
         return backgroundStart;
     }
@@ -47,6 +48,11 @@ public class PicturesLoad {
         return personalGoalCardsImgs;
     }
 
+
+    public static void loadParquet() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/base_pagina2.jpg");
+        parquet = new Image(reader);
+    }
     public static void loadBackgroundStart() throws FileNotFoundException {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/Display_1.jpg");
         backgroundStart = new Image(reader);
@@ -109,5 +115,10 @@ public class PicturesLoad {
         loadCommonGoals();
         loadObjectCardsImgs();
         loadPersonalGoals();
+        loadParquet();
+    }
+
+    public static Image getParquet() {
+        return parquet;
     }
 }
