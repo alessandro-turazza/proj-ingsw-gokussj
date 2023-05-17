@@ -9,8 +9,4 @@
 <?import javafx.scene.chart.NumberAxis?>
 <VBox alignment="CENTER" prefHeight="101.0" prefWidth="97.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="it.polimi.ingsw.client.view.GUI_CreateController">
 
-    <TextField promptText="Username" fx:id="userCreate" maxWidth="300"></TextField>
-    <Spinner min="2" max="4" fx:id="numPlayersCreate"></Spinner>
-    <Button text="Conferma" onAction="#onConfirmCreateClick"></Button>
-
 </VBox>

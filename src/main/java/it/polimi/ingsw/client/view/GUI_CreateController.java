@@ -1,37 +1,14 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
-import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class GUI_CreateController {
 
-    private Scene sceneLobby;
-    private static Stage stage;
-    private GUI view;
-    private Client client;
-    @FXML
-    private TextField userCreate;
-    @FXML
-    private Spinner<Integer> numPlayersCreate;
-    public static void setStage(Stage stage) {
-        GUI_CreateController.stage = stage;
-
-    }
-
-    public void setView(GUI view) {
-        this.view = view;
-    }
-
-    @FXML
-    protected void onConfirmCreateClick(){
-        stage = GUI.getStage();
-        client = GUIController.getClient();
+    public static void onConfirmCreateClick(TextField userCreate, TextField nPlayers){
+        Client client = GUIController.getClient();
         String username=userCreate.getText();
-        Integer numPlayers=numPlayersCreate.getValue();
+        Integer numPlayers=Integer.parseInt(nPlayers.getText().toString());
         client.getMessager().sendMessage(client.getMessager().getMessageHandler().sendCreateGame(numPlayers,username));
     }
 
