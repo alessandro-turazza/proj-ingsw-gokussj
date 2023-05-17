@@ -127,7 +127,7 @@ public class GUI extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        resolution=HALF_SCREEN;
+        resolution=FULL_SCREEN;
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
         GUI.stage=stage;

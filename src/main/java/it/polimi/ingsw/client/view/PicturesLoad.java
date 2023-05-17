@@ -67,7 +67,12 @@ public class PicturesLoad {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/boards/bookshelf.png");
         bookshelfImg = new Image(reader);
     }
-
+    public static ObjectCardImg getObjectCardImg(Color color,int id){
+        for(ObjectCardImg obj: objectCardImgs){
+            if(obj.getColor().equals(color) && obj.getId()==id)return obj;
+        }
+        return null;
+    }
     public static void loadObjectCardsImgs() throws IOException, ParseException {
         FileReader fr = new FileReader("src/data/ObjectCardsImages.json");
         JSONObject obj =  (JSONObject) new JSONParser().parse(fr);
