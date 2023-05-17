@@ -54,6 +54,10 @@ public class GUI_TurnController {
         PersonalButton resizeWindow = new PersonalButton();
         resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
         l2.getChildren().add(resizeWindow);
+        if(GUI.getResolution() == GUI.HALF_SCREEN)
+            resizeWindow.setText("↗");
+        else resizeWindow.setText("↙");
+
 
         resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
