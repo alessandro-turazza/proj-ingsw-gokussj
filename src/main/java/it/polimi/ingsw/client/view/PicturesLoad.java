@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class PicturesLoad {
 
+
+    private  static Image parquetTurn;
     private static Image parquet;
     private static Image backgroundStart;
     private static Image plankImg;
@@ -52,6 +54,11 @@ public class PicturesLoad {
     public static void loadParquet() throws FileNotFoundException {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/base_pagina2.jpg");
         parquet = new Image(reader);
+    }
+
+    public static void loadParquetTurn() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/sfondo parquet.jpg");
+        parquetTurn = new Image(reader);
     }
     public static void loadBackgroundStart() throws FileNotFoundException {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/Display_1.jpg");
@@ -121,9 +128,14 @@ public class PicturesLoad {
         loadObjectCardsImgs();
         loadPersonalGoals();
         loadParquet();
+        loadParquetTurn();
     }
 
     public static Image getParquet() {
         return parquet;
+    }
+
+    public static Image getParquetTurn() {
+        return parquetTurn;
     }
 }
