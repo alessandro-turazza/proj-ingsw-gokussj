@@ -52,8 +52,10 @@ public class Client {
                 break;
             case 'G':
                 controller= new GUIController(this);
+                chat.setOpen();
                 break;
         }
+        chat.setController(controller);
 
     }
 

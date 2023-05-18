@@ -1,23 +1,23 @@
 package it.polimi.ingsw.client.chat;
 
+import it.polimi.ingsw.client.view.Controller;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
 public class Chat {
     private ArrayList<ChatMessage> chatBuffer = new ArrayList<>();
-
+    private Controller controller;
     private boolean open = false;
     public void chatAdd(JSONObject obj){
         chatBuffer.add(new ChatMessage(obj.get("namePlayer").toString(),obj.get("message").toString()));
         if(open)
-            System.out.println(obj.get("namePlayer").toString() + ": " + obj.get("message").toString());
+            controller.showChatMessage(obj);
 
     }
 
-    public void chatPrint(){
-        for (ChatMessage m : chatBuffer)
-            System.out.println(m.getNamePlayer() + ": " + m.getMessage());
+    public ArrayList<ChatMessage> chatPrint(){
+        return chatBuffer;
     }
 
     public void setOpen(){
@@ -28,4 +28,7 @@ public class Chat {
         open=false;
     }
 
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
 }

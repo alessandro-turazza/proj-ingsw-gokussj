@@ -119,6 +119,13 @@ public class CLIController implements Controller{
         view.showCorrectMessage("Sei stato aggiunto correttamente alla partita " + idGame);
         view.showNormalMessage("In attesa degli altri giocatori...");
     }
+
+    @Override
+    public void showChatMessage(JSONObject jsonObject) {
+        String message= jsonObject.get("namePlayer").toString() + ": " + jsonObject.get("message").toString();
+        view.showNormalMessage(message);
+    }
+
     public String catchAction(/*boolean myTurn*/) {
         String action = "";
         ArrayList<String> possibleActions = this.getActions();

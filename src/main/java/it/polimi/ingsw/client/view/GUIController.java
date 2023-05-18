@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 
@@ -52,6 +53,12 @@ public class GUIController implements Controller{
     public void showOkConnection(Integer idGame) throws IOException {
         System.out.println("in showOk controller");
         GUI.showOkConnection(idGame);
+    }
+
+    @Override
+    public void showChatMessage(JSONObject jsonObject) {
+        String message=jsonObject.get("namePlayer").toString() + ": " + jsonObject.get("message").toString();
+        GUI.showChatMessage(message);
     }
 
     public static Client getClient(){

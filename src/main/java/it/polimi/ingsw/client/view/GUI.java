@@ -243,4 +243,10 @@ public class GUI extends Application{
         });
     }
 
+    public static void showChatMessage(String message){
+        Platform.runLater(()->{
+            GUI_TurnController.showChatMessage(message);
+        });
+    }
+
 }

@@ -9,6 +9,7 @@ public class GUI_CreateController {
         Client client = GUIController.getClient();
         String username=userCreate.getText();
         Integer numPlayers=Integer.parseInt(nPlayers.getText().toString());
+        client.getModel().setMyName(username);
         client.getMessager().sendMessage(client.getMessager().getMessageHandler().sendCreateGame(numPlayers,username));
     }
 

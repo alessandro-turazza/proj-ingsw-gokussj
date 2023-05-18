@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.PersonalButton;
+import it.polimi.ingsw.client.chat.ChatMessage;
 import it.polimi.ingsw.server.model.object_card.ObjectCard;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.plank.Plank;
@@ -18,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -30,6 +32,7 @@ import java.util.ArrayList;
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
 public class GUI_TurnController {
+    private static VBox chatContainer;
 
     public static void showStateGame() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-game.fxml"));
@@ -106,8 +109,11 @@ public class GUI_TurnController {
 
         HBox chatBar = new HBox();
 
-        VBox chatContainer = new VBox();
-
+        chatContainer = new VBox();
+        for(ChatMessage chatMessage: GUI.getClient().getChat().chatPrint()){
+            Label label=new Label(chatMessage.getNamePlayer()+": "+chatMessage.getMessage());
+            chatContainer.getChildren().add(label);
+        }
         //chatBar.setPrefSize(scrollPaneWidth,scrollPaneHeight/15);
 
         PersonalButton chatSend = new PersonalButton((scrollPaneWidth*0.40)/resolution,(scrollPaneHeight/15)/resolution);
@@ -126,13 +132,28 @@ public class GUI_TurnController {
         chatBox.setSpacing(10*resolution);
 
         chat.setContent(chatContainer);
-        for(int i = 0; i <=100; i++){
-            Label label = new Label();
-            label.setText( i + " User: messaggio User: messaggioUser: messaggioUser: messaggioUser: messaggioUser: messaggioUser: messaggio");
-            chatContainer.getChildren().add(label);
-        }
-
         l2.getChildren().add(chatBox);
+        chatSend.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+                String message=chatReader.getText();
+                System.out.println(GUI.getClient().getModel().getMyName()+ "  "+ message);
+                GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
+                chatReader.setText("");
+            }
+        });
+        /*chatReader.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if(keyEvent.isControlDown()){
+                    String message=chatReader.getText();
+                    System.out.println(GUI.getClient().getModel().getMyName()+ "  "+ message);
+                    GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
+                    chatReader.setText("");
+                }
+            }
+        });*/
 
         resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -187,6 +208,10 @@ public class GUI_TurnController {
             vBox.getChildren().add(userButton);
         }
         return vBox;
+    }
+    public static void showChatMessage(String message){
+        Label label=new Label(message);
+        chatContainer.getChildren().add(label);
     }
 
 }

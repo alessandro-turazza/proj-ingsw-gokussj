@@ -1,5 +1,7 @@
 package it.polimi.ingsw.client.view;
 
+import org.json.simple.JSONObject;
+
 import java.io.IOException;
 
 public interface Controller {
@@ -10,4 +12,6 @@ public interface Controller {
     void showEndGame();
     void showErrorMessage(String message);
     void showOkConnection(Integer idGame) throws IOException;
+
+    void showChatMessage(JSONObject jsonObject);
 }

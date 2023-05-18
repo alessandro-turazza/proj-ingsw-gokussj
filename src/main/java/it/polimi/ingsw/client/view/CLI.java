@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.chat.Chat;
+import it.polimi.ingsw.client.chat.ChatMessage;
 import it.polimi.ingsw.server.model.object_card.ObjectCard;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.user.User;
@@ -423,7 +424,7 @@ public class CLI{
         chat.setOpen();
         showNormalMessage("Digita CLOSE_CHAT per chiudere");
         showNormalMessage("Chat:");
-        chat.chatPrint();
+        for(ChatMessage chatMessage: chat.chatPrint())showNormalMessage(chatMessage.getNamePlayer()+": "+chatMessage.getMessage());
         Scanner in = new Scanner(System.in);
         String message;
         while (true){
