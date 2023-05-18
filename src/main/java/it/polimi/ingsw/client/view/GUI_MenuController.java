@@ -50,7 +50,7 @@ public class GUI_MenuController {
         numPlayers.setPromptText("Numero Giocatori");
         numPlayers.setMaxSize(0.3*resolution*bounds.getWidth(), 0.3*resolution* bounds.getHeight());
 
-        PersonalButton confirm = new PersonalButton();
+        PersonalButton confirm = new PersonalButton(300.0,70.0);
         confirm.setText("Conferma");
 
 
@@ -61,7 +61,7 @@ public class GUI_MenuController {
             }
         });
 
-        PersonalButton resizeWindow = new PersonalButton();
+        PersonalButton resizeWindow = new PersonalButton(70.0,70.0);
         resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
         hBoxResize.getChildren().add(resizeWindow);
         if(GUI.getResolution() == GUI.HALF_SCREEN)
@@ -82,7 +82,7 @@ public class GUI_MenuController {
             }
         });
 
-        PersonalButton back = new PersonalButton();
+        PersonalButton back = new PersonalButton(300.0,70.0);
         back.setText("←Indietro");
         hBoxBack.getChildren().add(back);
 
@@ -137,7 +137,7 @@ public class GUI_MenuController {
         idGame.setPromptText("Id partita");
         idGame.setMaxSize(0.3*resolution*bounds.getWidth(), 0.3*resolution* bounds.getHeight());
 
-        PersonalButton confirm = new PersonalButton();
+        PersonalButton confirm = new PersonalButton(300.0,70.0);
         confirm.setText("Conferma");
 
 
@@ -149,7 +149,7 @@ public class GUI_MenuController {
         });
 
 
-        PersonalButton resizeWindow = new PersonalButton();
+        PersonalButton resizeWindow = new PersonalButton(70.0,70.0);
         resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
         hBoxResize.getChildren().add(resizeWindow);
         if(GUI.getResolution() == GUI.HALF_SCREEN)
@@ -171,7 +171,7 @@ public class GUI_MenuController {
             }
         });
 
-        PersonalButton back = new PersonalButton();
+        PersonalButton back = new PersonalButton(300.0,70.0);
         back.setText("←Indietro");
 
         hBoxBack.getChildren().add(back);

@@ -84,7 +84,7 @@ public class GUI_TurnController {
         HBox hBoxResize = new HBox();
         hBoxResize.setPrefWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution);
 
-        PersonalButton resizeWindow = new PersonalButton();
+        PersonalButton resizeWindow = new PersonalButton(70.0,70.0);
         resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
         hBoxResize.getChildren().add(resizeWindow);
         hBoxResize.setAlignment(Pos.TOP_RIGHT);
@@ -97,8 +97,9 @@ public class GUI_TurnController {
         VBox chatBox = new VBox();
 
         ScrollPane chat = new ScrollPane();
-
-        chat.setPrefSize((bounds.getWidth()-bounds.getHeight())/2*resolution,bounds.getHeight()*resolution/2);
+        double scrollPaneWidth=(bounds.getWidth()-bounds.getHeight())/2*GUI.getResolution();
+        double scrollPaneHeight=bounds.getHeight()*GUI.getResolution();
+        chat.setPrefSize(scrollPaneWidth,scrollPaneHeight*0.75);
         chatBox.getChildren().add(chat);
 
         TextField chatReader = new TextField();
@@ -107,24 +108,27 @@ public class GUI_TurnController {
 
         VBox chatContainer = new VBox();
 
-        chatBar.setPrefSize((bounds.getWidth()-bounds.getHeight())/2*resolution,bounds.getHeight()*resolution/15);
+        //chatBar.setPrefSize(scrollPaneWidth,scrollPaneHeight/15);
 
-        PersonalButton chatSend = new PersonalButton();
+        PersonalButton chatSend = new PersonalButton((scrollPaneWidth*0.40)/resolution,(scrollPaneHeight/15)/resolution);
         chatSend.setText("→");
-        chatSend.autosize();
+        //chatSend.autosize();
 
-        chatReader.setMinSize(((bounds.getWidth()-bounds.getHeight())/2*resolution)*(4/5),bounds.getHeight()*resolution/15);
-
-        //chatSend.setPrefSize(((bounds.getWidth()-bounds.getHeight())/2*resolution)*(1/5),bounds.getHeight()*resolution/15);
+        chatReader.setMinSize(scrollPaneWidth*0.60,scrollPaneHeight/15);
+        chatSend.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(GUI.getResolution()*2))));
+        chatSend.setFont(new Font("Comic Sans MS", resolution*10));
 
         chatBar.getChildren().add(chatReader);
         chatBar.getChildren().add(chatSend);
 
         chatBox.getChildren().add(chatBar);
+        chatBox.setPadding(new Insets(10*resolution));
+        chatBox.setSpacing(10*resolution);
+
         chat.setContent(chatContainer);
         for(int i = 0; i <=100; i++){
             Label label = new Label();
-            label.setText( i + " User: messaggio");
+            label.setText( i + " User: messaggio User: messaggioUser: messaggioUser: messaggioUser: messaggioUser: messaggioUser: messaggio");
             chatContainer.getChildren().add(label);
         }
 
@@ -169,15 +173,15 @@ public class GUI_TurnController {
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(resolution*50,resolution*50 ,resolution*50 ,resolution*50));
         vBox.setSpacing(20*resolution);
-        double x = (bounds.getWidth()-bounds.getHeight())/2*resolution;
-        double y = bounds.getHeight()*resolution/10;
+        double x = (bounds.getWidth()-bounds.getHeight())/2;
+        double y = bounds.getHeight()/10;
         ArrayList<User> users = GUI.getClient().getModel().getPlayers();
         for( User u : users){
-            PersonalButton userButton= new PersonalButton();
+            PersonalButton userButton= new PersonalButton(x,y);
             userButton.setFont(new Font("Comic Sans MS", resolution*40));
             userButton.setStyle("-fx-effect: dropshadow( one-pass-box , #332200 , 0 , 0.0 , 6 , 5 ); -fx-background-color: #734d26");
             userButton.setText(u.getName());
-            userButton.setPrefSize(x,y);
+            //userButton.setPrefSize(x,y);
             //userButton.setMaxSize( vBox.getWidth(),vBox.getHeight()/16);
             //userButton.setMinSize( vBox.getWidth(),vBox.getHeight()/16);
             vBox.getChildren().add(userButton);

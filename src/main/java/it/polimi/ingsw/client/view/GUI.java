@@ -68,7 +68,7 @@ public class GUI extends Application{
         hBoxResize.setAlignment(Pos.TOP_RIGHT);
         hBoxResize.setPrefHeight(resolution*bounds.getHeight()/4);
 
-        PersonalButton create = new PersonalButton();
+        PersonalButton create = new PersonalButton(300.0,70.0);
         create.setText("Nuova partita");
         hBox.getChildren().add(create);
 
@@ -83,7 +83,7 @@ public class GUI extends Application{
             }
         });
 
-        PersonalButton join = new PersonalButton();
+        PersonalButton join = new PersonalButton(300.0,70.0);
         join.setText("Unisciti a partita");
         hBox.getChildren().add(join);
         join.setOnAction(new EventHandler<ActionEvent>() {
@@ -100,7 +100,7 @@ public class GUI extends Application{
 
 
 
-        PersonalButton resizeWindow = new PersonalButton();
+        PersonalButton resizeWindow = new PersonalButton(70.0,70.0);
         hBoxResize.getChildren().add(resizeWindow);
 
         root.getChildren().add(hBoxResize);
@@ -181,7 +181,7 @@ public class GUI extends Application{
             waitLabel.setFont(new Font("Comic Sans MS", 30));
             hBoxLabel.getChildren().add(waitLabel);
 
-            PersonalButton resizeWindow = new PersonalButton();
+            PersonalButton resizeWindow = new PersonalButton(70.0,70.0);
             resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
             hBoxResize.getChildren().add(resizeWindow);
             if(GUI.getResolution() == GUI.HALF_SCREEN)
