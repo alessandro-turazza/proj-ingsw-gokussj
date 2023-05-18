@@ -12,7 +12,6 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -62,8 +61,12 @@ public class GUI extends Application{
         Scene startScene = new Scene(root,bounds.getWidth()*resolution,bounds.getHeight()*resolution);
 
         HBox hBox = new HBox();
+        HBox hBoxResize = new HBox();
         hBox.setSpacing(10);
         hBox.setAlignment(Pos.CENTER);
+        hBox.setPrefHeight(resolution*bounds.getHeight()+20);
+        hBoxResize.setAlignment(Pos.TOP_RIGHT);
+        hBoxResize.setPrefHeight(resolution*bounds.getHeight()/4);
 
         PersonalButton create = new PersonalButton();
         create.setText("Nuova partita");
@@ -95,16 +98,17 @@ public class GUI extends Application{
         });
 
 
-        root.getChildren().add(hBox);
+
 
         PersonalButton resizeWindow = new PersonalButton();
-        resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
-        root.getChildren().add(resizeWindow);
+        hBoxResize.getChildren().add(resizeWindow);
+
+        root.getChildren().add(hBoxResize);
+        root.getChildren().add(hBox);
         if(GUI.getResolution() == GUI.HALF_SCREEN)
             resizeWindow.setText("↗");
         else resizeWindow.setText("↙");
-
-
+        resizeWindow.setPrefSize(0.05*resolution*bounds.getWidth(), 0.05*resolution* bounds.getHeight());
         resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -159,6 +163,14 @@ public class GUI extends Application{
         root.setBackground(new Background(backgroundImage));
         Scene scene = new Scene(root, bounds.getWidth()*resolution, bounds.getHeight()*resolution);
 
+
+        HBox hBoxResize = new HBox();
+        hBoxResize.setAlignment(Pos.TOP_RIGHT);
+        hBoxResize.setPrefHeight(resolution*bounds.getHeight()/5);
+        HBox hBoxLabel = new HBox();
+        hBoxLabel.setAlignment(Pos.CENTER);
+        hBoxLabel.setPrefHeight(resolution*bounds.getHeight());
+
         Platform.runLater(()->{
             waitLabel = new Label();
             waitLabel.setAlignment(Pos.CENTER);
@@ -167,15 +179,17 @@ public class GUI extends Application{
             waitLabel.setText("Sei stato aggiunto correttamente alla partita " + idGame +".\nIn attesa deli altri giocatori...");
             waitLabel.setTextFill(Color.rgb(204, 153, 102));
             waitLabel.setFont(new Font("Comic Sans MS", 30));
-            root.getChildren().add(waitLabel);
+            hBoxLabel.getChildren().add(waitLabel);
 
             PersonalButton resizeWindow = new PersonalButton();
             resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
-            root.getChildren().add(resizeWindow);
+            hBoxResize.getChildren().add(resizeWindow);
             if(GUI.getResolution() == GUI.HALF_SCREEN)
                 resizeWindow.setText("↗");
             else resizeWindow.setText("↙");
 
+            root.getChildren().add(hBoxResize);
+            root.getChildren().add(hBoxLabel);
 
             resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
                 @Override

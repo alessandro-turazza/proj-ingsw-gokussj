@@ -69,7 +69,6 @@ public class GUI_TurnController {
 
         Pane l2 = new Pane();
         l2.setPrefSize(((bounds.getWidth()-bounds.getHeight())/2)*resolution,bounds.getHeight()*resolution);
-
         hBox.getChildren().add(l2);
 
         PersonalButton resizeWindow = new PersonalButton();

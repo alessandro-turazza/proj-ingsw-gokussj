@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.PersonalButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,6 +26,14 @@ public class GUI_MenuController {
         Rectangle2D bounds = screen.getVisualBounds();
         double resolution = GUI.getResolution();
 
+        HBox hBoxResize = new HBox();
+        hBoxResize.setAlignment(Pos.TOP_RIGHT);
+        hBoxResize.setPrefHeight(resolution*bounds.getHeight()/2);
+
+        HBox hBoxBack = new HBox();
+        hBoxBack.setAlignment(Pos.BOTTOM_LEFT);
+        hBoxBack.setPrefHeight(resolution*bounds.getHeight()/2);
+
         Scene scene = new Scene(root, bounds.getWidth()*resolution, bounds.getHeight()*resolution);
         GUI.getStage().setScene(scene);
 
@@ -44,9 +53,6 @@ public class GUI_MenuController {
         PersonalButton confirm = new PersonalButton();
         confirm.setText("Conferma");
 
-        root.getChildren().add(username);
-        root.getChildren().add(numPlayers);
-        root.getChildren().add(confirm);
 
         confirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -57,7 +63,7 @@ public class GUI_MenuController {
 
         PersonalButton resizeWindow = new PersonalButton();
         resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
-        root.getChildren().add(resizeWindow);
+        hBoxResize.getChildren().add(resizeWindow);
         if(GUI.getResolution() == GUI.HALF_SCREEN)
             resizeWindow.setText("↗");
         else resizeWindow.setText("↙");
@@ -78,8 +84,13 @@ public class GUI_MenuController {
 
         PersonalButton back = new PersonalButton();
         back.setText("←Indietro");
+        hBoxBack.getChildren().add(back);
 
-        root.getChildren().add(back);
+        root.getChildren().add(hBoxResize);
+        root.getChildren().add(username);
+        root.getChildren().add(numPlayers);
+        root.getChildren().add(confirm);
+        root.getChildren().add(hBoxBack);
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -102,6 +113,14 @@ public class GUI_MenuController {
         Rectangle2D bounds = screen.getVisualBounds();
         double resolution = GUI.getResolution();
 
+        HBox hBoxResize = new HBox();
+        hBoxResize.setAlignment(Pos.TOP_RIGHT);
+        hBoxResize.setPrefHeight(resolution*bounds.getHeight()/2);
+
+        HBox hBoxBack = new HBox();
+        hBoxBack.setAlignment(Pos.BOTTOM_LEFT);
+        hBoxBack.setPrefHeight(resolution*bounds.getHeight()/2);
+
         Scene scene = new Scene(root, bounds.getWidth()*resolution, bounds.getHeight()*resolution);
         GUI.getStage().setScene(scene);
 
@@ -121,9 +140,6 @@ public class GUI_MenuController {
         PersonalButton confirm = new PersonalButton();
         confirm.setText("Conferma");
 
-        root.getChildren().add(username);
-        root.getChildren().add(idGame);
-        root.getChildren().add(confirm);
 
         confirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -135,7 +151,7 @@ public class GUI_MenuController {
 
         PersonalButton resizeWindow = new PersonalButton();
         resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
-        root.getChildren().add(resizeWindow);
+        hBoxResize.getChildren().add(resizeWindow);
         if(GUI.getResolution() == GUI.HALF_SCREEN)
             resizeWindow.setText("↗");
         else resizeWindow.setText("↙");
@@ -158,7 +174,7 @@ public class GUI_MenuController {
         PersonalButton back = new PersonalButton();
         back.setText("←Indietro");
 
-        root.getChildren().add(back);
+        hBoxBack.getChildren().add(back);
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -169,6 +185,12 @@ public class GUI_MenuController {
                 }
             }
         });
+
+        root.getChildren().add(hBoxResize);
+        root.getChildren().add(username);
+        root.getChildren().add(idGame);
+        root.getChildren().add(confirm);
+        root.getChildren().add(hBoxBack);
 
     }
 
