@@ -20,6 +20,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -184,6 +185,15 @@ public class GUI_TurnController {
                 if(plank[row][col]!=null && plank[row][col].getObjectCard()!=null){
                     ObjectCard obj=plank[row][col].getObjectCard();
                     objectCards[row][col].setImage(PicturesLoad.getObjectCardImg(obj.getColor(),obj.getId()).getCardImg());
+                    int finalRow = row;
+                    int finalCol = col;
+                    objectCards[row][col].setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            //objectCards[finalRow][finalCol].getOpacity();
+                            objectCards[finalRow][finalCol].setOpacity(0.5);
+                        }
+                    });
                 }
             }
         }
