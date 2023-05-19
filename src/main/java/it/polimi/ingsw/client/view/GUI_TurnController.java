@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -34,6 +35,8 @@ import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
 public class GUI_TurnController {
     private static VBox chatContainer;
+    private static ArrayList<ImageView> cardDragVector;
+    private static ArrayList<CellPlank> objectCardDrag;
 
     public static void showStateGame() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-game.fxml"));
@@ -54,11 +57,43 @@ public class GUI_TurnController {
         HBox hBox = new HBox();
         root.getChildren().add(hBox);
 
+        //LEFT PANEL
         VBox userList = fillUsers(bounds, resolution);
+        //start draganddrop element
+        if(GUI.getClient().getModel().getActiveUser().equals(GUI.getClient().getModel().getMyName())) {
+            HBox cardDragged = new HBox();
+            BackgroundSize sizeCardDragged = new BackgroundSize(0, 0, true, true, true, true);
+            cardDragged.setBackground(new Background(new BackgroundImage(PicturesLoad.getParquet(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, sizeCardDragged)));
+            cardDragged.setAlignment(Pos.CENTER);
+            cardDragged.setSpacing(5 * resolution);
+            cardDragged.setPrefSize(((bounds.getWidth() - bounds.getHeight()) / 2) * resolution, (bounds.getHeight() / 8) * resolution);
+            cardDragVector = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                ImageView imageView = new ImageView();
+                imageView.setFitHeight((bounds.getHeight() * GUI.getResolution() / 10) * 0.80);
+                imageView.setFitWidth((bounds.getHeight() * GUI.getResolution() / 10) * 0.80);
+                cardDragVector.add(imageView);
+                cardDragged.getChildren().add(imageView);
+            }
+            objectCardDrag = new ArrayList<>();
+            userList.getChildren().add(cardDragged);
+            PersonalButton stopDrag = new PersonalButton(((bounds.getWidth() - bounds.getHeight()) / 2), 70.0);
+            stopDrag.setText("STOP");
+            stopDrag.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    GUI_StopController.showDrop(objectCardDrag);
+                }
+            });
 
+
+            userList.getChildren().add(stopDrag);
+        }
+        //end draganddrop element
         hBox.getChildren().add(userList);
 
 
+        //CENTER PANEL
         StackPane stackPane=new StackPane();
         ImageView plank = new ImageView(PicturesLoad.getPlankImg());
         plank.setY(0);
@@ -82,6 +117,7 @@ public class GUI_TurnController {
         stackPane.getChildren().add(vBox);
         hBox.getChildren().add(stackPane);
 
+        //RIGHT PANEL
         VBox l2 = new VBox();
         l2.setPrefSize(((bounds.getWidth()-bounds.getHeight())/2)*resolution,bounds.getHeight()*resolution);
         hBox.getChildren().add(l2);
@@ -188,8 +224,30 @@ public class GUI_TurnController {
                     objectCards[row][col].setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            //objectCards[finalRow][finalCol].getOpacity();
-                            objectCards[finalRow][finalCol].setOpacity(0.5);
+                            if (GUI.getClient().getModel().getActiveUser().equals(GUI.getClient().getModel().getMyName())) {
+                                if (objectCards[finalRow][finalCol].getOpacity() == 1.0) {
+                                    CellPlank[][] cellPlanks = GUI.getClient().getModel().getPlank().getBoard();
+                                    objectCardDrag.add(cellPlanks[finalRow][finalCol]);
+                                    if (!GUI.getClient().getModel().checkDrag(objectCardDrag)) {
+                                        objectCardDrag.remove(objectCardDrag.size() - 1);
+                                    } else {
+                                        for (ImageView imageView : cardDragVector) {
+                                            if (imageView.getImage() == null) {
+                                                imageView.setImage(objectCards[finalRow][finalCol].getImage());
+                                                break;
+                                            }
+                                        }
+                                        objectCards[finalRow][finalCol].setOpacity(0.5);
+                                    }
+                                } else {
+                                    for (CellPlank cellPlank : objectCardDrag) {
+                                        objectCards[cellPlank.getRow()][cellPlank.getColumn()].setOpacity(1.0);
+                                    }
+                                    for (ImageView imageView : cardDragVector) imageView.setImage(null);
+                                    objectCardDrag = new ArrayList<>();
+                                }
+
+                            }
                         }
                     });
                 }
