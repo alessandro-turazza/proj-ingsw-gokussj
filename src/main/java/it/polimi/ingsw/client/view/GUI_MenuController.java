@@ -62,11 +62,12 @@ public class GUI_MenuController {
         });
 
         PersonalButton resizeWindow = new PersonalButton(70.0,70.0);
-        resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
+        //resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
         hBoxResize.getChildren().add(resizeWindow);
         if(GUI.getResolution() == GUI.HALF_SCREEN)
             resizeWindow.setText("↗");
         else resizeWindow.setText("↙");
+        resizeWindow.animation();
 
         resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -152,7 +153,7 @@ public class GUI_MenuController {
 
 
         PersonalButton resizeWindow = new PersonalButton(70.0,70.0);
-        resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
+        //resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
         hBoxResize.getChildren().add(resizeWindow);
         if(GUI.getResolution() == GUI.HALF_SCREEN)
             resizeWindow.setText("↗");

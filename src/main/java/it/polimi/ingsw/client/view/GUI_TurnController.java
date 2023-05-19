@@ -177,7 +177,6 @@ public class GUI_TurnController {
             public void handle(ActionEvent actionEvent) {
 
                 String message=chatReader.getText();
-                System.out.println(GUI.getClient().getModel().getMyName()+ "  "+ message);
                 GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
                 chatReader.setText("");
             }
