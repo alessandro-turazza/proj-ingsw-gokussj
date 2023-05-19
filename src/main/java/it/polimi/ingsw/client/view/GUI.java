@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -207,6 +208,12 @@ public class GUI extends Application{
 
             stage.setScene(scene);
 
+        });
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                System.exit(0);
+            }
         });
 
     }
