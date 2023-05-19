@@ -213,22 +213,24 @@ public class GUI_TurnController {
             userButton.setText(u.getName());
             vBox.getChildren().add(userButton);
 
-            userButton.setOnAction((new EventHandler<ActionEvent>() {
+            userButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
 
-            });
+            }});
 
-        }
-        return vBox;
+
     }
+        return vBox;}
+
+
     public static void showChatMessage(String message){
         Label label=new Label(message);
         chatContainer.getChildren().add(label);
     }
 
     public static ImageView[][] fillBookshelf(){
-
+return null;
     }
 
 }
