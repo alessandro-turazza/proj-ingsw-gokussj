@@ -115,15 +115,13 @@ public class GUI_TurnController {
             Label label=new Label(chatMessage.getNamePlayer()+": "+chatMessage.getMessage());
             chatContainer.getChildren().add(label);
         }
-        //chatBar.setPrefSize(scrollPaneWidth,scrollPaneHeight/15);
 
         PersonalButton chatSend = new PersonalButton((scrollPaneWidth*0.40)/resolution,(scrollPaneHeight/15)/resolution);
         chatSend.setText("→");
-        //chatSend.autosize();
 
         chatReader.setMinSize(scrollPaneWidth*0.60,scrollPaneHeight/15);
-        chatSend.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(GUI.getResolution()*2))));
-        chatSend.setFont(new Font("Comic Sans MS", resolution*10));
+        chatSend.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, new CornerRadii(10*resolution), new BorderWidths(resolution*3))));
+        chatSend.setFont(new Font("Comic Sans MS", resolution*20));
 
         chatBar.getChildren().add(chatReader);
         chatBar.getChildren().add(chatSend);
@@ -144,7 +142,7 @@ public class GUI_TurnController {
                 chatReader.setText("");
             }
         });
-        /*chatReader.setOnKeyTyped(new EventHandler<KeyEvent>() {
+       /* chatReader.setOnKeyTyped(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 if(keyEvent.isControlDown()){
@@ -210,18 +208,27 @@ public class GUI_TurnController {
         for( User u : users){
             PersonalButton userButton= new PersonalButton(x,y);
             userButton.setFont(new Font("Comic Sans MS", resolution*40));
-            userButton.setStyle("-fx-effect: dropshadow( one-pass-box , #332200 , 0 , 0.0 , 6 , 5 ); -fx-background-color: #734d26");
+            userButton.setStyle("-fx-background-color: #734d26");
+            userButton.setBorder(new Border(new BorderStroke(Color.rgb(77, 40, 0),  BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(5*GUI.getResolution()))));
             userButton.setText(u.getName());
-            //userButton.setPrefSize(x,y);
-            //userButton.setMaxSize( vBox.getWidth(),vBox.getHeight()/16);
-            //userButton.setMinSize( vBox.getWidth(),vBox.getHeight()/16);
             vBox.getChildren().add(userButton);
+
+            userButton.setOnAction((new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+
+            });
+
         }
         return vBox;
     }
     public static void showChatMessage(String message){
         Label label=new Label(message);
         chatContainer.getChildren().add(label);
+    }
+
+    public static ImageView[][] fillBookshelf(){
+
     }
 
 }

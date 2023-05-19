@@ -176,9 +176,9 @@ public class GUI extends Application{
             waitLabel.setAlignment(Pos.CENTER);
             waitLabel.setBackground(new Background(new BackgroundFill(null, CornerRadii.EMPTY, Insets.EMPTY)));
             waitLabel.setPrefSize(bounds.getWidth()*resolution*0.6, bounds.getHeight()*resolution*0.2);
-            waitLabel.setText("Sei stato aggiunto correttamente alla partita " + idGame +".\nIn attesa deli altri giocatori...");
+            waitLabel.setText("Sei stato aggiunto correttamente alla partita " + idGame +".\nIn attesa degli altri giocatori...");
             waitLabel.setTextFill(Color.rgb(204, 153, 102));
-            waitLabel.setFont(new Font("Comic Sans MS", 30));
+            waitLabel.setFont(new Font("Comic Sans MS", 30*resolution));
             hBoxLabel.getChildren().add(waitLabel);
 
             PersonalButton resizeWindow = new PersonalButton(70.0,70.0);
