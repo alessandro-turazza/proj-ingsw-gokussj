@@ -58,7 +58,7 @@ public class GUI_StopController {
             stage.setScene(scene);
             root.setPrefSize(bounds.getWidth()*resolution, bounds.getHeight()*resolution);
             BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
-            BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBookshelfBackground(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
+            BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBookshelfbackgroundblury(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
             root.setBackground(new Background(backgroundImage));
             container.getChildren().add(bookshelf);
             HBox columnConteiner=new HBox();

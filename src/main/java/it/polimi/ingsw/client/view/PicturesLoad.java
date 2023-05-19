@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class PicturesLoad {
 
     private static Image red;
+    private static Image bookshelfbackgroundblury;
     private static Image bookshelfBackground;
     private  static Image parquetTurn;
     private static Image parquet;
@@ -65,6 +66,10 @@ public class PicturesLoad {
     public static void loadBackgroundStart() throws FileNotFoundException {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/Display_1.jpg");
         backgroundStart = new Image(reader);
+    }
+    public static void loadBookshelfbackgroundblury() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/bookshelfbackgroundblury.png");
+        bookshelfbackgroundblury = new Image(reader);
     }
 
     public static void loadBookshelfBackground() throws FileNotFoundException {
@@ -142,6 +147,7 @@ public class PicturesLoad {
         loadParquetTurn();
         loadBookshelfBackground();
         loadRed();
+        loadBookshelfbackgroundblury();
     }
 
     public static Image getParquet() {
@@ -158,5 +164,9 @@ public class PicturesLoad {
 
     public static Image getRed() {
         return red;
+    }
+
+    public static Image getBookshelfbackgroundblury() {
+        return bookshelfbackgroundblury;
     }
 }
