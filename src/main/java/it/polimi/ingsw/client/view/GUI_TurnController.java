@@ -82,7 +82,11 @@ public class GUI_TurnController {
             stopDrag.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    GUI_StopController.showDrop(objectCardDrag);
+                    try {
+                        GUI_StopController.showDrop(objectCardDrag);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
 
