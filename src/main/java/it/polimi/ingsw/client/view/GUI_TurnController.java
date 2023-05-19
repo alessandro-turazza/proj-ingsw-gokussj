@@ -84,7 +84,7 @@ public class GUI_TurnController {
                 public void handle(ActionEvent actionEvent) {
                     try {
                         GUI_StopController.showDrop(objectCardDrag);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                 }

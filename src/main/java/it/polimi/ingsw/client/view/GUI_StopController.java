@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -66,7 +67,14 @@ public class GUI_StopController {
 
             ArrayList<ImageView> column=new ArrayList<>();
             for(int i=0; i<user.getBookshelf().getNumColumn();i++){
-                ImageView imageView=new ImageView(PicturesLoad.getParquetTurn());
+                boolean full= false;
+                try {
+                    full = GUI.getClient().getModel().checkDrop(objectCardDrag.size(),i);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                ImageView imageView=new ImageView(PicturesLoad.getRed());
+                if(full)imageView.setImage(PicturesLoad.getParquetTurn());
                 imageView.setOpacity(0.0);
                 imageView.setFitWidth(bounds.getHeight()*resolution/8);
                 imageView.setFitHeight(bounds.getHeight()*resolution);
@@ -91,15 +99,19 @@ public class GUI_StopController {
                 imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-                        if(clickable){
-                            int col=-1;
-                            for(int i=0;i<column.size();i++){
-                                if(imageView==column.get(i))col=i;
-                            }
-                            imageView.setOpacity(0.3);
-                            clickable=false;
+                        int col=-1;
+                        for(int i=0;i<column.size();i++){
+                            if(imageView==column.get(i))col=i;
+                        }
+                        try {
+                            if(clickable && GUI.getClient().getModel().checkDrop(objectCardDrag.size(),col)){
+                                imageView.setOpacity(0.3);
+                                clickable=false;
 
-                            GUI_ColumnController.controllColumn(col,objectCardDrag,stackPaneContained);
+                                GUI_ColumnController.controllColumn(col,objectCardDrag,stackPaneContained);
+                            }
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
                         }
 
                     }
