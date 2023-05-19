@@ -86,6 +86,7 @@ public class GUI_ColumnController {
         bottons.getChildren().add(confirm);
         stackPaneContained.getChildren().add(bottons);
 
+        back.animation();
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -94,6 +95,8 @@ public class GUI_ColumnController {
                 objectCardDragOrdered =new ArrayList<>();
             }
         });
+
+        confirm.animation();
         confirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {

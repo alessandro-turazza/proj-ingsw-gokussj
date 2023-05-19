@@ -13,6 +13,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -83,6 +84,7 @@ public class GUI extends Application{
                 }
             }
         });
+        create.animation();
 
         PersonalButton join = new PersonalButton(300.0,70.0);
         join.setText("Unisciti a partita");
@@ -98,8 +100,7 @@ public class GUI extends Application{
             }
         });
 
-
-
+        join.animation();
 
         PersonalButton resizeWindow = new PersonalButton(70.0,70.0);
         hBoxResize.getChildren().add(resizeWindow);
@@ -109,7 +110,8 @@ public class GUI extends Application{
         if(GUI.getResolution() == GUI.HALF_SCREEN)
             resizeWindow.setText("↗");
         else resizeWindow.setText("↙");
-        resizeWindow.setPrefSize(0.05*resolution*bounds.getWidth(), 0.05*resolution* bounds.getHeight());
+
+        resizeWindow.animation();
         resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -255,5 +257,4 @@ public class GUI extends Application{
             GUI_TurnController.showChatMessage(message);
         });
     }
-
 }

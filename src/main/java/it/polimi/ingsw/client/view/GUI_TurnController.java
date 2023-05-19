@@ -79,6 +79,7 @@ public class GUI_TurnController {
             userList.getChildren().add(cardDragged);
             PersonalButton stopDrag = new PersonalButton(((bounds.getWidth() - bounds.getHeight()) / 2), 70.0);
             stopDrag.setText("STOP");
+            stopDrag.animation();
             stopDrag.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -129,7 +130,6 @@ public class GUI_TurnController {
         hBoxResize.setPrefWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution);
 
         PersonalButton resizeWindow = new PersonalButton(70.0,70.0);
-        resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
         hBoxResize.getChildren().add(resizeWindow);
         hBoxResize.setAlignment(Pos.TOP_RIGHT);
         l2.getChildren().add(hBoxResize);
@@ -137,7 +137,7 @@ public class GUI_TurnController {
         if(GUI.getResolution() == GUI.HALF_SCREEN)
             resizeWindow.setText("↗");
         else resizeWindow.setText("↙");
-
+        resizeWindow.animation();
         VBox chatBox = new VBox();
 
         ScrollPane chat = new ScrollPane();
@@ -158,7 +158,7 @@ public class GUI_TurnController {
 
         PersonalButton chatSend = new PersonalButton((scrollPaneWidth*0.40)/resolution,(scrollPaneHeight/15)/resolution);
         chatSend.setText("→");
-
+        chatSend.animation();
         chatReader.setMinSize(scrollPaneWidth*0.60,scrollPaneHeight/15);
         chatSend.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, new CornerRadii(10*resolution), new BorderWidths(resolution*3))));
         chatSend.setFont(new Font("Comic Sans MS", resolution*20));

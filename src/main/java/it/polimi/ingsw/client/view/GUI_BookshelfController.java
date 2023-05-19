@@ -76,6 +76,7 @@ public class GUI_BookshelfController {
         PersonalButton back = new PersonalButton(300.0, 70.0);
         back.setText("←Indietro");
 
+        back.animation();
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -91,6 +92,8 @@ public class GUI_BookshelfController {
         if(GUI.getResolution() == GUI.HALF_SCREEN)
             resizeWindow.setText("↗");
         else resizeWindow.setText("↙");
+
+        resizeWindow.animation();
 
         resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
             @Override

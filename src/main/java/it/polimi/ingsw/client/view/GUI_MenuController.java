@@ -52,7 +52,7 @@ public class GUI_MenuController {
 
         PersonalButton confirm = new PersonalButton(300.0,70.0);
         confirm.setText("Conferma");
-
+        confirm.animation();
 
         confirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -84,6 +84,8 @@ public class GUI_MenuController {
 
         PersonalButton back = new PersonalButton(300.0,70.0);
         back.setText("←Indietro");
+
+        back.animation();
         hBoxBack.getChildren().add(back);
 
         root.getChildren().add(hBoxResize);
@@ -139,7 +141,7 @@ public class GUI_MenuController {
 
         PersonalButton confirm = new PersonalButton(300.0,70.0);
         confirm.setText("Conferma");
-
+        confirm.animation();
 
         confirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -156,6 +158,7 @@ public class GUI_MenuController {
             resizeWindow.setText("↗");
         else resizeWindow.setText("↙");
 
+        resizeWindow.animation();
 
         resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -173,6 +176,8 @@ public class GUI_MenuController {
 
         PersonalButton back = new PersonalButton(300.0,70.0);
         back.setText("←Indietro");
+
+        back.animation();
 
         hBoxBack.getChildren().add(back);
         back.setOnAction(new EventHandler<ActionEvent>() {
