@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class PicturesLoad {
 
-
+    private static Image bookshelfBackground;
     private  static Image parquetTurn;
     private static Image parquet;
     private static Image backgroundStart;
@@ -65,13 +65,18 @@ public class PicturesLoad {
         backgroundStart = new Image(reader);
     }
 
+    public static void loadBookshelfBackground() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/Display_5.jpg");
+        bookshelfBackground = new Image(reader);
+    }
+
     public static void loadPlankImg() throws FileNotFoundException {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/boards/livingroom.png");
         plankImg = new Image(reader);
     }
 
     public static void loadBookshelfImg() throws FileNotFoundException {
-        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/boards/bookshelf.png");
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/boards/bookshelf_orth.png");
         bookshelfImg = new Image(reader);
     }
     public static ObjectCardImg getObjectCardImg(Color color,int id){
@@ -129,6 +134,7 @@ public class PicturesLoad {
         loadPersonalGoals();
         loadParquet();
         loadParquetTurn();
+        loadBookshelfBackground();
     }
 
     public static Image getParquet() {
@@ -137,5 +143,9 @@ public class PicturesLoad {
 
     public static Image getParquetTurn() {
         return parquetTurn;
+    }
+
+    public static Image getBookshelfBackground() {
+        return bookshelfBackground;
     }
 }

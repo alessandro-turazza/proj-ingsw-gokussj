@@ -274,8 +274,14 @@ public class GUI_TurnController {
             userButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
+                    try {
+                        GUI_BookshelfController.onBookshelfClick(GUI.getClient().getModel().getUserByName(userButton.getText()));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
 
-            }});
+            });
 
 
     }
@@ -285,10 +291,6 @@ public class GUI_TurnController {
     public static void showChatMessage(String message){
         Label label=new Label(message);
         chatContainer.getChildren().add(label);
-    }
-
-    public static ImageView[][] fillBookshelf(){
-return null;
     }
 
 }
