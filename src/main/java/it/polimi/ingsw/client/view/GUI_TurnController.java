@@ -286,8 +286,6 @@ public class GUI_TurnController {
                 }
 
             });
-
-
     }
         return vBox;}
 
