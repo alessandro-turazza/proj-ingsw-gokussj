@@ -108,13 +108,46 @@ public class GUI_BookshelfController {
         personalGoal.setFitWidth(resolution*137*2.2);
         personalGoal.setFitHeight(resolution*200*2.2);
 
-        ImageView commonGoal1 = new ImageView(PicturesLoad.getCommonGoalsImgs().get(GUI.getClient().getModel().getCommonGoals().get(0).getId()-1));
+        StackPane cg1 = new StackPane();
+        ImageView commonGoal1 = new ImageView(PicturesLoad.getCommonGoalsImgs().get(GUI.getClient().getModel().getCommonGoals().get(0).getIdRule()-1));
         commonGoal1.setFitWidth(resolution*138*2.5);
         commonGoal1.setFitHeight(resolution*91*2.5);
+        int point1 = 0;
 
-        ImageView commonGoal2 = new ImageView(PicturesLoad.getCommonGoalsImgs().get(GUI.getClient().getModel().getCommonGoals().get(1).getId()-1));
+        if(GUI.getClient().getModel().getCommonGoals().get(0).getLastTokenCard() != null)
+            point1 = GUI.getClient().getModel().getCommonGoals().get(0).getLastTokenCard().getPoints();
+
+        ImageView tok1 = new ImageView(PicturesLoad.getToken(point1));
+        tok1.setRotate(-8);
+        tok1.setFitWidth(80*resolution);
+        tok1.setFitHeight(80*resolution);
+        HBox hbox1 = new HBox();
+        hbox1.setPrefWidth(resolution*138*2.5);
+        hbox1.setAlignment(Pos.CENTER_RIGHT);
+        hbox1.setPadding(new Insets(0,77*resolution,20*resolution,0));
+        hbox1.getChildren().add(tok1);
+        cg1.getChildren().add(commonGoal1);
+        cg1.getChildren().add(hbox1);
+
+        StackPane cg2 = new StackPane();
+        ImageView commonGoal2 = new ImageView(PicturesLoad.getCommonGoalsImgs().get(GUI.getClient().getModel().getCommonGoals().get(1).getIdRule()-1));
         commonGoal2.setFitWidth(resolution*138*2.5);
         commonGoal2.setFitHeight(resolution*91*2.5);
+        int point2 = 0;
+        if(GUI.getClient().getModel().getCommonGoals().get(1).getLastTokenCard() != null)
+            point2 = GUI.getClient().getModel().getCommonGoals().get(1).getLastTokenCard().getPoints();
+        ImageView tok2 = new ImageView(PicturesLoad.getToken(point2));
+        tok2.setRotate(-8);
+        tok2.setFitWidth(80*resolution);
+        tok2.setFitHeight(80*resolution);
+        tok2.setX(40*resolution);
+        HBox hbox2 = new HBox();
+        hbox2.setPrefWidth(resolution*138*2.5);
+        hbox2.setAlignment(Pos.CENTER_RIGHT);
+        hbox2.setPadding(new Insets(0,77*resolution,20*resolution,0));
+        hbox2.getChildren().add(tok2);
+        cg2.getChildren().add(commonGoal2);
+        cg2.getChildren().add(hbox2);
 
         HBox resizeButtonBox = new HBox(resizeWindow);
         HBox backButtonBox = new HBox(back);
@@ -130,8 +163,8 @@ public class GUI_BookshelfController {
 
         rightVBox.getChildren().add(resizeButtonBox);
         if(user.getName().equals(GUI.getClient().getModel().getMyName())){
-            rightVBox.getChildren().add(commonGoal1);
-            rightVBox.getChildren().add(commonGoal2);
+            rightVBox.getChildren().add(cg1);
+            rightVBox.getChildren().add(cg2);
             leftVBox.getChildren().add(personalGoal);
         }
         leftVBox.getChildren().add(backButtonBox);

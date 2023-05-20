@@ -28,7 +28,11 @@ public class TurnUser {
     }
 
     public void lastTurn(){
-        lastTurn=true;
+        if(!lastTurn){
+            lastTurn=true;
+            activeUser().getPointsToken().add(1);
+        }
+
     }
 
     public boolean isLastTurn() {

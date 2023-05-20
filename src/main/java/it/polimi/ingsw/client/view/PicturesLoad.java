@@ -34,6 +34,22 @@ public class PicturesLoad {
     private static ArrayList<ObjectCardImg> objectCardImgs;
     private static ArrayList<Image> commonGoalsImgs;
     private static ArrayList<Image> personalGoalCardsImgs;
+
+    private static ArrayList<Image> tokens;
+
+    public static Image getToken(int point) {
+        if(point == 2)
+            return tokens.get(0);
+        else if(point == 4)
+            return tokens.get(1);
+        else if(point == 6)
+            return tokens.get(2);
+        else if(point == 8)
+            return tokens.get(3);
+        else
+            return tokens.get(4);
+    }
+
     public static Image getBackgroundStart() {
         return backgroundStart;
     }
@@ -56,6 +72,20 @@ public class PicturesLoad {
 
     public static ArrayList<Image> getPersonalGoalCardsImgs() {
         return personalGoalCardsImgs;
+    }
+
+    public static void loadTokens() throws FileNotFoundException {
+        tokens = new ArrayList<>();
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/scoring tokens/scoring_2.jpg");
+        tokens.add(new Image(reader));
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/scoring tokens/scoring_4.jpg");
+        tokens.add(new Image(reader));
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/scoring tokens/scoring_6.jpg");
+        tokens.add(new Image(reader));
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/scoring tokens/scoring_8.jpg");
+        tokens.add(new Image(reader));
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/scoring tokens/scoring_back_EMPTY.jpg");
+        tokens.add(new Image(reader));
     }
 
 
@@ -151,7 +181,7 @@ public class PicturesLoad {
         commonGoalsImgs = new ArrayList<>();
 
         for(int i = 1; i <= GameManager.getNumCommonGoal(); i++){
-            String path = "src/data/17_MyShelfie_BGA/common goal cards/"+i+".jpg";
+            String path = "src/data/17_MyShelfie_BGA/common goal cards/r_"+i+".jpg";
             reader = new FileInputStream(path);
             commonGoalsImgs.add(new Image(reader));
         }
@@ -183,7 +213,7 @@ public class PicturesLoad {
         loadBookshelfbackgroundblury();
         loadEndBackground();
         loadPlace();
-
+        loadTokens();
     }
 
     public static Image getParquet() {

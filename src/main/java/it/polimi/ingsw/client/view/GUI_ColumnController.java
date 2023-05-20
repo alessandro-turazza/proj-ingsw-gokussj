@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -101,6 +100,7 @@ public class GUI_ColumnController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 if(objectCardDragOrdered.size()==objectCardDrag.size()){
+                    System.out.println("Confirm pressed");
                     GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendDragAndDrop(objectCardDragOrdered,column));
                 }
 

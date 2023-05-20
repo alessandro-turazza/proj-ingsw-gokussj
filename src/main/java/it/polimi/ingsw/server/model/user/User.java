@@ -13,6 +13,7 @@ public class User {
     private PersonalGoalCard personalGoal;
     private Bookshelf bookshelf;
 
+
     public void setName(String name) {
         this.name = name;
     }
