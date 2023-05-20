@@ -18,6 +18,10 @@ import java.util.ArrayList;
 public class PicturesLoad {
 
     private static Image red;
+    private static Image place1;
+    private static Image place2;
+    private static Image place3;
+    private static Image place4;
     private static Image endBackground;
     private static Image bookshelfbackgroundblury;
     private static Image bookshelfBackground;
@@ -54,6 +58,22 @@ public class PicturesLoad {
     }
 
 
+    public static void loadPlace1() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/1posto.png");
+        place1 = new Image(reader);
+    }
+    public static void loadPlace2() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/2posto.png");
+        place2 = new Image(reader);
+    }
+    public static void loadPlace3() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/3posto.png");
+        place3 = new Image(reader);
+    }
+    public static void loadPlace4() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/4posto.png");
+        place4 = new Image(reader);
+    }
     public static void loadParquet() throws FileNotFoundException {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/base_pagina2.jpg");
         parquet = new Image(reader);
@@ -155,6 +175,11 @@ public class PicturesLoad {
         loadRed();
         loadBookshelfbackgroundblury();
         loadEndBackground();
+        loadPlace1();
+        loadPlace2();
+        loadPlace3();
+        loadPlace4();
+
     }
 
     public static Image getParquet() {
@@ -179,5 +204,21 @@ public class PicturesLoad {
 
     public static Image getEndBackground() {
         return endBackground;
+    }
+
+    public static Image getPlace1() {
+        return place1;
+    }
+
+    public static Image getPlace2() {
+        return place2;
+    }
+
+    public static Image getPlace3() {
+        return place3;
+    }
+
+    public static Image getPlace4() {
+        return place4;
     }
 }
