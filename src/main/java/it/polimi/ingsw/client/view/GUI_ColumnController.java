@@ -51,9 +51,9 @@ public class GUI_ColumnController {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     if(imageView.getOpacity()==1.0){
-                        for(ImageView img:cardOrdered){
-                            if(img.getImage()==null){
-                                img.setImage(imageView.getImage());
+                        for(int i=cardOrdered.size()-1;i>=0;i--){
+                            if(cardOrdered.get(i).getImage()==null){
+                                cardOrdered.get(i).setImage(imageView.getImage());
                                 objectCardDragOrdered.add(cellPlank);
                                 break;
                             }
@@ -83,7 +83,23 @@ public class GUI_ColumnController {
         confirm.setText("Conferma");
         bottons.getChildren().add(back);
         bottons.getChildren().add(confirm);
+        PersonalButton backAll = new PersonalButton(400.0, 70.0);
+        backAll.setText("Annulla Tutto");
+
+
+        backAll.animation();
+        backAll.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    GUI_TurnController.showStateGame();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
         stackPaneContained.getChildren().add(bottons);
+        stackPaneContained.getChildren().add(backAll);
 
         back.animation();
         back.setOnAction(new EventHandler<ActionEvent>() {

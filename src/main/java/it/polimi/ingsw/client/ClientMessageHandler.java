@@ -32,7 +32,7 @@ public class ClientMessageHandler {
         if(response.equals("OK_DED"))
             return new MessageOKDedClient();
         if(response.equals("KO_DED"))
-            return new MessageKODedClient();
+            return new MessageKODedClient(client);
         if(response.equals("END_GAME"))
             return new MessageEndGameClient(client,obj);
 
@@ -58,18 +58,13 @@ public class ClientMessageHandler {
     public JSONObject sendDragAndDrop(ArrayList<CellPlank> cellPlanks, int column){
         JSONObject obj = new JSONObject();
         obj.put("command", "drag_and_drop");
-
         DropStructure ds = new DropStructure();
-
         for(CellPlank c: cellPlanks){
             ds.getRows().add(c.getRow());
             ds.getColumns().add(c.getColumn());
         }
-
         ds.setColumn(column);
-
         obj.put("data", new Gson().toJson(ds));
-
         return obj;
     }
 

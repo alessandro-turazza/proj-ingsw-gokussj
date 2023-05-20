@@ -12,4 +12,5 @@ public interface VisitorClient {
     void visit(MessageKOConnectionClient element) throws IOException;
     void visit(MessageChat element);
     void visit(MessageDisconnection element);
+    void visit(MessageKODedClient element);
 }
