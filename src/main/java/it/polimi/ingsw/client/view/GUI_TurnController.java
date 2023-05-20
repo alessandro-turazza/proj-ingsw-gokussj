@@ -22,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -34,6 +35,7 @@ public class GUI_TurnController {
     private static VBox chatContainer;
     private static ArrayList<ImageView> cardDragVector;
     private static ArrayList<CellPlank> objectCardDrag;
+    private static final int MAX_CELLS_DROP=3;
 
     public static void showStateGame() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-game.fxml"));
@@ -225,7 +227,16 @@ public class GUI_TurnController {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             if (GUI.getClient().getModel().getActiveUser().equals(GUI.getClient().getModel().getMyName())) {
-                                if (objectCards[finalRow][finalCol].getOpacity() == 1.0) {
+                                int min=MAX_CELLS_DROP;
+                                int maxCellFreeBookshelf=0;
+                                for(int i=0;i<GUI.getClient().getModel().getMyBookshelf().getNumColumn();i++){
+                                    Integer temp=GUI.getClient().getModel().getMyBookshelf().checkColumn(i);
+                                    if(temp!=null) if(temp+1>maxCellFreeBookshelf)maxCellFreeBookshelf=GUI.getClient().getModel().getMyBookshelf().checkColumn(i)+1;
+                                }
+                                min=Math.min(min,maxCellFreeBookshelf);
+
+                                if (objectCards[finalRow][finalCol].getOpacity() == 1.0 && objectCardDrag.size()<min) {
+
                                     CellPlank[][] cellPlanks = GUI.getClient().getModel().getPlank().getBoard();
                                     objectCardDrag.add(cellPlanks[finalRow][finalCol]);
                                     if (!GUI.getClient().getModel().checkDrag(objectCardDrag)) {
@@ -261,23 +272,26 @@ public class GUI_TurnController {
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(resolution*50,resolution*50 ,resolution*50 ,resolution*50));
         vBox.setSpacing(20*resolution);
+        vBox.setPrefSize(((bounds.getWidth()-bounds.getHeight())/2)*resolution,bounds.getHeight()*resolution);
         double x = (bounds.getWidth()-bounds.getHeight())/2;
         double y = bounds.getHeight()/10;
         ArrayList<User> users = GUI.getClient().getModel().getPlayers();
         for( User u : users){
             Image image = null;
             ImageView activeToken = new ImageView(image);
-            activeToken.setFitHeight(resolution*60);
-            activeToken.setFitWidth(resolution*60);
+            activeToken.setFitHeight(resolution*35);
+            activeToken.setFitWidth(resolution*35);
             String name = u.getName();
             String activeUser = GUI.getClient().getModel().getActiveUser();
             PersonalButton userButton= new PersonalButton(x,y);
-            double sizeText = 30;
+            double sizeText = 24;
 
 
             if(u.getName().length() >= 10)
-                sizeText = 18;
-
+                sizeText = 14;
+            if(u.getName().length() >= 12)
+                sizeText = 10;
+            userButton.setTextAlignment(TextAlignment.CENTER);
             userButton.setFont(new Font("Comic Sans MS", resolution*sizeText));
 
             userButton.setStyle("-fx-background-color: #734d26");

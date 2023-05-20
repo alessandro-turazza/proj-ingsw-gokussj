@@ -46,7 +46,7 @@ public class GUIController implements Controller{
 
     @Override
     public void showErrorMessage(String message) {
-
+        GUI.showErrorMessage(message);
     }
 
     @Override

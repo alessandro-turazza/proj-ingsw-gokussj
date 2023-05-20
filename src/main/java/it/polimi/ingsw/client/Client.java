@@ -78,6 +78,12 @@ public class Client {
         this.messager.start();
     }
 
+    public void startClient(char chooseChar) throws Exception {
+        if(chooseChar=='G')chat.setOpen();
+        chat.setController(controller);
+        this.messager.start();
+    }
+
 
     public Chat getChat() {
         return chat;

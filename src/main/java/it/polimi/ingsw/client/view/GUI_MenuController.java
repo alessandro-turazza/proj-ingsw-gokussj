@@ -18,6 +18,8 @@ import java.io.IOException;
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
 public class GUI_MenuController {
+    private static final int MIN_PLAYERS = 2;
+    private static final int MAX_PLAYERS = 4;
 
     public static void onCreateGameClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-wait.fxml"));
@@ -57,7 +59,14 @@ public class GUI_MenuController {
         confirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                GUI_CreateController.onConfirmCreateClick(username, numPlayers);
+                try {
+                    Integer n=Integer.parseInt(numPlayers.getText());
+                    if(n<MIN_PLAYERS || n>MAX_PLAYERS)throw new Exception();
+                    GUI_CreateController.onConfirmCreateClick(username, numPlayers);
+                }
+                catch (Exception e){
+                    numPlayers.setStyle("-fx-text-fill: red");
+                }
             }
         });
 
@@ -147,7 +156,14 @@ public class GUI_MenuController {
         confirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                GUI_JoinController.onConfirmEnterClick(username, idGame);
+                try {
+                    Integer.parseInt(idGame.getText());
+                    GUI_JoinController.onConfirmEnterClick(username, idGame);
+                }
+                catch (Exception e){
+                    idGame.setStyle("-fx-text-fill: red");
+                }
+
             }
         });
 

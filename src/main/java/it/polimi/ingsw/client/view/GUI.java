@@ -130,6 +130,10 @@ public class GUI extends Application{
         stage.setScene(startScene);
     }
 
+    public static void setClient(Client client) {
+        GUI.client = client;
+    }
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -226,19 +230,6 @@ public class GUI extends Application{
         BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         root.setBackground(new Background(backgroundImage));
-
-        Platform.runLater(()->{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Impossibile connettersi alla partita.\nProva a cambiare username o id partita.");
-            try {
-                showStart();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-            alert.show();
-        });
     }
 
     public static void showStateGame(){
@@ -264,6 +255,20 @@ public class GUI extends Application{
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        });
+    }
+    public static void showErrorMessage(String message){
+        Platform.runLater(()->{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(message);
+            try {
+                showStart();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            alert.show();
         });
     }
 }
