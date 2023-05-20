@@ -61,7 +61,6 @@ public class JSONClientVisitor implements VisitorClient {
         client.getModel().setPlank(element.getStateGame().getPlankClone());
         client.getModel().setCommonGoals(element.getStateGame().getCommonGoalsClone());
         client.getModel().setActiveUser(element.getStateGame().getActiveUser());
-        //client.getViewController().showStateGame();
         client.getViewController().showEndGame();
         client.getMessager().sendMessage(client.getMessager().getMessageHandler().sendCloseConnection());
     }

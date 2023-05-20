@@ -9,18 +9,14 @@ import it.polimi.ingsw.server.model.user.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -268,7 +264,14 @@ public class GUI_TurnController {
         ArrayList<User> users = GUI.getClient().getModel().getPlayers();
         for( User u : users){
             PersonalButton userButton= new PersonalButton(x,y);
-            userButton.setFont(new Font("Comic Sans MS", resolution*40));
+            double sizeText = 30;
+
+
+            if(u.getName().length() >= 10)
+                sizeText = 18;
+
+            userButton.setFont(new Font("Comic Sans MS", resolution*sizeText));
+
             userButton.setStyle("-fx-background-color: #734d26");
             userButton.setBorder(new Border(new BorderStroke(Color.rgb(77, 40, 0),  BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(5*GUI.getResolution()))));
             userButton.setText(u.getName());

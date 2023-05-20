@@ -63,6 +63,7 @@ public class PicturesLoad {
         place=new ArrayList<>();
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/1posto.png");
         place1 = new Image(reader);
+        place.add(place1);
         reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/2posto.png");
         place2 = new Image(reader);
         place.add(place2);
