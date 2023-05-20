@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -256,6 +257,7 @@ public class GUI_TurnController {
     }
 
     public static VBox fillUsers(Rectangle2D bounds, double resolution){
+
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(resolution*50,resolution*50 ,resolution*50 ,resolution*50));
         vBox.setSpacing(20*resolution);
@@ -263,6 +265,12 @@ public class GUI_TurnController {
         double y = bounds.getHeight()/10;
         ArrayList<User> users = GUI.getClient().getModel().getPlayers();
         for( User u : users){
+            Image image = null;
+            ImageView activeToken = new ImageView(image);
+            activeToken.setFitHeight(resolution*60);
+            activeToken.setFitWidth(resolution*60);
+            String name = u.getName();
+            String activeUser = GUI.getClient().getModel().getActiveUser();
             PersonalButton userButton= new PersonalButton(x,y);
             double sizeText = 30;
 
@@ -274,9 +282,14 @@ public class GUI_TurnController {
 
             userButton.setStyle("-fx-background-color: #734d26");
             userButton.setBorder(new Border(new BorderStroke(Color.rgb(77, 40, 0),  BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(5*GUI.getResolution()))));
-            userButton.setText(u.getName());
+            userButton.setText(name);
             vBox.getChildren().add(userButton);
-
+            userButton.setAlignment(Pos.CENTER_LEFT);
+            userButton.setGraphic(activeToken);
+            if(name.equals(activeUser)){
+                activeToken.setImage(PicturesLoad.getPlayerMark());
+                userButton.setGraphic(activeToken);
+            }
             userButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {

@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PicturesLoad {
-
+    private static Image playerMark;
     private static Image red;
     private static ArrayList<Image> place;
     private static Image place1;
@@ -83,6 +83,11 @@ public class PicturesLoad {
     public static void loadEndBackground() throws FileNotFoundException {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/Display_2.jpg");
         endBackground = new Image(reader);
+    }
+
+    public static void loadPlayerMark() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/firstplayertoken.png");
+        playerMark = new Image(reader);
     }
 
 
@@ -164,6 +169,7 @@ public class PicturesLoad {
     }
 
     public static void loadImages() throws IOException, ParseException {
+        loadPlayerMark();
         loadBackgroundStart();
         loadPlankImg();
         loadBookshelfImg();
@@ -209,4 +215,8 @@ public class PicturesLoad {
         return null;
     }
 
+
+    public static Image getPlayerMark() {
+        return playerMark;
+    }
 }
