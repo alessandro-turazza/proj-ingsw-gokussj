@@ -23,6 +23,15 @@ public class Client {
         this.messager = new ClientMessager(this);
         this.model = new ClientModel();
     }
+
+    public void setMessager(ClientMessager messager) {
+        this.messager = messager;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
     public void startViewController(){
         String choose;
 

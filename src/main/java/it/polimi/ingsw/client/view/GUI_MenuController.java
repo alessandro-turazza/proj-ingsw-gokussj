@@ -4,14 +4,13 @@ import it.polimi.ingsw.client.PersonalButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
@@ -97,6 +96,7 @@ public class GUI_MenuController {
 
         back.animation();
         hBoxBack.getChildren().add(back);
+        hBoxBack.setPadding(new Insets(0,0,25*resolution,0));
 
         root.getChildren().add(hBoxResize);
         root.getChildren().add(username);
@@ -197,6 +197,7 @@ public class GUI_MenuController {
         back.animation();
 
         hBoxBack.getChildren().add(back);
+        hBoxBack.setPadding(new Insets(0,0,25*resolution,0));
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {

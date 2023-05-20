@@ -148,8 +148,6 @@ public class CLI{
         this.showUsers();
         this.showPlank();
         this.showCommonGoals();
-        //this.showBookshelf(client.getModel().getMyName());
-        //this.showPersonalGoal();
     }
 
 
@@ -416,6 +414,11 @@ public class CLI{
         for(int i = 0; i < users.size(); i++){
             System.out.println((i+1)+". " +users.get(i).getName()+" punti:  " + users.get(i).getPoints());
         }
+
+        showNormalMessage("Digita un azione");
+
+        ((CLIController) client.getViewController()).setEndGame(true);
+
     }
 
 

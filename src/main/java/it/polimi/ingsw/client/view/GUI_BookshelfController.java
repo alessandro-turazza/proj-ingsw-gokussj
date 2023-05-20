@@ -1,8 +1,6 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.PersonalButton;
-import it.polimi.ingsw.server.model.object_card.ObjectCard;
-import it.polimi.ingsw.server.model.plank.Plank;
 import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import javafx.event.ActionEvent;
@@ -12,15 +10,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
@@ -76,6 +71,7 @@ public class GUI_BookshelfController {
         PersonalButton back = new PersonalButton(300.0, 70.0);
         back.setText("←Indietro");
 
+
         back.animation();
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -126,6 +122,7 @@ public class GUI_BookshelfController {
         VBox leftVBox = new VBox();
         leftVBox.setAlignment(Pos.BOTTOM_CENTER);
         leftVBox.setSpacing(20*resolution);
+        leftVBox.setPadding(new Insets(0,0,25*resolution,0));
 
         VBox rightVBox = new VBox();
         rightVBox.setAlignment(Pos.TOP_CENTER);

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.ClientMessager;
 import it.polimi.ingsw.client.InputAction;
 import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.server.model.plank.CellPlank;
@@ -14,9 +15,11 @@ public class CLIController implements Controller{
     private CLI view;
     private Client client;
     private Chat chat;
-    private ArrayList<String> actions = new ArrayList<>(Arrays.asList("HELP","DRAG/DROP","BOOKSHELF","PLANK","USERS","COMMON_GOALS","PERSONAL_GOAL", "OPEN_CHAT"));
+    private ArrayList<String> actions = new ArrayList<>(Arrays.asList("HELP","DRAG/DROP","BOOKSHELF","PLANK","USERS","COMMON_GOALS","PERSONAL_GOAL", "OPEN_CHAT","EXIT"));
     private InputAction inputAction;
     private boolean inputReady;
+
+    private boolean endGame;
 
     public CLIController(Client client){
         this.client = client;
@@ -32,9 +35,14 @@ public class CLIController implements Controller{
     }
 
 
+    public void setEndGame(boolean endGame) {
+        this.endGame = endGame;
+    }
+
     @Override
     public void startController(){
         char choose= view.selectTypeGame();
+        this.endGame = false;
         JSONObject userDatas = view.lobby(choose);
 
         String nomeClient = userDatas.get("username").toString();
@@ -65,7 +73,12 @@ public class CLIController implements Controller{
 
             if(action == null)
                 view.showErrorMessage("Azione non valida");
-            else if(action.equals(actions.get(0))){
+            else if(action.equals(actions.get(8))){
+                client.setChat(new Chat());
+                client.setMessager(new ClientMessager(client));
+                client.startClient('C');
+                this.startController();
+            } else if(action.equals(actions.get(0))){
                 for(String s: actions)
                     view.showNormalMessage(s);
             }else if(action.equals(actions.get(1))){

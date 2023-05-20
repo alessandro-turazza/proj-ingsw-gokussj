@@ -1,8 +1,9 @@
 package it.polimi.ingsw.client.view;
 
-import it.polimi.ingsw.RunApp;
 import it.polimi.ingsw.client.Client;
+import it.polimi.ingsw.client.ClientMessager;
 import it.polimi.ingsw.client.PersonalButton;
+import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.server.model.user.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -41,15 +42,15 @@ public class GUI_EndGameController {
         BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getEndBackground(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         root.setBackground(new Background(backgroundImage));
-        HBox container=new HBox();
-        container.setSpacing(10*resolution);
-        VBox vBoxButton=new VBox();
-        vBoxButton.setAlignment(Pos.BOTTOM_LEFT);
-        vBoxButton.setPrefSize(300*resolution,bounds.getHeight()*resolution);
+        //HBox container=new HBox();
+        //container.setSpacing(10*resolution);
+        //VBox vBoxButton=new VBox();
+        //vBoxButton.setAlignment(Pos.BOTTOM_LEFT);
+        //vBoxButton.setPrefSize(300*resolution,bounds.getHeight()*resolution);
         VBox ranking = new VBox();
-        vBoxButton.setPrefSize((bounds.getWidth()-300)*resolution,bounds.getHeight()*resolution);
-        container.getChildren().add(vBoxButton);
-        container.getChildren().add(ranking);
+        //vBoxButton.setPrefSize((bounds.getWidth()-300)*resolution,bounds.getHeight()*resolution);
+        //container.getChildren().add(vBoxButton);
+        ///container.getChildren().add(ranking);
         ranking.setAlignment(Pos.CENTER);
         ranking.setSpacing(20*resolution);
 
@@ -120,9 +121,11 @@ public class GUI_EndGameController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
+                    Client client = GUI.getClient();
+                    client.setChat(new Chat());
+                    client.setMessager(new ClientMessager(client));
+                    client.startClient('G');
                     GUI.showStart();
-                    GUI.setClient(new Client());
-                    GUI.getClient().startClient('G');
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -133,9 +136,10 @@ public class GUI_EndGameController {
                 }
             }
         });
-        vBoxButton.getChildren().add(back);
+        ranking.getChildren().add(back);
+        ranking.setPadding(new Insets(0,0,25*resolution,0));
 
-        root.getChildren().add(container);
+        root.getChildren().add(ranking);
         stage.setScene(scene);
     }
 
@@ -213,6 +217,7 @@ public class GUI_EndGameController {
         VBox leftVBox = new VBox();
         leftVBox.setAlignment(Pos.BOTTOM_CENTER);
         leftVBox.setSpacing(20*resolution);
+        leftVBox.setPadding(new Insets(0,0,25*resolution,0));
 
         VBox rightVBox = new VBox();
         rightVBox.setAlignment(Pos.TOP_CENTER);
