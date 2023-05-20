@@ -13,7 +13,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -255,6 +254,16 @@ public class GUI extends Application{
     public static void showChatMessage(String message){
         Platform.runLater(()->{
             GUI_TurnController.showChatMessage(message);
+        });
+    }
+
+    public static void showEndGame(){
+        Platform.runLater(()->{
+            try {
+                GUI_EndGameController.showEndGame();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 }

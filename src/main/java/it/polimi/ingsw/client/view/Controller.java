@@ -9,7 +9,7 @@ public interface Controller {
     void startController();
     void resetStart() throws IOException;
     void showStateGame() throws Exception;
-    void showEndGame();
+    void showEndGame() throws Exception;
     void showErrorMessage(String message);
     void showOkConnection(Integer idGame) throws IOException;
 

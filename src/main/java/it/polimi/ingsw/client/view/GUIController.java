@@ -41,7 +41,7 @@ public class GUIController implements Controller{
 
     @Override
     public void showEndGame() {
-
+        GUI.showEndGame();
     }
 
     @Override

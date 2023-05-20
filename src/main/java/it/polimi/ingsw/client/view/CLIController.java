@@ -105,7 +105,8 @@ public class CLIController implements Controller{
         handleTurn();
     }
     @Override
-    public void showEndGame(){
+    public void showEndGame() throws Exception {
+        view.showStateGame();
         view.showEndGame();
     }
 
