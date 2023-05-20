@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class PicturesLoad {
 
     private static Image red;
+    private static ArrayList<Image> place;
     private static Image place1;
     private static Image place2;
     private static Image place3;
@@ -58,21 +59,20 @@ public class PicturesLoad {
     }
 
 
-    public static void loadPlace1() throws FileNotFoundException {
+    public static void loadPlace() throws FileNotFoundException {
+        place=new ArrayList<>();
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/1posto.png");
         place1 = new Image(reader);
-    }
-    public static void loadPlace2() throws FileNotFoundException {
-        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/2posto.png");
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/2posto.png");
         place2 = new Image(reader);
-    }
-    public static void loadPlace3() throws FileNotFoundException {
-        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/3posto.png");
+        place.add(place2);
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/3posto.png");
         place3 = new Image(reader);
-    }
-    public static void loadPlace4() throws FileNotFoundException {
-        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/4posto.png");
+        place.add(place3);
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/4posto.png");
         place4 = new Image(reader);
+        place.add(place4);
+
     }
     public static void loadParquet() throws FileNotFoundException {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/base_pagina2.jpg");
@@ -175,10 +175,7 @@ public class PicturesLoad {
         loadRed();
         loadBookshelfbackgroundblury();
         loadEndBackground();
-        loadPlace1();
-        loadPlace2();
-        loadPlace3();
-        loadPlace4();
+        loadPlace();
 
     }
 
@@ -206,19 +203,9 @@ public class PicturesLoad {
         return endBackground;
     }
 
-    public static Image getPlace1() {
-        return place1;
+    public static Image getPlace(int numPlace) {
+        if(numPlace<5 && numPlace>0)return place.get(numPlace-1);
+        return null;
     }
 
-    public static Image getPlace2() {
-        return place2;
-    }
-
-    public static Image getPlace3() {
-        return place3;
-    }
-
-    public static Image getPlace4() {
-        return place4;
-    }
 }
