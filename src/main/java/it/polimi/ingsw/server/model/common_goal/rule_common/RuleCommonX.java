@@ -11,6 +11,8 @@ public class RuleCommonX implements RuleCommon {
         return idRule;
     }
 
+    //Five tiels of the same color shaped as an X
+
     @Override
     public boolean newRule(User user) {
         user.getBookshelf().deleteMark();

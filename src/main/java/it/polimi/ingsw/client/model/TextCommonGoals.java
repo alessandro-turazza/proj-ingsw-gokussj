@@ -18,8 +18,7 @@ public class TextCommonGoals {
         textCommonGoals.add((new TextCommonGoal(8,"Due righe formate ciascuna da 5 diversi tipi di tessere.")));
         textCommonGoals.add(new TextCommonGoal(9,"Tre colonne formate ciascuna da 6 tessere di uno, due o tre tipi differenti. Colonne diverse possono avere combinazioni diverse di tipi di tessere."));
         textCommonGoals.add((new TextCommonGoal(10,"Cinque tessere dello stesso tipo che formano una X.")));
-        textCommonGoals.add((new TextCommonGoal(11,"Otto tessere dello stesso tipo. Non ci sono restrizioni sulla posizione di queste tessere.\n" +
-                "Cinque colonne di altezza crescente o decrescente: a partire dalla prima colonna a sinistra o a destra, ogni colonna successiva ")));
+        textCommonGoals.add((new TextCommonGoal(11,"Otto tessere dello stesso tipo. Non ci sono restrizioni sulla posizione di queste tessere.")));
         textCommonGoals.add(new TextCommonGoal(12,"Cinque colonne di altezza crescente o decrescente: a partire dalla prima colonna\n" +
                 "a sinistra o a destra, ogni colonna successiva deve essere formata da una tessera in più. Le tessere possono essere di qualsiasi tipo."));
 
