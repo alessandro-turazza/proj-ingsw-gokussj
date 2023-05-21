@@ -59,6 +59,8 @@ public class GUI_BookshelfController {
         double resolution = GUI.getResolution();
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
+        stackPane.setPrefSize(bounds.getHeight()*resolution,bounds.getHeight()*resolution);
+
         ImageView bookshelf = new ImageView(PicturesLoad.getBookshelfImg());
         bookshelf.setFitWidth(bounds.getHeight()*resolution);
         bookshelf.setFitHeight(bounds.getHeight()*resolution);
@@ -130,13 +132,18 @@ public class GUI_BookshelfController {
         });
 
         ImageView personalGoal = new ImageView(PicturesLoad.getPersonalGoalCardsImgs().get(user.getPersonalGoal().getId()-1));
+        personalGoal.setFitWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.90);
+        personalGoal.setFitHeight(0.6*(bounds.getHeight()*resolution)*0.90);
         VBox personalGoalBox = new VBox();
+        personalGoalBox.setPrefSize(((bounds.getWidth()-bounds.getHeight())/2)*resolution,bounds.getHeight()*resolution*0.6);
         Label pgLabel = new Label("Obiettivo personale");
 
         VBox pointBox = new VBox();
+        pointBox.setAlignment(Pos.CENTER);
         BackgroundImage backgroundParquet = new BackgroundImage(PicturesLoad.getParquet(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         pointBox.setBackground(new Background(backgroundParquet));
         pointBox.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2*resolution))));
+        pointBox.setPrefSize(((bounds.getWidth()-bounds.getHeight())/2)*resolution,bounds.getHeight()*resolution*0.15);
 
         HBox playerToken = new HBox();
         for (Integer point : user.getPointsToken()){
@@ -150,7 +157,7 @@ public class GUI_BookshelfController {
         }
 
         Label points = new Label("Punti giocatore: " + user.getPoints());
-        points.setPrefSize(bounds.getWidth()*resolution*0.15, bounds.getHeight()*resolution*0.1);
+        //points.setPrefSize(bounds.getWidth()*resolution*0.15, bounds.getHeight()*resolution*0.1);
         points.setAlignment(Pos.CENTER);
         points.setFont(new Font(20*resolution));
         points.setTextFill(Color.rgb(204, 153, 102));
@@ -159,9 +166,11 @@ public class GUI_BookshelfController {
         pointBox.getChildren().add(playerToken);
 
         VBox commonGoalBox = new VBox();
+        commonGoalBox.setPrefWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution);
         commonGoalBox.setBackground(new Background(backgroundParquet));
         commonGoalBox.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(10*resolution))));
         commonGoalBox.setSpacing(20*resolution);
+
         commonGoalBox.setPadding(new Insets(15*resolution,5*resolution,15*resolution,5*resolution));
         commonGoalBox.setAlignment(Pos.CENTER);
 
@@ -172,8 +181,8 @@ public class GUI_BookshelfController {
 
         StackPane cg1 = new StackPane();
         ImageView commonGoal1 = new ImageView(PicturesLoad.getCommonGoalsImgs().get(GUI.getClient().getModel().getCommonGoals().get(0).getIdRule()-1));
-        commonGoal1.setFitWidth(resolution*138*2.5);
-        commonGoal1.setFitHeight(resolution*91*2.5);
+        commonGoal1.setFitWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9);
+        commonGoal1.setFitHeight(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9);
         int point1 = 0;
 
         if(GUI.getClient().getModel().getCommonGoals().get(0).getLastTokenCard() != null)
@@ -193,8 +202,8 @@ public class GUI_BookshelfController {
 
         StackPane cg2 = new StackPane();
         ImageView commonGoal2 = new ImageView(PicturesLoad.getCommonGoalsImgs().get(GUI.getClient().getModel().getCommonGoals().get(1).getIdRule()-1));
-        commonGoal2.setFitWidth(resolution*138*2.5);
-        commonGoal2.setFitHeight(resolution*91*2.5);
+        commonGoal2.setFitWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9);
+        commonGoal2.setFitHeight(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9);
         int point2 = 0;
         if(GUI.getClient().getModel().getCommonGoals().get(1).getLastTokenCard() != null)
             point2 = GUI.getClient().getModel().getCommonGoals().get(1).getLastTokenCard().getPoints();
@@ -213,14 +222,15 @@ public class GUI_BookshelfController {
 
         HBox resizeButtonBox = new HBox(resizeWindow);
         HBox backButtonBox = new HBox(back);
+        backButtonBox.autosize();
 
         commonGoalBox.getChildren().add(commonGoalLabel);
         commonGoalBox.getChildren().add(cg1);
         commonGoalBox.getChildren().add(cg2);
 
         VBox leftVBox = new VBox();
-        leftVBox.setAlignment(Pos.BOTTOM_CENTER);
-        leftVBox.setSpacing(30*resolution);
+        leftVBox.setAlignment(Pos.TOP_CENTER);
+        leftVBox.setSpacing(40*resolution);
         leftVBox.setPadding(new Insets(0,0,25*resolution,0));
 
         VBox rightVBox = new VBox();
@@ -231,7 +241,8 @@ public class GUI_BookshelfController {
         rightVBox.getChildren().add(commonGoalBox);
         leftVBox.getChildren().add(pointBox);
 
-        personalGoalBox.setPrefSize(resolution*137*3, resolution*200*3);
+
+        //personalGoalBox.setPrefSize(((bounds.getWidth()-bounds.getHeight())/2)*resolution,bounds.getHeight()*resolution*0.2);
 
         if(user.getName().equals(GUI.getClient().getModel().getMyName()) || endgame){
             pgLabel.setFont(new Font("Comic Sans MS", 30* resolution));
@@ -239,8 +250,8 @@ public class GUI_BookshelfController {
             personalGoalBox.setAlignment(Pos.CENTER);
             personalGoalBox.setBackground(new Background(backgroundParquet));
             personalGoalBox.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(10*resolution))));
-            personalGoal.setFitWidth(resolution*137*2.2);
-            personalGoal.setFitHeight(resolution*200*2.2);
+            personalGoal.setFitWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9);
+            personalGoal.setFitHeight(((bounds.getWidth()-bounds.getHeight())/2)*resolution*1.5*0.9);
             personalGoalBox.setSpacing(20*resolution);
             personalGoalBox.setPadding(new Insets(5*resolution,0,10*resolution,0));
             personalGoalBox.getChildren().add(pgLabel);
@@ -252,8 +263,8 @@ public class GUI_BookshelfController {
 
         resizeButtonBox.setAlignment(Pos.TOP_RIGHT);
         backButtonBox.setAlignment(Pos.BOTTOM_LEFT);
-        leftVBox.setPrefWidth((bounds.getWidth()-bounds.getHeight())*resolution/2);
-        rightVBox.setPrefWidth((bounds.getWidth()-bounds.getHeight())*resolution/2);
+        leftVBox.setPrefSize((bounds.getWidth()-bounds.getHeight())*resolution/2,bounds.getHeight()*resolution);
+        rightVBox.setPrefSize((bounds.getWidth()-bounds.getHeight())*resolution/2,bounds.getHeight()*resolution);
 
         bookshelfBox.getChildren().add(leftVBox);
         bookshelfBox.getChildren().add(bookshelfPane);
