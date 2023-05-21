@@ -144,10 +144,13 @@ public class GUI extends Application{
         GUI.stage.setX((bounds.getWidth()/2)*HALF_SCREEN);
         GUI.stage.setY((bounds.getHeight()/2)*HALF_SCREEN);
 
+
+
         stage.setResizable(false);
         stage.setTitle("MyShelfie");
         this.client = GUIController.getClient();
         PicturesLoad.loadImages();
+        stage.getIcons().add(PicturesLoad.getIcon());
         showStart();
         stage.show();
     }

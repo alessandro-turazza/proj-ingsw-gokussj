@@ -52,7 +52,7 @@ public class GUI_BookshelfController {
 
     public static void onBookshelfClick(User user) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-bookshelf.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-bookshelf.fxml")); //ciao
         Pane root = fxmlLoader.load();
         double resolution = GUI.getResolution();
 
