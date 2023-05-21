@@ -46,8 +46,10 @@ public class PicturesLoad {
             return tokens.get(2);
         else if(point == 8)
             return tokens.get(3);
-        else
+        else if (point == 1)
             return tokens.get(4);
+        else
+            return tokens.get(5);
     }
 
     public static Image getBackgroundStart() {
@@ -83,6 +85,8 @@ public class PicturesLoad {
         reader = new FileInputStream("src/data/17_MyShelfie_BGA/scoring tokens/scoring_6.jpg");
         tokens.add(new Image(reader));
         reader = new FileInputStream("src/data/17_MyShelfie_BGA/scoring tokens/scoring_8.jpg");
+        tokens.add(new Image(reader));
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/scoring tokens/end game.jpg");
         tokens.add(new Image(reader));
         reader = new FileInputStream("src/data/17_MyShelfie_BGA/scoring tokens/scoring_back_EMPTY.jpg");
         tokens.add(new Image(reader));

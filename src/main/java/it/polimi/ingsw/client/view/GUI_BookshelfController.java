@@ -10,8 +10,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -65,7 +68,7 @@ public class GUI_BookshelfController {
         stage.setScene(scene);
         root.setPrefSize(bounds.getWidth()*resolution, bounds.getHeight()*resolution);
 
-        StackPane bookshelfPane = makeBookshelf(user);
+        StackPane bookshelfPane = GUI_BookshelfController.makeBookshelf(user);
         HBox bookshelfBox = new HBox();
 
         PersonalButton back = new PersonalButton(300.0, 70.0);
@@ -77,7 +80,7 @@ public class GUI_BookshelfController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    GUI_TurnController.showStateGame();
+                        GUI_TurnController.showStateGame();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -97,16 +100,51 @@ public class GUI_BookshelfController {
                 GUI.getStage().setResizable(true);
                 GUI_ResizeController.resize();
                 try {
-                    onBookshelfClick(user);
+                        GUI_BookshelfController.onBookshelfClick(user);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 GUI.getStage().setResizable(false);
             }
         });
+
         ImageView personalGoal = new ImageView(PicturesLoad.getPersonalGoalCardsImgs().get(user.getPersonalGoal().getId()-1));
-        personalGoal.setFitWidth(resolution*137*2.2);
-        personalGoal.setFitHeight(resolution*200*2.2);
+        VBox personalGoalBox = new VBox();
+        Label pgLabel = new Label("Obbiettivo personale");
+
+        VBox pointBox = new VBox();
+        BackgroundImage backgroundParquet = new BackgroundImage(PicturesLoad.getParquet(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
+        pointBox.setBackground(new Background(backgroundParquet));
+        pointBox.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2*resolution))));
+
+        HBox playerToken = new HBox();
+        for (Integer point : user.getPointsToken()){
+            ImageView token = new ImageView();
+            if(point > 0){
+                token.setImage(PicturesLoad.getToken(point));
+                token.setFitWidth(80*resolution);
+                token.setFitHeight(80*resolution);
+                playerToken.getChildren().add(token);
+            }
+        }
+
+        Label points = new Label("Punti giocatore: " + user.getPoints());
+        points.setTextFill(Color.rgb(204, 153, 102));
+
+        pointBox.getChildren().add(points);
+        pointBox.getChildren().add(playerToken);
+
+        VBox commonGoalBox = new VBox();
+        commonGoalBox.setBackground(new Background(backgroundParquet));
+        commonGoalBox.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(10*resolution))));
+        commonGoalBox.setSpacing(20*resolution);
+        commonGoalBox.setPadding(new Insets(15*resolution,5*resolution,15*resolution,5*resolution));
+        commonGoalBox.setAlignment(Pos.CENTER);
+
+
+        Label commonGoalLabel = new Label("Obbettivi comuni");
+        commonGoalLabel.setFont(new Font("Comic Sans MS", 30* resolution));
+        commonGoalLabel.setTextFill(Color.rgb(204, 153, 102));
 
         StackPane cg1 = new StackPane();
         ImageView commonGoal1 = new ImageView(PicturesLoad.getCommonGoalsImgs().get(GUI.getClient().getModel().getCommonGoals().get(0).getIdRule()-1));
@@ -152,21 +190,40 @@ public class GUI_BookshelfController {
         HBox resizeButtonBox = new HBox(resizeWindow);
         HBox backButtonBox = new HBox(back);
 
+        commonGoalBox.getChildren().add(commonGoalLabel);
+        commonGoalBox.getChildren().add(cg1);
+        commonGoalBox.getChildren().add(cg2);
+
         VBox leftVBox = new VBox();
         leftVBox.setAlignment(Pos.BOTTOM_CENTER);
-        leftVBox.setSpacing(20*resolution);
+        leftVBox.setSpacing(30*resolution);
         leftVBox.setPadding(new Insets(0,0,25*resolution,0));
 
         VBox rightVBox = new VBox();
         rightVBox.setAlignment(Pos.TOP_CENTER);
-        rightVBox.setSpacing(10*resolution);
+        rightVBox.setSpacing(35*resolution);
 
         rightVBox.getChildren().add(resizeButtonBox);
+        rightVBox.getChildren().add(commonGoalBox);
+        leftVBox.getChildren().add(pointBox);
+
+        personalGoalBox.setPrefSize(resolution*137*3, resolution*200*3);
+
         if(user.getName().equals(GUI.getClient().getModel().getMyName())){
-            rightVBox.getChildren().add(cg1);
-            rightVBox.getChildren().add(cg2);
-            leftVBox.getChildren().add(personalGoal);
+            pgLabel.setFont(new Font("Comic Sans MS", 30* resolution));
+            pgLabel.setTextFill(Color.rgb(204, 153, 102));
+            personalGoalBox.setAlignment(Pos.CENTER);
+            personalGoalBox.setBackground(new Background(backgroundParquet));
+            personalGoalBox.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(10*resolution))));
+            personalGoal.setFitWidth(resolution*137*2.2);
+            personalGoal.setFitHeight(resolution*200*2.2);
+            personalGoalBox.setSpacing(20*resolution);
+            personalGoalBox.setPadding(new Insets(5*resolution,0,10*resolution,0));
+            personalGoalBox.getChildren().add(pgLabel);
+            personalGoalBox.getChildren().add(personalGoal);
         }
+
+        leftVBox.getChildren().add(personalGoalBox);
         leftVBox.getChildren().add(backButtonBox);
 
         resizeButtonBox.setAlignment(Pos.TOP_RIGHT);
