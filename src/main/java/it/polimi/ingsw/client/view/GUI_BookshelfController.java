@@ -27,15 +27,15 @@ public class GUI_BookshelfController {
         double resolution = GUI.getResolution();
         pane.setAlignment(Pos.CENTER);
         VBox vBox = new VBox();
-        vBox.setPadding(new Insets(0,0,(bounds.getHeight()/17)*resolution,0));
+        vBox.setPadding(new Insets(0,0,(bounds.getHeight()/17.5)*resolution,0));
         vBox.setAlignment(Pos.CENTER);
-        vBox.setSpacing(19.5*resolution);
+        vBox.setSpacing(bounds.getHeight()*0.021*resolution);//19.5
         CellShelf[][] cells = user.getBookshelf().getBookshelf();
         ImageView[][] objectCards=new ImageView[user.getBookshelf().getNumRow()][user.getBookshelf().getNumColumn()];
         for(int row = 0; row<=user.getBookshelf().getNumRow()-1; row++){
             HBox rowbox = new HBox();
             rowbox.setAlignment(Pos.CENTER);
-            rowbox.setSpacing(39*GUI.getResolution());
+            rowbox.setSpacing(bounds.getWidth()*0.025*GUI.getResolution());//39
             for(int column = 0; column<=user.getBookshelf().getNumColumn()-1; column++){
                 objectCards[row][column] = new ImageView();
                 objectCards[row][column].setFitHeight((bounds.getHeight()*resolution/8)*0.94);
@@ -131,7 +131,7 @@ public class GUI_BookshelfController {
 
         ImageView personalGoal = new ImageView(PicturesLoad.getPersonalGoalCardsImgs().get(user.getPersonalGoal().getId()-1));
         VBox personalGoalBox = new VBox();
-        Label pgLabel = new Label("Obbiettivo personale");
+        Label pgLabel = new Label("Obiettivo personale");
 
         VBox pointBox = new VBox();
         BackgroundImage backgroundParquet = new BackgroundImage(PicturesLoad.getParquet(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
@@ -150,6 +150,9 @@ public class GUI_BookshelfController {
         }
 
         Label points = new Label("Punti giocatore: " + user.getPoints());
+        points.setPrefSize(bounds.getWidth()*resolution*0.15, bounds.getHeight()*resolution*0.1);
+        points.setAlignment(Pos.CENTER);
+        points.setFont(new Font(20*resolution));
         points.setTextFill(Color.rgb(204, 153, 102));
 
         pointBox.getChildren().add(points);
@@ -163,7 +166,7 @@ public class GUI_BookshelfController {
         commonGoalBox.setAlignment(Pos.CENTER);
 
 
-        Label commonGoalLabel = new Label("Obbettivi comuni");
+        Label commonGoalLabel = new Label("Obiettivi comuni");
         commonGoalLabel.setFont(new Font("Comic Sans MS", 30* resolution));
         commonGoalLabel.setTextFill(Color.rgb(204, 153, 102));
 
