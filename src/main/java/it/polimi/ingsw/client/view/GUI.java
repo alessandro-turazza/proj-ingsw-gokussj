@@ -188,7 +188,6 @@ public class GUI extends Application{
             hBoxLabel.getChildren().add(waitLabel);
 
             PersonalButton resizeWindow = new PersonalButton(70.0,70.0);
-            //resizeWindow.setPrefSize(0.05*resolution*bounds.getHeight(), 0.05*resolution* bounds.getHeight());
             hBoxResize.getChildren().add(resizeWindow);
             if(GUI.getResolution() == GUI.HALF_SCREEN)
                 resizeWindow.setText("↗");

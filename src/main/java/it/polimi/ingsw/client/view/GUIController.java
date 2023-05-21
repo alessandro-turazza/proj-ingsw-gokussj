@@ -51,7 +51,6 @@ public class GUIController implements Controller{
 
     @Override
     public void showOkConnection(Integer idGame) throws IOException {
-        System.out.println("in showOk controller");
         GUI.showOkConnection(idGame);
     }
 

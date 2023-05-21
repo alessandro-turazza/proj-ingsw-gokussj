@@ -16,24 +16,16 @@ public class JSONClientVisitor implements VisitorClient {
 
     @Override
     public void visit(MessageNewTurnClient element) throws Exception {
-        System.out.println("0");
         Client client = element.getClient();
-        System.out.println("1");
         client.getModel().setPlayers(element.getStateGame().getUsersClone());
-        System.out.println("2");
         client.getModel().setPlank(element.getStateGame().getPlankClone());
-        System.out.println("3");
         client.getModel().setCommonGoals(element.getStateGame().getCommonGoalsClone());
-        System.out.println("4");
         client.getModel().setActiveUser(element.getStateGame().getActiveUser());
-        System.out.println("5");
         client.getViewController().showStateGame();
-        System.out.println("6");
     }
 
     @Override
     public void visit(MessageOKConnectionClient element) throws IOException {
-        //System.out.println("in visitor");
         Client client = element.getClient();
         client.getModel().setIdGame(element.getIdGame());
         client.getViewController().showOkConnection(element.getIdGame());

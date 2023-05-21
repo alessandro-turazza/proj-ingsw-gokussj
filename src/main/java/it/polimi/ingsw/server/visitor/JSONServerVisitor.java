@@ -85,6 +85,7 @@ public class JSONServerVisitor implements VisitorServer{
         catch (Exception e){
             //gestisce anche il caso di eccezioni(nel qual caso manda una KO al Client)
             //m.getServerThread().getSs().sendKO();
+            e.printStackTrace();
             m.getServerThread().sendMessage(m.getServerThread().getController().sendKoDED());
         }
 

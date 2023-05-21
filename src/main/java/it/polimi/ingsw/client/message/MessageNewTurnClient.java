@@ -12,7 +12,6 @@ public class MessageNewTurnClient implements MessageClient {
     private Client client;
 
     public MessageNewTurnClient(Client cl, JSONObject obj) {
-        System.out.println("COSTRUTTORE");
         client=cl;
         String s = obj.get("state_game").toString();
         stateGame = new Gson().fromJson(s, StateGame.class);
@@ -26,7 +25,6 @@ public class MessageNewTurnClient implements MessageClient {
     }
     @Override
     public void accept(VisitorClient visitor) throws Exception {
-        System.out.println("VISITOR");
         visitor.visit(this);
     }
 
