@@ -76,6 +76,7 @@ public class JSONServerVisitor implements VisitorServer{
             else {
                 //serverGame.updateStateGame();//prepara il ServerThread per inviare i dati aggiornati
                 for(ServerThread st: serverGame.getPlayers()){
+                    System.out.println("MANDO NEW TURN");
                     st.sendMessage(st.getController().sendStateGame(gm));
                 }
 
