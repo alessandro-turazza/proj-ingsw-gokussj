@@ -11,7 +11,7 @@ public interface Controller {
     void showStateGame() throws Exception;
     void showEndGame() throws Exception;
     void showErrorMessage(String message);
+    void showLightErrorMessage(String message);
     void showOkConnection(Integer idGame) throws IOException;
-
     void showChatMessage(JSONObject jsonObject);
 }

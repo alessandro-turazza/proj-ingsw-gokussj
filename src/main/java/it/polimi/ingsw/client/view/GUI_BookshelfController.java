@@ -51,8 +51,25 @@ public class GUI_BookshelfController {
     }
 
     public static void onBookshelfClick(User user) throws IOException {
+        showBookshelf(user);
+    }
 
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-bookshelf.fxml")); //ciao
+    public static StackPane makeBookshelf(User user){
+        StackPane stackPane = new StackPane();
+        double resolution = GUI.getResolution();
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+        ImageView bookshelf = new ImageView(PicturesLoad.getBookshelfImg());
+        bookshelf.setFitWidth(bounds.getHeight()*resolution);
+        bookshelf.setFitHeight(bounds.getHeight()*resolution);
+        stackPane.getChildren().add(bookshelf);
+        fillBookshelf(user, stackPane, bounds);
+        return stackPane;
+    }
+
+    public static void showBookshelf(User user) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-bookshelf.fxml"));
         Pane root = fxmlLoader.load();
         double resolution = GUI.getResolution();
 
@@ -80,7 +97,7 @@ public class GUI_BookshelfController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                        GUI_TurnController.showStateGame();
+                    GUI_TurnController.showStateGame();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -100,7 +117,7 @@ public class GUI_BookshelfController {
                 GUI.getStage().setResizable(true);
                 GUI_ResizeController.resize();
                 try {
-                        GUI_BookshelfController.onBookshelfClick(user);
+                    GUI_BookshelfController.onBookshelfClick(user);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -235,21 +252,6 @@ public class GUI_BookshelfController {
         bookshelfBox.getChildren().add(bookshelfPane);
         bookshelfBox.getChildren().add(rightVBox);
         root.getChildren().add(bookshelfBox);
-
-
-    }
-
-    public static StackPane makeBookshelf(User user){
-        StackPane stackPane = new StackPane();
-        double resolution = GUI.getResolution();
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-        ImageView bookshelf = new ImageView(PicturesLoad.getBookshelfImg());
-        bookshelf.setFitWidth(bounds.getHeight()*resolution);
-        bookshelf.setFitHeight(bounds.getHeight()*resolution);
-        stackPane.getChildren().add(bookshelf);
-        fillBookshelf(user, stackPane, bounds);
-        return stackPane;
     }
 
 }

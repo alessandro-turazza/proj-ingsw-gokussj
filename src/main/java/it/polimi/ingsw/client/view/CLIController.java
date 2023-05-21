@@ -127,6 +127,12 @@ public class CLIController implements Controller{
     public  void showErrorMessage(String message){
         view.showErrorMessage(message);
     }
+
+    @Override
+    public void showLightErrorMessage(String message) {
+        showErrorMessage(message);
+    }
+
     @Override
     public void showOkConnection(Integer idGame){
         view.showNormalMessage("----------------------------");

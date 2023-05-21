@@ -50,6 +50,11 @@ public class GUIController implements Controller{
     }
 
     @Override
+    public void showLightErrorMessage(String message) {
+        GUI.showLightErrorMessage(message);
+    }
+
+    @Override
     public void showOkConnection(Integer idGame) throws IOException {
         GUI.showOkConnection(idGame);
     }

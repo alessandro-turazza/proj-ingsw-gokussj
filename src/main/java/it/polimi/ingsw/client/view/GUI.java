@@ -264,6 +264,22 @@ public class GUI extends Application{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(message);
             alert.show();
+            try {
+                showStart();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    public static void showLightErrorMessage(String message){
+        Platform.runLater(()->{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(message);
+            alert.show();
+            showStateGame();
         });
     }
 }

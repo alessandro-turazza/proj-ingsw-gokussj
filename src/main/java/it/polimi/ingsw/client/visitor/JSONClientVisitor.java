@@ -44,11 +44,7 @@ public class JSONClientVisitor implements VisitorClient {
         else if(element.getObject().equals("USER/FULL"))
             element.getClient().getViewController().showErrorMessage("Errore, username già in uso / partita piena");
         element.getClient().getViewController().resetStart();
-        try {
-            GUI.showStart();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     @Override
@@ -59,20 +55,12 @@ public class JSONClientVisitor implements VisitorClient {
     @Override
     public void visit(MessageDisconnection element) {
         element.getClient().getViewController().showErrorMessage("L'utente " + element.getObj().get("user").toString() + " si è disconnesso.\nPartita terminata.");
-        try {
-            GUI.showStart();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     @Override
     public void visit(MessageKODedClient element) {
-        element.getClient().getViewController().showErrorMessage("Errore server, mossa rifiutata");
-        GUI.showStateGame();
-
+        element.getClient().getViewController().showLightErrorMessage("Errore server, mossa rifiutata");
     }
 
     @Override
