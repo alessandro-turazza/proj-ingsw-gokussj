@@ -3,6 +3,9 @@ package it.polimi.ingsw.client.visitor;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.ConnectionDeamon;
 import it.polimi.ingsw.client.message.*;
+import it.polimi.ingsw.client.view.GUI;
+import it.polimi.ingsw.client.view.GUI_TurnController;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
@@ -41,6 +44,11 @@ public class JSONClientVisitor implements VisitorClient {
         else if(element.getObject().equals("USER/FULL"))
             element.getClient().getViewController().showErrorMessage("Errore, username già in uso / partita piena");
         element.getClient().getViewController().resetStart();
+        try {
+            GUI.showStart();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -51,11 +59,20 @@ public class JSONClientVisitor implements VisitorClient {
     @Override
     public void visit(MessageDisconnection element) {
         element.getClient().getViewController().showErrorMessage("L'utente " + element.getObj().get("user").toString() + " si è disconnesso.\nPartita terminata.");
+        try {
+            GUI.showStart();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void visit(MessageKODedClient element) {
         element.getClient().getViewController().showErrorMessage("Errore server, mossa rifiutata");
+        GUI.showStateGame();
+
     }
 
     @Override

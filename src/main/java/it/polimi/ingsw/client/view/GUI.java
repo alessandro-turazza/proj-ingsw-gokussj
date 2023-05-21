@@ -260,13 +260,6 @@ public class GUI extends Application{
         Platform.runLater(()->{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(message);
-            try {
-                showStart();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
             alert.show();
         });
     }
