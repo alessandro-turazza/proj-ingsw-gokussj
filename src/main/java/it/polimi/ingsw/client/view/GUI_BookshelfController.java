@@ -51,7 +51,7 @@ public class GUI_BookshelfController {
     }
 
     public static void onBookshelfClick(User user) throws IOException {
-        showBookshelf(user);
+        showBookshelf(user, false);
     }
 
     public static StackPane makeBookshelf(User user){
@@ -67,7 +67,7 @@ public class GUI_BookshelfController {
         return stackPane;
     }
 
-    public static void showBookshelf(User user) throws IOException {
+    public static void showBookshelf(User user, boolean endgame) throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-bookshelf.fxml"));
         Pane root = fxmlLoader.load();
@@ -97,7 +97,9 @@ public class GUI_BookshelfController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    GUI_TurnController.showStateGame();
+                    if(!endgame)
+                        GUI_TurnController.showStateGame();
+                    else GUI_EndGameController.showEndGame();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -117,7 +119,9 @@ public class GUI_BookshelfController {
                 GUI.getStage().setResizable(true);
                 GUI_ResizeController.resize();
                 try {
-                    GUI_BookshelfController.onBookshelfClick(user);
+                    if (!endgame)
+                        GUI_BookshelfController.onBookshelfClick(user);
+                    else GUI_EndGameController.onEndBookshelfClick(user);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -226,7 +230,7 @@ public class GUI_BookshelfController {
 
         personalGoalBox.setPrefSize(resolution*137*3, resolution*200*3);
 
-        if(user.getName().equals(GUI.getClient().getModel().getMyName())){
+        if(user.getName().equals(GUI.getClient().getModel().getMyName()) || endgame){
             pgLabel.setFont(new Font("Comic Sans MS", 30* resolution));
             pgLabel.setTextFill(Color.rgb(204, 153, 102));
             personalGoalBox.setAlignment(Pos.CENTER);

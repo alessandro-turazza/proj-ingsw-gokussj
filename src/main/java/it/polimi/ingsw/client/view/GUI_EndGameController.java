@@ -141,43 +141,6 @@ public class GUI_EndGameController {
 
         root.getChildren().add(ranking);
         stage.setScene(scene);
-    }
-
-    public static void onEndBookshelfClick(User user) throws IOException {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-bookshelf.fxml"));
-        Pane root = fxmlLoader.load();
-        double resolution = GUI.getResolution();
-
-
-        BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
-        BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBookshelfbackgroundblury(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
-        root.setBackground(new Background(backgroundImage));
-
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-        Scene scene = new Scene(root, bounds.getWidth()*resolution, bounds.getHeight()*resolution);
-        Stage stage = GUI.getStage();
-        stage.setScene(scene);
-        root.setPrefSize(bounds.getWidth()*resolution, bounds.getHeight()*resolution);
-
-        StackPane bookshelfPane = makeBookshelf(user);
-        HBox bookshelfBox = new HBox();
-
-        PersonalButton back = new PersonalButton(300.0, 70.0);
-        back.setText("←Indietro");
-
-        back.animation();
-        back.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    showEndGame();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
 
         PersonalButton resizeWindow = new PersonalButton(70.0, 70.0);
         if(GUI.getResolution() == GUI.HALF_SCREEN)
@@ -192,53 +155,16 @@ public class GUI_EndGameController {
                 GUI.getStage().setResizable(true);
                 GUI_ResizeController.resize();
                 try {
-                    onEndBookshelfClick(user);
+                        GUI_EndGameController.showEndGame();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 GUI.getStage().setResizable(false);
             }
         });
-        ImageView personalGoal = new ImageView(PicturesLoad.getPersonalGoalCardsImgs().get(user.getPersonalGoal().getId()-1));
-        personalGoal.setFitWidth(resolution*137*2.2);
-        personalGoal.setFitHeight(resolution*200*2.2);
+    }
 
-        ImageView commonGoal1 = new ImageView(PicturesLoad.getCommonGoalsImgs().get(GUI.getClient().getModel().getCommonGoals().get(0).getId()-1));
-        commonGoal1.setFitWidth(resolution*138*2.5);
-        commonGoal1.setFitHeight(resolution*91*2.5);
-
-        ImageView commonGoal2 = new ImageView(PicturesLoad.getCommonGoalsImgs().get(GUI.getClient().getModel().getCommonGoals().get(1).getId()-1));
-        commonGoal2.setFitWidth(resolution*138*2.5);
-        commonGoal2.setFitHeight(resolution*91*2.5);
-
-        HBox resizeButtonBox = new HBox(resizeWindow);
-        HBox backButtonBox = new HBox(back);
-
-        VBox leftVBox = new VBox();
-        leftVBox.setAlignment(Pos.BOTTOM_CENTER);
-        leftVBox.setSpacing(20*resolution);
-        leftVBox.setPadding(new Insets(0,0,25*resolution,0));
-
-        VBox rightVBox = new VBox();
-        rightVBox.setAlignment(Pos.TOP_CENTER);
-        rightVBox.setSpacing(10*resolution);
-
-        rightVBox.getChildren().add(resizeButtonBox);
-            rightVBox.getChildren().add(commonGoal1);
-            rightVBox.getChildren().add(commonGoal2);
-            leftVBox.getChildren().add(personalGoal);
-        leftVBox.getChildren().add(backButtonBox);
-
-        resizeButtonBox.setAlignment(Pos.TOP_RIGHT);
-        backButtonBox.setAlignment(Pos.BOTTOM_LEFT);
-        leftVBox.setPrefWidth((bounds.getWidth()-bounds.getHeight())*resolution/2);
-        rightVBox.setPrefWidth((bounds.getWidth()-bounds.getHeight())*resolution/2);
-
-        bookshelfBox.getChildren().add(leftVBox);
-        bookshelfBox.getChildren().add(bookshelfPane);
-        bookshelfBox.getChildren().add(rightVBox);
-        root.getChildren().add(bookshelfBox);
-
-
+    public static void onEndBookshelfClick(User user) throws IOException {
+        GUI_BookshelfController.showBookshelf(user, true);
     }
 }
