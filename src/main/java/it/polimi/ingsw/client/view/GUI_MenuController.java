@@ -1,6 +1,7 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.PersonalButton;
+import it.polimi.ingsw.client.PersonalTextField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
 
@@ -43,13 +43,11 @@ public class GUI_MenuController {
 
         root.setBackground(new Background(backgroundImage));
 
-        TextField username = new TextField();
+        PersonalTextField username = new PersonalTextField(0.3*bounds.getWidth(), 0.3* bounds.getHeight());
         username.setPromptText("Username");
-        username.setMaxSize(0.3*resolution*bounds.getWidth(), 0.3*resolution* bounds.getHeight());
 
-        TextField numPlayers = new TextField();
+        PersonalTextField numPlayers = new PersonalTextField(0.3*bounds.getWidth(), 0.3* bounds.getHeight());
         numPlayers.setPromptText("Numero Giocatori");
-        numPlayers.setMaxSize(0.3*resolution*bounds.getWidth(), 0.3*resolution* bounds.getHeight());
 
         PersonalButton confirm = new PersonalButton(300.0,70.0);
         confirm.setText("Conferma");
@@ -64,7 +62,8 @@ public class GUI_MenuController {
                     GUI_CreateController.onConfirmCreateClick(username, numPlayers);
                 }
                 catch (Exception e){
-                    numPlayers.setStyle("-fx-text-fill: red");
+                    //numPlayers.("-fx-text-fill: red");
+                    numPlayers.errorTextField();
                 }
             }
         });
@@ -140,13 +139,11 @@ public class GUI_MenuController {
 
         root.setBackground(new Background(backgroundImage));
 
-        TextField username = new TextField();
+        PersonalTextField username = new PersonalTextField(0.3*bounds.getWidth(), 0.3* bounds.getHeight());
         username.setPromptText("Username");
-        username.setMaxSize(0.3*resolution*bounds.getWidth(), 0.3*resolution* bounds.getHeight());
 
-        TextField idGame = new TextField();
+        PersonalTextField idGame = new PersonalTextField(0.3*bounds.getWidth(), 0.3* bounds.getHeight());
         idGame.setPromptText("Id partita");
-        idGame.setMaxSize(0.3*resolution*bounds.getWidth(), 0.3*resolution* bounds.getHeight());
 
         PersonalButton confirm = new PersonalButton(300.0,70.0);
         confirm.setText("Conferma");
@@ -160,7 +157,8 @@ public class GUI_MenuController {
                     GUI_JoinController.onConfirmEnterClick(username, idGame);
                 }
                 catch (Exception e){
-                    idGame.setStyle("-fx-text-fill: red");
+                    //idGame.setStyle("-fx-text-fill: red");
+                    idGame.errorTextField();
                 }
 
             }

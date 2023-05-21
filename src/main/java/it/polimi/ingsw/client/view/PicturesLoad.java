@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PicturesLoad {
+
+    private static Image icon;
     private static Image playerMark;
     private static Image red;
     private static ArrayList<Image> place;
@@ -198,6 +200,11 @@ public class PicturesLoad {
         }
     }
 
+    public static void loadIcon() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/Icon 50x50px.png");
+        icon = new Image(reader);
+    }
+
     public static void loadImages() throws IOException, ParseException {
         loadPlayerMark();
         loadBackgroundStart();
@@ -214,6 +221,7 @@ public class PicturesLoad {
         loadEndBackground();
         loadPlace();
         loadTokens();
+        loadIcon();
     }
 
     public static Image getParquet() {
@@ -248,5 +256,9 @@ public class PicturesLoad {
 
     public static Image getPlayerMark() {
         return playerMark;
+    }
+
+    public static Image getIcon(){
+        return icon;
     }
 }
