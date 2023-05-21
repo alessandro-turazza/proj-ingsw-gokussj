@@ -139,11 +139,11 @@ public class GUI_BookshelfController {
         Label pgLabel = new Label("Obiettivo personale");
 
         VBox pointBox = new VBox();
-        pointBox.setAlignment(Pos.CENTER);
+        pointBox.setAlignment(Pos.TOP_LEFT);
         BackgroundImage backgroundParquet = new BackgroundImage(PicturesLoad.getParquet(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         pointBox.setBackground(new Background(backgroundParquet));
         pointBox.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2*resolution))));
-        pointBox.setPrefSize(((bounds.getWidth()-bounds.getHeight())/2)*resolution,bounds.getHeight()*resolution*0.15);
+        pointBox.setPrefSize(((bounds.getWidth()-bounds.getHeight())/2)*resolution,bounds.getHeight()*resolution*0.2);
 
         HBox playerToken = new HBox();
         for (Integer point : user.getPointsToken()){
@@ -157,7 +157,7 @@ public class GUI_BookshelfController {
         }
 
         Label points = new Label("Punti giocatore: " + user.getPoints());
-        //points.setPrefSize(bounds.getWidth()*resolution*0.15, bounds.getHeight()*resolution*0.1);
+        points.setPrefSize(bounds.getWidth()*resolution*0.15, bounds.getHeight()*resolution*0.1);
         points.setAlignment(Pos.CENTER);
         points.setFont(new Font(20*resolution));
         points.setTextFill(Color.rgb(204, 153, 102));
@@ -190,12 +190,13 @@ public class GUI_BookshelfController {
 
         ImageView tok1 = new ImageView(PicturesLoad.getToken(point1));
         tok1.setRotate(-8);
-        tok1.setFitWidth(80*resolution);
-        tok1.setFitHeight(80*resolution);
+        tok1.setFitWidth((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9)/2.5);
+        tok1.setFitHeight((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9)/2.5);
+        tok1.setX(50*resolution);
         HBox hbox1 = new HBox();
-        hbox1.setPrefWidth(resolution*138*2.5);
+        hbox1.setPrefWidth((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9));
         hbox1.setAlignment(Pos.CENTER_RIGHT);
-        hbox1.setPadding(new Insets(0,77*resolution,20*resolution,0));
+        hbox1.setPadding(new Insets(0,(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9)/7,20*resolution,0));
         hbox1.getChildren().add(tok1);
         cg1.getChildren().add(commonGoal1);
         cg1.getChildren().add(hbox1);
@@ -209,13 +210,14 @@ public class GUI_BookshelfController {
             point2 = GUI.getClient().getModel().getCommonGoals().get(1).getLastTokenCard().getPoints();
         ImageView tok2 = new ImageView(PicturesLoad.getToken(point2));
         tok2.setRotate(-8);
-        tok2.setFitWidth(80*resolution);
-        tok2.setFitHeight(80*resolution);
-        tok2.setX(40*resolution);
+        tok2.setFitWidth((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9)/2.5);
+        tok2.setFitHeight((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9)/2.5);
+        //tok2.setX((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9)/2);
+        tok2.setX(0);
         HBox hbox2 = new HBox();
-        hbox2.setPrefWidth(resolution*138*2.5);
+        hbox2.setPrefWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9);
         hbox2.setAlignment(Pos.CENTER_RIGHT);
-        hbox2.setPadding(new Insets(0,77*resolution,20*resolution,0));
+        hbox2.setPadding(new Insets(0,(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9)/7,20*resolution,0));
         hbox2.getChildren().add(tok2);
         cg2.getChildren().add(commonGoal2);
         cg2.getChildren().add(hbox2);
@@ -229,8 +231,8 @@ public class GUI_BookshelfController {
         commonGoalBox.getChildren().add(cg2);
 
         VBox leftVBox = new VBox();
-        leftVBox.setAlignment(Pos.TOP_CENTER);
-        leftVBox.setSpacing(40*resolution);
+        leftVBox.setAlignment(Pos.BOTTOM_CENTER);
+        leftVBox.setSpacing(30*resolution);
         leftVBox.setPadding(new Insets(0,0,25*resolution,0));
 
         VBox rightVBox = new VBox();
