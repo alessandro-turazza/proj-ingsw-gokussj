@@ -69,12 +69,12 @@ public class GUI_ColumnController {
                                 translateTransition.setNode(imgAnimation);
                                 translateTransition.setDuration(Duration.millis(250));
                                 translateTransition.setFromY(0);
-                                if(pos==0)translateTransition.setToY(imageViewStack.getHeight()*resolution/14.5);
-                                else if(pos==1)translateTransition.setToY(imageViewStack.getHeight()*resolution/4.80);
-                                else if(pos==2)translateTransition.setToY(imageViewStack.getHeight()*resolution/2.88);
-                                else if(pos==3)translateTransition.setToY(imageViewStack.getHeight()*resolution/2.06);
-                                else if(pos==4)translateTransition.setToY(imageViewStack.getHeight()*resolution/1.60);
-                                else if(pos==5)translateTransition.setToY(imageViewStack.getHeight()*resolution/1.31);
+                                if(pos==0)translateTransition.setToY(imageViewStack.getHeight()/14.5);
+                                else if(pos==1)translateTransition.setToY(imageViewStack.getHeight()/4.80);
+                                else if(pos==2)translateTransition.setToY(imageViewStack.getHeight()/2.88);
+                                else if(pos==3)translateTransition.setToY(imageViewStack.getHeight()/2.06);
+                                else if(pos==4)translateTransition.setToY(imageViewStack.getHeight()/1.60);
+                                else if(pos==5)translateTransition.setToY(imageViewStack.getHeight()/1.31);
                                 pos--;
                                 translateTransition.play();
                                 cardOrdered.get(i).setImage(imageView.getImage());
