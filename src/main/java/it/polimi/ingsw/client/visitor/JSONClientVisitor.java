@@ -25,6 +25,7 @@ public class JSONClientVisitor implements VisitorClient {
         client.getModel().setCommonGoals(element.getStateGame().getCommonGoalsClone());
         client.getModel().setActiveUser(element.getStateGame().getActiveUser());
         client.getViewController().showStateGame();
+        client.getModel().setLastTurn(element.getStateGame().isLastTurn());
     }
 
     @Override

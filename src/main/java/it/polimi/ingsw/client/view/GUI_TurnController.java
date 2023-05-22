@@ -121,6 +121,21 @@ public class GUI_TurnController {
         stackPane.getChildren().add(vBox);
         hBox.getChildren().add(stackPane);
 
+        ImageView endGame = new ImageView(PicturesLoad.getToken(1));
+        VBox endGameVBox = new VBox(endGame);
+        if(!GUI.getClient().getModel().isLastTurn()){
+            stackPane.getChildren().add(endGameVBox);
+            endGameVBox.setPrefSize(bounds.getHeight()*resolution,bounds.getHeight()*resolution);
+            endGameVBox.setAlignment(Pos.BOTTOM_RIGHT);
+            endGameVBox.setPadding(new Insets(0, (bounds.getHeight()/11)*resolution, (bounds.getHeight()/5)*resolution, 0));
+            endGame.setFitWidth((bounds.getHeight()*resolution/10)*0.95);
+            endGame.setFitHeight((bounds.getHeight()*resolution/10)*0.95);
+            endGame.setRotate(8);
+            //endGame.setX(();
+            //endGame.setY((bounds.getHeight()/6)*resolution);
+        }
+
+
         //RIGHT PANEL
         VBox l2 = new VBox();
         l2.setPrefSize(((bounds.getWidth()-bounds.getHeight())/2)*resolution,bounds.getHeight()*resolution);

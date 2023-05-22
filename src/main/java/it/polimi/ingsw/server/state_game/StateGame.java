@@ -11,12 +11,9 @@ import java.util.ArrayList;
 public class StateGame {
     public ArrayList<User> usersClone;
     public Plank plankClone;
-
     public String activeUser;
-
     public ArrayList<CommonGoalClone> commonGoalsClone;
-
-
+    public boolean lastTurn;
 
     public StateGame(GameManager gameManager) {
         usersClone=new ArrayList<>();
@@ -31,6 +28,8 @@ public class StateGame {
         commonGoalsClone=new ArrayList<>();
         for(CommonGoal commonGoal:gameManager.getCommonGoals())
             commonGoalsClone.add(new CommonGoalClone(commonGoal));
+
+        lastTurn=gameManager.getTurnManager().getUsers().isLastTurn();
 
     }
 
@@ -52,5 +51,9 @@ public class StateGame {
 
     public String getActiveUser() {
         return activeUser;
+    }
+
+    public boolean isLastTurn() {
+        return lastTurn;
     }
 }

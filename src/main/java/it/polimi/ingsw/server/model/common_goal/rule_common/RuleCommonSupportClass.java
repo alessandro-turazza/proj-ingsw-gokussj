@@ -98,6 +98,7 @@ public class RuleCommonSupportClass {
     }
 
     static boolean IsSquare(CellShelf[][] bookshelf, int row, int column) {
+
         if(bookshelf[row][column]==null || bookshelf[row][column].isMarked()||bookshelf[row][column].getObjectCard() == null )
             return false;
         bookshelf[row][column].setMarked(true);

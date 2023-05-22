@@ -23,6 +23,7 @@ public class ClientModel {
 
     private ArrayList<CommonGoalClone> commonGoals;
     private TextCommonGoals textCommonGoals;
+    private boolean lastTurn;
 
     public ClientModel(){
         textCommonGoals=new TextCommonGoals();
@@ -34,6 +35,7 @@ public class ClientModel {
         this.commonGoals = stateGame.getCommonGoalsClone();
         this.myName=clientName;
         textCommonGoals=new TextCommonGoals();
+        lastTurn = stateGame.isLastTurn();
     }
 
     public boolean checkDrop(int numCard,int column) throws Exception {
@@ -221,4 +223,11 @@ public class ClientModel {
         return null;
     }
 
+    public boolean isLastTurn() {
+        return lastTurn;
+    }
+
+    public void setLastTurn(boolean lastTurn) {
+        this.lastTurn = lastTurn;
+    }
 }
