@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PicturesLoad {
+    private static ArrayList<Image> personalGoalObjectCards;
 
     private static Image icon;
     private static Image playerMark;
@@ -203,6 +204,21 @@ public class PicturesLoad {
             personalGoalCardsImgs.add(new Image(reader));
         }
     }
+    public static void loadPersonalGoalObjectCards() throws FileNotFoundException {
+        personalGoalObjectCards = new ArrayList<>();
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/personal goal cards/PgBlue.png");
+        personalGoalObjectCards.add(new Image(reader));
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/personal goal cards/PgGreen.png");
+        personalGoalObjectCards.add(new Image(reader));
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/personal goal cards/PgLightBlue.png");
+        personalGoalObjectCards.add(new Image(reader));
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/personal goal cards/PgPink.png");
+        personalGoalObjectCards.add(new Image(reader));
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/personal goal cards/PgWhite.png");
+        personalGoalObjectCards.add(new Image(reader));
+        reader = new FileInputStream("src/data/17_MyShelfie_BGA/personal goal cards/PgYellow.png");
+        personalGoalObjectCards.add(new Image(reader));
+    }
 
     public static void loadIcon() throws FileNotFoundException {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/Icon 50x50px.png");
@@ -226,6 +242,7 @@ public class PicturesLoad {
         loadPlace();
         loadTokens();
         loadIcon();
+        loadPersonalGoalObjectCards();
     }
 
     public static Image getParquet() {
@@ -264,5 +281,15 @@ public class PicturesLoad {
 
     public static Image getIcon(){
         return icon;
+    }
+
+    public static Image getPersonalGoalObjectCard(Color color) {
+        if(color==Color.BLUE)return personalGoalObjectCards.get(0);
+        if(color==Color.GREEN)return personalGoalObjectCards.get(1);
+        if(color==Color.LIGHT_BLUE)return personalGoalObjectCards.get(2);
+        if(color==Color.PINK)return personalGoalObjectCards.get(3);
+        if(color==Color.WHITE)return personalGoalObjectCards.get(4);
+        if(color==Color.YELLOW)return personalGoalObjectCards.get(5);
+        return null;
     }
 }

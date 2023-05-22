@@ -3,6 +3,7 @@ package it.polimi.ingsw.client.view;
 import it.polimi.ingsw.client.PersonalButton;
 import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
+import it.polimi.ingsw.server.model.user.personal_goal.Costraints;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -19,6 +21,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
@@ -49,6 +52,40 @@ public class GUI_BookshelfController {
         }
         pane.getChildren().add(vBox);
     }
+    public static void fillBookshelfColumn(User user, StackPane pane, Rectangle2D bounds){
+        double resolution = GUI.getResolution();
+        pane.setAlignment(Pos.CENTER);
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(0,0,(bounds.getHeight()/17.5)*resolution,0));
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(bounds.getHeight()*0.021*resolution);//19.5
+        CellShelf[][] cells = user.getBookshelf().getBookshelf();
+        ImageView[][] objectCards=new ImageView[user.getBookshelf().getNumRow()][user.getBookshelf().getNumColumn()];
+        for(int row = 0; row<=user.getBookshelf().getNumRow()-1; row++){
+            HBox rowbox = new HBox();
+            rowbox.setAlignment(Pos.CENTER);
+            rowbox.setSpacing(bounds.getWidth()*0.025*GUI.getResolution());//39
+            for(int column = 0; column<=user.getBookshelf().getNumColumn()-1; column++){
+                objectCards[row][column] = new ImageView();
+                objectCards[row][column].setFitHeight((bounds.getHeight()*resolution/8)*0.94);
+                objectCards[row][column].setFitWidth((bounds.getHeight()*resolution/8)*0.94);
+                if(cells[row][column]!=null && cells[row][column].getObjectCard()!=null){
+                    objectCards[row][column].setImage(PicturesLoad.getObjectCardImg(cells[row][column].getObjectCard().getColor(),cells[row][column].getObjectCard().getId()).getCardImg());
+                }
+                rowbox.getChildren().add(objectCards[row][column]);
+            }
+
+            vBox.getChildren().add(rowbox);
+        }
+        ArrayList<Costraints> personalGoals=GUI.getClient().getModel().getUserByName(GUI.getClient().getModel().getMyName()).getPersonalGoal().getCostraints();
+        for(Costraints personalGoal:personalGoals){
+            if(objectCards[personalGoal.getRow()][personalGoal.getColumn()].getImage()==null){
+                objectCards[personalGoal.getRow()][personalGoal.getColumn()].setImage(PicturesLoad.getPersonalGoalObjectCard(personalGoal.getColor()));
+                objectCards[personalGoal.getRow()][personalGoal.getColumn()].setOpacity(0.7);
+            }
+        }
+        pane.getChildren().add(vBox);
+    }
 
     public static void onBookshelfClick(User user) throws IOException {
         showBookshelf(user, false);
@@ -66,6 +103,20 @@ public class GUI_BookshelfController {
         bookshelf.setFitHeight(bounds.getHeight()*resolution);
         stackPane.getChildren().add(bookshelf);
         fillBookshelf(user, stackPane, bounds);
+        return stackPane;
+    }
+    public static StackPane makeBookshelfColumn(User user){
+        StackPane stackPane = new StackPane();
+        double resolution = GUI.getResolution();
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+        stackPane.setPrefSize(bounds.getHeight()*resolution,bounds.getHeight()*resolution);
+
+        ImageView bookshelf = new ImageView(PicturesLoad.getBookshelfImg());
+        bookshelf.setFitWidth(bounds.getHeight()*resolution);
+        bookshelf.setFitHeight(bounds.getHeight()*resolution);
+        stackPane.getChildren().add(bookshelf);
+        fillBookshelfColumn(user, stackPane, bounds);
         return stackPane;
     }
 
