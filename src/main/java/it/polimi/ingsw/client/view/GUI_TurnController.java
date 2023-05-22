@@ -23,6 +23,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -227,17 +229,17 @@ public class GUI_TurnController {
                 chatReader.setText("");
             }
         });
-       /* chatReader.setOnKeyTyped(new EventHandler<KeyEvent>() {
+        chatReader.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if(keyEvent.isControlDown()){
+                if(keyEvent.getCode()==KeyCode.ENTER){
                     String message=chatReader.getText();
                     System.out.println(GUI.getClient().getModel().getMyName()+ "  "+ message);
                     GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
                     chatReader.setText("");
                 }
             }
-        });*/
+        });
 
         resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
