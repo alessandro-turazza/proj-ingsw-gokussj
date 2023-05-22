@@ -6,6 +6,10 @@ import it.polimi.ingsw.server.model.object_card.ObjectCard;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.plank.Plank;
 import it.polimi.ingsw.server.model.user.User;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +29,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -99,12 +104,45 @@ public class GUI_TurnController {
 
         //CENTER PANEL
         StackPane stackPane=new StackPane();
+
+
         ImageView plank = new ImageView(PicturesLoad.getPlankImg());
         plank.setY(0);
         plank.setX((bounds.getWidth()/2)*resolution);
         plank.setFitHeight(bounds.getHeight()*resolution);
         plank.setFitWidth(bounds.getHeight()*resolution);
         stackPane.getChildren().add(plank);
+        ImageView endGame = new ImageView(PicturesLoad.getToken(1));
+        VBox endGameVBox = new VBox(endGame);
+        if(!GUI.getClient().getModel().isLastTurn()){
+            stackPane.getChildren().add(endGameVBox);
+            endGameVBox.setPrefSize(bounds.getHeight()*resolution,bounds.getHeight()*resolution);
+            endGameVBox.setAlignment(Pos.BOTTOM_RIGHT);
+            endGameVBox.setPadding(new Insets(0, (bounds.getHeight()/11)*resolution, (bounds.getHeight()/4.9)*resolution, 0));
+            endGame.setFitWidth((bounds.getHeight()*resolution/10)*0.94);
+            endGame.setFitHeight((bounds.getHeight()*resolution/10)*0.94);
+            endGame.setRotate(8.2);
+        }
+        VBox alarmVBox = new VBox();
+        endGameVBox.setPrefSize(bounds.getHeight()*resolution,bounds.getHeight()*resolution);
+        endGameVBox.setAlignment(Pos.TOP_CENTER);
+        Label lastTurnlabel = new Label("ATTENZIONE! ULTIMO TURNO!");
+        if(GUI.getClient().getModel().isLastTurn()){
+            lastTurnlabel.setAlignment(Pos.TOP_CENTER);
+            lastTurnlabel.setTextFill(Color.rgb(180, 1, 1));
+            lastTurnlabel.setFont(new Font("Verdana", 40*resolution));
+            lastTurnlabel.setStyle("-fx-effect: g");
+            FadeTransition transition = new FadeTransition();
+            transition.setNode(lastTurnlabel);
+            transition.setDuration(Duration.millis(3000));
+            transition.setCycleCount(TranslateTransition.INDEFINITE);
+            transition.setInterpolator(Interpolator.EASE_IN);
+            transition.setFromValue(0);
+            transition.setToValue(1);
+            transition.play();
+            alarmVBox.getChildren().add(lastTurnlabel);
+            stackPane.getChildren().add(alarmVBox);
+        }
         ImageView[][] objectCards=fillImageObjectCards();
         VBox vBox=new VBox();
         vBox.setPadding(new Insets(0.048*GUI.getResolution()* bounds.getHeight(),0,0,0.044*GUI.getResolution()* bounds.getHeight()));
@@ -121,19 +159,8 @@ public class GUI_TurnController {
         stackPane.getChildren().add(vBox);
         hBox.getChildren().add(stackPane);
 
-        ImageView endGame = new ImageView(PicturesLoad.getToken(1));
-        VBox endGameVBox = new VBox(endGame);
-        if(!GUI.getClient().getModel().isLastTurn()){
-            stackPane.getChildren().add(endGameVBox);
-            endGameVBox.setPrefSize(bounds.getHeight()*resolution,bounds.getHeight()*resolution);
-            endGameVBox.setAlignment(Pos.BOTTOM_RIGHT);
-            endGameVBox.setPadding(new Insets(0, (bounds.getHeight()/11)*resolution, (bounds.getHeight()/5)*resolution, 0));
-            endGame.setFitWidth((bounds.getHeight()*resolution/10)*0.95);
-            endGame.setFitHeight((bounds.getHeight()*resolution/10)*0.95);
-            endGame.setRotate(8);
-            //endGame.setX(();
-            //endGame.setY((bounds.getHeight()/6)*resolution);
-        }
+
+
 
 
         //RIGHT PANEL
@@ -220,6 +247,8 @@ public class GUI_TurnController {
                 stage.setResizable(false);
             }
         });
+
+
 
     }
 
