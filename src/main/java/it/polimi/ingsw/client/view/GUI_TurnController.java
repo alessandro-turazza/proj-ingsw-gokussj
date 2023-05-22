@@ -1,12 +1,12 @@
 package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.PersonalButton;
+import it.polimi.ingsw.client.PersonalTextField;
 import it.polimi.ingsw.client.chat.ChatMessage;
 import it.polimi.ingsw.server.model.object_card.ObjectCard;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.plank.Plank;
 import it.polimi.ingsw.server.model.user.User;
-import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
@@ -41,6 +41,11 @@ public class GUI_TurnController {
     private static ArrayList<ImageView> cardDragVector;
     private static ArrayList<CellPlank> objectCardDrag;
     private static final int MAX_CELLS_DROP=3;
+    private static VBox chatBox;
+    private static double scrollPaneWidth;
+    private static double scrollPaneHeight;
+
+    private static ScrollPane chat;
 
     public static void showStateGame() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-game.fxml"));
@@ -180,28 +185,25 @@ public class GUI_TurnController {
             resizeWindow.setText("↗");
         else resizeWindow.setText("↙");
         resizeWindow.animation();
-        VBox chatBox = new VBox();
 
-        ScrollPane chat = new ScrollPane();
-        double scrollPaneWidth=(bounds.getWidth()-bounds.getHeight())/2*GUI.getResolution();
-        double scrollPaneHeight=bounds.getHeight()*GUI.getResolution();
-        chat.setPrefSize(scrollPaneWidth,scrollPaneHeight*0.75);
+        chat = new ScrollPane();
+        chatBox=new VBox();
+        scrollPaneWidth=(bounds.getWidth()-bounds.getHeight())/2*GUI.getResolution()*0.945;
+        scrollPaneHeight=bounds.getHeight()*GUI.getResolution();
+        chat.setPrefViewportHeight(0);
+        chat.setPrefViewportWidth(0);
+        chat.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        chat.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        showChat();
+        chat.setContent(chatContainer);
         chatBox.getChildren().add(chat);
-
-        TextField chatReader = new TextField();
+        PersonalTextField chatReader = new PersonalTextField(scrollPaneWidth*0.60/resolution,(scrollPaneHeight/15)/resolution);
 
         HBox chatBar = new HBox();
-
-        chatContainer = new VBox();
-        for(ChatMessage chatMessage: GUI.getClient().getChat().chatPrint()){
-            Label label=new Label(chatMessage.getNamePlayer()+": "+chatMessage.getMessage());
-            chatContainer.getChildren().add(label);
-        }
 
         PersonalButton chatSend = new PersonalButton((scrollPaneWidth*0.40)/resolution,(scrollPaneHeight/15)/resolution);
         chatSend.setText("→");
         chatSend.animation();
-        chatReader.setMinSize(scrollPaneWidth*0.60,scrollPaneHeight/15);
         chatSend.setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, new CornerRadii(10*resolution), new BorderWidths(resolution*3))));
         chatSend.setFont(new Font("Comic Sans MS", resolution*20));
 
@@ -212,14 +214,15 @@ public class GUI_TurnController {
         chatBox.setPadding(new Insets(10*resolution));
         chatBox.setSpacing(10*resolution);
 
-        chat.setContent(chatContainer);
+
         l2.getChildren().add(chatBox);
         chatSend.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
 
                 String message=chatReader.getText();
-                GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
+                if(message != "" && message != null)
+                    GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
                 chatReader.setText("");
             }
         });
@@ -363,10 +366,37 @@ public class GUI_TurnController {
     }
         return vBox;}
 
+    public static void showChat(){;
+        chat.setBackground(new Background(new BackgroundFill(Color.rgb(204, 153, 102), new CornerRadii(10*GUI.getResolution()),Insets.EMPTY)));
+        chat.setPrefSize(scrollPaneWidth*0.65,scrollPaneHeight*0.75);
+        chatContainer = new VBox();
+        chatContainer.setMinSize(scrollPaneWidth*0.65, scrollPaneHeight);
+        chatContainer.setPrefWidth(scrollPaneWidth);
+        BackgroundSize sizeContainer = new BackgroundSize(0, 0, true, true, true, true);
+        chatContainer.setBackground(new Background(new BackgroundImage(PicturesLoad.getParquet(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, sizeContainer)));
 
-    public static void showChatMessage(String message){
-        Label label=new Label(message);
-        chatContainer.getChildren().add(label);
+        for(ChatMessage chatMessage: GUI.getClient().getChat().chatPrint()){
+            HBox mBox = new HBox();
+            VBox messageBox = new VBox();
+            messageBox.setBackground(new Background(new BackgroundFill(Color.rgb(239, 207, 175),new CornerRadii(10*GUI.getResolution()), Insets.EMPTY)));
+            Label nameLabel=new Label(chatMessage.getNamePlayer());
+            nameLabel.setStyle("-fx-font-weight: bold");
+            Label textLabel=new Label(chatMessage.getMessage());
+            nameLabel.setFont(new Font("Verdana", 17*GUI.getResolution()));
+            textLabel.setFont(new Font("Verdana", 17*GUI.getResolution()));
+            if(chatMessage.getNamePlayer().equals(GUI.getClient().getModel().getMyName())){
+                mBox.setAlignment(Pos.CENTER_RIGHT);
+                messageBox.setPadding(new Insets(2*GUI.getResolution(),7*GUI.getResolution(),2*GUI.getResolution(),2*GUI.getResolution()));
+            }else{
+                mBox.setAlignment(Pos.CENTER_LEFT);
+                messageBox.setPadding(new Insets(2*GUI.getResolution(),2*GUI.getResolution(),2*GUI.getResolution(),7*GUI.getResolution()));
+                messageBox.getChildren().add(nameLabel);
+            }
+            messageBox.getChildren().add(textLabel);
+            mBox.getChildren().add(messageBox);
+            chatContainer.getChildren().add(mBox);
+        }
+
     }
 
 }

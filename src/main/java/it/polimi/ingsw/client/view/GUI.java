@@ -246,7 +246,11 @@ public class GUI extends Application{
 
     public static void showChatMessage(String message){
         Platform.runLater(()->{
-            GUI_TurnController.showChatMessage(message);
+            try {
+                GUI_TurnController.showStateGame();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
     }
 
