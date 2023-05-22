@@ -72,11 +72,16 @@ public class GUI_StopController {
                 }
                 ImageView imageView=new ImageView(PicturesLoad.getRed());
                 if(full)imageView.setImage(PicturesLoad.getParquetTurn());
+                StackPane imageViewStack=new StackPane();
+                imageViewStack.setAlignment(Pos.TOP_CENTER);
+                imageViewStack.setPrefWidth(bounds.getHeight()*resolution/8);
+                imageViewStack.setPrefHeight(bounds.getHeight()*resolution);
                 imageView.setOpacity(0.0);
                 imageView.setFitWidth(bounds.getHeight()*resolution/8);
                 imageView.setFitHeight(bounds.getHeight()*resolution);
+                imageViewStack.getChildren().add(imageView);
                 column.add(imageView);
-                columnConteiner.getChildren().add(imageView);
+                columnConteiner.getChildren().add(imageViewStack);
                 imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
@@ -105,7 +110,7 @@ public class GUI_StopController {
                                 imageView.setOpacity(0.3);
                                 clickable=false;
 
-                                GUI_ColumnController.controllColumn(col,objectCardDrag,stackPaneContained);
+                                GUI_ColumnController.controllColumn(imageViewStack,col,objectCardDrag,stackPaneContained);
                             }
                         } catch (Exception e) {
                             throw new RuntimeException(e);

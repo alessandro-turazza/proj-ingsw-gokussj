@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.PersonalButton;
 import it.polimi.ingsw.server.model.plank.CellPlank;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -10,19 +11,24 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
 public class GUI_ColumnController {
-
+    private static Integer pos;
+    private static ArrayList<ImageView> imgAnimations;
     private static ArrayList<CellPlank> objectCardDragOrdered;
-    public static void controllColumn(int column, ArrayList<CellPlank> objectCardDrag, VBox stackPaneContained){
+    public static void controllColumn(StackPane imageViewStack,int column, ArrayList<CellPlank> objectCardDrag, VBox stackPaneContained){
         objectCardDragOrdered=new ArrayList<>();
+        imgAnimations=new ArrayList<>();
         double resolution=GUI.getResolution();
+        pos = GUI.getClient().getModel().getMyBookshelf().checkColumn(column);
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
         HBox correntCard=new HBox();
@@ -53,6 +59,24 @@ public class GUI_ColumnController {
                     if(imageView.getOpacity()==1.0){
                         for(int i=cardOrdered.size()-1;i>=0;i--){
                             if(cardOrdered.get(i).getImage()==null){
+                                ImageView imgAnimation=new ImageView();
+                                imgAnimation.setImage(imageView.getImage());
+                                imgAnimation.setFitHeight((bounds.getHeight()*resolution/8)*0.94);
+                                imgAnimation.setFitWidth((bounds.getHeight()*resolution/8)*0.94);
+                                imageViewStack.getChildren().add(imgAnimation);
+                                imgAnimations.add(imgAnimation);
+                                TranslateTransition translateTransition=new TranslateTransition();
+                                translateTransition.setNode(imgAnimation);
+                                translateTransition.setDuration(Duration.millis(250));
+                                translateTransition.setFromY(0);
+                                if(pos==0)translateTransition.setToY(imageViewStack.getHeight()*resolution/14.5);
+                                else if(pos==1)translateTransition.setToY(imageViewStack.getHeight()*resolution/4.80);
+                                else if(pos==2)translateTransition.setToY(imageViewStack.getHeight()*resolution/2.88);
+                                else if(pos==3)translateTransition.setToY(imageViewStack.getHeight()*resolution/2.06);
+                                else if(pos==4)translateTransition.setToY(imageViewStack.getHeight()*resolution/1.60);
+                                else if(pos==5)translateTransition.setToY(imageViewStack.getHeight()*resolution/1.31);
+                                pos--;
+                                translateTransition.play();
                                 cardOrdered.get(i).setImage(imageView.getImage());
                                 objectCardDragOrdered.add(cellPlank);
                                 break;
@@ -107,7 +131,13 @@ public class GUI_ColumnController {
             public void handle(ActionEvent actionEvent) {
                 for(ImageView imageView:correntCardImg)imageView.setOpacity(1.0);
                 for(ImageView imageView:cardOrdered)imageView.setImage(null);
+                for(ImageView imageView: imgAnimations){
+                    pos=GUI.getClient().getModel().getMyBookshelf().checkColumn(column);
+                    imageView.setImage(null);
+                }
+                imgAnimations=new ArrayList<>();
                 objectCardDragOrdered =new ArrayList<>();
+                imageViewStack.getChildren().removeAll();
             }
         });
 
