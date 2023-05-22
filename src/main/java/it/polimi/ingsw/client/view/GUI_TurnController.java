@@ -124,21 +124,22 @@ public class GUI_TurnController {
             endGame.setRotate(8.2);
         }
         VBox alarmVBox = new VBox();
-        endGameVBox.setPrefSize(bounds.getHeight()*resolution,bounds.getHeight()*resolution);
-        endGameVBox.setAlignment(Pos.TOP_CENTER);
+        alarmVBox.setPrefSize(bounds.getHeight()*resolution,bounds.getHeight()*resolution);
+        alarmVBox.setAlignment(Pos.TOP_CENTER);
         Label lastTurnlabel = new Label("ATTENZIONE! ULTIMO TURNO!");
         if(GUI.getClient().getModel().isLastTurn()){
             lastTurnlabel.setAlignment(Pos.TOP_CENTER);
             lastTurnlabel.setTextFill(Color.rgb(180, 1, 1));
             lastTurnlabel.setFont(new Font("Verdana", 40*resolution));
-            lastTurnlabel.setStyle("-fx-effect: g");
+            lastTurnlabel.setStyle("-fx-font-weight: bold");
             FadeTransition transition = new FadeTransition();
             transition.setNode(lastTurnlabel);
-            transition.setDuration(Duration.millis(3000));
+            transition.setDuration(Duration.millis(1500));
             transition.setCycleCount(TranslateTransition.INDEFINITE);
             transition.setInterpolator(Interpolator.EASE_IN);
             transition.setFromValue(0);
             transition.setToValue(1);
+            transition.setAutoReverse(true);
             transition.play();
             alarmVBox.getChildren().add(lastTurnlabel);
             stackPane.getChildren().add(alarmVBox);
