@@ -7,6 +7,7 @@ import it.polimi.ingsw.server.model.object_card.ObjectCard;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.plank.Plank;
 import it.polimi.ingsw.server.model.user.User;
+import javafx.animation.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
@@ -288,6 +289,7 @@ public class GUI_TurnController {
                                     CellPlank[][] cellPlanks = GUI.getClient().getModel().getPlank().getBoard();
                                     objectCardDrag.add(cellPlanks[finalRow][finalCol]);
                                     if (!GUI.getClient().getModel().checkDrag(objectCardDrag)) {
+                                        rotate(objectCards[finalRow][finalCol]);
                                         objectCardDrag.remove(objectCardDrag.size() - 1);
                                     } else {
                                         for (ImageView imageView : cardDragVector) {
@@ -313,6 +315,25 @@ public class GUI_TurnController {
             }
         }
         return objectCards;
+    }
+    public static void rotate(ImageView imageView){
+        RotateTransition rotateTransition=new RotateTransition();
+        rotateTransition.setNode(imageView);
+        rotateTransition.setDuration(Duration.millis(130));
+        rotateTransition.setInterpolator(Interpolator.EASE_IN);
+        rotateTransition.setFromAngle(15);
+        rotateTransition.setToAngle(0);
+        rotateTransition.setAutoReverse(true);
+        rotateTransition.play();
+        RotateTransition rotateTransition2=new RotateTransition();
+        rotateTransition2.setNode(imageView);
+        rotateTransition2.setDelay(Duration.millis(130));
+        rotateTransition2.setDuration(Duration.millis(130));
+        rotateTransition2.setInterpolator(Interpolator.EASE_IN);
+        rotateTransition2.setFromAngle(-15);
+        rotateTransition2.setToAngle(0);
+        rotateTransition2.setAutoReverse(true);
+        rotateTransition2.play();
     }
 
     public static VBox fillUsers(Rectangle2D bounds, double resolution){
