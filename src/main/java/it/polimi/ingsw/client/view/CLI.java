@@ -143,7 +143,9 @@ public class CLI{
 
     public void showStateGame() throws Exception {
         showNormalMessage("----------------------------");
-        showNormalMessage(Colors.WHITE_BOLD + "Nuovo turno"+ Colors.COLOR_RESET);
+        if(!client.getModel().isLastTurn())
+            showNormalMessage(Colors.WHITE_BOLD + "Nuovo turno"+ Colors.COLOR_RESET);
+        else showNormalMessage(Colors.RED_BOLD + "Nuovo turno"+ Colors.COLOR_RESET);
         showNormalMessage("----------------------------");
         this.showUsers();
         this.showPlank();
