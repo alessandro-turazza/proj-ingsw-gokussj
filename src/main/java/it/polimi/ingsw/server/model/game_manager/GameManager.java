@@ -1,15 +1,14 @@
 package it.polimi.ingsw.server.model.game_manager;
 
-import it.polimi.ingsw.server.model.common_goal.CommonGoal;
 import it.polimi.ingsw.server.game_data.GameData;
-import it.polimi.ingsw.server.model.plank.CellPlank;
+import it.polimi.ingsw.server.model.common_goal.CommonGoal;
 import it.polimi.ingsw.server.model.plank.Plank;
 import it.polimi.ingsw.server.model.user.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-
+/*This class handles the turns and permits the unfolding of the game and esteblishes the order of the players*/
 public class GameManager {
     private Plank plank;
     private ArrayList<User> users;
@@ -142,16 +141,7 @@ public class GameManager {
 
     }
 
-    /*public User nextUserTurn(){
-        return turnManager.getUsers().next();
-    }//questo è sbagliato*/
-
-    public User updateGame(ArrayList<CellPlank> chosenCard, int column) throws Exception {
-        User result=turnManager.updateGame(chosenCard,column);
-        if(result==null)endGame();
-        else calculatePoints();
-        return result;
-    }
+    /*This method takes the action from a player and modify the model then goes on with the new turn*/
     public User updateGame(ArrayList<Integer> X,ArrayList<Integer> Y, int column) throws Exception {
         User result=turnManager.updateGame(X,Y,column);
         if(result==null)endGame();

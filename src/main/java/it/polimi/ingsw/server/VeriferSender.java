@@ -4,12 +4,13 @@ import it.polimi.ingsw.server.message.MessageCloseConnection;
 import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.visitor.JSONServerVisitor;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+/*This class controls if the clients are connected, if one of them isn't connected the server will send an end game to the others*/
 
 public class VeriferSender extends Thread{
 
@@ -22,6 +23,7 @@ public class VeriferSender extends Thread{
     private Socket socket;
     private boolean closeConnection = false;
 
+    /*This method runs in another thread in order to send a packet (each 5s) that indicates the state of the connection between server and client*/
     @Override
     public void run() {
         try {

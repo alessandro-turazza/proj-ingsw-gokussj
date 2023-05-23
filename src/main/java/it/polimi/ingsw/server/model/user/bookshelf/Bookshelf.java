@@ -61,6 +61,8 @@ public class Bookshelf {
 
     }
 
+    /*Support method to delete mark from each cell of the bookshelf */
+
     public void deleteMark(){
         for(int i = 0; i < getNumRow(); i++){
             for(int j = 0; j < getNumColumn(); j++){
@@ -70,6 +72,7 @@ public class Bookshelf {
         }
     }
 
+    /*This method calculates and return the number of adjacenses for each cell in the bookshelf*/
     public ArrayList<Integer> numberAdjacenses(){
         ArrayList<Integer> numAdj = new ArrayList<>();
         this.deleteMark();
@@ -85,6 +88,7 @@ public class Bookshelf {
         return numAdj;
     }
 
+    /*This method counts the number of adjacenses foa a single cell*/
     public int checkAdjacences(CellShelf cellShelf, int row, int column){
         int counter = 1;
         cellShelf.setMarked(true);

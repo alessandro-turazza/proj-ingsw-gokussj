@@ -3,7 +3,7 @@ package it.polimi.ingsw.server.message;
 import it.polimi.ingsw.server.ServerThread;
 import it.polimi.ingsw.server.visitor.VisitorServer;
 import org.json.simple.JSONObject;
-
+/*Class that represent the message of the chat in visitor pattern*/
 public class MessageChatServer implements MessageServer{
 
     private ServerThread serverThread;

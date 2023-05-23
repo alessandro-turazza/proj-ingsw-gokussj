@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static it.polimi.ingsw.server.model.object_card.ObjectCard.convertToColor;
-
+/*This class loads every component of the game from json files and saves them on a structure*/
 public class GameData {
     private static ArrayList<DataObjectCard> dataObjectCards;
     private static ArrayList<PersonalGoalCard> personalGoalCards;

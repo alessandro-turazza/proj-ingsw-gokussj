@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/*This class implements the real connection between the server and the client: it receives and sends messages from and to the client*/
+
 public class ServerThread extends Thread{
 
     private VeriferSender veriferSender;
@@ -60,7 +62,7 @@ public class ServerThread extends Thread{
         veriferSender.setCloseConnection(closeConnection);
         verifierReciver.setCloseConnection(closeConnection);
     }
-
+    /*This method runs in a different thread from the server and receives all the messages from the client*/
     @Override
     public void run() {
         try {
@@ -101,7 +103,4 @@ public class ServerThread extends Thread{
         return veriferSender;
     }
 
-    public VerifierReciver getVerifierReciver() {
-        return verifierReciver;
-    }
 }

@@ -8,6 +8,7 @@ import it.polimi.ingsw.server.model.user.User;
 
 import java.util.ArrayList;
 
+/*This class contains the structure to represent the state of a game at the start of a turn containing the clones for each component of the game*/
 public class StateGame {
     public ArrayList<User> usersClone;
     public Plank plankClone;

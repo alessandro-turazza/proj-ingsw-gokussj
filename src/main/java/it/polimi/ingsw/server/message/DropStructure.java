@@ -2,6 +2,7 @@ package it.polimi.ingsw.server.message;
 
 import java.util.ArrayList;
 
+/*This class represents the structure after a drop command, containing the rows and columns of the cards and the column of the bookshelf in which insert them*/
 public class DropStructure {
     int column;
 

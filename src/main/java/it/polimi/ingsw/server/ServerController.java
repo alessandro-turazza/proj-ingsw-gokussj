@@ -6,7 +6,7 @@ import it.polimi.ingsw.server.state_game.StateGame;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
-
+/*This class controls and handles each message received from the server*/
 public class ServerController {
     private ServerThread serverThread;
 
@@ -14,6 +14,7 @@ public class ServerController {
         this.serverThread = serverThread;
     }
 
+    /*This method receives a jsonObject that contains the message from the client in the following format: command,datas and creates the correct type of the message fro the visitor*/
     public MessageServer handleMessage(JSONObject obj) {
 
         String command = (String) obj.get("command");

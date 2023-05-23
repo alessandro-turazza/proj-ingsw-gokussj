@@ -32,6 +32,7 @@ public class PersonalGoalCard {
         return costraints;
     }
 
+    /*This method controls how many cards in bookshelf respect the personal goal costraints*/
     public int checkRule(Bookshelf bookshelf){
         int counter = 0;
 

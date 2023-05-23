@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+/*This class represents the bag that contains each object card in order to fill the plank, implemented as an iterator*/
+
 public class CardBag implements Iterator {
     private ArrayList<ObjectCard> cardBag;
 

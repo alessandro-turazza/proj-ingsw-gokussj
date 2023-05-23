@@ -6,6 +6,7 @@ import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.visitor.VisitorServer;
 import org.json.simple.JSONObject;
 
+/*Class that represent the message of start game in visitor pattern*/
 public class MessageStartGameServer implements MessageServer{
     private User user;
     private int numPlayer;

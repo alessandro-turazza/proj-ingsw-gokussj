@@ -49,7 +49,7 @@ public class Plank {
             }
         checkPlayable();
     }
-
+    /*This method controls which positions of the planks are available to be dragged*/
     public void checkPlayable(){
         for(int r=0;r<DIM;r++)
             for(int c=0;c<DIM;c++){
@@ -64,6 +64,7 @@ public class Plank {
             }
     }
 
+    /*This method controls if there are the conditions to refill the plank*/
     public boolean checkRefull(){
         for(int r=0;r<DIM;r++)
             for(int c=0;c<DIM;c++){
@@ -76,7 +77,7 @@ public class Plank {
             }
         return true;
     }
-
+    /*This method modify the status of the plank after a drag action from the player*/
     public ObjectCard dragObjectCard(int row, int column)throws Exception{
         if(board[row][column]==null || !board[row][column].getPlayable())throw new Exception("Cella non selezionabile");
         ObjectCard result=board[row][column].getObjectCard();
@@ -84,6 +85,8 @@ public class Plank {
         board[row][column].setPlayable(false);
         return result;
     }
+
+    /*This method modify the status of the plank after a drag action from the player*/
     public ObjectCard dragObjectCard(CellPlank cellPlank)throws Exception{
         return dragObjectCard(cellPlank.getRow(),cellPlank.getColumn());
     }
@@ -117,7 +120,6 @@ public class Plank {
     public int getDIM() {
         return DIM;
     }
-
     public Plank getPlankClone(){
         CellPlank[][] boardClone=new CellPlank[DIM][DIM];
         for(int i = 0; i < DIM; i++) {

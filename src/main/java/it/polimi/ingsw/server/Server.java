@@ -27,22 +27,17 @@ public class Server {
         return verifierWriteSocket;
     }
 
-
+    /*Load each component from json files in order to start the games correctly*/
     public void loadDatas() throws IOException, ParseException {
-        //GameData.loadPlankConfig("src/data/package.json");
         GameData.loadPlankConfig("src/data/Plank_Config_1.json");
         GameData.loadTokens("src/data/Tokens_Data.json");
         GameData.loadIdCommonGoals("src/data/Common_Goals_Setup.json");
-        //GameData.loadIdCommonGoals("src/data/Common_Goals_IDall.json");
         GameData.loadRuleCommons();
         GameData.loadPersonalGoals("src/data/PersonalGoals_Data.json");
         GameData.loadObjectCards("src/data/Object_Cards_Data.json");
     }
 
-    public synchronized ArrayList<ServerGame> getGameList() {
-        return gameList;
-    }
-
+    /*Create a new game*/
     public synchronized int insertNewGame(ServerThread st, User user, int numPlayers){
         this.gameList.add(new ServerGame(st, user, numPlayers, gameList.size()+1));
         return gameList.size();

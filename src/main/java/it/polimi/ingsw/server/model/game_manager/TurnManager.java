@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
+/*This class permits the correct unfolding of the turn */
 
 public class TurnManager {
     private TurnUser users;
@@ -27,6 +28,8 @@ public class TurnManager {
         this.plank=plank;
         this.commonGoals=commonGoals;
     }
+
+    /*This method controls if the cards dragged from the plank are correcetd*/
     public boolean checkDrag(ArrayList<CellPlank> chosenCard){
         ArrayList<Integer> rows=new ArrayList<>();
         ArrayList<Integer> columns=new ArrayList<>();
@@ -57,13 +60,14 @@ public class TurnManager {
         return true;
     }
 
+    /*This method controls if the cards are dropped in a corrected column*/
     public boolean checkDrop(int numCard,int column){
         if(users.activeUser().getBookshelf().checkColumn(column)==null)return false;
         return users.activeUser().getBookshelf().checkColumn(column) + 1 >= numCard;
     }
 
 
-    //public void activeTurnUser(){}
+    /*This method takes the cards dragged and the column in which they have to be dropped and modifies the model*/
     public User updateGame(ArrayList<CellPlank> chosenCard, int column) throws Exception {
         if(!checkDrag(chosenCard))throw new Exception("Ripetere scelta, tessere non valide");
         if(!checkDrop(chosenCard.size(),column))throw new Exception("Ripetere scelta, troppe tessere");
@@ -82,6 +86,8 @@ public class TurnManager {
         return users.next();
 
     }
+
+    /*This method takes the cards dragged and the column in which they have to be dropped and modifies the model*/
     public User updateGame(ArrayList<Integer> X,ArrayList<Integer> Y, int column) throws Exception {
         if(X.size()!=Y.size())throw new Exception("Posizioni non valide");
         ArrayList<CellPlank> cellPlanks=new ArrayList<>();
