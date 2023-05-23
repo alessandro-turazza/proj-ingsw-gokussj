@@ -14,16 +14,13 @@ import java.util.Scanner;
 public class CLIController implements Controller{
     private CLI view;
     private Client client;
-    private Chat chat;
     private ArrayList<String> actions = new ArrayList<>(Arrays.asList("HELP","DRAG/DROP","BOOKSHELF","PLANK","USERS","COMMON_GOALS","PERSONAL_GOAL", "OPEN_CHAT","EXIT"));
     private InputAction inputAction;
     private boolean inputReady;
-
     private boolean endGame;
 
     public CLIController(Client client){
         this.client = client;
-        chat =client.getChat();
         this.inputReady = false;
         this.view=new CLI(client);
     }
@@ -99,7 +96,7 @@ public class CLIController implements Controller{
             }else if(action.equals(actions.get(6))){
                 view.showPersonalGoal();
             }else if (action.equals(actions.get(7))) {
-                    view.openChat(chat);
+                    view.openChat(client.getChat());
             }else{
                 try{
                 String[] act = action.split(" ");

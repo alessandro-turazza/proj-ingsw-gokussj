@@ -2,6 +2,7 @@ package it.polimi.ingsw.client.visitor;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.ConnectionDeamon;
+import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.client.message.*;
 import it.polimi.ingsw.client.view.GUI;
 import it.polimi.ingsw.client.view.GUI_TurnController;
