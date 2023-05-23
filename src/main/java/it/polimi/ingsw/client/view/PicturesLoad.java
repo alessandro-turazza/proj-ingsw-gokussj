@@ -17,7 +17,9 @@ import java.util.ArrayList;
 
 public class PicturesLoad {
     private static ArrayList<Image> personalGoalObjectCards;
-
+    private static Image title;
+    private static Image cranioLogo;
+    private static Image polimiLogo;
     private static Image icon;
     private static Image playerMark;
     private static Image red;
@@ -115,6 +117,20 @@ public class PicturesLoad {
     public static void loadParquet() throws FileNotFoundException {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/misc/base_pagina2.jpg");
         parquet = new Image(reader);
+    }
+
+    public static void loadCranioLogo() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/Publisher.png");
+        cranioLogo = new Image(reader);
+    }
+
+    public static void loadPolimiLogo() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/PolimiLogo.png");
+        polimiLogo = new Image(reader);
+    }
+    public static void loadTitle() throws FileNotFoundException {
+        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/Title 2000x618px.png");
+        title = new Image(reader);
     }
 
     public static void loadEndBackground() throws FileNotFoundException {
@@ -243,6 +259,9 @@ public class PicturesLoad {
         loadTokens();
         loadIcon();
         loadPersonalGoalObjectCards();
+        loadCranioLogo();
+        loadPolimiLogo();
+        loadTitle();
     }
 
     public static Image getParquet() {
@@ -291,5 +310,17 @@ public class PicturesLoad {
         if(color==Color.WHITE)return personalGoalObjectCards.get(4);
         if(color==Color.YELLOW)return personalGoalObjectCards.get(5);
         return null;
+    }
+
+    public static Image getCranioLogo() {
+        return cranioLogo;
+    }
+
+    public static Image getPolimiLogo() {
+        return polimiLogo;
+    }
+
+    public static Image getTitle() {
+        return title;
     }
 }
