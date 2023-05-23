@@ -33,9 +33,6 @@ import java.io.IOException;
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
 public class GUI extends Application{
-    private static final int MAX_CELLS_DROP=3;
-    private static final int MIN_PLAYERS = 2;
-    private static final int MAX_PLAYERS = 4;
     public static final double FULL_SCREEN=1;
     public static final double HALF_SCREEN=0.5;
 
@@ -125,9 +122,7 @@ public class GUI extends Application{
                 GUI_ResizeController.resize();
                 try {
                     showStart();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (ParseException e) {
+                } catch (IOException | ParseException e) {
                     throw new RuntimeException(e);
                 }
                 stage.setResizable(false);
@@ -155,7 +150,7 @@ public class GUI extends Application{
 
         stage.setResizable(false);
         stage.setTitle("MyShelfie");
-        this.client = GUIController.getClient();
+        client = GUIController.getClient();
         PicturesLoad.loadImages();
         stage.getIcons().add(PicturesLoad.getIcon());
         //showStart();
@@ -278,9 +273,7 @@ public class GUI extends Application{
             alert.show();
             try {
                 showStart();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ParseException e) {
+            } catch (IOException | ParseException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -399,9 +392,7 @@ public class GUI extends Application{
                 if(keyEvent.getCode()== KeyCode.ENTER){
                     try {
                         showStart();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    } catch (ParseException e) {
+                    } catch (IOException | ParseException e) {
                         throw new RuntimeException(e);
                     }
                 }

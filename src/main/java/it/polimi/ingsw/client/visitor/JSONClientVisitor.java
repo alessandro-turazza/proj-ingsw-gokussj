@@ -2,21 +2,12 @@ package it.polimi.ingsw.client.visitor;
 
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.ConnectionDeamon;
-import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.client.message.*;
-import it.polimi.ingsw.client.view.GUI;
-import it.polimi.ingsw.client.view.GUI_TurnController;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 
 public class JSONClientVisitor implements VisitorClient {
 
-
-    @Override
-    public void visit(MessageGameStateClient element) {
-
-    }
 
     @Override
     public void visit(MessageNewTurnClient element) throws Exception {
@@ -35,7 +26,7 @@ public class JSONClientVisitor implements VisitorClient {
         client.getModel().setIdGame(element.getIdGame());
         client.getViewController().showOkConnection(element.getIdGame());
         ConnectionDeamon deamon = new ConnectionDeamon();
-        deamon.setIpServer(element.getClient().getMessager().getIpServer());
+        ConnectionDeamon.setIpServer(element.getClient().getMessager().getIpServer());
         deamon.start();
     }
 

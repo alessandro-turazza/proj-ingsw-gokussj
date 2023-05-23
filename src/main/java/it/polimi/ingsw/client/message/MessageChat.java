@@ -1,11 +1,9 @@
 package it.polimi.ingsw.client.message;
-
 import it.polimi.ingsw.client.Client;
-import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.client.visitor.VisitorClient;
 import org.json.simple.JSONObject;
 
-public class MessageChat implements MessageClient{
+public class MessageChat implements MessageClient{ //Created to contain a chat's message
 
     private Client client;
 
@@ -17,7 +15,7 @@ public class MessageChat implements MessageClient{
     }
 
     @Override
-    public void accept(VisitorClient visitor) throws Exception {
+    public void accept(VisitorClient visitor) throws Exception { //call the visitor
         visitor.visit(this);
     }
 

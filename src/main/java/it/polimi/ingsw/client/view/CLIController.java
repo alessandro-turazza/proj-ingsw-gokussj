@@ -60,62 +60,60 @@ public class CLIController implements Controller{
         startController();
     }
 
-    public void handleAction() throws Exception {
+    public void handleAction() {
 
-        try{
-            String action = "";
+        String action;
 
-            action = catchAction();//myTurn);
+        action = catchAction();
 
 
-            if(action == null)
-                view.showErrorMessage("Azione non valida");
-            else if(action.equals(actions.get(8))){
-                client.setChat(new Chat());
-                client.setMessager(new ClientMessager(client));
-                client.startClient('C');
-                this.startController();
-            } else if(action.equals(actions.get(0))){
-                for(String s: actions)
-                    view.showNormalMessage(s);
-            }else if(action.equals(actions.get(1))){
-                //drag
-                ArrayList<CellPlank> cells = view.drag();
-                //drop
-                int column = view.drop(cells.size());
-                //Reorder
-                cells = view.reorderCards(cells);
+        if(action == null)
+            view.showErrorMessage("Azione non valida");
+        else if(action.equals(actions.get(8))){
+            client.setChat(new Chat());
+            client.setMessager(new ClientMessager(client));
+            client.startClient('C');
+            this.startController();
+        } else if(action.equals(actions.get(0))){
+            for(String s: actions)
+                view.showNormalMessage(s);
+        }else if(action.equals(actions.get(1))){
+            //drag
+            ArrayList<CellPlank> cells = view.drag();
+            //drop
+            int column = view.drop(cells.size());
+            //Reorder
+            cells = view.reorderCards(cells);
 
-                client.getMessager().sendMessage(client.getMessager().getMessageHandler().sendDragAndDrop(cells,column));
-            }else if(action.equals(actions.get(3))){
-                view.showPlank();
-            }else if(action.equals(actions.get(4))){
-                view.showUsers();
-            }else if(action.equals(actions.get(5))){
-                view.showCommonGoals();
-            }else if(action.equals(actions.get(6))){
-                view.showPersonalGoal();
-            }else if (action.equals(actions.get(7))) {
-                    view.openChat(client.getChat());
-            }else{
-                try{
-                String[] act = action.split(" ");
-                String username = act[1];
-                    view.showBookshelf(username);
-                }catch (ArrayIndexOutOfBoundsException e){
-                    view.showErrorMessage("Errore, digita il nome dell'utente di cui vuoi vedere la libreria");
-                }
+            client.getMessager().sendMessage(client.getMessager().getMessageHandler().sendDragAndDrop(cells,column));
+        }else if(action.equals(actions.get(3))){
+            view.showPlank();
+        }else if(action.equals(actions.get(4))){
+            view.showUsers();
+        }else if(action.equals(actions.get(5))){
+            view.showCommonGoals();
+        }else if(action.equals(actions.get(6))){
+            view.showPersonalGoal();
+        }else if (action.equals(actions.get(7))) {
+                view.openChat(client.getChat());
+        }else{
+            try{
+            String[] act = action.split(" ");
+            String username = act[1];
+                view.showBookshelf(username);
+            }catch (ArrayIndexOutOfBoundsException e){
+                view.showErrorMessage("Errore, digita il nome dell'utente di cui vuoi vedere la libreria");
             }
-        }catch(InterruptedException e){}
+        }
 
     }
     @Override
-    public void showStateGame() throws Exception {
+    public void showStateGame() {
         view.showStateGame();
         handleTurn();
     }
     @Override
-    public void showEndGame() throws Exception {
+    public void showEndGame() {
         view.showStateGame();
         view.showEndGame();
     }
@@ -143,8 +141,8 @@ public class CLIController implements Controller{
         view.showNormalMessage(message);
     }
 
-    public String catchAction(/*boolean myTurn*/) {
-        String action = "";
+    public String catchAction() {
+        String action;
         ArrayList<String> possibleActions = this.getActions();
 
         boolean actOk = false;
@@ -164,7 +162,7 @@ public class CLIController implements Controller{
         }else if(possibleActions.contains(action))
             actOk = true;
 
-        if(actOk == true)
+        if(actOk)
             return action;
         return null;
 

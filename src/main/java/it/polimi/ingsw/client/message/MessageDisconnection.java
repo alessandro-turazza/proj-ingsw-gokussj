@@ -4,7 +4,7 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.visitor.VisitorClient;
 import org.json.simple.JSONObject;
 
-public class MessageDisconnection implements MessageClient{
+public class MessageDisconnection implements MessageClient{ //Created to contain the message of the disconnation of a client from a game
 
     private JSONObject obj;
 
@@ -16,7 +16,7 @@ public class MessageDisconnection implements MessageClient{
     }
 
     @Override
-    public void accept(VisitorClient visitor) throws Exception {
+    public void accept(VisitorClient visitor) throws Exception { //call the visitor
         visitor.visit(this);
     }
 

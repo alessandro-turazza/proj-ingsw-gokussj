@@ -2,7 +2,6 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.user.User;
-import it.polimi.ingsw.server.model.user.personal_goal.Costraints;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -30,7 +29,7 @@ public class GUI_StopController {
             Screen screen = Screen.getPrimary();
             Rectangle2D bounds = screen.getVisualBounds();
             User user=GUI.getClient().getModel().getUserByName(GUI.getClient().getModel().getMyName());
-            StackPane bookshelf=GUI_BookshelfController.makeBookshelfColumn(user);
+            StackPane bookshelf=GUI_BookshelfController.makeBookshelf(user, true);
             Stage stage=GUI.getStage();
             FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-dropcolumn.fxml"));
             Pane root = fxmlLoader.load();

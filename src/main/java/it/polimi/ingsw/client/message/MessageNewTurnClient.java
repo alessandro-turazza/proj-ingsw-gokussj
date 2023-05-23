@@ -6,7 +6,7 @@ import it.polimi.ingsw.client.visitor.VisitorClient;
 import it.polimi.ingsw.server.state_game.StateGame;
 import org.json.simple.JSONObject;
 
-public class MessageNewTurnClient implements MessageClient {
+public class MessageNewTurnClient implements MessageClient { //Create to contain the message of the start of a new turn, which contain the state of the game
 
     private StateGame stateGame;
     private Client client;
@@ -24,7 +24,7 @@ public class MessageNewTurnClient implements MessageClient {
         return stateGame;
     }
     @Override
-    public void accept(VisitorClient visitor) throws Exception {
+    public void accept(VisitorClient visitor) throws Exception { //call the visitor
         visitor.visit(this);
     }
 

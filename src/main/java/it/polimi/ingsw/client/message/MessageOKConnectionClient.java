@@ -5,7 +5,7 @@ import it.polimi.ingsw.client.visitor.VisitorClient;
 
 import java.io.IOException;
 
-public class MessageOKConnectionClient implements MessageClient {
+public class MessageOKConnectionClient implements MessageClient { // Create to contain the message of a positive response of the server about a connection attempt
     private Client client;
     private int idGame;
 
@@ -22,7 +22,7 @@ public class MessageOKConnectionClient implements MessageClient {
     }
 
     @Override
-    public void accept(VisitorClient visitor) throws IOException {
+    public void accept(VisitorClient visitor) throws IOException { //call the visitor
         visitor.visit(this);
     }
 }

@@ -57,9 +57,9 @@ public class GUI_MenuController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    Integer n=Integer.parseInt(numPlayers.getText());
+                    int n=Integer.parseInt(numPlayers.getText());
                     if(n<MIN_PLAYERS || n>MAX_PLAYERS)throw new Exception();
-                    GUI_CreateController.onConfirmCreateClick(username, numPlayers);
+                        GUI_CreateController.onConfirmCreateClick(username, numPlayers);
                 }
                 catch (Exception e){
                     //numPlayers.("-fx-text-fill: red");

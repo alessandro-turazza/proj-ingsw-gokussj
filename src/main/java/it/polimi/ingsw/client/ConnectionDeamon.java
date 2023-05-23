@@ -1,9 +1,5 @@
 package it.polimi.ingsw.client;
 
-import it.polimi.ingsw.client.visitor.JSONClientVisitor;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;

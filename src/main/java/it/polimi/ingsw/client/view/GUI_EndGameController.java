@@ -25,7 +25,6 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static it.polimi.ingsw.client.view.GUI_BookshelfController.makeBookshelf;
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
 public class GUI_EndGameController {
@@ -42,15 +41,7 @@ public class GUI_EndGameController {
         BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getEndBackground(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         root.setBackground(new Background(backgroundImage));
-        //HBox container=new HBox();
-        //container.setSpacing(10*resolution);
-        //VBox vBoxButton=new VBox();
-        //vBoxButton.setAlignment(Pos.BOTTOM_LEFT);
-        //vBoxButton.setPrefSize(300*resolution,bounds.getHeight()*resolution);
         VBox ranking = new VBox();
-        //vBoxButton.setPrefSize((bounds.getWidth()-300)*resolution,bounds.getHeight()*resolution);
-        //container.getChildren().add(vBoxButton);
-        ///container.getChildren().add(ranking);
         ranking.setAlignment(Pos.CENTER);
         ranking.setSpacing(20*resolution);
 
@@ -127,10 +118,6 @@ public class GUI_EndGameController {
                     client.startClient('G');
                     GUI.showStart();
 
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

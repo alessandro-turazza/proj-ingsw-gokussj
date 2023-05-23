@@ -8,7 +8,6 @@ import java.io.IOException;
 import static javafx.application.Application.launch;
 
 public class GUIController implements Controller{
-    private GUI view;
 
     private static Client client;
 
@@ -35,7 +34,7 @@ public class GUIController implements Controller{
     }
 
     @Override
-    public void showStateGame() throws Exception {
+    public void showStateGame() {
         GUI.showStateGame();
     }
 

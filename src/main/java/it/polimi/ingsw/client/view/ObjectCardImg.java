@@ -21,9 +21,6 @@ public class ObjectCardImg {
         return cardImg;
     }
 
-    public void setCardImg(Image cardImg) {
-        this.cardImg = cardImg;
-    }
 
     public Color getColor() {
         return color;

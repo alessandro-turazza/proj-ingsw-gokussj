@@ -6,7 +6,6 @@ import java.io.IOException;
 
 public interface VisitorClient {
     void visit(MessageEndGameClient element) throws Exception;
-    void visit(MessageGameStateClient element);
     void visit(MessageNewTurnClient element) throws Exception;
     void visit(MessageOKConnectionClient element) throws IOException;
     void visit(MessageKOConnectionClient element) throws IOException;

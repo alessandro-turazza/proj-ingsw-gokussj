@@ -101,7 +101,7 @@ public class CLI{
             case 'J':
 
                 userDatas.put("type", "join");
-                int idGame = 0;
+                int idGame;
 
                 do {
                     showNormalMessage("Inserisci l'ID della partita");
@@ -141,11 +141,11 @@ public class CLI{
     }
 
 
-    public void showStateGame() throws Exception {
+    public void showStateGame() {
         showNormalMessage("----------------------------");
         if(!client.getModel().isLastTurn())
             showNormalMessage(Colors.WHITE_BOLD + "Nuovo turno"+ Colors.COLOR_RESET);
-        else showNormalMessage(Colors.RED_BOLD + "Nuovo turno"+ Colors.COLOR_RESET);
+        else showNormalMessage(Colors.RED_BOLD + "Ultimo turno"+ Colors.COLOR_RESET);
         showNormalMessage("----------------------------");
         this.showUsers();
         this.showPlank();
@@ -161,7 +161,7 @@ public class CLI{
         for(int i = 0; i < dimPlank; i++)
             System.out.print(" "+i+"  ");
 
-        System.out.println("");
+        System.out.println();
 
         for(int i = 0; i < dimPlank; i++){
             System.out.print(i+" ");
@@ -192,7 +192,7 @@ public class CLI{
         for(int i = 0; i < bookshelf.getNumColumn(); i++)
             System.out.print("  "+i+" ");
 
-        System.out.println("");
+        System.out.println();
         System.out.println("+---+---+---+---+---+");
 
         for(int i = 0; i < bookshelf.getNumRow(); i++){
@@ -221,7 +221,7 @@ public class CLI{
         for(int i = 0; i < bookshelf.getNumColumn(); i++)
             System.out.print("  "+i+" ");
 
-        System.out.println("");
+        System.out.println();
         System.out.println("+---+---+---+---+---+");
 
         for(int i = 0; i < bookshelf.getNumRow(); i++){
@@ -262,7 +262,7 @@ public class CLI{
     public void showCommonGoals() {
         for(CommonGoalClone commonGoal: client.getModel().getCommonGoals()){
             if(commonGoal.getTokens() != null && commonGoal.getTokens().size() > 0)
-                showNormalMessage("Obiettivo comune " + commonGoal.getId() + ": " + commonGoal.getIdRule() + " Token: " + commonGoal.getLastTokenCard().getPoints()+"\n Testo: "+client.getModel().getTextCommonGoal(commonGoal.getId()));
+                showNormalMessage("Obiettivo comune " + commonGoal.getId() + ": " + commonGoal.getIdRule() + " Token: " + commonGoal.getLastTokenCard().getPoints()+"\n Testo: "+client.getModel().getTextCommonGoal(commonGoal.getIdRule()));
         }
         showNormalMessage("");
     }
@@ -270,7 +270,7 @@ public class CLI{
     public ArrayList<CellPlank> drag() {
         this.showPlank();
         ArrayList<CellPlank> cells = new ArrayList<>();
-        String input = "";
+        String input;
         boolean exit = false;
         int min=MAX_CELLS_DROP;
         int maxCellFreeBookshelf=0;
@@ -297,7 +297,6 @@ public class CLI{
                 int column = -1;
 
                 try{
-                    input.trim();
                     String[] coordinates = input.split(",");
 
                     row = Integer.parseInt(coordinates[0]);
@@ -329,10 +328,10 @@ public class CLI{
     }
 
 
-    public int drop(int numCards) throws Exception {
+    public int drop(int numCards) {
         showBookshelf(client.getModel().getMyName());
         int numColonna = -1;
-        boolean exit = true;
+        boolean exit;
         Scanner in = new Scanner(System.in);
         Bookshelf bookshelf = client.getModel().getMyBookshelf();
 

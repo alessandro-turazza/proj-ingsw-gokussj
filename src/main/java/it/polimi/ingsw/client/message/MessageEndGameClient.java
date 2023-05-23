@@ -6,7 +6,7 @@ import it.polimi.ingsw.client.visitor.VisitorClient;
 import it.polimi.ingsw.server.state_game.StateGame;
 import org.json.simple.JSONObject;
 
-public class MessageEndGameClient implements MessageClient {
+public class MessageEndGameClient implements MessageClient { //Created to contain the message of the end of the game
     private Client client;
     private StateGame stateGame;
     public MessageEndGameClient(Client client, JSONObject obj) {
@@ -23,7 +23,7 @@ public class MessageEndGameClient implements MessageClient {
     }
 
     @Override
-    public void accept(VisitorClient visitor) throws Exception {
+    public void accept(VisitorClient visitor) throws Exception { //call the visitor
         visitor.visit(this);
     }
 }

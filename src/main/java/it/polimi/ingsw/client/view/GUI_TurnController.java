@@ -7,9 +7,9 @@ import it.polimi.ingsw.server.model.object_card.ObjectCard;
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.plank.Plank;
 import it.polimi.ingsw.server.model.user.User;
-import javafx.animation.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,7 +20,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -36,6 +35,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
@@ -224,8 +224,9 @@ public class GUI_TurnController {
             public void handle(ActionEvent actionEvent) {
 
                 String message=chatReader.getText();
-                if(message != "" && message != null)
+                if(!Objects.equals(message, "") && message != null) {
                     GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
+                }
                 chatReader.setText("");
             }
         });
@@ -389,7 +390,7 @@ public class GUI_TurnController {
     }
         return vBox;}
 
-    public static void showChat(){;
+    public static void showChat(){
         chat.setBackground(new Background(new BackgroundFill(Color.rgb(204, 153, 102), new CornerRadii(10*GUI.getResolution()),Insets.EMPTY)));
         chat.setPrefSize(scrollPaneWidth*0.65,scrollPaneHeight*0.75);
         chatContainer = new VBox();

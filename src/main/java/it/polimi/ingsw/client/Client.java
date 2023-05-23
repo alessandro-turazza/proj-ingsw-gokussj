@@ -81,13 +81,13 @@ public class Client {
     }
 
 
-    public void startClient() throws Exception {
+    public void startClient() {
         this.startViewController();
         this.controller.startController();
         this.messager.start();
     }
 
-    public void startClient(char chooseChar) throws Exception {
+    public void startClient(char chooseChar) {
         if(chooseChar=='G')chat.setOpen();
         chat.setController(controller);
         this.messager.start();

@@ -4,6 +4,7 @@ import it.polimi.ingsw.client.PersonalButton;
 import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import it.polimi.ingsw.server.model.user.personal_goal.Costraints;
+import it.polimi.ingsw.server.state_game.CommonGoalClone;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +13,6 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -26,33 +26,8 @@ import java.util.ArrayList;
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
 public class GUI_BookshelfController {
-    public static void fillBookshelf(User user, StackPane pane, Rectangle2D bounds){
-        double resolution = GUI.getResolution();
-        pane.setAlignment(Pos.CENTER);
-        VBox vBox = new VBox();
-        vBox.setPadding(new Insets(0,0,(bounds.getHeight()/17.5)*resolution,0));
-        vBox.setAlignment(Pos.CENTER);
-        vBox.setSpacing(bounds.getHeight()*0.021*resolution);//19.5
-        CellShelf[][] cells = user.getBookshelf().getBookshelf();
-        ImageView[][] objectCards=new ImageView[user.getBookshelf().getNumRow()][user.getBookshelf().getNumColumn()];
-        for(int row = 0; row<=user.getBookshelf().getNumRow()-1; row++){
-            HBox rowbox = new HBox();
-            rowbox.setAlignment(Pos.CENTER);
-            rowbox.setSpacing(bounds.getWidth()*0.025*GUI.getResolution());//39
-            for(int column = 0; column<=user.getBookshelf().getNumColumn()-1; column++){
-                objectCards[row][column] = new ImageView();
-                objectCards[row][column].setFitHeight((bounds.getHeight()*resolution/8)*0.94);
-                objectCards[row][column].setFitWidth((bounds.getHeight()*resolution/8)*0.94);
-                if(cells[row][column]!=null && cells[row][column].getObjectCard()!=null){
-                    objectCards[row][column].setImage(PicturesLoad.getObjectCardImg(cells[row][column].getObjectCard().getColor(),cells[row][column].getObjectCard().getId()).getCardImg());
-                }
-                rowbox.getChildren().add(objectCards[row][column]);
-            }
-            vBox.getChildren().add(rowbox);
-        }
-        pane.getChildren().add(vBox);
-    }
-    public static void fillBookshelfColumn(User user, StackPane pane, Rectangle2D bounds){
+
+    public static void fillBookshelf(User user, StackPane pane, Rectangle2D bounds, boolean isColumn){
         double resolution = GUI.getResolution();
         pane.setAlignment(Pos.CENTER);
         VBox vBox = new VBox();
@@ -77,11 +52,13 @@ public class GUI_BookshelfController {
 
             vBox.getChildren().add(rowbox);
         }
-        ArrayList<Costraints> personalGoals=GUI.getClient().getModel().getUserByName(GUI.getClient().getModel().getMyName()).getPersonalGoal().getCostraints();
-        for(Costraints personalGoal:personalGoals){
-            if(objectCards[personalGoal.getRow()][personalGoal.getColumn()].getImage()==null){
-                objectCards[personalGoal.getRow()][personalGoal.getColumn()].setImage(PicturesLoad.getPersonalGoalObjectCard(personalGoal.getColor()));
-                objectCards[personalGoal.getRow()][personalGoal.getColumn()].setOpacity(0.7);
+        if(isColumn){
+            ArrayList<Costraints> personalGoals=GUI.getClient().getModel().getUserByName(GUI.getClient().getModel().getMyName()).getPersonalGoal().getCostraints();
+            for(Costraints personalGoal:personalGoals){
+                if(objectCards[personalGoal.getRow()][personalGoal.getColumn()].getImage()==null){
+                    objectCards[personalGoal.getRow()][personalGoal.getColumn()].setImage(PicturesLoad.getPersonalGoalObjectCard(personalGoal.getColor()));
+                    objectCards[personalGoal.getRow()][personalGoal.getColumn()].setOpacity(0.7);
+                }
             }
         }
         pane.getChildren().add(vBox);
@@ -91,7 +68,7 @@ public class GUI_BookshelfController {
         showBookshelf(user, false);
     }
 
-    public static StackPane makeBookshelf(User user){
+    public static StackPane makeBookshelf(User user, boolean isColumn){
         StackPane stackPane = new StackPane();
         double resolution = GUI.getResolution();
         Screen screen = Screen.getPrimary();
@@ -102,24 +79,9 @@ public class GUI_BookshelfController {
         bookshelf.setFitWidth(bounds.getHeight()*resolution);
         bookshelf.setFitHeight(bounds.getHeight()*resolution);
         stackPane.getChildren().add(bookshelf);
-        fillBookshelf(user, stackPane, bounds);
+        fillBookshelf(user, stackPane, bounds, isColumn);
         return stackPane;
     }
-    public static StackPane makeBookshelfColumn(User user){
-        StackPane stackPane = new StackPane();
-        double resolution = GUI.getResolution();
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-        stackPane.setPrefSize(bounds.getHeight()*resolution,bounds.getHeight()*resolution);
-
-        ImageView bookshelf = new ImageView(PicturesLoad.getBookshelfImg());
-        bookshelf.setFitWidth(bounds.getHeight()*resolution);
-        bookshelf.setFitHeight(bounds.getHeight()*resolution);
-        stackPane.getChildren().add(bookshelf);
-        fillBookshelfColumn(user, stackPane, bounds);
-        return stackPane;
-    }
-
     public static void showBookshelf(User user, boolean endgame) throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-bookshelf.fxml"));
@@ -138,7 +100,7 @@ public class GUI_BookshelfController {
         stage.setScene(scene);
         root.setPrefSize(bounds.getWidth()*resolution, bounds.getHeight()*resolution);
 
-        StackPane bookshelfPane = GUI_BookshelfController.makeBookshelf(user);
+        StackPane bookshelfPane = GUI_BookshelfController.makeBookshelf(user, false);
         HBox bookshelfBox = new HBox();
 
         PersonalButton back = new PersonalButton(300.0, 70.0);
@@ -229,57 +191,36 @@ public class GUI_BookshelfController {
         Label commonGoalLabel = new Label("Obiettivi comuni");
         commonGoalLabel.setFont(new Font("Comic Sans MS", 30* resolution));
         commonGoalLabel.setTextFill(Color.rgb(204, 153, 102));
+        commonGoalBox.getChildren().add(commonGoalLabel);
+        for(CommonGoalClone commonGoal : GUI.getClient().getModel().getCommonGoals()){
+            StackPane cg = new StackPane();
+            ImageView commonGoalImage = new ImageView(PicturesLoad.getCommonGoalsImgs().get(commonGoal.getIdRule()-1));
+            commonGoalImage.setFitWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9);
+            commonGoalImage.setFitHeight(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9);
+            int point = 0;
+            if(commonGoal.getLastTokenCard() != null)
+                point = commonGoal.getLastTokenCard().getPoints();
 
-        StackPane cg1 = new StackPane();
-        ImageView commonGoal1 = new ImageView(PicturesLoad.getCommonGoalsImgs().get(GUI.getClient().getModel().getCommonGoals().get(0).getIdRule()-1));
-        commonGoal1.setFitWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9);
-        commonGoal1.setFitHeight(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9);
-        int point1 = 0;
+            ImageView tok = new ImageView(PicturesLoad.getToken(point));
+            tok.setRotate(-8);
+            tok.setFitWidth((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9)/2.5);
+            tok.setFitHeight((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9)/2.5);
+            tok.setX(50*resolution);
+            HBox hbox = new HBox();
+            hbox.setPrefWidth((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9));
+            hbox.setAlignment(Pos.CENTER_RIGHT);
+            hbox.setPadding(new Insets(0,(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9)/7,20*resolution,0));
+            hbox.getChildren().add(tok);
+            cg.getChildren().add(commonGoalImage);
+            cg.getChildren().add(hbox);
+            commonGoalBox.getChildren().add(cg);
+        }
 
-        if(GUI.getClient().getModel().getCommonGoals().get(0).getLastTokenCard() != null)
-            point1 = GUI.getClient().getModel().getCommonGoals().get(0).getLastTokenCard().getPoints();
-
-        ImageView tok1 = new ImageView(PicturesLoad.getToken(point1));
-        tok1.setRotate(-8);
-        tok1.setFitWidth((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9)/2.5);
-        tok1.setFitHeight((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9)/2.5);
-        tok1.setX(50*resolution);
-        HBox hbox1 = new HBox();
-        hbox1.setPrefWidth((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9));
-        hbox1.setAlignment(Pos.CENTER_RIGHT);
-        hbox1.setPadding(new Insets(0,(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9)/7,20*resolution,0));
-        hbox1.getChildren().add(tok1);
-        cg1.getChildren().add(commonGoal1);
-        cg1.getChildren().add(hbox1);
-
-        StackPane cg2 = new StackPane();
-        ImageView commonGoal2 = new ImageView(PicturesLoad.getCommonGoalsImgs().get(GUI.getClient().getModel().getCommonGoals().get(1).getIdRule()-1));
-        commonGoal2.setFitWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9);
-        commonGoal2.setFitHeight(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9);
-        int point2 = 0;
-        if(GUI.getClient().getModel().getCommonGoals().get(1).getLastTokenCard() != null)
-            point2 = GUI.getClient().getModel().getCommonGoals().get(1).getLastTokenCard().getPoints();
-        ImageView tok2 = new ImageView(PicturesLoad.getToken(point2));
-        tok2.setRotate(-8);
-        tok2.setFitWidth((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9)/2.5);
-        tok2.setFitHeight((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.66*0.9)/2.5);
-        //tok2.setX((((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9)/2);
-        tok2.setX(0);
-        HBox hbox2 = new HBox();
-        hbox2.setPrefWidth(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9);
-        hbox2.setAlignment(Pos.CENTER_RIGHT);
-        hbox2.setPadding(new Insets(0,(((bounds.getWidth()-bounds.getHeight())/2)*resolution*0.9)/7,20*resolution,0));
-        hbox2.getChildren().add(tok2);
-        cg2.getChildren().add(commonGoal2);
-        cg2.getChildren().add(hbox2);
 
         HBox resizeButtonBox = new HBox(resizeWindow);
         HBox backButtonBox = new HBox(back);
         backButtonBox.autosize();
 
-        commonGoalBox.getChildren().add(commonGoalLabel);
-        commonGoalBox.getChildren().add(cg1);
-        commonGoalBox.getChildren().add(cg2);
 
         VBox leftVBox = new VBox();
         leftVBox.setAlignment(Pos.BOTTOM_CENTER);

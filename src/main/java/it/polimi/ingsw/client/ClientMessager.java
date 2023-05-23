@@ -24,7 +24,7 @@ public class ClientMessager extends Thread{
     private Client client;
     private ClientMessageHandler messageHandler;
 
-    public ClientMessager(Client client) throws IOException {
+    public ClientMessager(Client client) {
         this.client = client;
         this.messageHandler = new ClientMessageHandler(client);
         Socket socket;
