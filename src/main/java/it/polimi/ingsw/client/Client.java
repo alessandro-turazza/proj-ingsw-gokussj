@@ -13,15 +13,16 @@ import java.util.Scanner;
 public class Client {
     private ClientMessager messager;
     private ClientModel model;
-
     private Chat chat;
-
     private Controller controller;
+    private CheckConnection checkConnection;
 
     public Client() throws IOException {
         this.chat= new Chat();
         this.messager = new ClientMessager(this);
         this.model = new ClientModel();
+        checkConnection = new CheckConnection();
+
     }
 
     public void setMessager(ClientMessager messager) {
@@ -65,7 +66,7 @@ public class Client {
                 break;
         }
         chat.setController(controller);
-
+        checkConnection.setController(controller);
     }
 
     public Controller getViewController() {
@@ -85,6 +86,7 @@ public class Client {
         this.startViewController();
         this.controller.startController();
         this.messager.start();
+        this.checkConnection.start();
     }
 
     public void startClient(char chooseChar) {

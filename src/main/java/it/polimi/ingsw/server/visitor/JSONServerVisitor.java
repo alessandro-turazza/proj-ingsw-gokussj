@@ -68,7 +68,7 @@ public class JSONServerVisitor implements VisitorServer{
             User user=gm.updateGame(m.getDr().getRows(),m.getDr().getColumns(), m.getDr().getColumn());
 
             //m.getServerThread().getSs().sendOk();
-            m.getServerThread().sendMessage(m.getServerThread().getController().sendOkDED());
+           // m.getServerThread().sendMessage(m.getServerThread().getController().sendOkDED());
 
             if(user==null){
                 //serverGame.endGame();

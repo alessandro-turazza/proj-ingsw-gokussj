@@ -15,9 +15,9 @@ import java.net.Socket;
 public class ClientMessager extends Thread{
     private final int PORT = 50000;
     //private final String ipServer= "31.27.157.205";
-    private final String ipServer= "localhost";
+    //private final String ipServer= "localhost";
 
-    //private final String ipServer= "192.168.1.16";
+    private final String ipServer= "192.168.1.16";
 
     private BufferedReader input;
     private PrintWriter out;
@@ -66,8 +66,8 @@ public class ClientMessager extends Thread{
             }while(true);
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new RuntimeException();
-            //viewController.getView().showErrorMessage("Errore, server non connesso");
         }
 
     }

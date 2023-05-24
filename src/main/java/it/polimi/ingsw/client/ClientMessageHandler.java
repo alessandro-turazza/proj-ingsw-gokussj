@@ -33,7 +33,6 @@ public class ClientMessageHandler {
             return new MessageKODedClient(client);
         if(response.equals("END_GAME"))
             return new MessageEndGameClient(client,obj);
-
         return null;
     }
 
