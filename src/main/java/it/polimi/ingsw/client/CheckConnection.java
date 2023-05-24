@@ -3,7 +3,6 @@ package it.polimi.ingsw.client;
 import it.polimi.ingsw.client.view.Controller;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -15,11 +14,15 @@ public class CheckConnection extends Thread {
     public void run() {
         while (true){
         try {
+            sleep(10000);
             checkConnection();
         } catch (IOException e) {
             controller.showErrorMessage("Connessione a internet assente");
+            break;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-    }
+        }
     }
 
     public void setController(Controller controller) {
