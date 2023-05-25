@@ -15,9 +15,9 @@ import java.net.Socket;
 public class ClientMessager extends Thread{
     private final int PORT = 50000;
     //private final String ipServer= "31.27.157.205";
-    private final String ipServer= "localhost";
+    //private final String ipServer= "localhost";
 
-    //private final String ipServer= "192.168.1.16";
+    private final String ipServer= "192.168.1.16";
     //private final String ipServer="172.17.0.2";
     private BufferedReader input;
     private PrintWriter out;

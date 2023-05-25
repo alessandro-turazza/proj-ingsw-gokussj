@@ -234,12 +234,12 @@ public class GUI_TurnController {
         chatReader.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                if(keyEvent.getCode()==KeyCode.ENTER){
-                    String message=chatReader.getText();
-                    System.out.println(GUI.getClient().getModel().getMyName()+ "  "+ message);
+
+                String message=chatReader.getText();
+                if(keyEvent.getCode()==KeyCode.ENTER &&!Objects.equals(message, "") && message != null){
                     GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
-                    chatReader.setText("");
-                }
+
+                }chatReader.setText("");
             }
         });
 
