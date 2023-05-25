@@ -17,7 +17,7 @@ public class CheckConnection extends Thread {
             sleep(10000);
             checkConnection();
         } catch (IOException e) {
-            controller.showErrorMessage("Connessione a internet assente");
+            controller.showErrorMessage("Connessione a internet assente.\nControlla la connessione e riavvia l'applicazione.");
             break;
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

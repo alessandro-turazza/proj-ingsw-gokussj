@@ -190,6 +190,7 @@ public class GUI_TurnController {
         resizeWindow.animation();
 
         chat = new ScrollPane();
+
         chatBox=new VBox();
         scrollPaneWidth=(bounds.getWidth()-bounds.getHeight())/2*GUI.getResolution()*0.945;
         scrollPaneHeight=bounds.getHeight()*GUI.getResolution();
@@ -410,12 +411,13 @@ public class GUI_TurnController {
             textLabel.setFont(new Font("Verdana", 17*GUI.getResolution()));
             if(chatMessage.getNamePlayer().equals(GUI.getClient().getModel().getMyName())){
                 mBox.setAlignment(Pos.CENTER_RIGHT);
-                messageBox.setPadding(new Insets(2*GUI.getResolution(),7*GUI.getResolution(),2*GUI.getResolution(),2*GUI.getResolution()));
+                messageBox.setPadding(new Insets(2*GUI.getResolution(),7*GUI.getResolution(),2*GUI.getResolution(),7*GUI.getResolution()));
             }else{
                 mBox.setAlignment(Pos.CENTER_LEFT);
-                messageBox.setPadding(new Insets(2*GUI.getResolution(),2*GUI.getResolution(),2*GUI.getResolution(),7*GUI.getResolution()));
+                messageBox.setPadding(new Insets(2*GUI.getResolution(),7*GUI.getResolution(),2*GUI.getResolution(),7*GUI.getResolution()));
                 messageBox.getChildren().add(nameLabel);
             }
+            mBox.setPadding(new Insets(10*GUI.getResolution()));
             messageBox.getChildren().add(textLabel);
             mBox.getChildren().add(messageBox);
             chatContainer.getChildren().add(mBox);
