@@ -8,8 +8,6 @@ import java.net.Socket;
 /*This class receives messages from the client in order to check the connection beetwen server and client*/
 public class VerifierReciver extends Thread{
     private VerifierBuffer buffer;
-    private static final int PORT = 50002;
-
     private ServerSocket readSocket;
     private Socket socket;
     private boolean closeConnection = false;
@@ -26,11 +24,7 @@ public class VerifierReciver extends Thread{
                     if (message!=null)
                         buffer.setMessage(message);
                 }while(!closeConnection);
-        }catch(Exception e)
-    {
-        System.out.println("");
-
-    }
+        }catch(Exception e) {}
 
     }
 

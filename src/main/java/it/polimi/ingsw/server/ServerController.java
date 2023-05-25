@@ -5,16 +5,15 @@ import it.polimi.ingsw.server.model.game_manager.GameManager;
 import it.polimi.ingsw.server.state_game.StateGame;
 import org.json.simple.JSONObject;
 
-import java.io.IOException;
 /*This class controls and handles each message received from the server*/
 public class ServerController {
     private ServerThread serverThread;
 
-    public ServerController(ServerThread serverThread) throws IOException {
+    public ServerController(ServerThread serverThread){
         this.serverThread = serverThread;
     }
 
-    /*This method receives a jsonObject that contains the message from the client in the following format: command,datas and creates the correct type of the message fro the visitor*/
+    /*This method receives a jsonObject that contains the message from the client in the following format: command, datas and creates the correct type of the message for the visitor*/
     public MessageServer handleMessage(JSONObject obj) {
 
         String command = (String) obj.get("command");
@@ -51,12 +50,6 @@ public class ServerController {
         JSONObject obj = new JSONObject();
         obj.put("response", "KO_CONNECTION");
         obj.put("object", object);
-        return obj;
-    }
-
-    public JSONObject sendOkDED(){
-        JSONObject obj = new JSONObject();
-        obj.put("response", "OK_DED");
         return obj;
     }
 

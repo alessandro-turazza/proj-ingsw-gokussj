@@ -51,12 +51,11 @@ public class User {
         return points;
     }
 
-    public int addTokenPointsToPoints() {
+    public void addTokenPointsToPoints() {
         int result=0;
         for(Integer point:pointsToken)
             result+=point;
         points+=result;
-        return result;
     }
 
     public PersonalGoalCard getPersonalGoal() {

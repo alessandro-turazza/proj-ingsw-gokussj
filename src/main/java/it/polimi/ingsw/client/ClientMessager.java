@@ -66,7 +66,7 @@ public class ClientMessager extends Thread{
             }while(true);
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            client.getViewController().showErrorMessage("Connessione a internet assente.\nControlla la tua connessione e poi riavvia l'applicazione.");
             throw new RuntimeException();
         }
 

@@ -21,9 +21,9 @@ public class CommonGoal {
         this.rule = rule;
         this.tokenCards = tokenCards;
     }
-    public void setTokenCards(ArrayList<TokenCard> tokenCards) {
+    /*public void setTokenCards(ArrayList<TokenCard> tokenCards) {
         this.tokenCards = tokenCards;
-    }
+    }*/
 
     public void setTokenCardsInteger(ArrayList<Integer> tokenCards, int series){
         for(Object o: tokenCards){
@@ -34,7 +34,7 @@ public class CommonGoal {
         return tokenCards;
     }
 
-    public TokenCard getLastTokenCard(){
+    /*public TokenCard getLastTokenCard(){
         if(tokenCards.size()==0)return null;
         return tokenCards.get(0);
     }
@@ -49,7 +49,7 @@ public class CommonGoal {
     public int getPoint(){
         if(tokenCards.size()==0)return 0;
         return tokenCards.remove(0).getPoints();
-    }
+    }*/
 
 
 

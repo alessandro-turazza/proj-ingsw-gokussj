@@ -31,10 +31,6 @@ public class MessageStartGameServer implements MessageServer{
         return numPlayer;
     }
 
-    public void setNumPlayer(int numPlayer) {
-        this.numPlayer = numPlayer;
-    }
-
     public int getIdGame() {
         return idGame;
     }

@@ -39,7 +39,7 @@ public class Server {
 
     /*Create a new game*/
     public synchronized int insertNewGame(ServerThread st, User user, int numPlayers){
-        this.gameList.add(new ServerGame(st, user, numPlayers, gameList.size()+1));
+        gameList.add(new ServerGame(st, user, numPlayers, gameList.size()+1));
         return gameList.size();
     }
 
