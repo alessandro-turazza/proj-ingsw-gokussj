@@ -198,6 +198,7 @@ public class GUI_TurnController {
         chat.setPrefViewportWidth(0);
         chat.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         chat.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        chat.setVvalue(chat.getVmax());
         showChat();
         chat.setContent(chatContainer);
         chatBox.getChildren().add(chat);
@@ -395,8 +396,7 @@ public class GUI_TurnController {
         chat.setBackground(new Background(new BackgroundFill(Color.rgb(204, 153, 102), new CornerRadii(10*GUI.getResolution()),Insets.EMPTY)));
         chat.setPrefSize(scrollPaneWidth*0.65,scrollPaneHeight*0.75);
         chatContainer = new VBox();
-        chatContainer.setMinSize(scrollPaneWidth*0.65, scrollPaneHeight);
-        chatContainer.setPrefWidth(scrollPaneWidth);
+        chatContainer.setMinSize(scrollPaneWidth, scrollPaneHeight*0.75);
         BackgroundSize sizeContainer = new BackgroundSize(0, 0, true, true, true, true);
         chatContainer.setBackground(new Background(new BackgroundImage(PicturesLoad.getParquet(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, sizeContainer)));
 
