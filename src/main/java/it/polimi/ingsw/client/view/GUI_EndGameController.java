@@ -5,8 +5,6 @@ import it.polimi.ingsw.client.ClientMessager;
 import it.polimi.ingsw.client.PersonalButton;
 import it.polimi.ingsw.client.chat.Chat;
 import it.polimi.ingsw.server.model.user.User;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,13 +12,11 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,14 +88,11 @@ public class GUI_EndGameController {
             points.setTextFill(Color.rgb(204, 153, 102));
             points.setFont(new Font("Comic Sans MS", resolution*sizeText));
             rank.getChildren().add(points);
-            rank.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent mouseEvent) {
-                    try {
-                        onEndBookshelfClick(user);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+            rank.setOnMouseClicked(mouseEvent -> {
+                try {
+                    onEndBookshelfClick(user);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             });
 
@@ -108,19 +101,16 @@ public class GUI_EndGameController {
         PersonalButton back=new PersonalButton(300.0,70.0);
         back.animation();
         back.setText("Menù Iniziale");
-        back.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    Client client = GUI.getClient();
-                    client.setChat(new Chat());
-                    client.setMessager(new ClientMessager(client));
-                    client.startClient('G');
-                    GUI.showStart();
+        back.setOnAction(actionEvent -> {
+            try {
+                Client client = GUI.getClient();
+                client.setChat(new Chat());
+                client.setMessager(new ClientMessager(client));
+                client.startClient('G');
+                GUI.showStart();
 
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         });
         ranking.getChildren().add(back);
@@ -136,18 +126,15 @@ public class GUI_EndGameController {
 
         resizeWindow.animation();
 
-        resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                GUI.getStage().setResizable(true);
-                GUI_ResizeController.resize();
-                try {
-                        GUI_EndGameController.showEndGame();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                GUI.getStage().setResizable(false);
+        resizeWindow.setOnAction(actionEvent -> {
+            GUI.getStage().setResizable(true);
+            GUI_ResizeController.resize();
+            try {
+                    GUI_EndGameController.showEndGame();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+            GUI.getStage().setResizable(false);
         });
     }
 

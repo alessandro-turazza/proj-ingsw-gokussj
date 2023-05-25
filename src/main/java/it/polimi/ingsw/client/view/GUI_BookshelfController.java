@@ -5,8 +5,6 @@ import it.polimi.ingsw.server.model.user.User;
 import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import it.polimi.ingsw.server.model.user.personal_goal.Costraints;
 import it.polimi.ingsw.server.state_game.CommonGoalClone;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -108,16 +106,13 @@ public class GUI_BookshelfController {
 
 
         back.animation();
-        back.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    if(!endgame)
-                        GUI_TurnController.showStateGame();
-                    else GUI_EndGameController.showEndGame();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+        back.setOnAction(actionEvent -> {
+            try {
+                if(!endgame)
+                    GUI_TurnController.showStateGame();
+                else GUI_EndGameController.showEndGame();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         });
 
@@ -128,20 +123,17 @@ public class GUI_BookshelfController {
 
         resizeWindow.animation();
 
-        resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                GUI.getStage().setResizable(true);
-                GUI_ResizeController.resize();
-                try {
-                    if (!endgame)
-                        GUI_BookshelfController.onBookshelfClick(user);
-                    else GUI_EndGameController.onEndBookshelfClick(user);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                GUI.getStage().setResizable(false);
+        resizeWindow.setOnAction(actionEvent -> {
+            GUI.getStage().setResizable(true);
+            GUI_ResizeController.resize();
+            try {
+                if (!endgame)
+                    GUI_BookshelfController.onBookshelfClick(user);
+                else GUI_EndGameController.onEndBookshelfClick(user);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+            GUI.getStage().setResizable(false);
         });
 
         ImageView personalGoal = new ImageView(PicturesLoad.getPersonalGoalCardsImgs().get(user.getPersonalGoal().getId()-1));

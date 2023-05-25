@@ -11,8 +11,6 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,8 +21,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -92,14 +88,11 @@ public class GUI_TurnController {
             PersonalButton stopDrag = new PersonalButton(((bounds.getWidth() - bounds.getHeight()) / 2), 70.0);
             stopDrag.setText("STOP");
             stopDrag.animation();
-            stopDrag.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    try {
-                        GUI_StopController.showDrop(objectCardDrag);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+            stopDrag.setOnAction(actionEvent -> {
+                try {
+                    GUI_StopController.showDrop(objectCardDrag);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
             });
 
@@ -221,41 +214,32 @@ public class GUI_TurnController {
 
 
         l2.getChildren().add(chatBox);
-        chatSend.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
+        chatSend.setOnAction(actionEvent -> {
 
-                String message=chatReader.getText();
-                if(!Objects.equals(message, "") && message != null) {
-                    GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
-                }
+            String message=chatReader.getText();
+            if(!Objects.equals(message, "") && message != null) {
+                GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
+            }
+            chatReader.setText("");
+        });
+        chatReader.setOnKeyPressed(keyEvent -> {
+
+            String message=chatReader.getText();
+            if(keyEvent.getCode()==KeyCode.ENTER &&!Objects.equals(message, "") && message != null){
+                GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
                 chatReader.setText("");
             }
         });
-        chatReader.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
 
-                String message=chatReader.getText();
-                if(keyEvent.getCode()==KeyCode.ENTER &&!Objects.equals(message, "") && message != null){
-                    GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
-                    chatReader.setText("");
-                }
+        resizeWindow.setOnAction(actionEvent -> {
+            stage.setResizable(true);
+            GUI_ResizeController.resize();
+            try {
+                showStateGame();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        });
-
-        resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                stage.setResizable(true);
-                GUI_ResizeController.resize();
-                try {
-                    showStateGame();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                stage.setResizable(false);
-            }
+            stage.setResizable(false);
         });
 
 
@@ -277,43 +261,40 @@ public class GUI_TurnController {
                     objectCards[row][col].setImage(PicturesLoad.getObjectCardImg(obj.getColor(),obj.getId()).getCardImg());
                     int finalRow = row;
                     int finalCol = col;
-                    objectCards[row][col].setOnMouseClicked(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent mouseEvent) {
-                            if (GUI.getClient().getModel().getActiveUser().equals(GUI.getClient().getModel().getMyName())) {
-                                int min=MAX_CELLS_DROP;
-                                int maxCellFreeBookshelf=0;
-                                for(int i=0;i<GUI.getClient().getModel().getMyBookshelf().getNumColumn();i++){
-                                    Integer temp=GUI.getClient().getModel().getMyBookshelf().checkColumn(i);
-                                    if(temp!=null) if(temp+1>maxCellFreeBookshelf)maxCellFreeBookshelf=GUI.getClient().getModel().getMyBookshelf().checkColumn(i)+1;
-                                }
-                                min=Math.min(min,maxCellFreeBookshelf);
-
-                                if (objectCards[finalRow][finalCol].getOpacity() == 1.0 && objectCardDrag.size()<min) {
-
-                                    CellPlank[][] cellPlanks = GUI.getClient().getModel().getPlank().getBoard();
-                                    objectCardDrag.add(cellPlanks[finalRow][finalCol]);
-                                    if (!GUI.getClient().getModel().checkDrag(objectCardDrag)) {
-                                        rotate(objectCards[finalRow][finalCol]);
-                                        objectCardDrag.remove(objectCardDrag.size() - 1);
-                                    } else {
-                                        for (ImageView imageView : cardDragVector) {
-                                            if (imageView.getImage() == null) {
-                                                imageView.setImage(objectCards[finalRow][finalCol].getImage());
-                                                break;
-                                            }
-                                        }
-                                        objectCards[finalRow][finalCol].setOpacity(0.5);
-                                    }
-                                } else {
-                                    for (CellPlank cellPlank : objectCardDrag) {
-                                        objectCards[cellPlank.getRow()][cellPlank.getColumn()].setOpacity(1.0);
-                                    }
-                                    for (ImageView imageView : cardDragVector) imageView.setImage(null);
-                                    objectCardDrag = new ArrayList<>();
-                                }
-
+                    objectCards[row][col].setOnMouseClicked(mouseEvent -> {
+                        if (GUI.getClient().getModel().getActiveUser().equals(GUI.getClient().getModel().getMyName())) {
+                            int min=MAX_CELLS_DROP;
+                            int maxCellFreeBookshelf=0;
+                            for(int i=0;i<GUI.getClient().getModel().getMyBookshelf().getNumColumn();i++){
+                                Integer temp=GUI.getClient().getModel().getMyBookshelf().checkColumn(i);
+                                if(temp!=null) if(temp+1>maxCellFreeBookshelf)maxCellFreeBookshelf=GUI.getClient().getModel().getMyBookshelf().checkColumn(i)+1;
                             }
+                            min=Math.min(min,maxCellFreeBookshelf);
+
+                            if (objectCards[finalRow][finalCol].getOpacity() == 1.0 && objectCardDrag.size()<min) {
+
+                                CellPlank[][] cellPlanks = GUI.getClient().getModel().getPlank().getBoard();
+                                objectCardDrag.add(cellPlanks[finalRow][finalCol]);
+                                if (!GUI.getClient().getModel().checkDrag(objectCardDrag)) {
+                                    rotate(objectCards[finalRow][finalCol]);
+                                    objectCardDrag.remove(objectCardDrag.size() - 1);
+                                } else {
+                                    for (ImageView imageView : cardDragVector) {
+                                        if (imageView.getImage() == null) {
+                                            imageView.setImage(objectCards[finalRow][finalCol].getImage());
+                                            break;
+                                        }
+                                    }
+                                    objectCards[finalRow][finalCol].setOpacity(0.5);
+                                }
+                            } else {
+                                for (CellPlank cellPlank : objectCardDrag) {
+                                    objectCards[cellPlank.getRow()][cellPlank.getColumn()].setOpacity(1.0);
+                                }
+                                for (ImageView imageView : cardDragVector) imageView.setImage(null);
+                                objectCardDrag = new ArrayList<>();
+                            }
+
                         }
                     });
                 }
@@ -378,16 +359,12 @@ public class GUI_TurnController {
                 activeToken.setImage(PicturesLoad.getPlayerMark());
                 userButton.setGraphic(activeToken);
             }
-            userButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    try {
-                        GUI_BookshelfController.onBookshelfClick(GUI.getClient().getModel().getUserByName(userButton.getText()));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+            userButton.setOnAction(actionEvent -> {
+                try {
+                    GUI_BookshelfController.onBookshelfClick(GUI.getClient().getModel().getUserByName(userButton.getText()));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-
             });
     }
         return vBox;}

@@ -2,14 +2,12 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.server.model.plank.CellPlank;
 import it.polimi.ingsw.server.model.user.User;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -63,7 +61,7 @@ public class GUI_StopController {
 
             ArrayList<ImageView> column=new ArrayList<>();
             for(int i=0; i<user.getBookshelf().getNumColumn();i++){
-                boolean full= false;
+                boolean full;
                 try {
                     full = GUI.getClient().getModel().checkDrop(objectCardDrag.size(),i);
                 } catch (Exception e) {
@@ -81,41 +79,32 @@ public class GUI_StopController {
                 imageViewStack.getChildren().add(imageView);
                 column.add(imageView);
                 columnConteiner.getChildren().add(imageViewStack);
-                imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        if(clickable) {
+                imageView.setOnMouseEntered(mouseEvent -> {
+                    if(clickable) {
+                        imageView.setOpacity(0.3);
+                    }
+                });
+                imageView.setOnMouseExited(mouseEvent -> {
+                    if(clickable) {
+                        imageView.setOpacity(0.0);
+                    }
+                });
+                imageView.setOnMouseClicked(mouseEvent -> {
+                    int col=-1;
+                    for(int i1 = 0; i1 <column.size(); i1++){
+                        if(imageView==column.get(i1))col= i1;
+                    }
+                    try {
+                        if(clickable && GUI.getClient().getModel().checkDrop(objectCardDrag.size(),col)){
                             imageView.setOpacity(0.3);
-                        }
-                    }
-                });
-                imageView.setOnMouseExited(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        if(clickable) {
-                            imageView.setOpacity(0.0);
-                        }
-                    }
-                });
-                imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        int col=-1;
-                        for(int i=0;i<column.size();i++){
-                            if(imageView==column.get(i))col=i;
-                        }
-                        try {
-                            if(clickable && GUI.getClient().getModel().checkDrop(objectCardDrag.size(),col)){
-                                imageView.setOpacity(0.3);
-                                clickable=false;
+                            clickable=false;
 
-                                GUI_ColumnController.controllColumn(imageViewStack,col,objectCardDrag,stackPaneContained);
-                            }
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
+                            GUI_ColumnController.controllColumn(imageViewStack,col,objectCardDrag,stackPaneContained);
                         }
-
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
                     }
+
                 });
             }
             bookshelf.getChildren().add(columnConteiner);

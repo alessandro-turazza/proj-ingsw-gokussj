@@ -7,8 +7,6 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,13 +16,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import org.json.simple.parser.ParseException;
 
@@ -77,14 +73,11 @@ public class GUI extends Application{
         create.setText("Nuova partita");
         hBox.getChildren().add(create);
 
-        create.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    GUI_MenuController.onCreateGameClick();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+        create.setOnAction(actionEvent -> {
+            try {
+                GUI_MenuController.onCreateGameClick();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
         create.animation();
@@ -92,14 +85,11 @@ public class GUI extends Application{
         PersonalButton join = new PersonalButton(300.0,70.0);
         join.setText("Unisciti a partita");
         hBox.getChildren().add(join);
-        join.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    GUI_MenuController.onJoinGameClick();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+        join.setOnAction(actionEvent -> {
+            try {
+                GUI_MenuController.onJoinGameClick();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
 
@@ -115,18 +105,15 @@ public class GUI extends Application{
         else resizeWindow.setText("↙");
 
         resizeWindow.animation();
-        resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                stage.setResizable(true);
-                GUI_ResizeController.resize();
-                try {
-                    showStart();
-                } catch (IOException | ParseException e) {
-                    throw new RuntimeException(e);
-                }
-                stage.setResizable(false);
+        resizeWindow.setOnAction(actionEvent -> {
+            stage.setResizable(true);
+            GUI_ResizeController.resize();
+            try {
+                showStart();
+            } catch (IOException | ParseException e) {
+                throw new RuntimeException(e);
             }
+            stage.setResizable(false);
         });
 
         stage.setScene(startScene);
@@ -145,12 +132,7 @@ public class GUI extends Application{
         GUI.stage=stage;
         GUI.stage.setX((bounds.getWidth()/2)*HALF_SCREEN);
         GUI.stage.setY((bounds.getHeight()/2)*HALF_SCREEN);
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                System.exit(0);
-            }
-        });
+        stage.setOnCloseRequest(windowEvent -> System.exit(0));
 
 
         stage.setResizable(false);
@@ -207,18 +189,15 @@ public class GUI extends Application{
             root.getChildren().add(hBoxResize);
             root.getChildren().add(hBoxLabel);
             resizeWindow.animation();
-            resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    stage.setResizable(true);
-                    GUI_ResizeController.resize();
-                    try {
-                        showOkConnection(idGame);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    stage.setResizable(false);
+            resizeWindow.setOnAction(actionEvent -> {
+                stage.setResizable(true);
+                GUI_ResizeController.resize();
+                try {
+                    showOkConnection(idGame);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
+                stage.setResizable(false);
             });
 
             stage.setScene(scene);
@@ -230,7 +209,6 @@ public class GUI extends Application{
     public static void showKoConnection() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("startmenu.fxml"));
         Pane root = fxmlLoader.load();
-        Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
         BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
         root.setBackground(new Background(backgroundImage));
@@ -247,9 +225,7 @@ public class GUI extends Application{
     }
 
     public static void showChatMessage(String namePlayer,String message){
-        Platform.runLater(()->{
-            GUI_TurnController.updateChat(namePlayer, message);
-        });
+        Platform.runLater(()-> GUI_TurnController.updateChat(namePlayer, message));
     }
 
     public static void showEndGame(){
@@ -380,15 +356,12 @@ public class GUI extends Application{
         stackPane.getChildren().add(vBox);
         root.getChildren().add(stackPane);
 
-        introScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if(keyEvent.getCode()== KeyCode.ENTER){
-                    try {
-                        showStart();
-                    } catch (IOException | ParseException e) {
-                        throw new RuntimeException(e);
-                    }
+        introScene.setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode()== KeyCode.ENTER){
+                try {
+                    showStart();
+                } catch (IOException | ParseException e) {
+                    throw new RuntimeException(e);
                 }
             }
         });

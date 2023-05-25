@@ -2,8 +2,6 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.client.PersonalButton;
 import it.polimi.ingsw.client.PersonalTextField;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -53,18 +51,15 @@ public class GUI_MenuController {
         confirm.setText("Conferma");
         confirm.animation();
 
-        confirm.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    int n=Integer.parseInt(numPlayers.getText());
-                    if(n<MIN_PLAYERS || n>MAX_PLAYERS)throw new Exception();
-                        GUI_CreateController.onConfirmCreateClick(username, numPlayers);
-                }
-                catch (Exception e){
-                    //numPlayers.("-fx-text-fill: red");
-                    numPlayers.errorTextField();
-                }
+        confirm.setOnAction(actionEvent -> {
+            try {
+                int n=Integer.parseInt(numPlayers.getText());
+                if(n<MIN_PLAYERS || n>MAX_PLAYERS)throw new Exception();
+                GUI_CreateController.onConfirmCreateClick(username, numPlayers);
+            }
+            catch (Exception e){
+                //numPlayers.("-fx-text-fill: red");
+                numPlayers.errorTextField();
             }
         });
 
@@ -75,18 +70,15 @@ public class GUI_MenuController {
         else resizeWindow.setText("↙");
         resizeWindow.animation();
 
-        resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                GUI.getStage().setResizable(true);
-                GUI_ResizeController.resize();
-                try {
-                    onCreateGameClick();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                GUI.getStage().setResizable(false);
+        resizeWindow.setOnAction(actionEvent -> {
+            GUI.getStage().setResizable(true);
+            GUI_ResizeController.resize();
+            try {
+                onCreateGameClick();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+            GUI.getStage().setResizable(false);
         });
 
         PersonalButton back = new PersonalButton(300.0,70.0);
@@ -101,14 +93,11 @@ public class GUI_MenuController {
         root.getChildren().add(numPlayers);
         root.getChildren().add(confirm);
         root.getChildren().add(hBoxBack);
-        back.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    GUI.showStart();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+        back.setOnAction(actionEvent -> {
+            try {
+                GUI.showStart();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         });
 
@@ -149,19 +138,16 @@ public class GUI_MenuController {
         confirm.setText("Conferma");
         confirm.animation();
 
-        confirm.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    Integer.parseInt(idGame.getText());
-                    GUI_JoinController.onConfirmEnterClick(username, idGame);
-                }
-                catch (Exception e){
-                    //idGame.setStyle("-fx-text-fill: red");
-                    idGame.errorTextField();
-                }
-
+        confirm.setOnAction(actionEvent -> {
+            try {
+                Integer.parseInt(idGame.getText());
+                GUI_JoinController.onConfirmEnterClick(username, idGame);
             }
+            catch (Exception e){
+                //idGame.setStyle("-fx-text-fill: red");
+                idGame.errorTextField();
+            }
+
         });
 
 
@@ -174,18 +160,15 @@ public class GUI_MenuController {
 
         resizeWindow.animation();
 
-        resizeWindow.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                GUI.getStage().setResizable(true);
-                GUI_ResizeController.resize();
-                try {
-                    onJoinGameClick();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                GUI.getStage().setResizable(false);
+        resizeWindow.setOnAction(actionEvent -> {
+            GUI.getStage().setResizable(true);
+            GUI_ResizeController.resize();
+            try {
+                onJoinGameClick();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+            GUI.getStage().setResizable(false);
         });
 
         PersonalButton back = new PersonalButton(300.0,70.0);
@@ -195,14 +178,11 @@ public class GUI_MenuController {
 
         hBoxBack.getChildren().add(back);
         hBoxBack.setPadding(new Insets(0,0,25*resolution,0));
-        back.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    GUI.showStart();
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
+        back.setOnAction(actionEvent -> {
+            try {
+                GUI.showStart();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         });
 

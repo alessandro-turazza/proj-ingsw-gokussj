@@ -19,12 +19,7 @@ public class GUIController implements Controller{
     @Override
     public void startController() {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                launch(GUI.class);
-            }
-        }
+        new Thread(() -> launch(GUI.class)
         ).start();
     }
 
