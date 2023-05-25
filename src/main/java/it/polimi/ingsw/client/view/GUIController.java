@@ -60,8 +60,9 @@ public class GUIController implements Controller{
 
     @Override
     public void showChatMessage(JSONObject jsonObject) {
-        String message=jsonObject.get("namePlayer").toString() + ": " + jsonObject.get("message").toString();
-        GUI.showChatMessage(message);
+        String namePlayer=jsonObject.get("namePlayer").toString();
+        String message= jsonObject.get("message").toString();
+        GUI.showChatMessage(namePlayer,message);
     }
 
     public static Client getClient(){

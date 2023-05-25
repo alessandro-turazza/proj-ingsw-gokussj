@@ -424,5 +424,27 @@ public class GUI_TurnController {
         }
 
     }
+    public static void updateChat(String namePlayer,String message){
+        HBox mBox = new HBox();
+        VBox messageBox = new VBox();
+        messageBox.setBackground(new Background(new BackgroundFill(Color.rgb(239, 207, 175),new CornerRadii(10*GUI.getResolution()), Insets.EMPTY)));
+        Label nameLabel=new Label(namePlayer);
+        nameLabel.setStyle("-fx-font-weight: bold");
+        Label textLabel=new Label(message);
+        nameLabel.setFont(new Font("Verdana", 17*GUI.getResolution()));
+        textLabel.setFont(new Font("Verdana", 17*GUI.getResolution()));
+        if(namePlayer.equals(GUI.getClient().getModel().getMyName())){
+            mBox.setAlignment(Pos.CENTER_RIGHT);
+            messageBox.setPadding(new Insets(2*GUI.getResolution(),7*GUI.getResolution(),2*GUI.getResolution(),7*GUI.getResolution()));
+        }else{
+            mBox.setAlignment(Pos.CENTER_LEFT);
+            messageBox.setPadding(new Insets(2*GUI.getResolution(),7*GUI.getResolution(),2*GUI.getResolution(),7*GUI.getResolution()));
+            messageBox.getChildren().add(nameLabel);
+        }
+        mBox.setPadding(new Insets(10*GUI.getResolution()));
+        messageBox.getChildren().add(textLabel);
+        mBox.getChildren().add(messageBox);
+        chatContainer.getChildren().add(mBox);
+    }
 
 }
