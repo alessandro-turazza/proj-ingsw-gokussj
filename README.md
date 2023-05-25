@@ -13,9 +13,9 @@ Quando è il tuo turno, seleziona le tessere che vuoi prelevare dalla plancia, e
 Ma anche durante il turno degli altri avrai un gran da fare. Potrai guardare le librerie altrui, consultare i tuoi obbiettivi, oppure chattare con gli altri giocatori! 
 
 ### Screenshot
-![](C:\Users\ACER\IdeaProjects\proj-ingsw-gokussj\src\data\17_MyShelfie_BGA\Screenshoot\screenshoot1.png)
-![](C:\Users\ACER\IdeaProjects\proj-ingsw-gokussj\src\data\17_MyShelfie_BGA\Screenshoot\screenshoot2.png)
-![](C:\Users\ACER\IdeaProjects\proj-ingsw-gokussj\src\data\17_MyShelfie_BGA\Screenshoot\screenshoot3.png)
-![](C:\Users\ACER\IdeaProjects\proj-ingsw-gokussj\src\data\17_MyShelfie_BGA\Screenshoot\screenshoot4.png)
-![](C:\Users\ACER\IdeaProjects\proj-ingsw-gokussj\src\data\17_MyShelfie_BGA\Screenshoot\screenshoot5.png)
-![](C:\Users\ACER\IdeaProjects\proj-ingsw-gokussj\src\data\17_MyShelfie_BGA\Screenshoot\screenshoot6.png)
+![](src/data/17_MyShelfie_BGA/Screenshoot/screenshoot1.png)
+![](src/data/17_MyShelfie_BGA/Screenshoot/screenshoot2.png)
+![](src/data/17_MyShelfie_BGA/Screenshoot/screenshoot3.png)
+![](src/data/17_MyShelfie_BGA/Screenshoot/screenshoot4.png)
+![](src/data/17_MyShelfie_BGA/Screenshoot/screenshoot5.png)
+![](src/data/17_MyShelfie_BGA/Screenshoot/screenshoot6.png)
