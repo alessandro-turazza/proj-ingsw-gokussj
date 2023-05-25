@@ -5,6 +5,7 @@ import it.polimi.ingsw.server.model.user.User;
 
 import java.util.ArrayList;
 
+/*Class that represents the common goals*/
 public class CommonGoal {
     private int id;
     private RuleCommon rule;
@@ -21,10 +22,6 @@ public class CommonGoal {
         this.rule = rule;
         this.tokenCards = tokenCards;
     }
-    /*public void setTokenCards(ArrayList<TokenCard> tokenCards) {
-        this.tokenCards = tokenCards;
-    }*/
-
     public void setTokenCardsInteger(ArrayList<Integer> tokenCards, int series){
         for(Object o: tokenCards){
             this.tokenCards.add(new TokenCard(Integer.parseInt(o.toString()), series));
@@ -33,18 +30,6 @@ public class CommonGoal {
     public ArrayList<TokenCard> getTokenCards(){
         return tokenCards;
     }
-
-    /*public TokenCard getLastTokenCard(){
-        if(tokenCards.size()==0)return null;
-        return tokenCards.get(0);
-    }
-
-    public ArrayList<TokenCard> getTokenCardsClone(){
-        ArrayList<TokenCard> result=new ArrayList<>();
-        for(TokenCard tokenCard:tokenCards)
-            result.add(new TokenCard(tokenCard.getPoints(),tokenCard.getSeries()));
-        return result;
-    }*/
 
     public int getPoint(){
         if(tokenCards.size()==0)return 0;

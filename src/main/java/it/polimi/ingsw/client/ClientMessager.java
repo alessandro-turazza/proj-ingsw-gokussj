@@ -7,7 +7,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -15,9 +14,9 @@ import java.net.Socket;
 public class ClientMessager extends Thread{
     private final int PORT = 50000;
     //private final String ipServer= "31.27.157.205";
-    //private final String ipServer= "localhost";
+    private final String ipServer= "localhost";
 
-    private final String ipServer= "192.168.1.16";
+    //private final String ipServer= "192.168.1.16";
     //private final String ipServer="172.17.0.2";
     private BufferedReader input;
     private PrintWriter out;
@@ -36,6 +35,7 @@ public class ClientMessager extends Thread{
         }catch(Exception e){
             System.out.println(Colors.RED + "Server OFF" + Colors.COLOR_RESET);
             System.out.println("Sembra che il server non sia disponibile, ritenta più tardi...");
+            System.exit(0);
         }
 
     }
