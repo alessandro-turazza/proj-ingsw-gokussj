@@ -238,8 +238,8 @@ public class GUI_TurnController {
                 String message=chatReader.getText();
                 if(keyEvent.getCode()==KeyCode.ENTER &&!Objects.equals(message, "") && message != null){
                     GUI.getClient().getMessager().sendMessage(GUI.getClient().getMessager().getMessageHandler().sendMessageChat(message,GUI.getClient().getModel().getMyName()));
-
-                }chatReader.setText("");
+                    chatReader.setText("");
+                }
             }
         });
 
