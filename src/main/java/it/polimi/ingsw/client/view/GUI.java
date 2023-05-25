@@ -145,7 +145,12 @@ public class GUI extends Application{
         GUI.stage=stage;
         GUI.stage.setX((bounds.getWidth()/2)*HALF_SCREEN);
         GUI.stage.setY((bounds.getHeight()/2)*HALF_SCREEN);
-
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                System.exit(0);
+            }
+        });
 
 
         stage.setResizable(false);
@@ -219,12 +224,6 @@ public class GUI extends Application{
             stage.setScene(scene);
 
         });
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent windowEvent) {
-                System.exit(0);
-            }
-        });
 
     }
 
@@ -290,8 +289,6 @@ public class GUI extends Application{
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
 
-        BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
-
         root.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0), CornerRadii.EMPTY, Insets.EMPTY)));
 
         Scene introScene = new Scene(root,bounds.getWidth()*resolution,bounds.getHeight()*resolution);
@@ -347,6 +344,8 @@ public class GUI extends Application{
         transition3.play();
 
         ImageView title = new ImageView(PicturesLoad.getTitle());
+        title.setFitHeight(bounds.getWidth()*resolution*0.309);
+        title.setFitWidth((bounds.getWidth()*resolution));
         title.setOpacity(0);
         FadeTransition transition4 = new FadeTransition();
         transition4.setNode(title);
@@ -373,7 +372,6 @@ public class GUI extends Application{
         transition5.setAutoReverse(true);
         transition5.setDelay(Duration.millis(18000));
         transition5.play();
-
         vBox.getChildren().add(title);
         vBox.getChildren().add(command);
         stackPane.getChildren().add(cranioLogo);
