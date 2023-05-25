@@ -44,12 +44,12 @@ public class CommonGoal {
         for(TokenCard tokenCard:tokenCards)
             result.add(new TokenCard(tokenCard.getPoints(),tokenCard.getSeries()));
         return result;
-    }
+    }*/
 
     public int getPoint(){
         if(tokenCards.size()==0)return 0;
         return tokenCards.remove(0).getPoints();
-    }*/
+    }
 
 
 
