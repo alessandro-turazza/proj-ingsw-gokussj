@@ -6,7 +6,7 @@ import it.polimi.ingsw.client.message.*;
 
 import java.io.IOException;
 
-public class JSONClientVisitor implements VisitorClient {
+public class JSONClientVisitor implements VisitorClient { //manage the operations to react to every message recived by the server
 
 
     @Override

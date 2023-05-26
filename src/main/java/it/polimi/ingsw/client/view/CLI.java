@@ -15,7 +15,7 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CLI{
+public class CLI{ //start the CLI interface for the application
     private static final int MAX_CELLS_DROP=3;
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
@@ -267,6 +267,8 @@ public class CLI{
         showNormalMessage("");
     }
 
+
+    //manage the drag operation, returns the CellPLank selected by the user
     public ArrayList<CellPlank> drag() {
         this.showPlank();
         ArrayList<CellPlank> cells = new ArrayList<>();
@@ -327,7 +329,7 @@ public class CLI{
 
     }
 
-
+    //manage the drop operation, placing the card in the column selected by the user
     public int drop(int numCards) {
         showBookshelf(client.getModel().getMyName());
         int numColonna = -1;
@@ -357,7 +359,7 @@ public class CLI{
         return numColonna;
     }
 
-
+    //manage the operation of reordring the cards, placing them in the bookshelf in the order chosen by the user
     public ArrayList<CellPlank> reorderCards(ArrayList<CellPlank> cells) {
         for(int i = 0; i < cells.size(); i++){
             System.out.println(i+1 + ". Tessera: " + Colors.colorChar(cells.get(i).getObjectCard().getColor()));

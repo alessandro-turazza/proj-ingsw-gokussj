@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class CLIController implements Controller{
+public class CLIController implements Controller{ //responds to the external command by calling the CLI methods
     private CLI view;
     private Client client;
     private ArrayList<String> actions = new ArrayList<>(Arrays.asList("HELP","DRAG/DROP","BOOKSHELF","PLANK","USERS","COMMON_GOALS","PERSONAL_GOAL", "OPEN_CHAT","EXIT"));
@@ -60,7 +60,7 @@ public class CLIController implements Controller{
         startController();
     }
 
-    public void handleAction() {
+    public void handleAction() { //handle the commands entered by the user
 
         String action;
 

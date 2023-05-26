@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class ClientModel {
+public class ClientModel { //a model reproduction for the client
     private int idGame;
     private ArrayList<User> players;
     private Plank plank;
@@ -78,8 +78,8 @@ public class ClientModel {
         return true;
     }
 
+    //return the adjacent cells to the cellPlank passed as parameter that are playable, if Adjacent cell is not playable return null
     public ArrayList<CellPlank> getAdjacentCell(CellPlank cellPlank) throws Exception {
-        //if Adjacent cell is not playable return null
         ArrayList<CellPlank> result=new ArrayList<>();
         if(!(plank.getBoard()[cellPlank.getRow()][cellPlank.getColumn()].equals(cellPlank)))throw new Exception("Cella non valida");
 

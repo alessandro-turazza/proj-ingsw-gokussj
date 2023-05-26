@@ -14,12 +14,12 @@ import java.io.IOException;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI_MenuController {
+public class GUI_MenuController {//setup and manage the create and join scene
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
 
     public static void onCreateGameClick() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-wait.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene.fxml"));
         Pane root = fxmlLoader.load();
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
@@ -105,7 +105,7 @@ public class GUI_MenuController {
     }
 
     public static void onJoinGameClick() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-join.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene.fxml"));
         Pane root = fxmlLoader.load();
 
         Screen screen = Screen.getPrimary();

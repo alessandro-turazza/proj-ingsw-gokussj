@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI_BookshelfController {
+public class GUI_BookshelfController { //setup and manage the bookshelf scene
 
     public static void fillBookshelf(User user, StackPane pane, Rectangle2D bounds, boolean isColumn){
         double resolution = GUI.getResolution();
@@ -82,7 +82,7 @@ public class GUI_BookshelfController {
     }
     public static void showBookshelf(User user, boolean endgame) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-bookshelf.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene.fxml"));
         Pane root = fxmlLoader.load();
         double resolution = GUI.getResolution();
 

@@ -15,7 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PicturesLoad {
+public class PicturesLoad { //manage the load of the images used to implement the GUI interface
     private static ArrayList<Image> personalGoalObjectCards;
     private static Image title;
     private static Image cranioLogo;
@@ -30,7 +30,6 @@ public class PicturesLoad {
     private static Image place4;
     private static Image endBackground;
     private static Image bookshelfbackgroundblury;
-    private static Image bookshelfBackground;
     private  static Image parquetTurn;
     private static Image parquet;
     private static Image backgroundStart;
@@ -67,10 +66,6 @@ public class PicturesLoad {
 
     public static Image getBookshelfImg() {
         return bookshelfImg;
-    }
-
-    public static ArrayList<ObjectCardImg> getObjectCardImgs() {
-        return objectCardImgs;
     }
 
     public static ArrayList<Image> getCommonGoalsImgs() {
@@ -157,10 +152,6 @@ public class PicturesLoad {
         bookshelfbackgroundblury = new Image(reader);
     }
 
-    public static void loadBookshelfBackground() throws FileNotFoundException {
-        FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/Publisher material/Display_5.jpg");
-        bookshelfBackground = new Image(reader);
-    }
 
     public static void loadPlankImg() throws FileNotFoundException {
         FileInputStream reader = new FileInputStream("src/data/17_MyShelfie_BGA/boards/livingroom.png");
@@ -251,7 +242,6 @@ public class PicturesLoad {
         loadPersonalGoals();
         loadParquet();
         loadParquetTurn();
-        loadBookshelfBackground();
         loadRed();
         loadBookshelfbackgroundblury();
         loadEndBackground();
@@ -270,10 +260,6 @@ public class PicturesLoad {
 
     public static Image getParquetTurn() {
         return parquetTurn;
-    }
-
-    public static Image getBookshelfBackground() {
-        return bookshelfBackground;
     }
 
     public static Image getRed() {

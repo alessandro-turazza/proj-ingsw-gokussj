@@ -17,6 +17,8 @@ public class ClientMessageHandler {
 
     }
 
+    /*This method receives a jsonObject that contains the message from the server in the following format: response, datas and creates the correct type of the message for the visitor*/
+
     public MessageClient handleMessage(JSONObject obj){
         String response = obj.get("response").toString();
         if (response.equals("DISCONNECTION"))

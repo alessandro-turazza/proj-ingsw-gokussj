@@ -28,7 +28,7 @@ import java.io.IOException;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI extends Application{
+public class GUI extends Application{ //start the GUI interface for the application
     public static final double FULL_SCREEN=1;
     public static final double HALF_SCREEN=0.5;
 
@@ -49,7 +49,7 @@ public class GUI extends Application{
     }
 
     public static void showStart() throws IOException, ParseException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("startmenu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene.fxml"));
         Pane root = fxmlLoader.load();
 
         Screen screen = Screen.getPrimary();
@@ -150,7 +150,7 @@ public class GUI extends Application{
     }
 
     public static void showOkConnection( int idGame) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-wait.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene.fxml"));
         Pane root = fxmlLoader.load();
 
         Screen screen = Screen.getPrimary();
@@ -207,7 +207,7 @@ public class GUI extends Application{
     }
 
     public static void showKoConnection() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("startmenu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene.fxml"));
         Pane root = fxmlLoader.load();
         BackgroundSize size = new BackgroundSize(0,0,true,true, true, true);
         BackgroundImage backgroundImage = new BackgroundImage(PicturesLoad.getBackgroundStart(), NO_REPEAT, NO_REPEAT, BackgroundPosition.DEFAULT, size);
@@ -260,7 +260,7 @@ public class GUI extends Application{
     }
 
     public static void intro() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("startmenu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene.fxml"));
         Pane root = fxmlLoader.load();
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();

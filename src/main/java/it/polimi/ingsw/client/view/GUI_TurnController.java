@@ -35,7 +35,7 @@ import java.util.Objects;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI_TurnController {
+public class GUI_TurnController { //setup and manage the game scene
     private static VBox chatContainer;
     private static ArrayList<ImageView> cardDragVector;
     private static ArrayList<CellPlank> objectCardDrag;
@@ -47,7 +47,7 @@ public class GUI_TurnController {
     private static ScrollPane chat;
 
     public static void showStateGame() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-game.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene.fxml"));
         Pane root = fxmlLoader.load();
         double resolution = GUI.getResolution();
 

@@ -12,6 +12,7 @@ public class RuleCommonSupportClass {
 
     //Support class for RuleCommon
 
+    //return the arraylist of different colors contained in a full row. If the row is not full, it returns null
     static ArrayList<Color> checkColorsRow(User user , int row){
         CellShelf[][] bookshelf = user.getBookshelf().getBookshelf();
         ArrayList<Color> checkcolors = new ArrayList<>();
@@ -24,6 +25,7 @@ public class RuleCommonSupportClass {
         return checkcolors;
     }
 
+    //return the arraylist of different colors contained in a full column. If the column is not full, it returns null
     static ArrayList<Color> checkColorsColumn(User user,int column){
         CellShelf[][] bookshelf = user.getBookshelf().getBookshelf();
         ArrayList<Color> checkcolors = new ArrayList<>();
@@ -36,6 +38,8 @@ public class RuleCommonSupportClass {
         return checkcolors;
     }
 
+    /*count how many lines in the user's bookshelf has more or less (depending on the value of greaterOrLesser: true for more, false for less) different color form the integer colors,
+    then return true if the number of this lines are grater or equals to the integer lines*/
     static boolean linesChecker(User user, int colors, int lines, boolean greaterOrLesser){
         int i=user.getBookshelf().getNumRow()-1;
         int counter=0;
@@ -53,6 +57,8 @@ public class RuleCommonSupportClass {
         return counter>=lines;
     }
 
+    /*count how many columns in the user's bookshelf has more or less (depending on the value of greaterOrLesser: true for more, false for less) different color form the integer colors,
+    then return true if the number of this columns are grater or equals to the integer columns*/
    static boolean columnsChecker(User user, int colors, int columns, boolean greaterOrLesser){
        int i=user.getBookshelf().getNumColumn()-1;
        int counter=0;
@@ -76,7 +82,7 @@ public class RuleCommonSupportClass {
        return adj.size()>=groups;
    }
 
-    static boolean checkDiagonal(Bookshelf bookshelf, int startingpointrow, int startingpointcolumn, int numofelem, boolean direction) throws Exception{     //in direction true for from left to right, flase for form right to left
+    static boolean checkDiagonal(Bookshelf bookshelf, int startingpointrow, int startingpointcolumn, int numofelem, boolean direction) throws Exception{     // direction equals true for from left to right, equals false for form right to left
         if(bookshelf.getBookshelf()[startingpointrow][startingpointcolumn]==null)
             return false;
         Color checkcolor;

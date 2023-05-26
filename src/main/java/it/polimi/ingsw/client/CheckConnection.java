@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class CheckConnection extends Thread {
+public class CheckConnection extends Thread { //constantly check if the client is connected
 
     private Controller controller;
 

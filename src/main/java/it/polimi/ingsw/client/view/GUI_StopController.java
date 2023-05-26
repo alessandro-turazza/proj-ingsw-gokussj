@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI_StopController {
+public class GUI_StopController { //setup and manage the stop button in scene-game and the drop scene
     private static boolean clickable;
 
     public static void showDrop(ArrayList<CellPlank> objectCardDrag) throws IOException {
@@ -29,7 +29,7 @@ public class GUI_StopController {
             User user=GUI.getClient().getModel().getUserByName(GUI.getClient().getModel().getMyName());
             StackPane bookshelf=GUI_BookshelfController.makeBookshelf(user, true);
             Stage stage=GUI.getStage();
-            FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene-dropcolumn.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene.fxml"));
             Pane root = fxmlLoader.load();
             HBox container=new HBox();
             StackPane stackPane=new StackPane();

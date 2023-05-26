@@ -3,7 +3,7 @@ package it.polimi.ingsw.client.view;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 
-public class GUI_ResizeController {
+public class GUI_ResizeController { //manage the resizing of the various scene
     public static void resize(){
         double resolution = GUI.getResolution();
         Screen screen = Screen.getPrimary();

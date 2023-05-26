@@ -3,7 +3,7 @@ package it.polimi.ingsw.client.view;
 import it.polimi.ingsw.client.Client;
 import javafx.scene.control.TextField;
 
-public class GUI_JoinController {
+public class GUI_JoinController { //manage the confirm button  in the join scene
     public static void onConfirmEnterClick(TextField userEnter, TextField idEnter){
         Client client = GUIController.getClient();
         String username=userEnter.getText();

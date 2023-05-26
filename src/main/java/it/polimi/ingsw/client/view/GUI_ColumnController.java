@@ -17,7 +17,7 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
-public class GUI_ColumnController {
+public class GUI_ColumnController { //manage the drop action in the drop scene
     private static Integer pos;
     private static ArrayList<ImageView> imgAnimations;
     private static ArrayList<CellPlank> objectCardDragOrdered;

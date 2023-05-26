@@ -22,7 +22,7 @@ public class PersonalTextField extends TextField {
         setBorder(new Border(new BorderStroke(Color.rgb(204, 153, 102),  BorderStrokeStyle.SOLID, new CornerRadii(10*resolution), new BorderWidths(2.5*resolution))));
     }
 
-    public void errorTextField(){
+    public void errorTextField(){ //change the aspect of the TextField to report an error
         setStyle("-fx-text-fill: red; -fx-background-color: #332200FF; -fx-background-radius: "+ 10*resolution + "px");
         setMaxSize(buttonWidth*resolution,buttonHeight*resolution);
         setFont(new Font("Comic Sans MS", 20* GUI.getResolution()));
