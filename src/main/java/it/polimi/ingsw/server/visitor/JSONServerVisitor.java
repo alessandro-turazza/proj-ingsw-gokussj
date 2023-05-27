@@ -9,11 +9,13 @@ import it.polimi.ingsw.server.message.MessageStartGameServer;
 import it.polimi.ingsw.server.model.game_manager.GameManager;
 import it.polimi.ingsw.server.model.user.User;
 
-/*This class contains all the visit for each type of the messages from the client to the server in Visitor pattern*/
+/**
+ * This class contains all the visit for each type of the messages from the client to the server in Visitor pattern*/
 
 public class JSONServerVisitor implements VisitorServer{
 
-    /*Visit for the creation of a game*/
+    /**
+     * This method is the visit for the creation of a game*/
    @Override
    public void visit(MessageStartGameServer m) {
        int idGame = m.getServerThread().getServer().insertNewGame(m.getServerThread(), m.getUser(), m.getNumPlayer());
@@ -23,7 +25,8 @@ public class JSONServerVisitor implements VisitorServer{
        m.getServerThread().sendMessage(m.getServerThread().getController().sendOkConnection(idGame+""));
    }
 
-    /*Visit for the joining into a game*/
+    /**
+     * This method is the visit for the joining into a game*/
     @Override
     public void visit(MessageEnterInGame m) {
 
@@ -57,7 +60,8 @@ public class JSONServerVisitor implements VisitorServer{
 
     }
 
-    /*Visit for the drag and drop*/
+    /**
+     * This method is the visit for the drag and drop*/
     @Override
     public  void visit(MessageDragAndDropServer m){
         ServerGame serverGame=m.getServerThread().getServer().getServerGameFromId(m.getServerThread().getIdGame());
@@ -91,7 +95,8 @@ public class JSONServerVisitor implements VisitorServer{
 
     }
 
-    /*Visit for the chat messages*/
+    /**
+     * This method is the visit for the chat messages*/
     @Override
     public void visit(MessageChatServer m) {
         ServerGame serverGame=m.getServerThread().getServer().getServerGameFromId(m.getServerThread().getIdGame());
@@ -100,12 +105,16 @@ public class JSONServerVisitor implements VisitorServer{
         }
     }
 
-    /*Visit for the closing of the connection from client to server*/
+    /**
+     * This method is the visit for the closing of the connection from client to server*/
     @Override
     public void visit(MessageCloseConnection m){
        m.getServerThread().setCloseConnection(true);
     }
 
+    /**
+     * This method initialize the verifier of the specified ServerThread
+     */
     private void initializeVerifier(ServerThread st){
        VerifierBuffer buffer = new VerifierBuffer();
        VeriferSender sender = new VeriferSender();

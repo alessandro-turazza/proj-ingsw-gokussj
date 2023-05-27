@@ -2,7 +2,9 @@ package it.polimi.ingsw.server.model.plank;
 
 import it.polimi.ingsw.server.model.object_card.ObjectCard;
 
-/*This class identifies the cells of the plank containing the object card, row, column and a boolean to check the playability of the card*/
+/**
+ * This class identifies the cells of the plank containing the object card, row, column and a boolean to check the playability of the card
+ */
 public class CellPlank {
     private ObjectCard objectCard;
     private int row;

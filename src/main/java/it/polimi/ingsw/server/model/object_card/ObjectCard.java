@@ -1,5 +1,8 @@
 package it.polimi.ingsw.server.model.object_card;
 
+/**
+ * This class represents the Object Card in the game
+ */
 public class ObjectCard {
     private int id;
     private Color color;
@@ -8,6 +11,10 @@ public class ObjectCard {
         this.id = id;
         this.color = color;
     }
+
+    /**
+     * This method converts a color to a string
+     */
     public static Color convertToColor(String s){
         if(s.equals("YELLOW"))
             return Color.YELLOW;

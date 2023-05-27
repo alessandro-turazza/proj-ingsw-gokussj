@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static it.polimi.ingsw.server.model.object_card.ObjectCard.convertToColor;
-/*This class loads every component of the game from json files and saves them on a structure*/
+/**
+ * This class loads every component of the game from json files and saves them on a structure
+ */
 public class GameData {
     private static ArrayList<DataObjectCard> dataObjectCards;
     private static ArrayList<PersonalGoalCard> personalGoalCards;
@@ -50,6 +52,9 @@ public class GameData {
         return idCommonGoals;
     }
 
+    /**
+     * This method loads each common goal rule
+     */
     public static void loadRuleCommons(){
         ruleCommons = new ArrayList<>();
         ruleCommons.add(new RuleCommonI());
@@ -66,11 +71,17 @@ public class GameData {
         ruleCommons.add(new RuleCommonXII());
     }
 
+    /**
+     * This method reads a file json
+     */
     private static JSONObject readJson(String path) throws IOException, ParseException {
         FileReader fr = new FileReader(path);
         return (JSONObject) new JSONParser().parse(fr);
     }
 
+    /**
+     * This method loads each object card
+     */
     public static void loadObjectCards(String path) throws IOException, ParseException {
         dataObjectCards = new ArrayList<>();
         JSONObject obj = readJson(path);
@@ -88,6 +99,9 @@ public class GameData {
         }
     }
 
+    /**
+     * This method loads each personal goal
+     */
     public static void loadPersonalGoals(String path) throws IOException, ParseException {
         personalGoalCards = new ArrayList<>();
         JSONObject obj = readJson(path);
@@ -112,6 +126,9 @@ public class GameData {
         }
     }
 
+    /**
+     * This method load the configuration of the plank (each cell contains the number of the players)
+     */
     public static void loadPlankConfig(String path) throws IOException, ParseException {
         plank_config = new int[DIM][DIM];
         JSONObject obj = readJson(path);
@@ -134,6 +151,9 @@ public class GameData {
 
     }
 
+    /**
+     * This method load the token points for the common goals
+     */
     public static void loadTokens(String path) throws IOException, ParseException {
         dataTokens = new ArrayList<>();
 
@@ -155,6 +175,9 @@ public class GameData {
 
     }
 
+    /**
+     * This method loads the number of the common goals that can be used in a game
+     */
     public static void loadIdCommonGoals(String path) throws IOException, ParseException {
         idCommonGoals = new ArrayList<>();
 

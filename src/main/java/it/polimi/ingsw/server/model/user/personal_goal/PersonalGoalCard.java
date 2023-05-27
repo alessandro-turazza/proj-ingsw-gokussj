@@ -4,6 +4,9 @@ import it.polimi.ingsw.server.model.user.bookshelf.Bookshelf;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents a personal goal card
+ */
 public class PersonalGoalCard {
     private int id;
     private ArrayList<Costraints> costraints;
@@ -32,7 +35,9 @@ public class PersonalGoalCard {
         return costraints;
     }
 
-    /*This method controls how many cards in bookshelf respect the personal goal costraints*/
+    /**
+     * This method controls how many cards in bookshelf respect the personal goal costraints
+     */
     public int checkRule(Bookshelf bookshelf){
         int counter = 0;
 

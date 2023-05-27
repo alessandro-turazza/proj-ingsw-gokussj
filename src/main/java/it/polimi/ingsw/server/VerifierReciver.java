@@ -5,14 +5,18 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/*This class receives messages from the client in order to check the connection beetwen server and client*/
+/**
+ * This class receives messages from the client in order to check the connection beetwen server and client
+ * */
 public class VerifierReciver extends Thread{
     private VerifierBuffer buffer;
     private ServerSocket readSocket;
     private Socket socket;
     private boolean closeConnection = false;
 
-    /*This method runs in another thread and listen the messages from the client that indicates the state of the connection*/
+    /**
+     * This method runs in another thread and listen the messages from the client that indicates the state of the connection
+     */
     @Override
     public void run() {
         try {

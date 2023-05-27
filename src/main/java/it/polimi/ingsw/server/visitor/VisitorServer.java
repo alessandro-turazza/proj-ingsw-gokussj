@@ -5,7 +5,9 @@ import it.polimi.ingsw.server.message.MessageCloseConnection;
 import it.polimi.ingsw.server.message.MessageDragAndDropServer;
 import it.polimi.ingsw.server.message.MessageEnterInGame;
 import it.polimi.ingsw.server.message.MessageStartGameServer;
-/*Interface for the visitor messages*/
+/**
+ * This is the interface for the visitor messages
+ * */
 public interface VisitorServer {
     void visit(MessageStartGameServer m);
     void visit(MessageEnterInGame m);

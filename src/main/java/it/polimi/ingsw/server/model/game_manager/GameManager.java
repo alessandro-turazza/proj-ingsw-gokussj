@@ -8,7 +8,9 @@ import it.polimi.ingsw.server.model.user.User;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-/*This class handles the turns and permits the unfolding of the game and esteblishes the order of the players*/
+/**
+ * This class handles the turns and permits the unfolding of the game and esteblishes the order of the players
+ */
 public class GameManager {
     private Plank plank;
     private ArrayList<User> users;
@@ -68,6 +70,9 @@ public class GameManager {
         return new ArrayList<>(GameData.getDataTokens().get(users.size() - 2));
     }
 
+    /**
+     * This method takes two random common goals and set them into the game
+     */
     private void generateCommonGoalList(){
         this.commonGoals = new ArrayList<>();
         ArrayList<Integer> indexes = new ArrayList<>();
@@ -94,6 +99,9 @@ public class GameManager {
         }
     }
 
+    /**
+     * This method takes and assignes randomly a personal goal to each player
+     */
     private void assignPersonalGoal(){
         ArrayList<Integer> indexPersGoal = new ArrayList<>();
 
@@ -111,6 +119,9 @@ public class GameManager {
         }
     }
 
+    /**
+     * This method add a new user to the game
+     */
     public boolean addNewPlayer(User user){
         if(users.size() < numUser){
 
@@ -124,6 +135,10 @@ public class GameManager {
         }
         return false;
     }
+
+    /**
+     * This method sets all the components in order to start the game
+     */
     public void startGame(){
         this.plank = new Plank();
         plank.initializePlank(GameData.getPlank_config(), users.size());
@@ -141,7 +156,9 @@ public class GameManager {
 
     }
 
-    /*This method takes the action from a player and modify the model then goes on with the new turn*/
+    /**
+     * This method takes the action from a player and modify the model then goes on with the new turn
+     */
     public User updateGame(ArrayList<Integer> X,ArrayList<Integer> Y, int column) throws Exception {
         User result=turnManager.updateGame(X,Y,column);
         if(result==null)endGame();
@@ -149,6 +166,9 @@ public class GameManager {
         return result;
     }
 
+    /**
+     * This method calculates the points for each user and terminates the game
+     */
     public void endGame(){
         winner = users.get(0);
         for(User user: users){
@@ -160,6 +180,10 @@ public class GameManager {
                 winner = user;
         }
     }
+
+    /**
+     * This method calculates points for each user basing on their bookshelfs and common goals
+     */
     public void calculatePoints(){
         winner = users.get(0);
         for(User user: users){

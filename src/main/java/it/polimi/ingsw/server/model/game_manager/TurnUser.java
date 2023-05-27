@@ -4,7 +4,9 @@ import it.polimi.ingsw.server.model.user.User;
 
 import java.util.ArrayList;
 
-/*This class implements the methods to establish the active player of next turn with an iterator*/
+/**
+ * This class implements the methods to establish the active player of next turn with an iterator
+ */
 
 public class TurnUser {
     private ArrayList<User> users;

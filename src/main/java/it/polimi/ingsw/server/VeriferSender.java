@@ -10,7 +10,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/*This class controls if the clients are connected, if one of them isn't connected the server will send an end game to the others*/
+/**
+ * This class controls if the clients are connected, if one of them isn't connected the server will send an end game to the others
+ * */
 
 public class VeriferSender extends Thread{
 
@@ -23,7 +25,9 @@ public class VeriferSender extends Thread{
     private Socket socket;
     private boolean closeConnection = false;
 
-    /*This method runs in another thread in order to send a packet (each 5s) that indicates the state of the connection between server and client*/
+    /**
+     * This method runs in another thread in order to send a packet (each 5s) that indicates the state of the connection between server and client
+     * */
     @Override
     public void run() {
         try {
@@ -50,12 +54,9 @@ public class VeriferSender extends Thread{
 
 
     }
-
     public void setBuffer(VerifierBuffer buffer) {
         this.buffer = buffer;
     }
-
-
     public JSONObject sendDisconnection(){
         JSONObject obj = new JSONObject();
         obj.put("response", "DISCONNECTION");

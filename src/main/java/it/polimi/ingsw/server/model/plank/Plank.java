@@ -6,6 +6,9 @@ import it.polimi.ingsw.server.model.object_card.ObjectCard;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the plank of the game
+ */
 public class Plank {
     private CellPlank[][] board;
     private CardBag cardBag;
@@ -25,10 +28,16 @@ public class Plank {
         return board.clone();
     }
 
+    /**
+     * This method inititialize the bag containing all the object cards
+     */
     public void initializeCardBag(ArrayList<DataObjectCard> dataObjectCard){
         cardBag.initializeCardBag(dataObjectCard);
     }
 
+    /**
+     * This method build the plank in function of the number of the players in game
+     */
     public void initializePlank(int[][] plank,int numUser){
         //plank[][] for generic position is the number of player required, 0 if not playable
         for(int r=0;r<DIM;r++)
@@ -41,6 +50,9 @@ public class Plank {
             }
     }
 
+    /**
+     * This method takes some cards from the bag and fills the plank
+     */
     public void fillPlank(){
         for(int r=0;r<DIM;r++)
             for(int c=0;c<DIM;c++){
@@ -49,7 +61,9 @@ public class Plank {
             }
         checkPlayable();
     }
-    /*This method controls which positions of the planks are available to be dragged*/
+    /**
+     * This method controls which positions of the planks are available to be dragged
+     */
     public void checkPlayable(){
         for(int r=0;r<DIM;r++)
             for(int c=0;c<DIM;c++){
@@ -64,7 +78,9 @@ public class Plank {
             }
     }
 
-    /*This method controls if there are the conditions to refill the plank*/
+    /**
+     * This method controls if there are the conditions to refill the plank
+     */
     public boolean checkRefull(){
         for(int r=0;r<DIM;r++)
             for(int c=0;c<DIM;c++){
@@ -77,7 +93,9 @@ public class Plank {
             }
         return true;
     }
-    /*This method modify the status of the plank after a drag action from the player*/
+    /**
+     * This method modify the status of the plank after a drag action from the player
+     */
     public ObjectCard dragObjectCard(int row, int column)throws Exception{
         if(board[row][column]==null || !board[row][column].getPlayable())throw new Exception("Cella non selezionabile");
         ObjectCard result=board[row][column].getObjectCard();
@@ -86,10 +104,17 @@ public class Plank {
         return result;
     }
 
-    /*This method modify the status of the plank after a drag action from the player*/
+    /**
+     * This method modify the status of the plank after a drag action from the player
+     */
     public ObjectCard dragObjectCard(CellPlank cellPlank)throws Exception{
         return dragObjectCard(cellPlank.getRow(),cellPlank.getColumn());
     }
+
+    /**
+     * This method converts a color to a string
+     * @deprecated
+     */
     private char colorChar(Color color){
         if(color == Color.YELLOW)
             return 'Y';
@@ -105,6 +130,10 @@ public class Plank {
             return 'G';
     }
 
+    /**
+     * THis method print the plank in CLI
+     * @deprecated
+     */
     public void printPlank(){
         for(int i = 0; i < DIM; i++){
             for(int j = 0; j < DIM; j++){
@@ -120,6 +149,10 @@ public class Plank {
     public int getDIM() {
         return DIM;
     }
+
+    /**
+     * This method returns the clone of the plank for state game
+     */
     public Plank getPlankClone(){
         CellPlank[][] boardClone=new CellPlank[DIM][DIM];
         for(int i = 0; i < DIM; i++) {

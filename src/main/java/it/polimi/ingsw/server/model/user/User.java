@@ -6,6 +6,9 @@ import it.polimi.ingsw.server.model.user.personal_goal.PersonalGoalCard;
 import it.polimi.ingsw.server.model.object_card.ObjectCard;
 import java.util.ArrayList;
 
+/**
+ * This class represents the single player in the model
+ */
 public class User {
     private String name;
     private int points;
@@ -66,6 +69,9 @@ public class User {
         return bookshelf;
     }
 
+    /**
+     * This method checks all the adjacenses in the bookshelf  and update the points of the user
+     */
     public void updatePointsAdjacenses(){
 
         ArrayList<Integer> numAdj = bookshelf.numberAdjacenses();
@@ -83,6 +89,9 @@ public class User {
         }
     }
 
+    /**
+     * This method check how many cards in the user's bookshelf are also in the personal goal and update the points
+     */
     public void checkPersonalGoal(){
         int numPersGoalAchieved = personalGoal.checkRule(this.bookshelf);
 
@@ -102,6 +111,9 @@ public class User {
         }
     }
 
+    /**
+     * This method insert a new object card in the user's bookshelf
+     */
     public void dropObjectCard(ObjectCard card, int column) throws Exception {
         //Per la parte relativa al modello la drop (e la drag) necessita della colonna come parametro che verrà passata dal controller successivamente da CLI o GUI
         this.bookshelf.insertBookshelf(card,column);
@@ -111,6 +123,9 @@ public class User {
         this.points = points;
     }
 
+    /**
+     * This method returns the clone of the user for the state game
+     */
     public User getUserClone(){
         User userClone=new User(this.getName());
         Bookshelf bookshelfUser=this.getBookshelf();

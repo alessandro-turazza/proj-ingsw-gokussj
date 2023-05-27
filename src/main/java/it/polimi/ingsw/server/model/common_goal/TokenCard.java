@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server.model.common_goal;
 
-/*Class that represents the tokens cards (points for the common goals)*/
+/**
+ * This class that represents the tokens cards (points for the common goals)
+ */
 public class TokenCard {
     private int points;
     private int series;

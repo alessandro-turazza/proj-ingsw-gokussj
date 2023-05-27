@@ -5,7 +5,9 @@ import it.polimi.ingsw.server.model.user.User;
 
 import java.util.ArrayList;
 
-/*Class that represents the common goals*/
+/**
+ * This class that represents the common goals
+ */
 public class CommonGoal {
     private int id;
     private RuleCommon rule;
@@ -36,8 +38,9 @@ public class CommonGoal {
         return tokenCards.remove(0).getPoints();
     }
 
-
-
+    /**
+     * This is a pattern strategy method
+     */
     public boolean checkRule(User user){
         return rule.newRule(user);
     }

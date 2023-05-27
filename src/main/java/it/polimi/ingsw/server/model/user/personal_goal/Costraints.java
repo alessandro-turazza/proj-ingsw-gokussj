@@ -2,7 +2,9 @@ package it.polimi.ingsw.server.model.user.personal_goal;
 
 import it.polimi.ingsw.server.model.object_card.Color;
 
-/*This class represents the costraints of the personal goal (row, column and color)*/
+/**
+ * This class represents the costraints of the personal goal (row, column and color)
+ */
 public class Costraints {
     private int row;
     private int column;

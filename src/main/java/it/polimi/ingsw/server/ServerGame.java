@@ -4,7 +4,9 @@ import it.polimi.ingsw.server.model.game_manager.GameManager;
 import it.polimi.ingsw.server.model.user.User;
 
 import java.util.ArrayList;
-/*This class contains all the attributes and methods in order to interface the model to the server side*/
+/**
+ * This class contains all the attributes and methods in order to interface the model to the server side
+ * */
 public class ServerGame {
     private ArrayList<ServerThread> players;
 

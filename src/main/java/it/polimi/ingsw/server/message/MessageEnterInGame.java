@@ -5,7 +5,9 @@ import it.polimi.ingsw.server.visitor.VisitorServer;
 import it.polimi.ingsw.server.model.user.User;
 import org.json.simple.JSONObject;
 
-/*Class that represent the message of joining into a game in visitor pattern*/
+/**
+ * This is Class that represent the message of joining into a game in visitor pattern
+ */
 
 public class MessageEnterInGame implements MessageServer{
     private int idGame;

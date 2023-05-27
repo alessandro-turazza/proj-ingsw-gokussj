@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import it.polimi.ingsw.server.ServerThread;
 import it.polimi.ingsw.server.visitor.VisitorServer;
 import org.json.simple.JSONObject;
-/*Class that represent the message of the drag and drop of the turn in visitor pattern*/
+/**
+ * This is Class that represent the message of the drag and drop of the turn in visitor pattern
+ */
 public class MessageDragAndDropServer implements MessageServer{
 
 

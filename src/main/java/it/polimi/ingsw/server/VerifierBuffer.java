@@ -1,6 +1,8 @@
 package it.polimi.ingsw.server;
 
-/*This class contains the message buffer to check the connection state*/
+/**
+ * This class contains the message buffer to check the connection state
+ */
 
 public class VerifierBuffer {
     

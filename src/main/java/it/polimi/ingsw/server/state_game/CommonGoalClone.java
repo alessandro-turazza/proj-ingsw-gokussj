@@ -5,6 +5,9 @@ import it.polimi.ingsw.server.model.common_goal.TokenCard;
 
 import java.util.ArrayList;
 
+/**
+ * This class rpresents the clone of the Common Goals for the state game
+ */
 public class CommonGoalClone {
 
     protected int id;

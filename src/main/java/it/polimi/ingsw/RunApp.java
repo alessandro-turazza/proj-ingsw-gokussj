@@ -6,6 +6,10 @@ import it.polimi.ingsw.server.Server;
 
 import java.util.Scanner;
 
+/**
+ * This class starts the application as
+ * a client or as a server
+ */
 public class RunApp {
     public static void main(String[] args) throws Exception {
         System.out.println("----------------------------");

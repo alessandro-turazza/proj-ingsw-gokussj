@@ -8,11 +8,16 @@ import it.polimi.ingsw.server.model.user.bookshelf.CellShelf;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * This is a support class to recognise some costraints in common goals
+ */
 public class RuleCommonSupportClass {
 
-    //Support class for RuleCommon
 
-    //return the arraylist of different colors contained in a full row. If the row is not full, it returns null
+    /**
+     * This method returns the arraylist of different colors contained in a full row. If the row is not full, it returns null
+     */
+
     static ArrayList<Color> checkColorsRow(User user , int row){
         CellShelf[][] bookshelf = user.getBookshelf().getBookshelf();
         ArrayList<Color> checkcolors = new ArrayList<>();
@@ -25,7 +30,10 @@ public class RuleCommonSupportClass {
         return checkcolors;
     }
 
-    //return the arraylist of different colors contained in a full column. If the column is not full, it returns null
+    /**
+     * This method returns the arraylist of different colors contained in a full column. If the column is not full, it returns null
+     */
+
     static ArrayList<Color> checkColorsColumn(User user,int column){
         CellShelf[][] bookshelf = user.getBookshelf().getBookshelf();
         ArrayList<Color> checkcolors = new ArrayList<>();
@@ -38,8 +46,10 @@ public class RuleCommonSupportClass {
         return checkcolors;
     }
 
-    /*count how many lines in the user's bookshelf has more or less (depending on the value of greaterOrLesser: true for more, false for less) different color form the integer colors,
-    then return true if the number of this lines are grater or equals to the integer lines*/
+    /**
+     * This method count how many lines in the user's bookshelf has more or less (depending on the value of greaterOrLesser: true for more, false for less) different color form the integer colors,
+     * then return true if the number of this lines are grater or equals to the integer lines
+     */
     static boolean linesChecker(User user, int colors, int lines, boolean greaterOrLesser){
         int i=user.getBookshelf().getNumRow()-1;
         int counter=0;
@@ -57,8 +67,10 @@ public class RuleCommonSupportClass {
         return counter>=lines;
     }
 
-    /*count how many columns in the user's bookshelf has more or less (depending on the value of greaterOrLesser: true for more, false for less) different color form the integer colors,
-    then return true if the number of this columns are grater or equals to the integer columns*/
+    /**
+     * This method counts how many columns in the user's bookshelf has more or less (depending on the value of greaterOrLesser: true for more, false for less) different color form the integer colors,
+     * then return true if the number of this columns are grater or equals to the integer columns
+     */
    static boolean columnsChecker(User user, int colors, int columns, boolean greaterOrLesser){
        int i=user.getBookshelf().getNumColumn()-1;
        int counter=0;
@@ -75,6 +87,9 @@ public class RuleCommonSupportClass {
        return counter>=columns;
    }
 
+    /**
+     * This method count the number of adjacenses for a bookshelf
+     */
    public static boolean countNumberAdjacences(User user, int groups, int tiels){
        ArrayList<Integer> adj = user.getBookshelf().numberAdjacenses();
        adj.removeIf(i -> i < tiels);
@@ -82,6 +97,9 @@ public class RuleCommonSupportClass {
        return adj.size()>=groups;
    }
 
+    /**
+     * This method checks if there is a diagonal of same color cards in a bookshelf
+     */
     static boolean checkDiagonal(Bookshelf bookshelf, int startingpointrow, int startingpointcolumn, int numofelem, boolean direction) throws Exception{     // direction equals true for from left to right, equals false for form right to left
         if(bookshelf.getBookshelf()[startingpointrow][startingpointcolumn]==null)
             return false;
@@ -103,6 +121,9 @@ public class RuleCommonSupportClass {
         return true;
     }
 
+    /**
+     * This method checks if there is a square of same color cards in a bookshelf
+     */
     static boolean IsSquare(CellShelf[][] bookshelf, int row, int column) {
 
         if(bookshelf[row][column]==null || bookshelf[row][column].isMarked()||bookshelf[row][column].getObjectCard() == null )
@@ -121,6 +142,9 @@ public class RuleCommonSupportClass {
         return true;
     }
 
+    /**
+     * This methods checks if there are five cards of the same color in a bookshelf that are post in order to design an X
+     */
     static boolean IsCross(CellShelf[][] bookshelf, int row, int column) {
         if(bookshelf[row][column]==null || bookshelf[row][column].getObjectCard() == null ) return false;
         else if(bookshelf[row][column].isMarked()) return false;

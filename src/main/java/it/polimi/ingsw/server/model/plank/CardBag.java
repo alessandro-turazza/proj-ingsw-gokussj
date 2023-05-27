@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-/*This class represents the bag that contains each object card in order to fill the plank, implemented as an iterator*/
+/**
+ * This class represents the bag that contains each object card in order to fill the plank, implemented as an iterator
+ */
 
 public class CardBag implements Iterator {
     private ArrayList<ObjectCard> cardBag;
@@ -15,6 +17,10 @@ public class CardBag implements Iterator {
     public CardBag() {
         cardBag=new ArrayList<>();
     }
+
+    /**
+     * This method loads the object cards into the bag
+     */
     public void initializeCardBag(ArrayList<DataObjectCard> dataObjectCard){
         for(DataObjectCard elemDataobjectCard: dataObjectCard){
             for(int i=0;i<elemDataobjectCard.getNumObjectCard();i++) {

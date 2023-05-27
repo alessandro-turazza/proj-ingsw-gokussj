@@ -4,6 +4,9 @@ import it.polimi.ingsw.server.model.object_card.ObjectCard;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the bookshelf of the user
+ */
 public class Bookshelf {
     private CellShelf[][] bookshelf; //Convemzione (0,0) alto a sinistra
     private static final int NUM_ROW=6;
@@ -37,8 +40,9 @@ public class Bookshelf {
         return null;
     }
 
-
-
+    /**
+     * This method inserts a new card in the specified column of the bookshelf
+     */
     public void insertBookshelf (ObjectCard card, int column)throws Exception{
         if(column < 0 || column >= getNumColumn()) throw new Exception("Colonna Non Valida");
 
@@ -51,6 +55,9 @@ public class Bookshelf {
 
     }
 
+    /**
+     * This method checks if there isn't any empty cell
+     */
     public boolean isFull(){
         for(int i = 0; i < getNumColumn(); i++){
             if(checkColumn(i) != null)
@@ -61,8 +68,9 @@ public class Bookshelf {
 
     }
 
-    /*Support method to delete mark from each cell of the bookshelf */
-
+    /**
+     * This methos is a support to delete mark from each cell of the bookshelf
+     */
     public void deleteMark(){
         for(int i = 0; i < getNumRow(); i++){
             for(int j = 0; j < getNumColumn(); j++){
@@ -72,7 +80,9 @@ public class Bookshelf {
         }
     }
 
-    /*This method calculates and return the number of adjacenses for each cell in the bookshelf*/
+    /**
+     * This method calculates and return the number of adjacenses for each cell in the bookshelf
+     */
     public ArrayList<Integer> numberAdjacenses(){
         ArrayList<Integer> numAdj = new ArrayList<>();
         this.deleteMark();
@@ -88,7 +98,9 @@ public class Bookshelf {
         return numAdj;
     }
 
-    /*This method counts the number of adjacenses foa a single cell*/
+    /**
+     * This method counts the number of adjacenses foa a single cell
+     */
     public int checkAdjacences(CellShelf cellShelf, int row, int column){
         int counter = 1;
         cellShelf.setMarked(true);
