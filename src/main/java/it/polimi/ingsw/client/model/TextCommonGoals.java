@@ -2,6 +2,9 @@ package it.polimi.ingsw.client.model;
 
 import java.util.ArrayList;
 
+/**
+ * This class contains the texts for each common goal
+ */
 public class TextCommonGoals {
     private ArrayList<TextCommonGoal> textCommonGoals;
 

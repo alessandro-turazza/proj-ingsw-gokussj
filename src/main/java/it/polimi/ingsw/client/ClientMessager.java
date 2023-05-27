@@ -11,7 +11,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClientMessager extends Thread{ //manage the input and the output stream of message from and to the server
+/**
+ * This class manages the input and the output stream of message from and to the server
+ */
+public class ClientMessager extends Thread{
     private final int PORT = 50000;
     //private final String ipServer= "31.27.157.205";
     private final String ipServer= "localhost";
@@ -47,8 +50,11 @@ public class ClientMessager extends Thread{ //manage the input and the output st
     public void sendMessage(JSONObject obj){ //called to send a message to the server
         out.println(obj.toJSONString());
     }
+    /**
+     * This method remains active to recive message form the server
+     */
     @Override
-    public void run() { //remains active to recive message form the server
+    public void run() {
         try {
 
             String messageIn;

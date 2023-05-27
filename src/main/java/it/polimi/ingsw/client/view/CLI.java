@@ -15,7 +15,10 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CLI{ //start the CLI interface for the application
+/**
+ * This class starts the CLI interface for the application
+ */
+public class CLI{ //
     private static final int MAX_CELLS_DROP=3;
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;

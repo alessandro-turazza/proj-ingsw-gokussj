@@ -5,6 +5,9 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the structure that contains each message on the chat of a game
+ */
 public class Chat {
     private ArrayList<ChatMessage> chatBuffer = new ArrayList<>();
     private Controller controller;

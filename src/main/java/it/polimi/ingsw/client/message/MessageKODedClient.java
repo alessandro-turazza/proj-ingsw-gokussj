@@ -3,7 +3,10 @@ package it.polimi.ingsw.client.message;
 import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.visitor.VisitorClient;
 
-public class MessageKODedClient implements MessageClient{ // Create to contain the message of a negative response of the server about a move of the plyer
+/**
+ * THis class Create to contain the message of a negative response of the server about a move of the player
+ */
+public class MessageKODedClient implements MessageClient{ //
     private Client client;
 
     public MessageKODedClient(Client client){

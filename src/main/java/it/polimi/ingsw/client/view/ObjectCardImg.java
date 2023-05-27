@@ -6,7 +6,10 @@ import javafx.scene.image.Image;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class ObjectCardImg { //manage specifically the load of the image for the ObjectCard
+/**
+ * This class manages specifically the load of the image for the ObjectCard
+ */
+public class ObjectCardImg {
     private Image cardImg;
     private Color color;
     private int id;

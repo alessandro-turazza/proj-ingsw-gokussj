@@ -6,9 +6,15 @@ import it.polimi.ingsw.client.message.*;
 
 import java.io.IOException;
 
-public class JSONClientVisitor implements VisitorClient { //manage the operations to react to every message recived by the server
+/**
+ * This class implements all the methods and manage the operations to react to every message recived by the server for visitor pattern
+ */
+public class JSONClientVisitor implements VisitorClient {
 
 
+    /**
+     * This method manage the messages for the new turn
+     */
     @Override
     public void visit(MessageNewTurnClient element) throws Exception {
         Client client = element.getClient();
@@ -20,6 +26,9 @@ public class JSONClientVisitor implements VisitorClient { //manage the operation
         client.getModel().setLastTurn(element.getStateGame().isLastTurn());
     }
 
+    /**
+     * This method manage the messages for checking the connection
+     */
     @Override
     public void visit(MessageOKConnectionClient element) throws IOException {
         Client client = element.getClient();
@@ -29,7 +38,9 @@ public class JSONClientVisitor implements VisitorClient { //manage the operation
         ConnectionDeamon.setIpServer(element.getClient().getMessager().getIpServer());
         deamon.start();
     }
-
+    /**
+     * This method manage the message that a server can't insert a user into a specific game
+     */
     @Override
     public void visit(MessageKOConnectionClient element) throws IOException {
         if(element.getObject().equals("NOTEX"))
@@ -39,23 +50,31 @@ public class JSONClientVisitor implements VisitorClient { //manage the operation
         element.getClient().getViewController().resetStart();
 
     }
-
+    /**
+     * This method manage the messages for the chat
+     */
     @Override
     public void visit(MessageChat element) {
         element.getClient().getChat().chatAdd(element.getObj());
     }
-
+    /**
+     * This method manage the messages for the disconnection of another client in game
+     */
     @Override
     public void visit(MessageDisconnection element) {
         element.getClient().getViewController().showErrorMessage("L'utente " + element.getObj().get("user").toString() + " si è disconnesso.\nPartita terminata.");
 
     }
-
+    /**
+     * This method manage the messages that the server can't make the drag and drop into his model correctly
+     */
     @Override
     public void visit(MessageKODedClient element) {
         element.getClient().getViewController().showLightErrorMessage("Errore server, mossa rifiutata");
     }
-
+    /**
+     * This method manage the messages for the end game
+     */
     @Override
     public void visit(MessageEndGameClient element) throws Exception {
         Client client = element.getClient();

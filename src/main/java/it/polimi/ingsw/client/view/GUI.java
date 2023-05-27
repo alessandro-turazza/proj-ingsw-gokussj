@@ -28,7 +28,11 @@ import java.io.IOException;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI extends Application{ //start the GUI interface for the application
+/**
+ * This class starts the GUI interface for the application
+ */
+
+public class GUI extends Application{
     public static final double FULL_SCREEN=1;
     public static final double HALF_SCREEN=0.5;
 

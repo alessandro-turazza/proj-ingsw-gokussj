@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class CheckConnection extends Thread { //constantly check if the client is connected
+/**
+ * This class constantly check if the client is connected
+ */
+public class CheckConnection extends Thread {
 
     private Controller controller;
 
@@ -29,6 +32,9 @@ public class CheckConnection extends Thread { //constantly check if the client i
         this.controller = controller;
     }
 
+    /**
+     * This method sends a request to www.google.com
+     */
     private void checkConnection() throws IOException {
         URL url = new URL("http://www.google.com");
         URLConnection connection = url.openConnection();

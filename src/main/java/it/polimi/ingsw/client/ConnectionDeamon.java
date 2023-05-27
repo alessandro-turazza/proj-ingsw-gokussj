@@ -5,7 +5,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ConnectionDeamon extends Thread{ //respond to the server's check for the connection
+/**
+ * This class responds to the server's check for the connection
+ */
+public class ConnectionDeamon extends Thread{
 
     private static final int READ_PORT=50001;
     private static final int WRITE_PORT=50002;

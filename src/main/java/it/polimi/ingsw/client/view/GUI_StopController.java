@@ -17,7 +17,10 @@ import java.util.ArrayList;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI_StopController { //setup and manage the stop button in scene-game and the drop scene
+/**
+ * This class etup and manage the stop button in scene-game and the drop scene
+ */
+public class GUI_StopController { //s
     private static boolean clickable;
 
     public static void showDrop(ArrayList<CellPlank> objectCardDrag) throws IOException {

@@ -6,7 +6,10 @@ import it.polimi.ingsw.client.visitor.VisitorClient;
 import it.polimi.ingsw.server.state_game.StateGame;
 import org.json.simple.JSONObject;
 
-public class MessageEndGameClient implements MessageClient { //Created to contain the message of the end of the game
+/**
+ * This class Created to contain the message of the end of the game
+ */
+public class MessageEndGameClient implements MessageClient { //
     private Client client;
     private StateGame stateGame;
     public MessageEndGameClient(Client client, JSONObject obj) {

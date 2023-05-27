@@ -7,7 +7,10 @@ import java.io.IOException;
 
 import static javafx.application.Application.launch;
 
-public class GUIController implements Controller{ //responds to the external command by calling the GUI methods
+/**
+ * This class responds to the external command by calling the GUI methods
+ */
+public class GUIController implements Controller{
 
     private static Client client;
 

@@ -10,6 +10,10 @@ import it.polimi.ingsw.client.view.GUIController;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This class is the client that contains both the internet connection methods and view controls methods
+ */
+
 public class Client {
     private ClientMessager messager;
     private ClientModel model;
@@ -33,6 +37,9 @@ public class Client {
         this.chat = chat;
     }
 
+    /**
+     * This method permits the user to choose to play in cli or gui mode
+     */
     public void startViewController(){
         String choose;
 
@@ -82,6 +89,9 @@ public class Client {
     }
 
 
+    /**
+     * This method starts the connection and the view
+     */
     public void startClient() {
         this.startViewController();
         this.controller.startController();
@@ -89,6 +99,9 @@ public class Client {
         this.checkConnection.start();
     }
 
+    /**
+     * This method restarts the client after a finished game
+     */
     public void startClient(char chooseChar) {
         if(chooseChar=='G')chat.setOpen();
         chat.setController(controller);

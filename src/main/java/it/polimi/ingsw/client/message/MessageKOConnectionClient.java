@@ -5,6 +5,9 @@ import it.polimi.ingsw.client.visitor.VisitorClient;
 
 import java.io.IOException;
 
+/**
+ * This class Create to contain the message of a negative response of the server about a connection attempt
+ */
 public class MessageKOConnectionClient implements MessageClient { // Create to contain the message of a negative response of the server about a connection attempt
     private Client client;
     private String object;

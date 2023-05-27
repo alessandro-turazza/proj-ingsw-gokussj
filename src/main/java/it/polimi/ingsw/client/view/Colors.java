@@ -2,6 +2,9 @@ package it.polimi.ingsw.client.view;
 
 import it.polimi.ingsw.server.model.object_card.Color;
 
+/**
+ * This class represents the cli colors
+ */
 public class Colors {
     public static final String COLOR_RESET = "\u001B[0m";
     public static final String RED = "\u001B[31m";

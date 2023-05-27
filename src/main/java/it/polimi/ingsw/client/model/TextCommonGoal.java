@@ -1,5 +1,8 @@
 package it.polimi.ingsw.client.model;
 
+/**
+ * This class represents the structure for a common goal text
+ */
 public class TextCommonGoal {
     private Integer id;
     private String text;

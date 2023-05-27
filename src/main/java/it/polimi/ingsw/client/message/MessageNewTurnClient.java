@@ -6,6 +6,9 @@ import it.polimi.ingsw.client.visitor.VisitorClient;
 import it.polimi.ingsw.server.state_game.StateGame;
 import org.json.simple.JSONObject;
 
+/**
+ * This class Creates to contain the message of the start of a new turn, which contain the state of the game
+ */
 public class MessageNewTurnClient implements MessageClient { //Create to contain the message of the start of a new turn, which contain the state of the game
 
     private StateGame stateGame;

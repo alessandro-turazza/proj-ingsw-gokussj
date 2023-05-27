@@ -3,7 +3,10 @@ package it.polimi.ingsw.client.view;
 import it.polimi.ingsw.client.Client;
 import javafx.scene.control.TextField;
 
-public class GUI_CreateController { //manage the confirm button  in the join scene
+/**
+ * This class manage the confirm button  in the join scene
+ */
+public class GUI_CreateController { //
 
     public static void onConfirmCreateClick(TextField userCreate, TextField nPlayers){
         Client client = GUIController.getClient();

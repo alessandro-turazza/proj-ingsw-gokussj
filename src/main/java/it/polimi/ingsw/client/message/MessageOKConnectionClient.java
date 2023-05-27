@@ -5,7 +5,11 @@ import it.polimi.ingsw.client.visitor.VisitorClient;
 
 import java.io.IOException;
 
-public class MessageOKConnectionClient implements MessageClient { // Create to contain the message of a positive response of the server about a connection attempt
+/**
+ * This class creates to contain the message of a positive response of the server about a connection attempt
+ */
+
+public class MessageOKConnectionClient implements MessageClient { //
     private Client client;
     private int idGame;
 

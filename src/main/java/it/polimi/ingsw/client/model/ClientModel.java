@@ -12,7 +12,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
-public class ClientModel { //a model reproduction for the client
+/**
+ * This class is a model reproduction for the client
+ */
+public class ClientModel { //
     private int idGame;
     private ArrayList<User> players;
     private Plank plank;
@@ -38,6 +41,9 @@ public class ClientModel { //a model reproduction for the client
         lastTurn = stateGame.isLastTurn();
     }
 
+    /**
+     * This method checks if a drop has been made correctly
+     */
     public boolean checkDrop(int numCard,int column) throws Exception {
         for(User user:players)
             if(user.getName().equals(myName)){
@@ -47,6 +53,9 @@ public class ClientModel { //a model reproduction for the client
         throw new Exception("Errore nickname non trovato");
     }
 
+    /**
+     * This methos checks if a drag has been made correctly
+     */
     public boolean checkDrag(ArrayList<CellPlank> chosenCard){
         ArrayList<Integer> rows= new ArrayList<>();
         ArrayList<Integer> columns=new ArrayList<>();
@@ -78,7 +87,10 @@ public class ClientModel { //a model reproduction for the client
         return true;
     }
 
-    //return the adjacent cells to the cellPlank passed as parameter that are playable, if Adjacent cell is not playable return null
+    /**
+     * This method return the adjacent cells to the cellPlank passed as parameter that are playable, if Adjacent cell is not playable return null
+     */
+
     public ArrayList<CellPlank> getAdjacentCell(CellPlank cellPlank) throws Exception {
         ArrayList<CellPlank> result=new ArrayList<>();
         if(!(plank.getBoard()[cellPlank.getRow()][cellPlank.getColumn()].equals(cellPlank)))throw new Exception("Cella non valida");

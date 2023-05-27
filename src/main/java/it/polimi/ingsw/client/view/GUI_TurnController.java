@@ -35,7 +35,10 @@ import java.util.Objects;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI_TurnController { //setup and manage the game scene
+/**
+ * This class setup and manage the game scene
+ */
+public class GUI_TurnController {
     private static VBox chatContainer;
     private static ArrayList<ImageView> cardDragVector;
     private static ArrayList<CellPlank> objectCardDrag;

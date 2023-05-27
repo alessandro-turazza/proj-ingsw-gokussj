@@ -23,7 +23,11 @@ import java.util.ArrayList;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI_EndGameController { //setup and manage the endgame scene
+/**
+ * This class setup and manage the endgame scene
+ */
+
+public class GUI_EndGameController { //
     public static void showEndGame() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("scene.fxml"));
         Pane root = fxmlLoader.load();

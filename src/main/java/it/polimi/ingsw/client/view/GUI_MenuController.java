@@ -14,7 +14,10 @@ import java.io.IOException;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI_MenuController {//setup and manage the create and join scene
+/**
+ * This class setup and manage the create and join scene
+ */
+public class GUI_MenuController {
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_PLAYERS = 4;
 

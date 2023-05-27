@@ -1,5 +1,8 @@
 package it.polimi.ingsw.client.chat;
 
+/**
+ * This class contains the structure for a chat message
+ */
 public class ChatMessage {
     private String namePlayer;
     private String message;

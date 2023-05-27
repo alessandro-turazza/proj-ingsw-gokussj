@@ -3,7 +3,10 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.visitor.VisitorClient;
 import org.json.simple.JSONObject;
 
-public class MessageChat implements MessageClient{ //Created to contain a chat's message
+/**
+ * THis class contains a chat's message
+ */
+public class MessageChat implements MessageClient{
 
     private Client client;
 

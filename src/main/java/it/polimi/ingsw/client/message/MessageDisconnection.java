@@ -4,7 +4,10 @@ import it.polimi.ingsw.client.Client;
 import it.polimi.ingsw.client.visitor.VisitorClient;
 import org.json.simple.JSONObject;
 
-public class MessageDisconnection implements MessageClient{ //Created to contain the message of the disconnation of a client from a game
+/**
+ * This class contains the message of the disconnation of a client from a game
+ */
+public class MessageDisconnection implements MessageClient{ //
 
     private JSONObject obj;
 

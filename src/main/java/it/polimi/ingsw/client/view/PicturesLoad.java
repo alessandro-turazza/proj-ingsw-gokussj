@@ -15,7 +15,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PicturesLoad { //manage the load of the images used to implement the GUI interface
+/**
+ * This class manages the load of the images used to implement the GUI interface
+ */
+public class PicturesLoad { //
     private static ArrayList<Image> personalGoalObjectCards;
     private static Image title;
     private static Image cranioLogo;
@@ -232,6 +235,9 @@ public class PicturesLoad { //manage the load of the images used to implement th
         icon = new Image(reader);
     }
 
+    /**
+     * This method loads each image for the game
+     */
     public static void loadImages() throws IOException, ParseException {
         loadPlayerMark();
         loadBackgroundStart();

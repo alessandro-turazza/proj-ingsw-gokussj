@@ -1,14 +1,15 @@
 package it.polimi.ingsw.client;
 
 import it.polimi.ingsw.client.view.GUI;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * This class represents the gui buttons
+ */
 public class PersonalButton extends Button {
 
     private double resolution;

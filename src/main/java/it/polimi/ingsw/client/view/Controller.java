@@ -4,6 +4,10 @@ import org.json.simple.JSONObject;
 
 import java.io.IOException;
 
+/**
+ * This is the inteface for controlling cli and gui view application
+ */
+
 public interface Controller {
 
     void startController();

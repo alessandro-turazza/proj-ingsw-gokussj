@@ -6,6 +6,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * This class represents the gui textfield
+ */
 public class PersonalTextField extends TextField {
     private double resolution;
     private double buttonWidth;

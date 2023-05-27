@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class CLIController implements Controller{ //responds to the external command by calling the CLI methods
+/**
+ * This class responds to the external command by calling the CLI methods
+ */
+public class CLIController implements Controller{ //
     private CLI view;
     private Client client;
     private ArrayList<String> actions = new ArrayList<>(Arrays.asList("HELP","DRAG/DROP","BOOKSHELF","PLANK","USERS","COMMON_GOALS","PERSONAL_GOAL", "OPEN_CHAT","EXIT"));
@@ -60,7 +63,10 @@ public class CLIController implements Controller{ //responds to the external com
         startController();
     }
 
-    public void handleAction() { //handle the commands entered by the user
+    /**
+     * This method handle the commands entered by the user
+     */
+    public void handleAction() { //
 
         String action;
 
@@ -141,6 +147,9 @@ public class CLIController implements Controller{ //responds to the external com
         view.showNormalMessage(message);
     }
 
+    /**
+     * This method recognises which actions has just typed
+     */
     public String catchAction() {
         String action;
         ArrayList<String> possibleActions = this.getActions();
@@ -167,6 +176,10 @@ public class CLIController implements Controller{ //responds to the external com
         return null;
 
     }
+
+    /**
+     * This method show a message for user and create a new thread if necessary
+     */
     public void handleTurn() {
         if(!inputReady){
             this.inputAction = new InputAction(this);

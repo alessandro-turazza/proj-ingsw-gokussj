@@ -23,7 +23,10 @@ import java.util.ArrayList;
 
 import static javafx.scene.layout.BackgroundRepeat.NO_REPEAT;
 
-public class GUI_BookshelfController { //setup and manage the bookshelf scene
+/**
+ * This class setup and manage the bookshelf scene
+ */
+public class GUI_BookshelfController { //
 
     public static void fillBookshelf(User user, StackPane pane, Rectangle2D bounds, boolean isColumn){
         double resolution = GUI.getResolution();
