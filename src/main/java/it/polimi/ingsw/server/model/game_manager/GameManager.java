@@ -170,15 +170,7 @@ public class GameManager {
      * This method calculates the points for each user and terminates the game
      */
     public void endGame(){
-        winner = users.get(0);
-        for(User user: users){
-            user.setPoints(0);
-            user.updatePointsAdjacenses();
-            user.checkPersonalGoal();
-            user.addTokenPointsToPoints();
-            if(winner.getPoints() < user.getPoints())
-                winner = user;
-        }
+        calculatePoints();
     }
 
     /**
