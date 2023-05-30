@@ -57,6 +57,7 @@ public class TurnManagerTest {
     @Test
     public void turnManagerTest_checkDragColumn(){
         ArrayList<CellPlank> cellPlanks=new ArrayList<>();
+        //create arrayList playable
         for(int i=0;i<3;i++){
             CellPlank cellPlank=new CellPlank(null,i,0);
             cellPlank.setPlayable(true);
@@ -152,7 +153,8 @@ public class TurnManagerTest {
     }
     @Test
     public void turnManagerTest_checkDrop(){
-        for(int i=0;i<turnManager.getUsers().activeUser().getBookshelf().getNumColumn();i++)assertTrue(turnManager.checkDrop(3,i));
+        for(int i=0;i<turnManager.getUsers().activeUser().getBookshelf().getNumColumn();i++)
+            assertTrue(turnManager.checkDrop(3,i));
     }
     @Test
     public void turnManagerTest_checkDrop2() throws Exception {
@@ -291,7 +293,7 @@ public class TurnManagerTest {
         //4 player start
         deck=new ArrayList<>();
         deck.add((turnManager.getPlank().getBoard()[0][4]));
-        assertNull(turnManager.updateGame(deck,0));
+        assertNull(turnManager.updateGame(deck,0));//verificate end game
     }
     @Test
     public void simulateUpdateGameCommonGoal() throws Exception {

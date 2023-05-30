@@ -35,7 +35,7 @@ public class VeriferSender extends Thread{
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             do{
                 out.println("CHECK_CONNECTION");
-                sleep(5000);
+                sleep(20000);
                if(buffer.getMessage().equals("CONNECTED")){
                    buffer.clear();
                }
